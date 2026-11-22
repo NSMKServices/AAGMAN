@@ -1,161 +1,174 @@
 # 🧭 AAGMAN | Discover Maharashtra
 
-### 🌍 Explore. Experience. Embrace Maharashtra.
+### 🌄 Explore. Experience. Embrace Maharashtra.
 
-**AAGMAN** is a modern digital tourism platform designed to showcase the beauty, culture, heritage, and diversity of Maharashtra.
+AAGMAN is a modern digital tourism and heritage platform that brings Maharashtra's destinations, culture, history, festivals, and travel experiences together in one place.
 
-Discover breathtaking destinations, explore cultural experiences, celebrate vibrant festivals, and create personalized travel journeys — all through one interactive digital platform.
+From historic forts and ancient temples to scenic beaches, hill stations, and vibrant cultural celebrations, AAGMAN helps visitors discover Maharashtra and organise their travel experiences through an interactive digital platform.
 
 ---
 
-## 🌟 About the Project
+## 🌟 Project Vision
 
-Maharashtra is home to breathtaking landscapes, historic forts, ancient temples, vibrant festivals, beautiful coastlines, and rich cultural traditions.
-
-**AAGMAN aims to bring all these experiences together in one digital destination.**
-
-Our platform makes discovering Maharashtra easier, more engaging, and more accessible through technology.
-
-## 🎯 Our Vision
-
-To create a unified digital gateway to Maharashtra that connects travellers with its destinations, heritage, culture, and experiences.
+To create a unified digital gateway to Maharashtra that makes discovering its tourism, heritage, culture, and experiences easier, more engaging, and more accessible.
 
 ## ✨ Key Features
 
-- 🏞️ **Destination Discovery** — Explore Maharashtra's tourist destinations, landmarks, historical sites, and natural attractions.
-- 🏛️ **Cultural Exploration** — Discover traditions, heritage, and cultural identity.
-- 🎉 **Festival Discovery** — Explore festivals, celebrations, and regional events.
-- 🗺️ **Personalized Travel Planning** — Organize travel experiences and build personalized itineraries.
-- ❤️ **Wishlist Management** — Save and revisit favourite destinations.
-- 🔎 **Smart Search & Discovery** — Find destinations and experiences easily.
-- 🌐 **Multilingual Experience** — Support different language preferences.
-- 🎨 **Theme Customization** — Enjoy a customizable interface.
-- 📱 **Responsive Design** — Seamless experience across desktop, tablet, and mobile.
+- 🗺️ **Destination Discovery** — Explore destinations, attractions, and travel experiences across Maharashtra.
+- 🏰 **Heritage & Forts** — Discover historic forts, monuments, caves, and cultural landmarks.
+- 🛕 **Temple Exploration** — Explore important temples and pilgrimage destinations.
+- 🏖️ **Beaches & Nature** — Discover beaches, hill stations, and natural attractions.
+- 🎉 **Festival Discovery** — Explore Maharashtra's festivals and cultural celebrations.
+- 🔎 **Smart Search & Filters** — Find destinations using search, categories, and regional filters.
+- 📍 **Interactive Map** — Explore destinations and curated travel circuits.
+- 🧳 **Trip Management** — Organise and manage personal travel plans.
+- 💰 **Budget Planner** — Estimate and organise travel expenses.
+- 🤖 **Itinerary Planner** — Generate suggested itineraries using local rule-based planning.
+- ❤️ **Wishlist** — Save destinations for future visits.
+- 🌐 **Language Preferences** — Switch between supported language options.
+- 🎨 **Theme Customisation** — Choose the preferred interface theme.
+- 📱 **Responsive Design** — Access the platform across desktop, tablet, and mobile devices.
 
 ## 🛠️ Technology Stack
 
 | Technology | Purpose |
 |---|---|
-| ⚛️ React.js | Frontend development |
-| ⚡ Vite | Development and build tooling |
-| 🟨 JavaScript | Application logic |
-| 🎨 CSS Modules | Component-level styling |
-| ⚡ Supabase | Backend and database services |
-| 🐙 Git & GitHub | Version control and collaboration |
-| ▲ Vercel | Deployment and hosting |
+| React | User interface |
+| Vite | Development server and build tooling |
+| JavaScript | Application logic |
+| React Router | Client-side navigation |
+| CSS Modules | Component-level styling |
+| Context API | Shared application state |
+| Local Storage | Local demo preferences and saved data |
+| Git & GitHub | Version control |
+| Vercel | Deployment and hosting |
 
-## 🏗️ Project Architecture
+## 🏗️ Project Structure
 
-A modular architecture designed for maintainability, scalability, and reusability.
-
-- 🧩 **Components** — Reusable UI elements.
-- 🔄 **Contexts** — Shared application state.
-- 📊 **Data Modules** — Destination and festival information.
-- 📄 **Pages** — Application screens and experiences.
-- 🎨 **Styles** — Design tokens and component styling.
-- 🔌 **Backend Services** — Database and authentication integrations.
+```text
+AAGMAN/
+├── aagman-app/
+│   ├── public/
+│   ├── src/
+│   │   ├── assets/
+│   │   ├── components/
+│   │   ├── context/
+│   │   ├── data/
+│   │   ├── hooks/
+│   │   ├── layouts/
+│   │   ├── lib/
+│   │   ├── pages/
+│   │   ├── routes/
+│   │   ├── services/
+│   │   ├── styles/
+│   │   └── utils/
+│   ├── index.html
+│   ├── package.json
+│   ├── package-lock.json
+│   ├── vite.config.js
+│   └── vercel.json
+├── .gitignore
+└── README.md
+```
 
 ## 🚀 Getting Started
 
-### 📋 Prerequisites
+### Prerequisites
 
 - Node.js
 - npm
 - Git
 
-### 📥 Installation
-
-**1. Clone the repository**
+### 1. Clone the repository
 
 ```bash
-git clone https://github.com/YOUR-ORGANIZATION/aagman.git
+git clone https://github.com/NSMKServices/AAGMAN.git
 ```
 
-**2. Navigate to the project**
+### 2. Navigate to the application
 
 ```bash
-cd aagman
+cd AAGMAN/aagman-app
 ```
 
-**3. Install dependencies**
+### 3. Install dependencies
 
 ```bash
-npm install
+npm ci
 ```
 
-**4. Configure environment variables**
-
-Create a `.env` file in the root directory:
-
-```env
-VITE_SUPABASE_URL=your_supabase_project_url
-VITE_SUPABASE_ANON_KEY=your_supabase_publishable_key
-```
-
-**5. Start the development server**
+### 4. Start the development server
 
 ```bash
 npm run dev
 ```
 
-🎉 You're ready to explore AAGMAN locally!
+### 5. Create a production build
 
-## 🔐 Environment Configuration
+```bash
+npm run build
+```
 
-Keep environment variables secure.
+The production output is generated in the `dist/` directory.
 
-- Add `.env` to `.gitignore`.
-- Never expose Supabase service-role keys.
-- Configure production environment variables separately in Vercel.
+## 🎨 Design Direction
 
-## ☁️ Deployment
+AAGMAN uses a heritage-inspired visual identity built around:
 
-AAGMAN is intended to be deployed using **Vercel**.
+- Deep Terracotta — `#722D1B`
+- Burnt Saffron — `#C45A32`
+- Antique Gold — `#E6A23C`
+- Warm Ivory — `#FFF1DF`
+- Dark Brown — `#4A2419`
 
-1. Push your code to GitHub.
-2. Import the repository into Vercel.
-3. Configure environment variables.
-4. Deploy your application.
-5. Verify the production build.
+The interface combines Maharashtra's cultural identity with a modern, accessible digital experience.
 
-## 🗺️ Future Roadmap
+## 🚢 Deployment
 
-- 🏞️ Expand destination coverage across Maharashtra.
-- 🧠 Improve personalized travel recommendations.
-- 🗓️ Enhance itinerary planning.
-- 🌐 Expand multilingual accessibility.
-- 🔗 Integrate additional tourism data services.
-- 📱 Further improve mobile experiences.
+The React application is configured for deployment on Vercel.
+
+| Setting | Value |
+|---|---|
+| Framework | Vite |
+| Root Directory | `aagman-app` |
+| Install Command | `npm install` |
+| Build Command | `npm run build` |
+| Output Directory | `dist` |
+
+## ⚠️ Current Implementation Notes
+
+AAGMAN is currently being prepared as a college demonstration project.
+
+- Authentication is currently demo-mode and is not a production identity system.
+- Itinerary suggestions use local rule-based logic, not a live AI service.
+- Saved trips, preferences, and wishlist data use browser-local storage.
+- A shared cloud database and production multi-user backend are not currently part of the verified frontend implementation.
+
+These capabilities can be extended through future backend and service integrations.
+
+## 🔮 Future Scope
+
+- Secure user authentication and role-based access.
+- Cloud database and synchronised travel profiles.
+- Live maps, navigation, and route integrations.
+- Real AI-powered itinerary recommendations.
+- Verified travel information and booking integrations.
+- Expanded multilingual content.
+- Administrative content management.
 
 ## 🤝 Contributing
 
-Contributions, ideas, and improvements are welcome!
+Contributions, suggestions, and improvements are welcome.
 
 1. Fork the repository.
 2. Create a feature branch.
-3. Implement your changes.
-4. Commit with meaningful messages.
-5. Submit a Pull Request.
-
-## 🚧 Project Status
-
-**Active Development**
-
-AAGMAN is currently under development, with features and integrations being progressively implemented.
+3. Commit your changes.
+4. Open a pull request.
 
 ## 📄 License
 
-Licensing terms will be defined by the repository maintainers.
+A license should be added to this repository before reuse or redistribution is granted.
 
 ---
 
-<div align="center">
-
-### ❤️ AAGMAN
-
-**Discover the Spirit of Maharashtra.**
-
-*One destination. Countless experiences. A journey worth discovering.*
-
-</div>
-
+**AAGMAN — Discover the spirit of Maharashtra.** 🧡
