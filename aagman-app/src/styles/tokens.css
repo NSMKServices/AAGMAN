@@ -1,0 +1,143 @@
+/* =========================================================
+   AAGMAN DESIGN SYSTEM - TOKENS
+   Approved Heritage Palette & Dashboard Foundations
+   ========================================================= */
+
+:root {
+  /* --- Approved AAGMAN Color Palette --- */
+  --color-primary: #722D1B;          /* Deep Terracotta */
+  --color-primary-hover: #5A2315;
+  --color-primary-light: rgba(114, 45, 27, 0.08);
+
+  --color-secondary: #C45A32;        /* Burnt Saffron */
+  --color-secondary-hover: #AB4B27;
+  --color-secondary-light: rgba(196, 90, 50, 0.12);
+
+  --color-accent: #E6A23C;           /* Antique Gold */
+  --color-accent-hover: #CE8E30;
+  --color-accent-light: rgba(230, 162, 60, 0.18);
+
+  --color-background: #FFF1DF;       /* Warm Ivory */
+  --color-parchment: #FDF6EC;        /* Soft Heritage Parchment */
+  --color-surface: #FFFFFF;          /* Pure White Card */
+  --color-surface-elevated: #FFF9F2;
+
+  --color-text: #4A2419;             /* Dark Basalt / Sepia Brown */
+  --color-text-secondary: #7A5143;   /* Muted Terracotta Brown */
+  --color-text-muted: #A37F73;       /* Soft Sand Muted */
+  --color-text-inverse: #FFFFFF;
+
+  --color-border: rgba(114, 45, 27, 0.14);
+  --color-border-strong: rgba(114, 45, 27, 0.28);
+  --color-parchment-border: #EAD8C3;
+
+  /* Sidebar Tokens (Deep Terracotta Heritage Identity) */
+  --sidebar-width: 270px;
+  --sidebar-bg: #722D1B;
+  --sidebar-bg-darker: #5B2315;
+  --sidebar-text: #FFF1DF;
+  --sidebar-text-muted: rgba(255, 241, 223, 0.72);
+  --sidebar-hover: rgba(255, 241, 223, 0.10);
+  --sidebar-active: #C45A32;
+  --sidebar-active-glow: rgba(196, 90, 50, 0.4);
+  --sidebar-accent: #E6A23C;
+
+  /* Top Navigation */
+  --topnav-height: 72px;
+  --topnav-bg: rgba(255, 241, 223, 0.94);
+  --topnav-border: rgba(114, 45, 27, 0.12);
+
+  /* Functional Status Colors */
+  --color-success: #2E7D32;
+  --color-warning: #ED6C02;
+  --color-error: #D32F2F;
+  --color-info: #0288D1;
+
+  /* --- Typography Tokens --- */
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-display: 'Cinzel', serif;
+  --font-marathi: 'Poppins', 'Noto Sans Devanagari', sans-serif;
+
+  --font-size-xs: 0.75rem;    /* 12px */
+  --font-size-sm: 0.875rem;   /* 14px */
+  --font-size-base: 1rem;     /* 16px */
+  --font-size-lg: 1.125rem;   /* 18px */
+  --font-size-xl: 1.25rem;    /* 20px */
+  --font-size-2xl: 1.5rem;    /* 24px */
+  --font-size-3xl: 1.875rem;  /* 30px */
+  --font-size-4xl: 2.25rem;   /* 36px */
+  --font-size-5xl: 3rem;      /* 48px */
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-black: 800;
+
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+
+  /* --- Spacing Tokens --- */
+  --space-2xs: 0.25rem;  /* 4px */
+  --space-xs: 0.5rem;    /* 8px */
+  --space-sm: 0.75rem;   /* 12px */
+  --space-md: 1rem;      /* 16px */
+  --space-lg: 1.5rem;    /* 24px */
+  --space-xl: 2rem;      /* 32px */
+  --space-2xl: 3rem;     /* 48px */
+  --space-3xl: 4.5rem;   /* 72px */
+
+  /* --- Elevation & Shadows --- */
+  --shadow-sm: 0 2px 6px rgba(74, 36, 25, 0.05);
+  --shadow-md: 0 8px 24px rgba(74, 36, 25, 0.08);
+  --shadow-lg: 0 16px 38px rgba(74, 36, 25, 0.12);
+  --shadow-xl: 0 24px 54px rgba(74, 36, 25, 0.16);
+
+  /* --- Border Radius --- */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+
+  /* --- Transitions --- */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 250ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-slow: 400ms cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* --- Breakpoints --- */
+  --bp-sm: 640px;
+  --bp-md: 768px;
+  --bp-lg: 1024px;
+  --bp-xl: 1280px;
+}
+
+/* --- Dark Theme Overrides --- */
+[data-theme="dark"] {
+  --color-background: #180E0A;       /* Deep Basalt Brown */
+  --color-parchment: #221510;
+  --color-surface: #271711;          /* Darker Warm Surface */
+  --color-surface-elevated: #331F17;
+
+  --color-text: #FFF1DF;             /* Warm Ivory Text */
+  --color-text-secondary: #DFC5B9;
+  --color-text-muted: #A38477;
+
+  --color-border: rgba(230, 162, 60, 0.16);
+  --color-border-strong: rgba(230, 162, 60, 0.35);
+  --color-parchment-border: rgba(230, 162, 60, 0.20);
+
+  --sidebar-bg: #140B08;
+  --sidebar-bg-darker: #0E0705;
+  --sidebar-hover: rgba(230, 162, 60, 0.12);
+
+  --topnav-bg: rgba(24, 14, 10, 0.94);
+  --topnav-border: rgba(230, 162, 60, 0.15);
+
+  --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 16px 38px rgba(0, 0, 0, 0.6);
+}

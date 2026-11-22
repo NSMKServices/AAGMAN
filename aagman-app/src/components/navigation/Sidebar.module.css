@@ -1,0 +1,225 @@
+.sidebar {
+  width: var(--sidebar-width);
+  background: linear-gradient(180deg, var(--sidebar-bg) 0%, var(--sidebar-bg-darker) 100%);
+  color: var(--sidebar-text);
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 4px 0 20px rgba(0, 0, 0, 0.18);
+  border-right: 1px solid rgba(230, 162, 60, 0.2);
+  transition: transform var(--transition-normal);
+  overflow-y: auto;
+}
+
+.brandSection {
+  padding: 1.5rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 241, 223, 0.12);
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.brandLink {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  text-decoration: none;
+  color: inherit;
+}
+
+.logoBadge {
+  width: 44px;
+  height: 44px;
+  background: linear-gradient(135deg, var(--color-accent), #B87B24);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.logoSymbol {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.brandInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.brandTitle {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: #FFF1DF;
+  line-height: 1.1;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.brandSubtitle {
+  font-family: var(--font-marathi);
+  font-size: 0.75rem;
+  color: var(--color-accent);
+  letter-spacing: 0.05em;
+  font-weight: 500;
+}
+
+.closeBtn {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--sidebar-text-muted);
+  font-size: 1.35rem;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+}
+
+.navMenu {
+  padding: 1.25rem 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  flex-grow: 1;
+}
+
+.menuSectionTitle {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  color: var(--color-accent);
+  opacity: 0.8;
+  padding: 0.5rem 0.75rem 0.35rem;
+  margin-bottom: 0.25rem;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.7rem 0.95rem;
+  border-radius: var(--radius-sm);
+  color: var(--sidebar-text-muted);
+  text-decoration: none;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  transition: all var(--transition-fast);
+  position: relative;
+}
+
+.navItem:hover {
+  background-color: var(--sidebar-hover);
+  color: #FFFFFF;
+  transform: translateX(3px);
+}
+
+.activeItem {
+  background-color: var(--sidebar-active) !important;
+  color: #FFFFFF !important;
+  font-weight: var(--font-weight-bold);
+  box-shadow: 0 4px 14px var(--sidebar-active-glow);
+}
+
+.activeItem::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 15%;
+  bottom: 15%;
+  width: 4px;
+  background-color: var(--sidebar-accent);
+  border-radius: 0 4px 4px 0;
+}
+
+.itemIcon {
+  font-size: 1.15rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+}
+
+.itemLabel {
+  flex-grow: 1;
+}
+
+.itemBadge {
+  background-color: var(--color-accent);
+  color: #2F170F;
+  font-size: 0.7rem;
+  font-weight: 800;
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-full);
+}
+
+.sidebarFooter {
+  padding: 1rem 0.85rem 1.25rem;
+  border-top: 1px solid rgba(255, 241, 223, 0.12);
+  margin-top: auto;
+}
+
+.culturalCard {
+  background: rgba(0, 0, 0, 0.22);
+  border: 1px solid rgba(230, 162, 60, 0.25);
+  border-radius: var(--radius-sm);
+  padding: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.fortEmblem {
+  font-size: 1.35rem;
+}
+
+.cardHeader {
+  font-family: var(--font-marathi);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.cardMotto {
+  font-size: 0.65rem;
+  color: var(--sidebar-text-muted);
+  margin: 0;
+  line-height: 1.2;
+}
+
+/* Mobile Drawer Behavior */
+@media (max-width: 1024px) {
+  .sidebar {
+    transform: translateX(-100%);
+    width: 280px;
+    z-index: 1100;
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .closeBtn {
+    display: block;
+  }
+
+  .backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    z-index: 1050;
+  }
+}
