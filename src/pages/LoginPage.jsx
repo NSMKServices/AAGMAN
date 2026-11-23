@@ -84,6 +84,13 @@ export default function LoginPage() {
           </Link>
         </div>
 
+        <div style={{ marginTop: '0.75rem', textAlign: 'center', fontSize: '0.8rem', color: 'var(--color-text-muted)' }}>
+          Tourism Official or Content Manager?{' '}
+          <Link to="/admin/login" style={{ color: 'var(--color-maroon, #541D16)', fontWeight: 700 }}>
+            Official Admin Gateway →
+          </Link>
+        </div>
+
         <div className={styles.demoNotice}>
           <Shield size={14} style={{ marginRight: 6, verticalAlign: 'middle' }} />
           College Demo Mode: Instant offline authentication stored securely in client session.

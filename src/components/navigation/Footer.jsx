@@ -138,6 +138,8 @@ export default function Footer() {
             <Link to="/contact">Contact Support</Link>
             <span className={styles.bottomDot}>•</span>
             <Link to="/settings">Settings & Preferences</Link>
+            <span className={styles.bottomDot}>•</span>
+            <Link to="/admin">Admin Portal</Link>
           </div>
           <p className={styles.copyrightText}>
             © {new Date().getFullYear()} AAGMAN — Official Maharashtra Cultural & Heritage Tourism Platform. Preserving and promoting the royal history, cultural heritage, and natural wonders of Maharashtra.
