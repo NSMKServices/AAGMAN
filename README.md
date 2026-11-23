@@ -1,161 +1,111 @@
-# 🧭 AAGMAN | Discover Maharashtra
+# AAGMAN – Maharashtra Tourism & Heritage Portal (React + Vite)
 
-### 🌍 Explore. Experience. Embrace Maharashtra.
-
-**AAGMAN** is a modern digital tourism platform designed to showcase the beauty, culture, heritage, and diversity of Maharashtra.
-
-Discover breathtaking destinations, explore cultural experiences, celebrate vibrant festivals, and create personalized travel journeys — all through one interactive digital platform.
+A modern, high-performance Single-Page Application (SPA) foundation for the **AAGMAN** Maharashtra Tourism and Cultural Heritage web platform.
 
 ---
 
-## 🌟 About the Project
+## 1. Project Purpose
+This application represents the modernized frontend foundation for AAGMAN. Built using React 18, Vite, and React Router v6, it is designed to replace the legacy multi-page static site while preserving its rich cultural assets, verified historical content, and interactive features (such as 3D destination carousels and the Ashtavinayak Pilgrimage Planner).
 
-Maharashtra is home to breathtaking landscapes, historic forts, ancient temples, vibrant festivals, beautiful coastlines, and rich cultural traditions.
+---
 
-**AAGMAN aims to bring all these experiences together in one digital destination.**
+## 2. Technology Stack
+- **Framework**: React 18.3.1
+- **DOM Renderer**: React DOM 18.3.1
+- **Routing**: React Router DOM 6.28.0 (Browser Router with declarative route tree)
+- **Bundler & Dev Server**: Vite 5.4.11
+- **Styling Architecture**: Pure CSS3 with CSS Modules (`*.module.css`) and global Design Tokens (`src/styles/tokens.css`)
+- **Typography**: Google Fonts (Cinzel, Playfair Display, Plus Jakarta Sans, Poppins)
+- **Backend (Target Integration)**: Supabase (PostgreSQL, Auth, Storage, Edge Functions)
 
-Our platform makes discovering Maharashtra easier, more engaging, and more accessible through technology.
+---
 
-## 🎯 Our Vision
+## 3. Approved Heritage Palette
+- **Deep Terracotta**: `#722D1B` (`--color-primary`)
+- **Burnt Saffron**: `#C45A32` (`--color-secondary`)
+- **Antique Gold**: `#E6A23C` (`--color-accent`)
+- **Warm Ivory**: `#FFF1DF` (`--color-background`)
+- **Dark Brown**: `#4A2419` (`--color-text`)
 
-To create a unified digital gateway to Maharashtra that connects travellers with its destinations, heritage, culture, and experiences.
+---
 
-## ✨ Key Features
+## 4. Getting Started
 
-- 🏞️ **Destination Discovery** — Explore Maharashtra's tourist destinations, landmarks, historical sites, and natural attractions.
-- 🏛️ **Cultural Exploration** — Discover traditions, heritage, and cultural identity.
-- 🎉 **Festival Discovery** — Explore festivals, celebrations, and regional events.
-- 🗺️ **Personalized Travel Planning** — Organize travel experiences and build personalized itineraries.
-- ❤️ **Wishlist Management** — Save and revisit favourite destinations.
-- 🔎 **Smart Search & Discovery** — Find destinations and experiences easily.
-- 🌐 **Multilingual Experience** — Support different language preferences.
-- 🎨 **Theme Customization** — Enjoy a customizable interface.
-- 📱 **Responsive Design** — Seamless experience across desktop, tablet, and mobile.
-
-## 🛠️ Technology Stack
-
-| Technology | Purpose |
-|---|---|
-| ⚛️ React.js | Frontend development |
-| ⚡ Vite | Development and build tooling |
-| 🟨 JavaScript | Application logic |
-| 🎨 CSS Modules | Component-level styling |
-| ⚡ Supabase | Backend and database services |
-| 🐙 Git & GitHub | Version control and collaboration |
-| ▲ Vercel | Deployment and hosting |
-
-## 🏗️ Project Architecture
-
-A modular architecture designed for maintainability, scalability, and reusability.
-
-- 🧩 **Components** — Reusable UI elements.
-- 🔄 **Contexts** — Shared application state.
-- 📊 **Data Modules** — Destination and festival information.
-- 📄 **Pages** — Application screens and experiences.
-- 🎨 **Styles** — Design tokens and component styling.
-- 🔌 **Backend Services** — Database and authentication integrations.
-
-## 🚀 Getting Started
-
-### 📋 Prerequisites
-
-- Node.js
-- npm
-- Git
-
-### 📥 Installation
-
-**1. Clone the repository**
-
+### Installation
+From inside the `aagman-app` directory:
 ```bash
-git clone https://github.com/YOUR-ORGANIZATION/aagman.git
-```
-
-**2. Navigate to the project**
-
-```bash
-cd aagman
-```
-
-**3. Install dependencies**
-
-```bash
+cd aagman-app
 npm install
 ```
 
-**4. Configure environment variables**
-
-Create a `.env` file in the root directory:
-
-```env
-VITE_SUPABASE_URL=your_supabase_project_url
-VITE_SUPABASE_ANON_KEY=your_supabase_publishable_key
-```
-
-**5. Start the development server**
-
+### Local Development
+To launch the Vite development server with Hot Module Reloading (HMR):
 ```bash
 npm run dev
 ```
+The application will be accessible at: `http://localhost:3000`
 
-🎉 You're ready to explore AAGMAN locally!
+### Production Build
+To create an optimized, minified production distribution bundle:
+```bash
+npm run build
+```
+Output artifacts will be compiled into the `dist/` directory.
 
-## 🔐 Environment Configuration
-
-Keep environment variables secure.
-
-- Add `.env` to `.gitignore`.
-- Never expose Supabase service-role keys.
-- Configure production environment variables separately in Vercel.
-
-## ☁️ Deployment
-
-AAGMAN is intended to be deployed using **Vercel**.
-
-1. Push your code to GitHub.
-2. Import the repository into Vercel.
-3. Configure environment variables.
-4. Deploy your application.
-5. Verify the production build.
-
-## 🗺️ Future Roadmap
-
-- 🏞️ Expand destination coverage across Maharashtra.
-- 🧠 Improve personalized travel recommendations.
-- 🗓️ Enhance itinerary planning.
-- 🌐 Expand multilingual accessibility.
-- 🔗 Integrate additional tourism data services.
-- 📱 Further improve mobile experiences.
-
-## 🤝 Contributing
-
-Contributions, ideas, and improvements are welcome!
-
-1. Fork the repository.
-2. Create a feature branch.
-3. Implement your changes.
-4. Commit with meaningful messages.
-5. Submit a Pull Request.
-
-## 🚧 Project Status
-
-**Active Development**
-
-AAGMAN is currently under development, with features and integrations being progressively implemented.
-
-## 📄 License
-
-Licensing terms will be defined by the repository maintainers.
+### Preview Production Build
+To locally test and inspect the compiled production build:
+```bash
+npm run preview
+```
 
 ---
 
-<div align="center">
+## 5. Folder Structure
+```
+aagman-app/
+├── public/                       # Static public assets served directly at root
+│   ├── images/                   # Static raster and vector destination images
+│   ├── icons/                    # Custom iconography
+│   └── legacy-assets/            # Preserved media from legacy portal
+├── src/
+│   ├── assets/                   # Bundled application media and SVGs
+│   ├── components/               # Modular, reusable React UI components
+│   │   ├── common/               # Universal buttons, cards, modals, badges
+│   │   ├── navigation/           # Navbar, Footer, Mobile Drawer
+│   │   └── layout/               # Container, Grid, Section wrappers
+│   ├── layouts/                  # Top-level page wrappers (RootLayout)
+│   ├── pages/                    # Route-level view components
+│   │   ├── HomePage.jsx          # Portal landing page
+│   │   ├── FortsPage.jsx         # Historic Forts & Sahyadris directory
+│   │   ├── TemplesPage.jsx       # Sacred Temples & Pilgrimage directory
+│   │   ├── BeachesPage.jsx       # Konkan Coastal Beaches directory
+│   │   ├── HeritagePage.jsx      # UNESCO Caves & Heritage directory
+│   │   ├── PlannerPage.jsx       # AI Itinerary Planner interface
+│   │   ├── LoginPage.jsx         # Traveler sign-in page
+│   │   ├── RegisterPage.jsx      # Traveler account registration
+│   │   ├── DashboardPage.jsx     # Saved trips & bookmarks dashboard
+│   │   └── NotFoundPage.jsx      # 404 error page with recovery navigation
+│   ├── routes/                   # React Router route declarations (AppRoutes.jsx)
+│   ├── hooks/                    # Custom React hooks (useTheme, etc.)
+│   ├── services/                 # API client services (Supabase, Edge Functions)
+│   ├── utils/                    # Data formatters and helper functions
+│   ├── styles/                   # Design system tokens and global styling
+│   │   ├── tokens.css            # Approved CSS Custom Properties
+│   │   └── global.css            # CSS reset, typography, and scrollbars
+│   ├── lib/                      # Third-party SDK client initializers
+│   ├── App.jsx                   # Application root component
+│   └── main.jsx                  # ReactDOM mount entry point
+├── index.html                    # Single-Page Application HTML entry point
+├── package.json                  # NPM dependencies and run scripts
+├── vite.config.js                # Vite bundler configuration
+└── README.md                     # Project documentation
+```
 
-### ❤️ AAGMAN
+---
 
-**Discover the Spirit of Maharashtra.**
-
-*One destination. Countless experiences. A journey worth discovering.*
-
-</div>
-
+## 6. Current Implementation Status
+- **Foundation**: Complete. React 18 + Vite development pipeline active.
+- **Design Tokens**: Complete. Approved heritage palette and typography established.
+- **Routing**: Complete. All 10 core routes (`/`, `/forts`, `/temples`, `/beaches`, `/heritage`, `/planner`, `/login`, `/register`, `/dashboard`, `*`) configured with working navigation.
+- **Theme Support**: Complete. Dark/Light mode toggle persisted in `localStorage` (`aagman_theme`).
+- **Legacy Application**: Fully isolated and untouched in sibling directories (`frontend/` and `backend/`).

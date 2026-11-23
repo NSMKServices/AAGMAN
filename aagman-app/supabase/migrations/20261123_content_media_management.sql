@@ -192,17 +192,19 @@ CREATE POLICY "Content Managers and Super Admins can delete videos"
 -- ------------------------------------------------------------------------------
 -- 6. SUPABASE STORAGE BUCKET CONFIGURATION (destination-media)
 -- ------------------------------------------------------------------------------
+-- Create bucket if not exists
 INSERT INTO storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
 VALUES (
     'destination-media',
     'destination-media',
     true,
-    5242880,
+    5242880, -- 5 MB limit
     ARRAY['image/jpeg', 'image/png', 'image/webp', 'image/svg+xml']
 )
 ON CONFLICT (id) DO UPDATE
 SET public = true, file_size_limit = 5242880;
 
+-- Storage Object RLS Policies
 DROP POLICY IF EXISTS "Public can view destination media" ON storage.objects;
 CREATE POLICY "Public can view destination media"
     ON storage.objects FOR SELECT

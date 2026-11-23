@@ -1,8 +1,37 @@
-﻿node_modules/
+﻿# Dependencies and build output
+node_modules/
 dist/
+dist-ssr/
+
+# Vercel
 .vercel/
+
+# Environment variables and secrets
 .env
 .env.*
 !.env.example
-*.bak
+.env.production
+.env.local
+.env.*.local
+
+# Logs and temporary files
+logs/
 *.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.bak
+*.local
+temp_chrome_profile/
+
+# Editor and operating system files
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

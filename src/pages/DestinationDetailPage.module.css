@@ -1,0 +1,534 @@
+.detailPage {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: var(--space-3xl);
+}
+
+.heroSection {
+  position: relative;
+  min-height: 420px;
+  display: flex;
+  align-items: flex-end;
+  background-color: #21140F;
+  color: #FFF9F0;
+  overflow: hidden;
+  padding-top: var(--space-3xl);
+  padding-bottom: var(--space-2xl);
+  border-bottom: 2px solid var(--color-gold-border, rgba(200, 157, 60, 0.28));
+}
+
+.heroBg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.65;
+}
+
+.heroOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    0deg,
+    rgba(33, 20, 15, 0.98) 0%,
+    rgba(48, 32, 25, 0.75) 60%,
+    rgba(0, 0, 0, 0.45) 100%
+  );
+}
+
+.heroContent {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: var(--font-size-xs);
+  color: var(--color-accent);
+  margin-bottom: var(--space-md);
+}
+
+.breadcrumb a {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+.breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.currentBreadcrumb {
+  color: rgba(255, 241, 223, 0.85);
+}
+
+.badgeRow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: var(--space-sm);
+}
+
+.districtBadge, .ratingBadge {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: #FFF1DF;
+  background-color: rgba(255, 255, 255, 0.15);
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-full);
+  backdrop-filter: blur(4px);
+}
+
+.heroTitle {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  color: #FFF1DF;
+  margin: 0 0 0.25rem 0;
+  text-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+}
+
+.heroMarathi {
+  font-family: var(--font-marathi);
+  font-size: 1.15rem;
+  color: var(--color-accent);
+  margin: 0 0 var(--space-lg) 0;
+  font-weight: 500;
+}
+
+.heroActions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* Body Section */
+.bodySection {
+  padding-top: var(--space-2xl);
+}
+
+.gridContainer {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--space-2xl);
+  margin-bottom: var(--space-3xl);
+}
+
+@media (max-width: 1024px) {
+  .gridContainer {
+    grid-template-columns: 1fr;
+  }
+}
+
+.mainColumn {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xl);
+}
+
+.contentBlock {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  box-shadow: var(--shadow-sm);
+}
+
+.sectionHeading {
+  font-family: var(--font-serif);
+  font-size: var(--font-size-2xl);
+  color: var(--color-primary);
+  margin: 0 0 var(--space-xs) 0;
+}
+
+[data-theme="dark"] .sectionHeading {
+  color: var(--color-accent);
+}
+
+.sectionSubheading {
+  font-family: var(--font-serif);
+  font-size: var(--font-size-xl);
+  color: var(--color-primary);
+  margin: 0 0 var(--space-md) 0;
+}
+
+[data-theme="dark"] .sectionSubheading {
+  color: var(--color-accent);
+}
+
+.heritageDivider {
+  width: 60px;
+  height: 3px;
+  background-color: var(--color-accent);
+  margin-bottom: var(--space-md);
+  border-radius: var(--radius-full);
+}
+
+.narrativeText {
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text);
+  margin-bottom: 1rem;
+}
+
+.attractionsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 0.85rem;
+}
+
+.attractionItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  background-color: var(--color-surface-elevated);
+  border: 1px solid var(--color-border);
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-sm);
+}
+
+.attractionNum {
+  width: 22px;
+  height: 22px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-primary);
+  color: #FFFFFF;
+  font-size: 0.75rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.attractionText {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+  line-height: 1.35;
+}
+
+.cuisineBox {
+  background: linear-gradient(135deg, rgba(200, 157, 60, 0.12), rgba(114, 45, 27, 0.08));
+  border: 1px solid var(--color-gold-border, rgba(200, 157, 60, 0.3));
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.cuisineIcon {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.cuisineTitle {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  color: var(--color-primary);
+  margin: 0 0 0.35rem 0;
+}
+
+[data-theme="dark"] .cuisineTitle {
+  color: var(--color-accent);
+}
+
+.cuisineText {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin: 0;
+  line-height: var(--line-height-normal);
+}
+
+/* Map Card */
+.mapCard {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+}
+
+.coordinatesHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.65rem 1rem;
+  background-color: var(--color-surface-elevated);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.mapsExternalLink {
+  color: var(--color-secondary);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.mapIframe {
+  width: 100%;
+  height: 280px;
+  border: none;
+  display: block;
+}
+
+/* Visitor Card (Right Side) */
+.sideColumn {
+  display: flex;
+  flex-direction: column;
+}
+
+.visitorCard {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  box-shadow: var(--shadow-md);
+  position: sticky;
+  top: calc(var(--topnav-height) + 1.5rem);
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+}
+
+.visitorCardTitle {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  color: var(--color-primary);
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 0.65rem;
+  margin: 0;
+}
+
+[data-theme="dark"] .visitorCardTitle {
+  color: var(--color-accent);
+}
+
+.infoRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+}
+
+.infoIcon {
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.infoLabel {
+  display: block;
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.infoValue {
+  display: block;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+}
+
+.travelHowTo {
+  background-color: var(--color-parchment);
+  border: 1px solid var(--color-parchment-border);
+  border-radius: var(--radius-sm);
+  padding: 0.85rem;
+  margin-top: 0.5rem;
+}
+
+.howToTitle {
+  font-size: var(--font-size-xs);
+  font-weight: 800;
+  color: var(--color-primary);
+  margin: 0 0 0.5rem 0;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+[data-theme="dark"] .howToTitle {
+  color: var(--color-accent);
+}
+
+.howToItem {
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  margin-bottom: 0.4rem;
+  line-height: 1.35;
+}
+
+.howToItem:last-child {
+  margin-bottom: 0;
+}
+
+/* Related Destinations */
+.relatedSection {
+  margin-top: var(--space-2xl);
+  border-top: 1px solid var(--color-border);
+  padding-top: var(--space-2xl);
+}
+
+.relatedHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-lg);
+}
+
+.relatedTitle {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  color: var(--color-primary);
+  margin: 0;
+}
+
+[data-theme="dark"] .relatedTitle {
+  color: var(--color-accent);
+}
+
+.relatedLink {
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  color: var(--color-secondary);
+  text-decoration: none;
+}
+
+.relatedGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-lg);
+}
+
+.notFoundWrapper {
+  text-align: center;
+  padding: 6rem 1.5rem;
+}
+
+.largeIcon {
+  font-size: 4rem;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.notFoundTitle {
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  color: var(--color-primary);
+  margin-bottom: 0.5rem;
+}
+
+.notFoundSub {
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+  margin-bottom: 1.5rem;
+}
+
+/* ========================================================
+   PHOTOGRAPHIC PERSPECTIVES GALLERY
+   ======================================================== */
+.galleryHeaderRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: var(--space-md);
+}
+
+.galleryFolderTag {
+  font-size: 0.725rem;
+  color: var(--color-secondary);
+  background: var(--color-parchment);
+  border: 1px solid var(--color-border);
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--radius-xs);
+}
+
+.galleryFolderTag code {
+  font-family: monospace;
+}
+
+.photoGalleryGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+@media (max-width: 640px) {
+  .photoGalleryGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.galleryPhotoCard {
+  background: var(--color-surface-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.galleryPhotoCard:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+  border-color: var(--color-accent);
+}
+
+.galleryImgWrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background-color: var(--color-parchment);
+}
+
+.galleryImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+
+.galleryPhotoCard:hover .galleryImg {
+  transform: scale(1.03);
+}
+
+.photoSlotBadge {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: rgba(40, 20, 15, 0.82);
+  backdrop-filter: blur(4px);
+  color: var(--color-accent);
+  font-family: monospace;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 0.15rem 0.45rem;
+  border-radius: var(--radius-xs);
+  border: 1px solid rgba(200, 157, 60, 0.35);
+}
+
+.galleryPhotoLabel {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  padding: 0.65rem 0.85rem;
+}
+
+[data-theme="dark"] .galleryPhotoLabel {
+  color: var(--color-primary-hover);
+}

@@ -1,0 +1,413 @@
+import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
+import { supabase, isSupabaseConfigured } from '../lib/supabase';
+
+const AdminAuthContext = createContext(null);
+
+// Friendly human-readable error translation
+export function formatAuthError(error) {
+  if (!error) return 'An unexpected error occurred. Please try again.';
+  const msg = typeof error === 'string' ? error : (error.message || '');
+  
+  if (msg.includes('Invalid login credentials') || msg.includes('invalid_credentials')) {
+    return 'Invalid email or password. Please verify your credentials and try again.';
+  }
+  if (msg.includes('Email not confirmed')) {
+    return 'Your email address has not been confirmed. Please check your inbox for the confirmation link.';
+  }
+  if (msg.includes('User not found') || msg.includes('user_not_found')) {
+    return 'No administrator account found with this email address.';
+  }
+  if (msg.includes('Too many requests') || msg.includes('over_request_rate_limit')) {
+    return 'Too many sign-in attempts. For security reasons, please wait a few minutes before trying again.';
+  }
+  if (msg.includes('fetch failed') || msg.includes('Failed to fetch') || msg.includes('NetworkError')) {
+    return 'Unable to connect to the Supabase authentication server. Please verify your internet connection or Supabase status.';
+  }
+  if (msg.includes('Password should be at least')) {
+    return 'Password is too weak. It must be at least 6 characters long.';
+  }
+  if (msg.includes('JWT expired') || msg.includes('token expired')) {
+    return 'Your administrative session has expired. Please sign in again.';
+  }
+  return msg || 'Authentication request failed. Please contact your system administrator.';
+}
+
+export function AdminAuthProvider({ children }) {
+  const [session, setSession] = useState(null);
+  const [user, setUser] = useState(null);
+  const [adminProfile, setAdminProfile] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [authError, setAuthError] = useState(null);
+
+  // Fetch admin profile from Supabase admin_profiles table
+  const fetchAdminProfile = useCallback(async (userId, userEmail) => {
+    if (!userId || !isSupabaseConfigured) return null;
+
+    try {
+      const { data, error } = await supabase
+        .from('admin_profiles')
+        .select('*')
+        .eq('id', userId)
+        .maybeSingle();
+
+      if (error) {
+        console.warn('Failed querying admin_profiles:', error.message);
+        return null;
+      }
+
+      if (!data) {
+        return null;
+      }
+
+      if (data.is_active === false) {
+        throw new Error('This administrator account has been deactivated. Please contact your Super Admin.');
+      }
+
+      return data;
+    } catch (err) {
+      console.error('Error fetching admin profile:', err);
+      throw err;
+    }
+  }, []);
+
+  // Initialize and restore session on mount
+  useEffect(() => {
+    let isMounted = true;
+
+    async function initAuth() {
+      setLoading(true);
+      setAuthError(null);
+
+      // Check if there is an offline/demo admin session stored
+      try {
+        const storedDemoAdmin = localStorage.getItem('aagman_demo_admin_profile');
+        if (storedDemoAdmin) {
+          const parsed = JSON.parse(storedDemoAdmin);
+          if (isMounted) {
+            setAdminProfile(parsed);
+            setUser({ id: parsed.id, email: parsed.email });
+            setSession({ user: { id: parsed.id, email: parsed.email }, access_token: 'demo-token' });
+            setLoading(false);
+            return;
+          }
+        }
+      } catch (e) {
+        console.warn('Error reading demo admin session:', e);
+      }
+
+      // Check Supabase session
+      if (isSupabaseConfigured) {
+        try {
+          const { data: { session: initialSession }, error: sessionError } = await supabase.auth.getSession();
+          if (sessionError) {
+            console.warn('Supabase getSession error:', sessionError.message);
+          }
+
+          if (initialSession?.user && isMounted) {
+            setSession(initialSession);
+            setUser(initialSession.user);
+
+            try {
+              const profile = await fetchAdminProfile(initialSession.user.id, initialSession.user.email);
+              if (isMounted) {
+                if (profile) {
+                  setAdminProfile(profile);
+                } else {
+                  // User exists in auth but has no admin profile -> not authorized for admin
+                  setAdminProfile(null);
+                }
+              }
+            } catch (profileErr) {
+              if (isMounted) {
+                setAuthError(profileErr.message);
+                setAdminProfile(null);
+              }
+            }
+          }
+        } catch (err) {
+          console.warn('Supabase session initialization exception:', err);
+        }
+      }
+
+      if (isMounted) {
+        setLoading(false);
+      }
+    }
+
+    initAuth();
+
+    // Setup single subscription listener for auth state changes
+    let authListener = null;
+    if (isSupabaseConfigured) {
+      const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, newSession) => {
+        if (!isMounted) return;
+
+        if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED' || event === 'USER_UPDATED') {
+          setSession(newSession);
+          setUser(newSession?.user || null);
+
+          if (newSession?.user) {
+            try {
+              const profile = await fetchAdminProfile(newSession.user.id, newSession.user.email);
+              if (isMounted) setAdminProfile(profile);
+            } catch (err) {
+              if (isMounted) {
+                setAuthError(err.message);
+                setAdminProfile(null);
+              }
+            }
+          }
+        } else if (event === 'SIGNED_OUT') {
+          setSession(null);
+          setUser(null);
+          setAdminProfile(null);
+          setAuthError(null);
+          localStorage.removeItem('aagman_demo_admin_profile');
+        }
+      });
+      authListener = subscription;
+    }
+
+    return () => {
+      isMounted = false;
+      if (authListener) {
+        authListener.unsubscribe();
+      }
+    };
+  }, [fetchAdminProfile]);
+
+  // Login via Supabase Auth
+  const login = async (email, password) => {
+    setLoading(true);
+    setAuthError(null);
+
+    try {
+      if (!isSupabaseConfigured) {
+        throw new Error('Supabase client is not configured with valid API credentials. Use the Demo Admin mode below or configure .env.');
+      }
+
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: email.trim(),
+        password
+      });
+
+      if (error) {
+        const friendly = formatAuthError(error);
+        setAuthError(friendly);
+        throw new Error(friendly);
+      }
+
+      if (!data?.user) {
+        throw new Error('Sign-in response did not contain valid user credentials.');
+      }
+
+      // Check admin profile
+      let profile = null;
+      try {
+        profile = await fetchAdminProfile(data.user.id, data.user.email);
+      } catch (err) {
+        await supabase.auth.signOut();
+        setAuthError(err.message);
+        throw err;
+      }
+
+      if (!profile) {
+        // Enforce RBAC security: Ordinary user without an admin profile cannot access
+        await supabase.auth.signOut();
+        const noAdminMsg = 'Access Denied: Your account does not have administrative privileges. Contact your Super Admin.';
+        setAuthError(noAdminMsg);
+        throw new Error(noAdminMsg);
+      }
+
+      // Success
+      setSession(data.session);
+      setUser(data.user);
+      setAdminProfile(profile);
+      setLoading(false);
+      return { user: data.user, profile };
+    } catch (err) {
+      setLoading(false);
+      throw err;
+    }
+  };
+
+  // Demo Admin Login (for local verification without external network dependency)
+  const demoAdminLogin = (targetRole = 'super_admin') => {
+    setLoading(true);
+    setAuthError(null);
+
+    const demoProfiles = {
+      super_admin: {
+        id: 'demo-admin-super',
+        email: 'director@aagman.maharashtra.gov.in',
+        full_name: 'Dr. Yashwantrao Deshmukh',
+        role: 'super_admin',
+        is_active: true,
+        phone: '+91 22 2202 5050',
+        created_at: new Date().toISOString()
+      },
+      content_manager: {
+        id: 'demo-admin-content',
+        email: 'content.lead@aagman.maharashtra.gov.in',
+        full_name: 'Ananya Kulkarni',
+        role: 'content_manager',
+        is_active: true,
+        phone: '+91 20 2565 1234',
+        created_at: new Date().toISOString()
+      },
+      editor: {
+        id: 'demo-admin-editor',
+        email: 'heritage.editor@aagman.maharashtra.gov.in',
+        full_name: 'Vikram Shinde',
+        role: 'editor',
+        is_active: true,
+        phone: '+91 231 265 9988',
+        created_at: new Date().toISOString()
+      }
+    };
+
+    const chosen = demoProfiles[targetRole] || demoProfiles.super_admin;
+    setAdminProfile(chosen);
+    setUser({ id: chosen.id, email: chosen.email });
+    setSession({ user: { id: chosen.id, email: chosen.email }, access_token: 'demo-admin-token' });
+    localStorage.setItem('aagman_demo_admin_profile', JSON.stringify(chosen));
+    setLoading(false);
+    return chosen;
+  };
+
+  // Logout
+  const logout = async () => {
+    setLoading(true);
+    try {
+      localStorage.removeItem('aagman_demo_admin_profile');
+      if (isSupabaseConfigured) {
+        await supabase.auth.signOut();
+      }
+    } catch (e) {
+      console.warn('Error during admin logout:', e);
+    } finally {
+      setSession(null);
+      setUser(null);
+      setAdminProfile(null);
+      setAuthError(null);
+      setLoading(false);
+    }
+  };
+
+  // Password Recovery Flow
+  const requestPasswordReset = async (email) => {
+    setAuthError(null);
+    if (!email || !email.includes('@')) {
+      throw new Error('Please enter a valid administrator email address.');
+    }
+
+    if (!isSupabaseConfigured) {
+      // In offline/demo environment, simulate successful dispatch
+      return { success: true, message: `Password reset instructions sent to ${email} (Demo Simulation).` };
+    }
+
+    const { error } = await supabase.auth.resetPasswordForEmail(email.trim(), {
+      redirectTo: `${window.location.origin}/admin/reset-password`
+    });
+
+    if (error) {
+      const friendly = formatAuthError(error);
+      setAuthError(friendly);
+      throw new Error(friendly);
+    }
+
+    return { success: true, message: `Password reset link has been dispatched to ${email}.` };
+  };
+
+  // Password Update Flow (when redirected from reset link)
+  const updatePassword = async (newPassword) => {
+    setAuthError(null);
+    if (!newPassword || newPassword.length < 6) {
+      throw new Error('Password must be at least 6 characters long.');
+    }
+
+    if (!isSupabaseConfigured) {
+      return { success: true, message: 'Password successfully updated (Demo Simulation).' };
+    }
+
+    const { error } = await supabase.auth.updateUser({
+      password: newPassword
+    });
+
+    if (error) {
+      const friendly = formatAuthError(error);
+      setAuthError(friendly);
+      throw new Error(friendly);
+    }
+
+    return { success: true, message: 'Your administrator password has been updated successfully.' };
+  };
+
+  // Role permissions checking logic
+  const role = adminProfile?.role || null;
+  const isSuperAdmin = role === 'super_admin';
+  const isContentManager = role === 'content_manager' || role === 'super_admin';
+  const isEditor = role === 'editor' || role === 'content_manager' || role === 'super_admin';
+
+  const hasRole = useCallback((requiredRole) => {
+    if (!adminProfile || !adminProfile.is_active) return false;
+    if (adminProfile.role === 'super_admin') return true;
+    if (requiredRole === 'content_manager') {
+      return adminProfile.role === 'content_manager';
+    }
+    if (requiredRole === 'editor') {
+      return adminProfile.role === 'editor' || adminProfile.role === 'content_manager';
+    }
+    return adminProfile.role === requiredRole;
+  }, [adminProfile]);
+
+  const isAuthenticated = Boolean(user && adminProfile && adminProfile.is_active);
+
+  const value = useMemo(() => ({
+    session,
+    user,
+    adminProfile,
+    role,
+    isAuthenticated,
+    isSuperAdmin,
+    isContentManager,
+    isEditor,
+    hasRole,
+    loading,
+    authError,
+    setAuthError,
+    login,
+    demoAdminLogin,
+    logout,
+    requestPasswordReset,
+    updatePassword,
+    refreshProfile: () => user ? fetchAdminProfile(user.id, user.email) : Promise.resolve(null)
+  }), [
+    session,
+    user,
+    adminProfile,
+    role,
+    isAuthenticated,
+    isSuperAdmin,
+    isContentManager,
+    isEditor,
+    hasRole,
+    loading,
+    authError,
+    fetchAdminProfile
+  ]);
+
+  return (
+    <AdminAuthContext.Provider value={value}>
+      {children}
+    </AdminAuthContext.Provider>
+  );
+}
+
+export function useAdminAuth() {
+  const context = useContext(AdminAuthContext);
+  if (!context) {
+    throw new Error('useAdminAuth must be used within an AdminAuthProvider');
+  }
+  return context;
+}

@@ -250,6 +250,7 @@ CREATE POLICY "Admins can insert audit logs"
     WITH CHECK (public.is_admin());
 
 -- Audit logs are strictly immutable: NO UPDATE, NO DELETE
+-- (No policies granted for UPDATE or DELETE, ensuring complete audit integrity)
 
 -- ------------------------------------------------------------------------------
 -- 9. CONTENT TABLES RBAC TEMPLATE (DESTINATIONS & FESTIVALS)
