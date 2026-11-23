@@ -1,0 +1,244 @@
+.footer {
+  background-color: var(--color-parchment);
+  border-top: 1px solid var(--color-border);
+  padding-top: var(--space-2xl);
+  padding-bottom: var(--space-xl);
+  margin-top: auto;
+  transition: background-color var(--transition-normal);
+}
+
+.footerGrid {
+  display: grid;
+  grid-template-columns: 1.8fr 1fr 1fr 1.2fr;
+  gap: var(--space-xl);
+  margin-bottom: var(--space-2xl);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: 0.85rem;
+}
+
+.logoBadge {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, var(--color-maroon) 0%, var(--color-terracotta) 100%);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(84, 29, 22, 0.25);
+  border: 1px solid var(--color-accent);
+}
+
+.logoIcon {
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.brandText {
+  display: flex;
+  flex-direction: column;
+}
+
+.brandTitle {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--color-primary);
+  line-height: 1.1;
+}
+
+[data-theme="dark"] .brandTitle {
+  color: var(--color-primary-hover);
+}
+
+.brandSub {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--color-secondary);
+  text-transform: uppercase;
+}
+
+.tagline {
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-secondary);
+  margin-bottom: 1rem;
+}
+
+.stateMotto {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.75rem;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  font-family: var(--font-marathi);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-secondary);
+  box-shadow: var(--shadow-xs);
+}
+
+.mottoSymbol {
+  font-size: 0.95rem;
+}
+
+.colTitle {
+  font-family: var(--font-serif);
+  font-size: var(--font-size-base);
+  font-weight: 700;
+  color: var(--color-secondary);
+  margin-bottom: var(--space-md);
+  letter-spacing: -0.01em;
+}
+
+[data-theme="dark"] .colTitle {
+  color: var(--color-accent);
+}
+
+.linksList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.linksList a {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.linksList a:hover {
+  color: var(--color-primary);
+  padding-left: 4px;
+}
+
+[data-theme="dark"] .linksList a:hover {
+  color: var(--color-accent);
+}
+
+.helpList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.helpLabel {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.15rem;
+}
+
+.helpNumber {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.helpNumber:hover {
+  text-decoration: underline;
+}
+
+[data-theme="dark"] .helpNumber {
+  color: var(--color-accent);
+}
+
+.contactActionRow {
+  margin-top: 0.5rem;
+}
+
+.contactBtn {
+  font-size: 0.825rem;
+  font-weight: 700;
+  color: var(--color-secondary);
+  text-decoration: none;
+}
+
+.contactBtn:hover {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+/* ========================================================
+   BOTTOM FOOTER BAR
+   ======================================================== */
+.footerBottom {
+  border-top: 1px solid var(--color-border);
+  padding-top: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  text-align: center;
+}
+
+.bottomLinks {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.bottomLinks a {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.bottomLinks a:hover {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+.bottomDot {
+  color: var(--color-text-muted);
+  font-size: 0.75rem;
+}
+
+.copyrightText {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  max-width: 720px;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* ========================================================
+   RESPONSIVE BREAKPOINTS
+   ======================================================== */
+@media (max-width: 1024px) {
+  .footerGrid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-xl);
+  }
+}
+
+@media (max-width: 640px) {
+  .footerGrid {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+  .bottomLinks {
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .bottomDot {
+    display: none;
+  }
+}

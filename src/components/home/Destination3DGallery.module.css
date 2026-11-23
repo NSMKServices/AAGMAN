@@ -1,0 +1,524 @@
+/* ========================================================
+   PREMIUM 3D FEATURED DESTINATION GALLERY
+   - 3D Perspective & Layered Depth
+   - Heritage Terracotta, Maroon & Temple Gold Palette
+   ======================================================== */
+
+.galleryWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 1120px;
+  margin-inline: auto;
+  outline: none;
+}
+
+.galleryWrapper:focus-visible {
+  box-shadow: 0 0 0 3px rgba(200, 157, 60, 0.4);
+  border-radius: var(--radius-lg);
+}
+
+/* ========================================================
+   3D PERSPECTIVE STAGE
+   ======================================================== */
+.stage3d {
+  width: 100%;
+  perspective: 1200px;
+  perspective-origin: 50% 50%;
+  padding: 1.5rem 0 2rem;
+  overflow: visible;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.deck {
+  position: relative;
+  width: 100%;
+  max-width: 820px;
+  height: clamp(320px, 40vw, 460px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform-style: preserve-3d;
+}
+
+/* ========================================================
+   3D CARDS
+   ======================================================== */
+.card3d {
+  position: absolute;
+  width: clamp(280px, 64vw, 640px);
+  aspect-ratio: 16 / 10;
+  border-radius: var(--radius-lg, 18px);
+  transition: transform 0.65s cubic-bezier(0.2, 0.9, 0.3, 1),
+              opacity 0.6s ease,
+              filter 0.6s ease,
+              box-shadow 0.6s ease;
+  will-change: transform, opacity;
+  user-select: none;
+  touch-action: pan-y;
+  outline: none;
+}
+
+.cardActive {
+  transform: translate3d(0, 0, 0) scale(1) rotateY(0deg);
+  z-index: 10;
+  opacity: 1;
+  filter: brightness(1);
+  box-shadow: 0 26px 65px -14px rgba(64, 41, 28, 0.42),
+              0 0 0 1.5px rgba(200, 157, 60, 0.45);
+  cursor: default;
+}
+
+[data-theme="dark"] .cardActive {
+  box-shadow: 0 26px 65px -14px rgba(0, 0, 0, 0.75),
+              0 0 0 1.5px rgba(200, 157, 60, 0.6);
+}
+
+.cardRight {
+  cursor: pointer;
+}
+
+.cardLeft {
+  cursor: pointer;
+}
+
+/* Layering Offsets based on --offset custom property */
+.card3d[style*="--offset: 1;"],
+.card3d[style*="--offset: 1 "] {
+  transform: translate3d(clamp(90px, 26%, 220px), 14px, -80px) scale(0.88) rotateY(-8deg);
+  z-index: 8;
+  opacity: 0.86;
+  filter: brightness(0.9);
+  box-shadow: 0 16px 36px -10px rgba(64, 41, 28, 0.32);
+}
+
+.card3d[style*="--offset: 2;"],
+.card3d[style*="--offset: 2 "] {
+  transform: translate3d(clamp(160px, 48%, 380px), 28px, -160px) scale(0.76) rotateY(-14deg);
+  z-index: 6;
+  opacity: 0.52;
+  filter: brightness(0.76);
+  box-shadow: 0 10px 24px -8px rgba(64, 41, 28, 0.22);
+}
+
+.card3d[style*="--offset: -1;"],
+.card3d[style*="--offset: -1 "] {
+  transform: translate3d(clamp(-220px, -26%, -90px), 14px, -80px) scale(0.88) rotateY(8deg);
+  z-index: 8;
+  opacity: 0.86;
+  filter: brightness(0.9);
+  box-shadow: 0 16px 36px -10px rgba(64, 41, 28, 0.32);
+}
+
+.card3d[style*="--offset: -2;"],
+.card3d[style*="--offset: -2 "] {
+  transform: translate3d(clamp(-380px, -48%, -160px), 28px, -160px) scale(0.76) rotateY(14deg);
+  z-index: 6;
+  opacity: 0.52;
+  filter: brightness(0.76);
+  box-shadow: 0 10px 24px -8px rgba(64, 41, 28, 0.22);
+}
+
+.cardHidden {
+  transform: translate3d(0, 40px, -240px) scale(0.65);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Card Image Frame */
+.imageFrame {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  overflow: hidden;
+  background-color: #2D140D;
+}
+
+.cardImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.cardActive:hover .cardImage {
+  transform: scale(1.03);
+}
+
+.imageOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(64, 41, 28, 0.25) 0%,
+    transparent 45%,
+    rgba(64, 22, 16, 0.88) 100%
+  );
+  pointer-events: none;
+}
+
+/* Top Badges inside card */
+.topBadges {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  right: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 3;
+}
+
+.ratingBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: rgba(64, 22, 16, 0.85);
+  border: 1px solid rgba(200, 157, 60, 0.4);
+  color: var(--color-accent);
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  backdrop-filter: blur(6px);
+}
+
+/* Vignette bottom caption */
+.vignetteCaption {
+  position: absolute;
+  bottom: 1.25rem;
+  left: 1.25rem;
+  right: 1.25rem;
+  z-index: 3;
+  color: #FFF9F0;
+  pointer-events: none;
+}
+
+.vignetteLocation {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-bottom: 0.25rem;
+}
+
+.vignetteTitle {
+  font-family: var(--font-serif);
+  font-size: clamp(1.2rem, 2.2vw, 1.65rem);
+  font-weight: 700;
+  color: #FFF9F0;
+  margin: 0;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+  line-height: 1.2;
+}
+
+/* ========================================================
+   CONTROLS ROW (PREV / NEXT / PAGINATION)
+   ======================================================== */
+.controlsRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin: 1.25rem 0 2rem;
+  z-index: 5;
+}
+
+.navBtn {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-surface);
+  border: 1.5px solid var(--color-border);
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  box-shadow: var(--shadow-xs);
+}
+
+.navBtn:hover {
+  background-color: var(--color-primary);
+  color: #FFF9F0;
+  border-color: var(--color-primary);
+  transform: scale(1.06);
+  box-shadow: var(--shadow-sm);
+}
+
+.navBtn:active {
+  transform: scale(0.96);
+}
+
+[data-theme="dark"] .navBtn {
+  background-color: var(--color-surface);
+  color: var(--color-accent);
+  border-color: var(--color-border);
+}
+
+[data-theme="dark"] .navBtn:hover {
+  background-color: var(--color-accent);
+  color: var(--color-maroon);
+}
+
+/* Pagination Track */
+.paginationTrack {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.4rem 0.8rem;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-xs);
+}
+
+.pageDot {
+  width: 10px;
+  height: 10px;
+  border-radius: var(--radius-full);
+  background-color: rgba(114, 45, 27, 0.22);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: all var(--transition-normal);
+}
+
+.pageDot:hover {
+  background-color: var(--color-secondary);
+}
+
+.activeDot {
+  width: 26px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-primary);
+}
+
+[data-theme="dark"] .pageDot {
+  background-color: rgba(255, 249, 240, 0.22);
+}
+
+[data-theme="dark"] .activeDot {
+  background-color: var(--color-accent);
+}
+
+/* ========================================================
+   DESTINATION INFORMATION CARD (BENEATH ACTIVE PHOTO)
+   ======================================================== */
+.infoCard {
+  width: 100%;
+  max-width: 820px;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: clamp(1.5rem, 3.5vw, 2.25rem);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  transition: all var(--transition-normal);
+  text-align: left;
+}
+
+.infoMetaRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 0.85rem;
+}
+
+.metaLeft {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.districtChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  color: var(--color-secondary);
+  background-color: var(--color-parchment);
+  border: 1px solid var(--color-border);
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-full);
+}
+
+.slideCounter {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-accent);
+}
+
+.counterCurrent {
+  color: var(--color-primary);
+  font-size: 1.15rem;
+}
+
+[data-theme="dark"] .counterCurrent {
+  color: var(--color-accent);
+}
+
+.counterDivider {
+  color: var(--color-border);
+}
+
+.counterTotal {
+  color: var(--color-text-muted);
+}
+
+.titleGroup {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.destName {
+  font-family: var(--font-serif);
+  font-size: clamp(1.65rem, 2.8vw, 2.15rem);
+  color: var(--color-dark-brown, #40291C);
+  margin: 0;
+  font-weight: 700;
+  line-height: 1.18;
+}
+
+[data-theme="dark"] .destName {
+  color: #FFF9F0;
+}
+
+.destMarathi {
+  font-family: var(--font-marathi);
+  font-size: 1.1rem;
+  color: var(--color-secondary);
+  font-weight: 600;
+}
+
+[data-theme="dark"] .destMarathi {
+  color: var(--color-accent);
+}
+
+.destSummary {
+  font-size: clamp(0.9rem, 1.2vw, 1.02rem);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+  margin: 0;
+}
+
+/* Notable Features */
+.attractionsRow {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+}
+
+.attractionsLabel {
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  color: var(--color-text-muted);
+}
+
+.attractionPills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.attractionPill {
+  font-size: 0.76rem;
+  background-color: var(--color-parchment);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--radius-sm);
+}
+
+/* Action Buttons */
+.actionButtons {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  flex-wrap: wrap;
+  padding-top: 0.5rem;
+}
+
+.exploreBtn {
+  font-weight: 700;
+}
+
+/* ========================================================
+   RESPONSIVE ADJUSTMENTS
+   ======================================================== */
+@media (max-width: 768px) {
+  .deck {
+    height: 290px;
+  }
+
+  .card3d {
+    width: 86vw;
+  }
+
+  /* Reduce 3D side spreads on mobile */
+  .card3d[style*="--offset: 1;"],
+  .card3d[style*="--offset: 1 "] {
+    transform: translate3d(24px, 10px, -50px) scale(0.9) rotateY(-5deg);
+    opacity: 0.45;
+  }
+
+  .card3d[style*="--offset: -1;"],
+  .card3d[style*="--offset: -1 "] {
+    transform: translate3d(-24px, 10px, -50px) scale(0.9) rotateY(5deg);
+    opacity: 0.45;
+  }
+
+  .card3d[style*="--offset: 2;"],
+  .card3d[style*="--offset: 2 "],
+  .card3d[style*="--offset: -2;"],
+  .card3d[style*="--offset: -2 "] {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .actionButtons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+/* Respect user accessibility setting */
+@media (prefers-reduced-motion: reduce) {
+  .card3d {
+    transition: opacity 0.3s ease;
+    transform: none !important;
+  }
+
+  .cardActive {
+    display: block;
+    opacity: 1;
+  }
+
+  .card3d:not(.cardActive) {
+    display: none;
+  }
+}

@@ -1,0 +1,258 @@
+/* =========================================================
+   AAGMAN DESIGN SYSTEM - TOKENS
+   Colour Direction: Maharashtrian Heritage Brown, Chocolate & Beige
+   Traditional Architecture, Carved Wooden Interiors, Heritage Havelis & Aged Manuscripts
+   
+   Palette:
+   - Dark Heritage Shades:
+     * Espresso:       #21140F
+     * Dark Cocoa:     #302019
+     * Heritage Brown: #40291C
+     * Chocolate:      #4B3023
+     * Walnut:         #604331
+     * Coffee Brown:   #765640
+   
+   - Natural Beige Shades:
+     * Aged Beige:     #C8B49A
+     * Natural Beige:  #D8C8B2
+     * Soft Linen:     #E8DCCB
+     * Warm Ivory:     #F1E8DB
+     * Warm Parchment: #F8EBDD
+     * Heritage Ivory: #FFF9F0
+   
+   - Preserved Signature Accents (Used Sparingly):
+     * Maratha Terracotta:  #722D1B
+     * Deep Heritage Maroon: #541D16
+     * Temple Brass Gold:   #C89D3C
+   ========================================================= */
+
+:root {
+  /* --- 1. Named Palette Primitives: Dark Heritage Shades --- */
+  --color-espresso:          #21140F;  /* Deepest espresso brown */
+  --color-dark-cocoa:        #302019;  /* Dark cocoa */
+  --color-heritage-brown:    #40291C;  /* Heritage brown */
+  --color-dark-brown:        #40291C;  /* Backward-compatible alias */
+  --color-chocolate:         #4B3023;  /* Chocolate brown */
+  --color-walnut:            #604331;  /* Walnut brown */
+  --color-coffee:            #765640;  /* Coffee brown */
+
+  /* --- 2. Named Palette Primitives: Natural Beige Shades --- */
+  --color-aged-beige:        #C8B49A;  /* Aged beige */
+  --color-natural-beige:     #D8C8B2;  /* Natural beige */
+  --color-soft-linen:        #E8DCCB;  /* Soft linen */
+  --color-warm-ivory:        #F1E8DB;  /* Warm ivory */
+  --color-warm-parchment:    #F8EBDD;  /* Warm parchment */
+  --color-heritage-ivory:    #FFF9F0;  /* Heritage ivory */
+
+  /* --- 3. Preserved Signature Accents (Used Sparingly) --- */
+  --color-terracotta:        #722D1B;  /* Maratha Citadel Terracotta */
+  --color-terracotta-hover:  #5A2315;
+  --color-terracotta-light:  rgba(114, 45, 27, 0.08);
+
+  --color-maroon:            #541D16;  /* Deep Heritage Maroon */
+  --color-maroon-hover:      #401610;
+  --color-maroon-light:      rgba(84, 29, 22, 0.08);
+
+  --color-gold:              #C89D3C;  /* Temple Brass Gold (Restrained Accent) */
+  --color-gold-hover:        #B38A30;
+  --color-gold-light:        rgba(200, 157, 60, 0.12);
+  --color-gold-border:       rgba(200, 157, 60, 0.28);
+
+  /* --- 4. Light Mode Surface & Canvas Tokens --- */
+  /* Page background: Soft linen and warm parchment */
+  --color-background:        #F8EBDD;  /* Warm Parchment Page Background */
+  --color-background-soft:   #E8DCCB;  /* Soft Linen Secondary Tone */
+  --color-parchment:         #F8EBDD;  /* Warm Sahyadri Parchment */
+  --color-parchment-soft:    #F1E8DB;  /* Warm Ivory */
+
+  /* Cards: Heritage Ivory (Avoids flat white #FFFFFF) */
+  --color-surface:           #FFF9F0;  /* Heritage Ivory Cards */
+  --color-surface-elevated:  #FFFDF9;  /* Elevated Warm Ivory */
+  --color-surface-hover:     #F1E8DB;  /* Warm Ivory Hover */
+  --color-secondary-surface: #D8C8B2;  /* Natural Beige Secondary Surface */
+
+  /* --- 5. Light Mode Typography & Headings --- */
+  --color-heading:           #21140F;  /* Espresso brown for headings */
+  --color-text:              #302019;  /* Dark cocoa / Heritage brown for readable body */
+  --color-text-secondary:    #604331;  /* Walnut brown for secondary descriptions */
+  --color-text-muted:        #765640;  /* Coffee brown for metadata and subtle labels */
+  --color-text-inverse:      #FFF9F0;  /* Heritage ivory on dark surfaces */
+
+  /* --- 6. Core Semantic Mappings (Subtle, Restrained Interactive) --- */
+  --color-primary:           #541D16;  /* Deep Heritage Maroon */
+  --color-primary-hover:     #302019;  /* Dark Cocoa */
+  --color-primary-light:     rgba(84, 29, 22, 0.07);
+  --color-primary-dark:      #21140F;  /* Espresso */
+
+  --color-secondary:         #722D1B;  /* Maratha Terracotta (Spiced Earth Accent) */
+  --color-secondary-hover:   #4B3023;  /* Chocolate Brown */
+  --color-secondary-light:   rgba(114, 45, 27, 0.08);
+
+  --color-accent:            #C89D3C;  /* Temple Brass Gold (Restrained highlight, NOT dominant) */
+  --color-accent-hover:      #B38A30;
+  --color-accent-light:      rgba(200, 157, 60, 0.12);
+
+  --color-highlight:         #722D1B;  /* Terracotta (Replaced bright orange/saffron) */
+  --color-highlight-hover:   #4B3023;
+  --color-highlight-light:   rgba(114, 45, 27, 0.08);
+
+  /* --- 7. Borders & Separators (Natural Beige & Walnut) --- */
+  --color-border:            rgba(96, 67, 49, 0.16);  /* Subtle Walnut outline */
+  --color-border-subtle:     rgba(96, 67, 49, 0.09);
+  --color-border-strong:     rgba(96, 67, 49, 0.28);
+  --color-parchment-border:  #D8C8B2;                 /* Natural Beige */
+
+  /* --- 8. Public Navigation Bar --- */
+  --topnav-height: 76px;
+  --topnav-bg: rgba(248, 235, 221, 0.95);             /* Warm Parchment Backdrop Blur */
+  --topnav-border: rgba(96, 67, 49, 0.15);
+
+  /* --- 9. Traveler Dashboard Sidebar (Haveli Carved Wood Identity) --- */
+  --sidebar-width: 270px;
+  --sidebar-bg: #302019;                              /* Dark Cocoa */
+  --sidebar-bg-darker: #21140F;                       /* Espresso */
+  --sidebar-text: #FFF9F0;                            /* Heritage Ivory */
+  --sidebar-text-muted: #D8C8B2;                      /* Natural Beige */
+  --sidebar-hover: rgba(216, 200, 178, 0.10);
+  --sidebar-active: #4B3023;                          /* Chocolate Brown */
+  --sidebar-active-glow: rgba(200, 157, 60, 0.25);
+  --sidebar-accent: #C89D3C;                          /* Temple Brass Gold */
+
+  /* --- 10. Functional Status Colors --- */
+  --color-success: #3E6B48;
+  --color-warning: #C89D3C;
+  --color-error:   #8C2D19;
+  --color-info:    #604331;
+
+  /* --- 11. Typography Font Stacks --- */
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-display: 'Cinzel', serif;
+  --font-marathi: 'Noto Sans Devanagari', 'Poppins', sans-serif;
+
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  --font-size-4xl: 2.25rem;
+  --font-size-5xl: 3rem;
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-black: 800;
+
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+
+  /* --- 12. Spacing Tokens --- */
+  --space-2xs: 0.25rem;
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  --space-3xl: 4.5rem;
+
+  /* --- 13. Elevation & Shadows (Espresso & Heritage Brown Tones) --- */
+  --shadow-xs: 0 1px 2px rgba(33, 20, 15, 0.05);
+  --shadow-sm: 0 2px 6px rgba(33, 20, 15, 0.08);
+  --shadow-md: 0 6px 18px rgba(33, 20, 15, 0.11);
+  --shadow-lg: 0 14px 34px rgba(33, 20, 15, 0.15);
+  --shadow-xl: 0 22px 50px rgba(33, 20, 15, 0.20);
+
+  /* --- 14. Border Radius --- */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+
+  /* --- 15. Transitions --- */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 250ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-slow: 400ms cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* --- 16. Breakpoints --- */
+  --bp-sm: 640px;
+  --bp-md: 768px;
+  --bp-lg: 1024px;
+  --bp-xl: 1280px;
+
+  /* --- 17. Layout & Content Container --- */
+  --container-max: 1440px;
+  --container-narrow: 1080px;
+  --container-padding: clamp(1.25rem, 3.5vw, 2.5rem);
+  --section-spacing: clamp(3.5rem, 6vw, 5.5rem);
+  --section-spacing-sm: clamp(2rem, 4vw, 3.5rem);
+}
+
+/* ========================================================
+   DARK THEME: MAHARASHTRIAN HERITAGE NIGHT
+   - Deepest Background: Espresso (#21140F)
+   - Cards: Dark Cocoa (#302019) & Chocolate (#4B3023)
+   - Secondary Surfaces: Walnut (#604331)
+   - Headings: Heritage Ivory (#FFF9F0)
+   ======================================================== */
+[data-theme="dark"] {
+  --color-background:        #21140F;  /* Espresso as deepest background */
+  --color-background-soft:   #302019;  /* Dark Cocoa */
+  --color-parchment:         #302019;  /* Dark Cocoa */
+  --color-parchment-soft:    #4B3023;  /* Chocolate */
+
+  --color-surface:           #302019;  /* Dark Cocoa for cards */
+  --color-surface-elevated:  #4B3023;  /* Chocolate for elevated cards */
+  --color-surface-hover:     #4B3023;  /* Chocolate hover */
+  --color-secondary-surface: #604331;  /* Walnut for secondary surfaces */
+
+  --color-heading:           #FFF9F0;  /* Heritage Ivory for headings */
+  --color-text:              #FFF9F0;  /* Heritage Ivory for text */
+  --color-text-secondary:    #E8DCCB;  /* Soft Linen (High contrast readable) */
+  --color-text-muted:        #C8B49A;  /* Aged Beige */
+  --color-text-inverse:      #21140F;  /* Espresso */
+
+  --color-primary:           #C89D3C;  /* Temple Brass Gold (Restrained) */
+  --color-primary-hover:     #D8C8B2;  /* Natural Beige */
+  --color-primary-light:     rgba(200, 157, 60, 0.12);
+  --color-primary-dark:      #21140F;
+
+  --color-secondary:         #722D1B;  /* Maratha Terracotta */
+  --color-secondary-hover:   #8E3622;
+  --color-secondary-light:   rgba(114, 45, 27, 0.15);
+
+  --color-accent:            #C89D3C;  /* Temple Brass Gold (Sparingly used) */
+  --color-accent-hover:      #D8C8B2;
+  --color-accent-light:      rgba(200, 157, 60, 0.16);
+
+  --color-highlight:         #604331;  /* Walnut Brown */
+  --color-highlight-hover:   #765640;
+
+  --color-border:            rgba(200, 180, 154, 0.16); /* Aged Beige outline */
+  --color-border-subtle:     rgba(200, 180, 154, 0.08);
+  --color-border-strong:     rgba(200, 180, 154, 0.28);
+  --color-parchment-border:  rgba(200, 180, 154, 0.14);
+
+  --sidebar-bg:              #21140F;  /* Espresso */
+  --sidebar-bg-darker:       #190E0A;
+  --sidebar-text:            #FFF9F0;
+  --sidebar-text-muted:      #C8B49A;
+  --sidebar-hover:           rgba(200, 180, 154, 0.10);
+  --sidebar-active:          #4B3023;  /* Chocolate Brown */
+  --sidebar-active-glow:     rgba(200, 157, 60, 0.2);
+
+  --topnav-bg:               rgba(33, 20, 15, 0.96); /* Espresso */
+  --topnav-border:           rgba(200, 180, 154, 0.15);
+
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.45);
+  --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.50);
+  --shadow-md: 0 6px 18px rgba(0, 0, 0, 0.60);
+  --shadow-lg: 0 14px 34px rgba(0, 0, 0, 0.70);
+  --shadow-xl: 0 22px 50px rgba(0, 0, 0, 0.80);
+}

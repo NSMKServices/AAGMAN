@@ -1,0 +1,102 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-semibold);
+  border-radius: var(--radius-full);
+  line-height: 1;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+.sm {
+  padding: 0.25rem 0.55rem;
+  font-size: 0.7rem;
+}
+
+.md {
+  padding: 0.35rem 0.75rem;
+  font-size: var(--font-size-xs);
+}
+
+.lg {
+  padding: 0.45rem 0.95rem;
+  font-size: var(--font-size-sm);
+}
+
+.default {
+  background-color: var(--color-parchment);
+  color: var(--color-secondary);
+  border: 1px solid var(--color-border);
+}
+
+/* Forts: Maratha Citadel Terracotta */
+.forts {
+  background-color: rgba(114, 45, 27, 0.10);
+  color: #722D1B;
+  border: 1px solid rgba(114, 45, 27, 0.25);
+}
+
+[data-theme="dark"] .forts {
+  background-color: rgba(114, 45, 27, 0.22);
+  color: #E8DCCB;
+  border-color: rgba(114, 45, 27, 0.38);
+}
+
+/* Temples: Restrained Temple Brass Gold */
+.temples {
+  background-color: rgba(200, 157, 60, 0.14);
+  color: #604331;
+  border: 1px solid rgba(200, 157, 60, 0.32);
+}
+
+[data-theme="dark"] .temples {
+  background-color: rgba(200, 157, 60, 0.16);
+  color: #D8C8B2;
+  border-color: rgba(200, 157, 60, 0.35);
+}
+
+/* Beaches: Coffee Brown & Linen */
+.beaches {
+  background-color: rgba(118, 86, 64, 0.12);
+  color: #604331;
+  border: 1px solid rgba(118, 86, 64, 0.26);
+}
+
+[data-theme="dark"] .beaches {
+  background-color: rgba(200, 180, 154, 0.14);
+  color: #E8DCCB;
+  border-color: rgba(200, 180, 154, 0.30);
+}
+
+/* Heritage & Caves: Walnut & Aged Stone */
+.heritage {
+  background-color: rgba(96, 67, 49, 0.12);
+  color: #4B3023;
+  border: 1px solid rgba(96, 67, 49, 0.28);
+}
+
+[data-theme="dark"] .heritage {
+  background-color: rgba(200, 180, 154, 0.16);
+  color: #D8C8B2;
+  border-color: rgba(200, 180, 154, 0.32);
+}
+
+/* Gold Accent Badge (Sparingly Used) */
+.gold {
+  background: rgba(200, 157, 60, 0.14);
+  color: #604331;
+  border: 1px solid rgba(200, 157, 60, 0.35);
+}
+
+[data-theme="dark"] .gold {
+  color: #D8C8B2;
+  border-color: rgba(200, 157, 60, 0.35);
+}
+
+.icon {
+  font-size: 1em;
+  display: inline-flex;
+  align-items: center;
+}
