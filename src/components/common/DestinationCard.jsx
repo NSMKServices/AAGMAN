@@ -3,10 +3,12 @@ import { Link } from 'react-router-dom';
 import Badge from './Badge';
 import { Castle, Landmark, Umbrella, BookOpen, Heart, MapPin, Star } from './Icons';
 import { useWishlist } from '../../context/WishlistContext';
+import { useLanguage } from '../../context/LanguageContext';
 import styles from './DestinationCard.module.css';
 
 export default function DestinationCard({ destination }) {
   const { isWishlisted, toggleWishlist } = useWishlist();
+  const { t } = useLanguage();
   const wishlisted = isWishlisted(destination.slug);
 
   const handleWishlistClick = (e) => {
@@ -93,7 +95,7 @@ export default function DestinationCard({ destination }) {
             {destination.elevation || destination.timings || destination.circuit || 'Historic Site'}
           </span>
           <Link to={`/${destination.category}/${destination.slug}`} className={styles.viewLink}>
-            Explore →
+            {t('viewDetails', 'Explore →')}
           </Link>
         </div>
       </div>

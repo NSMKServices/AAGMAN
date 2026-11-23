@@ -227,11 +227,11 @@ export default function HomePage() {
 
           <div className={styles.heroActions}>
             <Button to="/explore" variant="primary" size="lg">
-              <span>Explore Maharashtra</span>
+              <span>{t('exploreBtn', 'Explore Maharashtra')}</span>
               <ArrowRight size={16} />
             </Button>
             <Button to="/planner" variant="accent" size="lg">
-              <span>Plan Your Journey</span>
+              <span>{t('planTripBtn', 'Plan Custom Itinerary')}</span>
               <Sparkles size={16} />
             </Button>
           </div>
@@ -275,9 +275,9 @@ export default function HomePage() {
       <section className={styles.discoverySection}>
         <Container>
           <SectionHeader
-            eyebrow="QUICK DISCOVERY"
-            title="Explore Maharashtra"
-            description="From 350+ Maratha fortresses to sacred Jyotirlingas and untouched Konkan waters, choose your experience."
+            eyebrow={t('explore', 'QUICK DISCOVERY')}
+            title={t('exploreByTheme', 'Explore Maharashtra')}
+            description={t('exploreByThemeSub', 'From 350+ Maratha fortresses to sacred Jyotirlingas and untouched Konkan waters, choose your experience.')}
           />
 
           <div className={styles.discoveryGrid}>
@@ -305,7 +305,7 @@ export default function HomePage() {
 
           <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2.5rem' }}>
             <Button to="/explore" variant="outline" size="md">
-              <span>View All 23 Destinations</span>
+              <span>{t('allDestinations', 'View All 23 Destinations')}</span>
               <ArrowRight size={14} />
             </Button>
           </div>
@@ -318,9 +318,9 @@ export default function HomePage() {
       <section className={styles.mapSectionWrapper}>
         <Container>
           <SectionHeader
-            eyebrow="GEOGRAPHICAL DIRECTORY"
-            title="Interactive Maharashtra Tourism Map"
-            description="Filter destinations across Western Maharashtra, Konkan, Marathwada, and Vidarbha with detailed location previews."
+            eyebrow={t('mapEyebrow', 'GEOGRAPHICAL DIRECTORY')}
+            title={t('interactiveAtlasTitle', 'Interactive Maharashtra Tourism Map')}
+            description={t('interactiveAtlasSub', 'Filter destinations across Western Maharashtra, Konkan, Marathwada, and Vidarbha with detailed location previews.')}
           />
           <MaharashtraMap />
         </Container>
@@ -333,8 +333,8 @@ export default function HomePage() {
         <Container>
           <SectionHeader
             eyebrow="CURATED SHOWCASE"
-            title="Featured Destinations"
-            description="Experience Maharashtra's most celebrated historic fortresses, monolithic rock temples, and sun-kissed coastlines in interactive 3D."
+            title={t('featuredDestinations', 'Featured Destinations')}
+            description={t('featuredSub', 'Experience Maharashtra\'s most celebrated historic fortresses, monolithic rock temples, and sun-kissed coastlines in interactive 3D.')}
           />
 
           <Destination3DGallery destinations={featuredDestinations} />

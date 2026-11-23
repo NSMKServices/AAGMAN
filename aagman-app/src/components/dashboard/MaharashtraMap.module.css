@@ -1,3 +1,8 @@
+/* ========================================================
+   AAGMAN - Maharashtra Interactive Atlas Styles
+   Clean, stationary, geographically calibrated design
+   ======================================================== */
+
 .mapContainer {
   background-color: var(--color-surface);
   border: 1px solid var(--color-border);
@@ -43,11 +48,12 @@
 .mapSub {
   font-size: var(--font-size-xs);
   color: var(--color-text-secondary);
-  max-width: 600px;
+  max-width: 620px;
   margin: 0;
   line-height: var(--line-height-normal);
 }
 
+/* Category Filter Pills */
 .filters {
   display: flex;
   align-items: center;
@@ -83,9 +89,10 @@
   box-shadow: 0 2px 8px rgba(84, 29, 22, 0.25);
 }
 
+/* Map Layout */
 .mapLayout {
   display: grid;
-  grid-template-columns: 1.45fr 1fr;
+  grid-template-columns: 1.55fr 1fr;
   gap: var(--space-xl);
   align-items: stretch;
 }
@@ -96,122 +103,358 @@
   }
 }
 
+/* SVG Wrapper - Stationary Frame */
 .svgWrapper {
   width: 100%;
   background: var(--color-parchment);
-  border: 1px solid var(--color-parchment-border);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   padding: 0.75rem;
   box-shadow: inset 0 2px 8px rgba(64, 41, 28, 0.05);
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  position: relative;
+}
+
+[data-theme="dark"] .svgWrapper {
+  background: #1c110b;
+  border-color: rgba(200, 157, 60, 0.2);
 }
 
 .svgMap {
   width: 100%;
-  max-height: 480px;
   height: auto;
+  max-height: 520px;
   display: block;
 }
 
-.seaLabel {
+/* Arabian Sea Styling */
+.seaPath {
+  transition: fill var(--transition-normal);
+}
+
+.seaAnnotation {
+  pointer-events: none;
+}
+
+.seaText {
   font-family: var(--font-serif);
   font-size: 11px;
-  letter-spacing: 0.15em;
-  fill: var(--color-text-muted);
+  letter-spacing: 0.2em;
+  fill: var(--color-text-secondary);
   opacity: 0.5;
   font-weight: 700;
 }
 
-.statePath {
-  fill: url(#mhLandGradient);
-  stroke: var(--color-border-strong);
-  stroke-width: 2.5;
+/* Districts Layer */
+.districtsLayer {
+  cursor: pointer;
+}
+
+.districtPath {
+  fill: var(--color-surface-elevated);
+  stroke: var(--color-border);
+  stroke-width: 1.2;
   stroke-linejoin: round;
-  transition: fill var(--transition-normal);
+  transition: fill 0.18s ease, stroke 0.18s ease;
+  outline: none;
 }
 
-[data-theme="dark"] .statePath {
-  fill: #24140D;
-  stroke: rgba(200, 157, 60, 0.35);
+[data-theme="dark"] .districtPath {
+  fill: #271810;
+  stroke: rgba(200, 157, 60, 0.25);
 }
 
-.regionText {
-  font-family: var(--font-sans);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  fill: var(--color-text-muted);
-  opacity: 0.55;
+.hasDestinationsPath {
+  fill: var(--color-surface);
+}
+
+[data-theme="dark"] .hasDestinationsPath {
+  fill: #2d1c13;
+}
+
+.districtPath:hover,
+.hoveredDistrictPath {
+  fill: rgba(200, 157, 60, 0.22) !important;
+  stroke: var(--color-accent) !important;
+  stroke-width: 1.8;
+}
+
+.selectedDistrictPath {
+  fill: rgba(114, 45, 27, 0.22) !important;
+  stroke: var(--color-primary) !important;
+  stroke-width: 2.6 !important;
+}
+
+[data-theme="dark"] .selectedDistrictPath {
+  fill: rgba(200, 157, 60, 0.3) !important;
+  stroke: var(--color-accent) !important;
+}
+
+/* Konkan Coastline Stroke */
+.coastlineStroke {
+  stroke: var(--color-secondary);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  opacity: 0.85;
   pointer-events: none;
 }
 
-.regionKonkan {
+/* Major Division Labels */
+.divisionLabels {
+  pointer-events: none;
+}
+
+.divLabel {
   font-family: var(--font-sans);
   font-size: 10px;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
+  fill: var(--color-text-muted, #765640);
+  opacity: 0.45;
+  text-anchor: middle;
+}
+
+.divLabelKonkan {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
   fill: var(--color-secondary);
-  opacity: 0.65;
+  opacity: 0.6;
+  text-anchor: middle;
+}
+
+/* Destination Pins */
+.pinsLayer {
+  cursor: pointer;
+}
+
+.pinGroup {
+  outline: none;
+}
+
+.pinHalo {
+  fill: rgba(114, 45, 27, 0.2);
+  transition: r 0.18s ease, fill 0.18s ease;
+}
+
+.pinCenter {
+  stroke: #FFFFFF;
+  stroke-width: 2;
+  transition: r 0.18s ease, stroke-width 0.18s ease;
+}
+
+/* Pin Categories */
+.pinGroup.forts .pinCenter { fill: #722D1B; }
+.pinGroup.forts .pinHalo { fill: rgba(114, 45, 27, 0.2); }
+
+.pinGroup.temples .pinCenter { fill: #C89D3C; }
+.pinGroup.temples .pinHalo { fill: rgba(200, 157, 60, 0.25); }
+
+.pinGroup.beaches .pinCenter { fill: #604331; }
+.pinGroup.beaches .pinHalo { fill: rgba(96, 67, 49, 0.2); }
+
+.pinGroup.heritage .pinCenter { fill: #541D16; }
+.pinGroup.heritage .pinHalo { fill: rgba(84, 29, 22, 0.22); }
+
+/* Selected Pin */
+.selectedPin .pinCenter {
+  r: 8;
+  stroke: #FFF9F0;
+  stroke-width: 2.5;
+}
+
+.selectedPin .pinHalo {
+  r: 16;
+  fill: rgba(200, 157, 60, 0.45);
+}
+
+.activePinLabelGroup {
   pointer-events: none;
 }
 
-/* Pins */
-.pinGroup {
-  transition: transform var(--transition-fast);
+.pinTextShadow {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 700;
+  fill: #FFF9F0;
+  stroke: #FFF9F0;
+  stroke-width: 4px;
 }
 
-.pinGroup:hover {
-  transform: scale(1.25);
+[data-theme="dark"] .pinTextShadow {
+  fill: #180E0A;
+  stroke: #180E0A;
 }
 
-.pinDot {
-  stroke: #FFFFFF;
-  stroke-width: 2;
-  transition: all var(--transition-fast);
-}
-
-.pinPulse {
-  fill: rgba(114, 45, 27, 0.2);
-  transition: all var(--transition-fast);
-}
-
-.pinGroup.forts .pinDot { fill: #722D1B; }
-.pinGroup.temples .pinDot { fill: #C89D3C; }
-.pinGroup.beaches .pinDot { fill: #604331; }
-.pinGroup.heritage .pinDot { fill: #541D16; }
-
-.selectedPin .pinDot {
-  r: 9;
-  stroke: var(--color-accent);
-  stroke-width: 3;
-}
-
-.selectedPin .pinPulse {
-  fill: rgba(200, 157, 60, 0.35);
-  animation: pulse 1.8s infinite;
-}
-
-.pinLabel {
+.pinText {
   font-family: var(--font-sans);
   font-size: 11px;
   font-weight: 700;
   fill: var(--color-primary);
-  paint-order: stroke;
-  stroke: #FFF9F0;
-  stroke-width: 3px;
-  stroke-linecap: butt;
-  stroke-linejoin: miter;
 }
 
-[data-theme="dark"] .pinLabel {
-  fill: #FFF9F0;
-  stroke: #180E0A;
+[data-theme="dark"] .pinText {
+  fill: var(--color-accent);
 }
 
-/* Preview Box */
-.previewBox {
+/* Floating Status Bar */
+.statusBar {
+  margin-top: 0.5rem;
+  padding: 0.45rem 0.85rem;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+}
+
+.statusInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.hintText {
+  color: var(--color-text-muted);
+}
+
+.clearBtn {
+  background: transparent;
+  border: 1px solid var(--color-border);
+  color: var(--color-secondary);
+  font-size: 0.72rem;
+  font-weight: 600;
+  border-radius: var(--radius-full);
+  padding: 0.15rem 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.clearBtn:hover {
+  background: var(--color-surface-elevated);
+  border-color: var(--color-secondary);
+}
+
+/* Preview Panel */
+.previewPanel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+/* District Card */
+.districtCard {
+  background-color: var(--color-surface-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.districtCardHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.65rem;
+}
+
+.districtEyebrow {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-secondary);
+  font-weight: 700;
+}
+
+.districtTitle {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  color: var(--color-primary);
+  margin: 0.15rem 0;
+}
+
+[data-theme="dark"] .districtTitle {
+  color: var(--color-accent);
+}
+
+.districtHq {
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.districtCloseBtn {
+  background: transparent;
+  border: none;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  padding: 0.2rem;
+  border-radius: var(--radius-sm);
+}
+
+.districtCloseBtn:hover {
+  color: var(--color-primary);
+}
+
+.districtDestList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.districtDestTitle {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.districtChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.districtDestChip {
+  background: var(--color-parchment);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-primary);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.25rem 0.6rem;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.districtDestChip:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.activeChip {
+  background: var(--color-primary) !important;
+  color: #FFF9F0 !important;
+  border-color: var(--color-primary) !important;
+}
+
+.noDestText {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  margin: 0.35rem 0 0 0;
+  font-style: italic;
+}
+
+/* Destination Card */
+.destinationCard {
   background-color: var(--color-surface-elevated);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
@@ -221,117 +464,133 @@
   flex-direction: column;
 }
 
-.previewImageWrapper {
+.cardMedia {
   position: relative;
   width: 100%;
-  height: 190px;
+  height: 180px;
   overflow: hidden;
 }
 
-.previewImage {
+.cardImage {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.previewCategory {
+.cardCategory {
   position: absolute;
   top: 0.75rem;
   left: 0.75rem;
 }
 
-.previewInfo {
+.cardBody {
   padding: 1.25rem;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
 }
 
-.previewMeta {
+.cardMetaRow {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 0.5rem;
   font-size: var(--font-size-xs);
   color: var(--color-text-secondary);
-  margin-bottom: 0.4rem;
-  font-weight: var(--font-weight-semibold);
 }
 
-.previewTitle {
+.cardDistrict {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-weight: 500;
+}
+
+.cardRating {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.cardTitle {
   font-family: var(--font-serif);
-  font-size: 1.35rem;
+  font-size: 1.25rem;
   color: var(--color-primary);
-  margin: 0 0 0.15rem 0;
+  margin: 0 0 0.2rem 0;
 }
 
-[data-theme="dark"] .previewTitle {
+[data-theme="dark"] .cardTitle {
   color: var(--color-accent);
 }
 
-.previewMarathi {
-  font-family: var(--font-marathi);
-  font-size: var(--font-size-xs);
-  color: var(--color-text-muted);
-  margin-bottom: 0.65rem;
+.cardMarathi {
+  font-size: 0.85rem;
+  color: var(--color-secondary);
+  font-weight: 600;
+  margin: 0 0 0.65rem 0;
 }
 
-.previewSummary {
+.cardSummary {
   font-size: var(--font-size-xs);
   color: var(--color-text-secondary);
   line-height: var(--line-height-normal);
-  margin-bottom: 1rem;
-  flex-grow: 1;
+  margin: 0 0 1rem 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
-.previewDetailsRow {
+.cardDetailsGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 0.75rem;
-  background-color: var(--color-surface);
+  background-color: var(--color-parchment);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
-  padding: 0.65rem;
+  padding: 0.65rem 0.85rem;
   margin-bottom: 1.15rem;
+}
+
+[data-theme="dark"] .cardDetailsGrid {
+  background: #23150D;
 }
 
 .detailLabel {
   display: block;
   font-size: 0.7rem;
   color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.15rem;
 }
 
 .detailValue {
   display: block;
-  font-size: 0.75rem;
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-text);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  color: var(--color-text-primary);
 }
 
-.exploreBtn {
+.cardActionBtn {
+  margin-top: auto;
   background-color: var(--color-primary);
   color: #FFF9F0;
-  padding: 0.7rem 1.15rem;
-  border-radius: var(--radius-sm);
+  padding: 0.65rem 1rem;
+  border-radius: var(--radius-md);
   font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-bold);
-  text-align: center;
+  font-weight: 600;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.4rem;
-  box-shadow: 0 2px 8px rgba(84, 29, 22, 0.25);
+  gap: 0.5rem;
   transition: all var(--transition-fast);
 }
 
-.exploreBtn:hover {
-  background-color: var(--color-primary-hover);
+.cardActionBtn:hover {
+  background-color: var(--color-primary-dark, #40291C);
   transform: translateY(-1px);
-  box-shadow: 0 4px 14px rgba(84, 29, 22, 0.35);
-}
-
-@keyframes pulse {
-  0% { r: 9; opacity: 0.9; }
-  50% { r: 18; opacity: 0.3; }
-  100% { r: 24; opacity: 0; }
 }

@@ -146,8 +146,8 @@ export default function PublicNavbar() {
             <Shield size={24} color="var(--color-gold)" />
           </div>
           <div className={styles.brandText}>
-            <span className={styles.brandName}>AAGMAN</span>
-            <span className={styles.brandTagline}>MAHARASHTRA TOURISM</span>
+            <span className={styles.brandName}>{t('brandName', 'AAGMAN')}</span>
+            <span className={styles.brandTagline}>{t('brandSubtitle', 'MAHARASHTRA TOURISM')}</span>
           </div>
         </Link>
 
@@ -158,14 +158,14 @@ export default function PublicNavbar() {
             end
             className={({ isActive }) => `${styles.navLink} ${isActive ? styles.active : ''}`}
           >
-            Home
+            {t('home', 'Home')}
           </NavLink>
 
           <NavLink
             to="/explore"
             className={({ isActive }) => `${styles.navLink} ${isActive ? styles.active : ''}`}
           >
-            Explore
+            {t('explore', 'Explore')}
           </NavLink>
 
           {/* Destinations Dropdown */}
@@ -180,7 +180,7 @@ export default function PublicNavbar() {
               aria-expanded={destinationsOpen}
               aria-haspopup="true"
             >
-              <span>Destinations</span>
+              <span>{t('destinations', 'Destinations')}</span>
               <span className={styles.caret}><ChevronDown size={14} /></span>
             </button>
 
@@ -188,7 +188,7 @@ export default function PublicNavbar() {
               <div className={styles.megaDropdown} role="menu">
                 <div className={styles.dropdownHeader}>
                   <span className={styles.dropdownEyebrow}>MAHARASHTRA CIRCUITS</span>
-                  <h4 className={styles.dropdownTitle}>Explore by Category</h4>
+                  <h4 className={styles.dropdownTitle}>{t('exploreByTheme', 'Explore by Category')}</h4>
                 </div>
                 <div className={styles.dropdownGrid}>
                   <Link to="/forts" className={styles.dropdownItem} onClick={() => setDestinationsOpen(false)}>
@@ -196,7 +196,7 @@ export default function PublicNavbar() {
                       <Castle size={20} color="var(--color-secondary)" />
                     </div>
                     <div>
-                      <strong className={styles.itemTitle}>Historic Forts</strong>
+                      <strong className={styles.itemTitle}>{t('forts', 'Historic Forts')}</strong>
                       <p className={styles.itemDesc}>Raigad, Sinhagad, Rajgad & Maratha citadels</p>
                     </div>
                   </Link>
@@ -206,7 +206,7 @@ export default function PublicNavbar() {
                       <Landmark size={20} color="var(--color-accent)" />
                     </div>
                     <div>
-                      <strong className={styles.itemTitle}>Sacred Temples</strong>
+                      <strong className={styles.itemTitle}>{t('temples', 'Sacred Temples')}</strong>
                       <p className={styles.itemDesc}>Trimbakeshwar, Ashtavinayak & Jyotirlingas</p>
                     </div>
                   </Link>
@@ -216,7 +216,7 @@ export default function PublicNavbar() {
                       <Umbrella size={20} color="var(--color-accent)" />
                     </div>
                     <div>
-                      <strong className={styles.itemTitle}>Konkan Beaches</strong>
+                      <strong className={styles.itemTitle}>{t('beaches', 'Konkan Beaches')}</strong>
                       <p className={styles.itemDesc}>Kashid, Tarkarli, Ganpatipule coastline</p>
                     </div>
                   </Link>
@@ -226,14 +226,14 @@ export default function PublicNavbar() {
                       <BookOpen size={20} color="var(--color-highlight)" />
                     </div>
                     <div>
-                      <strong className={styles.itemTitle}>UNESCO Caves & Heritage</strong>
+                      <strong className={styles.itemTitle}>{t('heritage', 'UNESCO Caves & Heritage')}</strong>
                       <p className={styles.itemDesc}>Ajanta, Ellora, Elephanta & monuments</p>
                     </div>
                   </Link>
                 </div>
                 <div className={styles.dropdownFooter}>
                   <Link to="/explore" className={styles.footerLink} onClick={() => setDestinationsOpen(false)}>
-                    View All 23 Destinations →
+                    {t('allDestinations', 'View All Destinations')} →
                   </Link>
                 </div>
               </div>
@@ -244,7 +244,7 @@ export default function PublicNavbar() {
             to="/festivals"
             className={({ isActive }) => `${styles.navLink} ${isActive ? styles.active : ''}`}
           >
-            Festivals
+            {t('festivals', 'Festivals')}
           </NavLink>
 
           {/* Itineraries & Circuits Dropdown */}
@@ -259,7 +259,7 @@ export default function PublicNavbar() {
               aria-expanded={itinerariesOpen}
               aria-haspopup="true"
             >
-              <span>Itineraries</span>
+              <span>{t('itineraries', 'Itineraries')}</span>
               <span className={styles.caret}><ChevronDown size={14} /></span>
             </button>
 
@@ -270,7 +270,7 @@ export default function PublicNavbar() {
                     <Sparkles size={20} color="var(--color-accent)" />
                   </div>
                   <div>
-                    <strong className={styles.itemTitle}>Smart Journey Planner</strong>
+                    <strong className={styles.itemTitle}>{t('planner', 'Smart Journey Planner')}</strong>
                     <p className={styles.itemDesc}>Curate custom day-by-day itineraries</p>
                   </div>
                 </Link>
@@ -280,7 +280,7 @@ export default function PublicNavbar() {
                     <Map size={20} color="var(--color-secondary)" />
                   </div>
                   <div>
-                    <strong className={styles.itemTitle}>Interactive Route Atlas</strong>
+                    <strong className={styles.itemTitle}>{t('interactiveMap', 'Interactive Route Atlas')}</strong>
                     <p className={styles.itemDesc}>Explore 4 signature Maharashtra road circuits</p>
                   </div>
                 </Link>
@@ -290,7 +290,7 @@ export default function PublicNavbar() {
                     <Wallet size={20} color="var(--color-accent)" />
                   </div>
                   <div>
-                    <strong className={styles.itemTitle}>Travel Cost Estimator</strong>
+                    <strong className={styles.itemTitle}>{t('budgetPlanner', 'Travel Cost Estimator')}</strong>
                     <p className={styles.itemDesc}>Calculate transport, stay & meals budget</p>
                   </div>
                 </Link>
@@ -302,14 +302,14 @@ export default function PublicNavbar() {
             to="/videos"
             className={({ isActive }) => `${styles.navLink} ${isActive ? styles.active : ''}`}
           >
-            Videos
+            {t('videos', 'Videos')}
           </NavLink>
 
           <NavLink
             to="/about"
             className={({ isActive }) => `${styles.navLink} ${isActive ? styles.active : ''}`}
           >
-            About
+            {t('about', 'About')}
           </NavLink>
         </nav>
 
@@ -335,7 +335,7 @@ export default function PublicNavbar() {
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder="Search forts, beaches, temples..."
+                    placeholder={t('searchPlaceholder', 'Search forts, beaches, temples...')}
                     className={styles.searchInput}
                     autoFocus
                   />
@@ -380,31 +380,43 @@ export default function PublicNavbar() {
           </div>
 
           {/* Wishlist Link with Badge */}
-          <Link to="/wishlist" className={styles.iconBtn} aria-label="View Saved Wishlist" title="Wishlist">
+          <Link to="/wishlist" className={styles.iconBtn} aria-label="View Saved Wishlist" title={t('wishlist', 'Wishlist')}>
             <Heart size={18} />
             {wishlistCount > 0 && (
               <span className={styles.badgeCount}>{wishlistCount}</span>
             )}
           </Link>
 
-          {/* Language Switcher Pill */}
-          <div className={styles.langPill}>
+          {/* 3-Way Language Selector (Desktop) */}
+          <div className={styles.langPill} role="group" aria-label={t('language', 'Language')}>
             <button
               type="button"
               className={`${styles.langBtn} ${language === 'en' ? styles.activeLang : ''}`}
               onClick={() => setLanguage('en')}
               title="English"
+              aria-pressed={language === 'en'}
             >
               EN
             </button>
-            <span className={styles.langDivider}>/</span>
+            <span className={styles.langDivider}>|</span>
             <button
               type="button"
               className={`${styles.langBtn} ${language === 'mr' ? styles.activeLang : ''}`}
               onClick={() => setLanguage('mr')}
               title="मराठी"
+              aria-pressed={language === 'mr'}
             >
               मराठी
+            </button>
+            <span className={styles.langDivider}>|</span>
+            <button
+              type="button"
+              className={`${styles.langBtn} ${language === 'hi' ? styles.activeLang : ''}`}
+              onClick={() => setLanguage('hi')}
+              title="हिन्दी"
+              aria-pressed={language === 'hi'}
+            >
+              हिन्दी
             </button>
           </div>
 
@@ -442,21 +454,21 @@ export default function PublicNavbar() {
                   </div>
                   <div className={styles.menuLinks}>
                     <Link to="/dashboard" className={styles.profileMenuItem} onClick={() => setProfileOpen(false)}>
-                      <Compass size={16} /> Traveler Dashboard
+                      <Compass size={16} /> {t('dashboard', 'Traveler Dashboard')}
                     </Link>
                     <Link to="/trips" className={styles.profileMenuItem} onClick={() => setProfileOpen(false)}>
-                      <Backpack size={16} /> My Expeditions
+                      <Backpack size={16} /> {t('myTrips', 'My Expeditions')}
                     </Link>
                     <Link to="/wishlist" className={styles.profileMenuItem} onClick={() => setProfileOpen(false)}>
-                      <Heart size={16} /> Saved Places ({wishlistCount})
+                      <Heart size={16} /> {t('wishlist', 'Saved Places')} ({wishlistCount})
                     </Link>
                     <Link to="/settings" className={styles.profileMenuItem} onClick={() => setProfileOpen(false)}>
-                      <Settings size={16} /> Account Settings
+                      <Settings size={16} /> {t('settings', 'Account Settings')}
                     </Link>
                   </div>
                   <div className={styles.menuDivider} />
                   <button type="button" className={styles.logoutBtn} onClick={handleLogout}>
-                    <ExternalLink size={16} /> Sign Out
+                    <ExternalLink size={16} /> {t('logout', 'Sign Out')}
                   </button>
                 </div>
               )}
@@ -464,10 +476,10 @@ export default function PublicNavbar() {
           ) : (
             <div className={styles.authActions}>
               <Link to="/login" className={styles.signInLink}>
-                Sign In
+                {t('login', 'Sign In')}
               </Link>
               <Button to="/register" variant="primary" size="sm">
-                Register
+                {t('register', 'Register')}
               </Button>
             </div>
           )}
@@ -495,8 +507,8 @@ export default function PublicNavbar() {
                   <Shield size={20} color="var(--color-gold)" />
                 </div>
                 <div className={styles.brandText}>
-                  <span className={styles.brandName}>AAGMAN</span>
-                  <span className={styles.brandTagline}>MAHARASHTRA TOURISM</span>
+                  <span className={styles.brandName}>{t('brandName', 'AAGMAN')}</span>
+                  <span className={styles.brandTagline}>{t('brandSubtitle', 'MAHARASHTRA TOURISM')}</span>
                 </div>
               </div>
               <button
@@ -510,20 +522,22 @@ export default function PublicNavbar() {
             </div>
 
             <div className={styles.drawerBody}>
-              {/* Quick Language & Theme Row */}
+              {/* Quick Language (3-way) & Theme Row */}
               <div className={styles.drawerToolRow}>
-                <div className={styles.drawerLangPill}>
+                <div className={styles.drawerLangPill} role="group" aria-label={t('language', 'Language')}>
                   <button
                     type="button"
                     className={`${styles.langBtn} ${language === 'en' ? styles.activeLang : ''}`}
                     onClick={() => setLanguage('en')}
+                    aria-pressed={language === 'en'}
                   >
-                    English
+                    EN
                   </button>
                   <button
                     type="button"
                     className={`${styles.langBtn} ${language === 'mr' ? styles.activeLang : ''}`}
                     onClick={() => setLanguage('mr')}
+                    aria-pressed={language === 'mr'}
                   >
                     मराठी
                   </button>
@@ -531,6 +545,7 @@ export default function PublicNavbar() {
                     type="button"
                     className={`${styles.langBtn} ${language === 'hi' ? styles.activeLang : ''}`}
                     onClick={() => setLanguage('hi')}
+                    aria-pressed={language === 'hi'}
                   >
                     हिन्दी
                   </button>
@@ -542,18 +557,18 @@ export default function PublicNavbar() {
                   onClick={toggleTheme}
                   aria-label="Toggle Theme"
                 >
-                  {theme === 'light' ? 'Dark' : 'Light'}
+                  {theme === 'light' ? '🌙 Dark' : '☀️ Light'}
                 </button>
               </div>
 
               {/* Navigation Links */}
               <nav className={styles.drawerNav}>
                 <NavLink to="/" end className={({ isActive }) => `${styles.drawerNavLink} ${isActive ? styles.active : ''}`}>
-                  <Compass size={18} /> Home
+                  <Compass size={18} /> {t('home', 'Home')}
                 </NavLink>
 
                 <NavLink to="/explore" className={({ isActive }) => `${styles.drawerNavLink} ${isActive ? styles.active : ''}`}>
-                  <MapPin size={18} /> Explore All Destinations
+                  <MapPin size={18} /> {t('explore', 'Explore All Destinations')}
                 </NavLink>
 
                 {/* Mobile Destinations Accordion */}
@@ -564,22 +579,22 @@ export default function PublicNavbar() {
                     onClick={() => setMobileDestOpen(!mobileDestOpen)}
                   >
                     <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}>
-                      <Castle size={18} /> Destinations
+                      <Castle size={18} /> {t('destinations', 'Destinations')}
                     </span>
                     <span><ChevronDown size={14} style={{ transform: mobileDestOpen ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} /></span>
                   </button>
                   {mobileDestOpen && (
                     <div className={styles.accordionContent}>
-                      <Link to="/forts" className={styles.accordionLink}>Historic Forts</Link>
-                      <Link to="/temples" className={styles.accordionLink}>Sacred Temples</Link>
-                      <Link to="/beaches" className={styles.accordionLink}>Konkan Beaches</Link>
-                      <Link to="/heritage" className={styles.accordionLink}>UNESCO Caves & Heritage</Link>
+                      <Link to="/forts" className={styles.accordionLink}>{t('forts', 'Historic Forts')}</Link>
+                      <Link to="/temples" className={styles.accordionLink}>{t('temples', 'Sacred Temples')}</Link>
+                      <Link to="/beaches" className={styles.accordionLink}>{t('beaches', 'Konkan Beaches')}</Link>
+                      <Link to="/heritage" className={styles.accordionLink}>{t('heritage', 'UNESCO Caves & Heritage')}</Link>
                     </div>
                   )}
                 </div>
 
                 <NavLink to="/festivals" className={({ isActive }) => `${styles.drawerNavLink} ${isActive ? styles.active : ''}`}>
-                  <Sparkles size={18} /> Festivals & Culture
+                  <Sparkles size={18} /> {t('festivals', 'Festivals & Culture')}
                 </NavLink>
 
                 {/* Mobile Itineraries Accordion */}
@@ -590,29 +605,29 @@ export default function PublicNavbar() {
                     onClick={() => setMobileItinOpen(!mobileItinOpen)}
                   >
                     <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}>
-                      <Route size={18} /> Travel Planning
+                      <Route size={18} /> {t('itineraries', 'Travel Planning')}
                     </span>
                     <span><ChevronDown size={14} style={{ transform: mobileItinOpen ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} /></span>
                   </button>
                   {mobileItinOpen && (
                     <div className={styles.accordionContent}>
-                      <Link to="/planner" className={styles.accordionLink}>Smart Journey Planner</Link>
-                      <Link to="/map" className={styles.accordionLink}>Route Atlas</Link>
-                      <Link to="/budget" className={styles.accordionLink}>Travel Budget Estimator</Link>
+                      <Link to="/planner" className={styles.accordionLink}>{t('planner', 'Smart Journey Planner')}</Link>
+                      <Link to="/map" className={styles.accordionLink}>{t('interactiveMap', 'Route Atlas')}</Link>
+                      <Link to="/budget" className={styles.accordionLink}>{t('budgetPlanner', 'Travel Budget Estimator')}</Link>
                     </div>
                   )}
                 </div>
 
                 <NavLink to="/videos" className={({ isActive }) => `${styles.drawerNavLink} ${isActive ? styles.active : ''}`}>
-                  <Video size={18} /> Videos & Experiences
+                  <Video size={18} /> {t('videos', 'Videos & Experiences')}
                 </NavLink>
 
                 <NavLink to="/about" className={({ isActive }) => `${styles.drawerNavLink} ${isActive ? styles.active : ''}`}>
-                  <Info size={18} /> About AAGMAN
+                  <Info size={18} /> {t('about', 'About AAGMAN')}
                 </NavLink>
 
                 <NavLink to="/faq" className={({ isActive }) => `${styles.drawerNavLink} ${isActive ? styles.active : ''}`}>
-                  <HelpCircle size={18} /> Guidelines & FAQs
+                  <HelpCircle size={18} /> {t('faq', 'Guidelines & FAQs')}
                 </NavLink>
               </nav>
 
@@ -628,22 +643,22 @@ export default function PublicNavbar() {
                       </div>
                     </div>
                     <div className={styles.drawerUserLinks}>
-                      <Link to="/dashboard" className={styles.drawerUserAction}>Traveler Dashboard</Link>
-                      <Link to="/trips" className={styles.drawerUserAction}>My Trips</Link>
-                      <Link to="/wishlist" className={styles.drawerUserAction}>Wishlist ({wishlistCount})</Link>
-                      <Link to="/settings" className={styles.drawerUserAction}>Settings</Link>
+                      <Link to="/dashboard" className={styles.drawerUserAction}>{t('dashboard', 'Traveler Dashboard')}</Link>
+                      <Link to="/trips" className={styles.drawerUserAction}>{t('myTrips', 'My Trips')}</Link>
+                      <Link to="/wishlist" className={styles.drawerUserAction}>{t('wishlist', 'Wishlist')} ({wishlistCount})</Link>
+                      <Link to="/settings" className={styles.drawerUserAction}>{t('settings', 'Settings')}</Link>
                       <button type="button" className={styles.drawerLogoutBtn} onClick={handleLogout}>
-                        Sign Out
+                        {t('logout', 'Sign Out')}
                       </button>
                     </div>
                   </div>
                 ) : (
                   <div className={styles.drawerGuestRow}>
                     <Button to="/login" variant="outline" className={styles.drawerBtn}>
-                      Sign In
+                      {t('login', 'Sign In')}
                     </Button>
                     <Button to="/register" variant="primary" className={styles.drawerBtn}>
-                      Register Free
+                      {t('register', 'Register Free')}
                     </Button>
                   </div>
                 )}

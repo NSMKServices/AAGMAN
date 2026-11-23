@@ -27,11 +27,11 @@ export default function ExplorePage({ defaultCategory = 'all' }) {
   const [selectedRegion, setSelectedRegion] = useState('all');
 
   const categories = [
-    { id: 'all', label: 'All Destinations', Icon: Compass },
-    { id: 'forts', label: 'Historic Forts', Icon: Castle },
-    { id: 'temples', label: 'Sacred Temples', Icon: Landmark },
-    { id: 'beaches', label: 'Konkan Beaches', Icon: Umbrella },
-    { id: 'heritage', label: 'UNESCO Caves', Icon: BookOpen }
+    { id: 'all', label: t('allDestinations', 'All Destinations'), Icon: Compass },
+    { id: 'forts', label: t('forts', 'Historic Forts'), Icon: Castle },
+    { id: 'temples', label: t('temples', 'Sacred Temples'), Icon: Landmark },
+    { id: 'beaches', label: t('beaches', 'Konkan Beaches'), Icon: Umbrella },
+    { id: 'heritage', label: t('heritage', 'UNESCO Caves'), Icon: BookOpen }
   ];
 
   // Extract unique districts
