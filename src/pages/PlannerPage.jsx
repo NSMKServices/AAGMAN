@@ -4,6 +4,7 @@ import Container from '../components/layout/Container';
 import Button from '../components/common/Button';
 import Badge from '../components/common/Badge';
 import { useTrips } from '../context/TripContext';
+import { useLanguage } from '../context/LanguageContext';
 import {
   Castle,
   Umbrella,
@@ -21,10 +22,10 @@ import {
 import styles from './PlannerPage.module.css';
 
 const THEMES = [
-  { id: 'forts', label: 'Historic Forts & Sahyadri Treks', Icon: Castle, destinations: ['Sinhagad', 'Rajgad', 'Torna', 'Raigad'] },
-  { id: 'beaches', label: 'Konkan Coastline & Sea Forts', Icon: Umbrella, destinations: ['Kashid Beach', 'Murud-Janjira', 'Ganpatipule', 'Tarkarli'] },
-  { id: 'caves', label: 'UNESCO Caves & Rock Architecture', Icon: BookOpen, destinations: ['Ellora Caves', 'Ajanta Caves', 'Daulatabad Fort', 'Elephanta'] },
-  { id: 'temples', label: 'Sacred Jyotirlinga & Ashtavinayak', Icon: Landmark, destinations: ['Trimbakeshwar', 'Bhimashankar', 'Shirdi', 'Pandharpur'] }
+  { id: 'forts', label: 'Historic Forts & Sahyadri Treks', labelMr: 'ऐतिहासिक किल्ले आणि सह्याद्री ट्रेक', labelHi: 'ऐतिहासिक किले एवं सह्याद्रि ट्रेक', Icon: Castle, destinations: ['Sinhagad', 'Rajgad', 'Torna', 'Raigad'] },
+  { id: 'beaches', label: 'Konkan Coastline & Sea Forts', labelMr: 'कोकण समुद्रकिनारे आणि जलदुर्ग', labelHi: 'कोंकण समुद्र तट एवं जलदुर्ग', Icon: Umbrella, destinations: ['Kashid Beach', 'Murud-Janjira', 'Ganpatipule', 'Tarkarli'] },
+  { id: 'caves', label: 'UNESCO Caves & Rock Architecture', labelMr: 'युनेस्को लेणी आणि पाषाण स्थापत्य', labelHi: 'यूनेस्को गुफाएं एवं शैल स्थापत्य', Icon: BookOpen, destinations: ['Ellora Caves', 'Ajanta Caves', 'Daulatabad Fort', 'Elephanta'] },
+  { id: 'temples', label: 'Sacred Jyotirlinga & Ashtavinayak', labelMr: 'पवित्र ज्योतिर्लिंग आणि अष्टविनायक', labelHi: 'पवित्र ज्योतिर्लिंग एवं अष्टविनायक', Icon: Landmark, destinations: ['Trimbakeshwar', 'Bhimashankar', 'Shirdi', 'Pandharpur'] }
 ];
 
 const GENERATED_TEMPLATES = {
@@ -161,6 +162,7 @@ const GENERATED_TEMPLATES = {
 export default function PlannerPage() {
   const navigate = useNavigate();
   const { addTrip } = useTrips();
+  const { language, t } = useLanguage();
 
   const [hub, setHub] = useState('Pune');
   const [selectedTheme, setSelectedTheme] = useState('forts');
@@ -173,28 +175,25 @@ export default function PlannerPage() {
 
   const handleGenerate = () => {
     setIsGenerating(true);
-    setGenerationStep('Analyzing Sahyadri mountain routes and road conditions...');
+    setGenerationStep(language === 'mr' ? 'सह्याद्रीच्या घाटमार्गांचे विश्लेषण होत आहे...' : language === 'hi' ? 'सह्याद्रि घाट मार्गों का विश्लेषण हो रहा है...' : 'Analyzing Sahyadri mountain routes and road conditions...');
 
     setTimeout(() => {
-      setGenerationStep('Curating authentic local dhabas & heritage stays...');
+      setGenerationStep(language === 'mr' ? 'स्थानिक भोजन आणि राहण्याच्या सोयींची निवड होत आहे...' : language === 'hi' ? 'स्थानीय खानपान एवं ठहरने की व्यवस्था तैयार हो रही है...' : 'Curating authentic local dhabas & heritage stays...');
     }, 800);
-
-    setTimeout(() => {
-      setGenerationStep('Optimizing sunrise timings and temple darshan slots...');
-    }, 1600);
 
     setTimeout(() => {
       const template = GENERATED_TEMPLATES[selectedTheme] || GENERATED_TEMPLATES.forts;
       setGeneratedItinerary(template);
       setIsGenerating(false);
-    }, 2400);
+      setGenerationStep('');
+    }, 1500);
   };
 
-  const handleSaveTrip = () => {
+  const handleSaveToTrips = () => {
     if (!generatedItinerary) return;
 
     const newTrip = {
-      name: `${generatedItinerary.title} (${duration} Days)`,
+      name: `${hub} to ${generatedItinerary.title}`,
       circuit: generatedItinerary.circuit,
       startDate: new Date(Date.now() + 5 * 86400000).toISOString().split('T')[0],
       endDate: new Date(Date.now() + (5 + parseInt(duration, 10)) * 86400000).toISOString().split('T')[0],
@@ -215,16 +214,24 @@ export default function PlannerPage() {
     navigate('/trips');
   };
 
+  const getThemeTitle = (theme) => {
+    if (language === 'mr') return theme.labelMr;
+    if (language === 'hi') return theme.labelHi;
+    return theme.label;
+  };
+
   return (
     <div className={styles.plannerPage}>
       {/* Hero Banner */}
       <section className={styles.heroBanner}>
         <Container>
           <div className={styles.heroContent}>
-            <span className={styles.heroBadge}>बुद्धिमान प्रवास नियोजन</span>
-            <h1 className={styles.heroTitle}>AAGMAN Smart Journey Planner</h1>
+            <span className={styles.heroBadge}>
+              {language === 'mr' ? 'बुद्धिमान प्रवास नियोजन' : language === 'hi' ? 'स्मार्ट यात्रा योजनाकार' : 'INTELLIGENT JOURNEY PLANNER'}
+            </span>
+            <h1 className={styles.heroTitle}>{t('plannerTitle', 'AAGMAN Smart Journey Planner')}</h1>
             <p className={styles.heroSubtitle}>
-              Generate custom day-by-day travel itineraries with authentic culinary recommendations, ghat pass driving tips, and optimal fort exploration hours.
+              {t('plannerSub', 'Generate custom day-by-day travel itineraries with authentic culinary recommendations, ghat pass driving tips, and optimal fort exploration hours.')}
             </p>
           </div>
         </Container>
@@ -236,7 +243,9 @@ export default function PlannerPage() {
           <div className={styles.plannerForm}>
             {/* Step 1: Starting Hub */}
             <div className={styles.formRow}>
-              <label className={styles.fieldLabel}>1. Departure City / Hub:</label>
+              <label className={styles.fieldLabel}>
+                1. {language === 'mr' ? 'प्रस्थान शहर / केंद्र' : language === 'hi' ? 'प्रस्थान शहर' : 'Departure City / Hub'}:
+              </label>
               <div className={styles.hubGrid}>
                 {['Pune', 'Mumbai', 'Nashik', 'Chhatrapati Sambhajinagar', 'Kolhapur'].map((city) => (
                   <button
@@ -253,7 +262,9 @@ export default function PlannerPage() {
 
             {/* Step 2: Theme */}
             <div className={styles.formRow}>
-              <label className={styles.fieldLabel}>2. Travel Theme & Interests:</label>
+              <label className={styles.fieldLabel}>
+                2. {language === 'mr' ? 'प्रवास संकल्पना आणि आवडी' : language === 'hi' ? 'यात्रा थीम एवं रुचियां' : 'Travel Theme & Interests'}:
+              </label>
               <div className={styles.themeGrid}>
                 {THEMES.map((theme) => (
                   <button
@@ -265,7 +276,7 @@ export default function PlannerPage() {
                     <span className={styles.themeIcon}>
                       <theme.Icon size={20} />
                     </span>
-                    <span className={styles.themeTitle}>{theme.label}</span>
+                    <span className={styles.themeTitle}>{getThemeTitle(theme)}</span>
                   </button>
                 ))}
               </div>
@@ -274,7 +285,9 @@ export default function PlannerPage() {
             {/* Step 3: Duration & Pace */}
             <div className={styles.formDualRow}>
               <div className={styles.dualField}>
-                <label className={styles.fieldLabel}>3. Duration:</label>
+                <label className={styles.fieldLabel}>
+                  3. {language === 'mr' ? 'कालावधी' : language === 'hi' ? 'अवधि' : 'Duration'}:
+                </label>
                 <div className={styles.btnRow}>
                   {['2', '3', '5'].map((d) => (
                     <button
@@ -283,23 +296,29 @@ export default function PlannerPage() {
                       className={`${styles.chipBtn} ${duration === d ? styles.activeChip : ''}`}
                       onClick={() => setDuration(d)}
                     >
-                      {d} Days / {parseInt(d, 10) - 1} Nights
+                      {d} {language === 'mr' ? 'दिवस' : language === 'hi' ? 'दिन' : 'Days'} / {parseInt(d, 10) - 1} {language === 'mr' ? 'रात्री' : language === 'hi' ? 'रातें' : 'Nights'}
                     </button>
                   ))}
                 </div>
               </div>
 
               <div className={styles.dualField}>
-                <label className={styles.fieldLabel}>4. Travel Pace:</label>
+                <label className={styles.fieldLabel}>
+                  4. {language === 'mr' ? 'प्रवासाचा वेग' : language === 'hi' ? 'यात्रा गति' : 'Travel Pace'}:
+                </label>
                 <div className={styles.btnRow}>
-                  {['Relaxed', 'Balanced', 'Adventure Packed'].map((p) => (
+                  {[
+                    { id: 'Relaxed', label: language === 'mr' ? 'शांत / निवांत' : language === 'hi' ? 'आरामदायक' : 'Relaxed' },
+                    { id: 'Balanced', label: language === 'mr' ? 'संतुलित' : language === 'hi' ? 'संतुलित' : 'Balanced' },
+                    { id: 'Adventure Packed', label: language === 'mr' ? 'थरारक / साहसी' : language === 'hi' ? 'साहसिक' : 'Adventure Packed' }
+                  ].map((p) => (
                     <button
-                      key={p}
+                      key={p.id}
                       type="button"
-                      className={`${styles.chipBtn} ${pace === p ? styles.activeChip : ''}`}
-                      onClick={() => setPace(p)}
+                      className={`${styles.chipBtn} ${pace === p.id ? styles.activeChip : ''}`}
+                      onClick={() => setPace(p.id)}
                     >
-                      {p}
+                      {p.label}
                     </button>
                   ))}
                 </div>
@@ -309,7 +328,9 @@ export default function PlannerPage() {
             {/* Travelers */}
             <div className={styles.formRow}>
               <div className={styles.travelersBox}>
-                <span className={styles.fieldLabel}>Number of Travelers:</span>
+                <span className={styles.fieldLabel}>
+                  {language === 'mr' ? 'प्रवासी संख्या' : language === 'hi' ? 'यात्री संख्या' : 'Number of Travelers'}:
+                </span>
                 <div className={styles.travelerCounter}>
                   <button
                     type="button"
@@ -340,7 +361,9 @@ export default function PlannerPage() {
                 className={styles.generateBtn}
                 icon={!isGenerating && <Sparkles size={16} />}
               >
-                {isGenerating ? 'Generating Itinerary...' : 'Generate Custom Itinerary'}
+                {isGenerating
+                  ? (language === 'mr' ? 'सहल नियोजन तयार होत आहे...' : language === 'hi' ? 'यात्रा योजना तैयार हो रही है...' : 'Generating Itinerary...')
+                  : (language === 'mr' ? 'वैयक्तिक सहल नियोजन तयार करा' : language === 'hi' ? 'यात्रा योजना तैयार करें' : 'Generate Custom Itinerary')}
               </Button>
             </div>
 
@@ -355,90 +378,87 @@ export default function PlannerPage() {
         </Container>
       </section>
 
-      {/* Generated Itinerary Output */}
-      {generatedItinerary && (
-        <section className={styles.outputSection}>
+      {/* Generated Itinerary Section */}
+      {generatedItinerary && !isGenerating && (
+        <section className={styles.resultsSection}>
           <Container>
-            <div className={styles.itineraryCard}>
-              <div className={styles.itineraryHeader}>
+            <div className={styles.resultCard}>
+              <div className={styles.resultHeader}>
                 <div>
-                  <Badge variant="gold">{generatedItinerary.circuit}</Badge>
-                  <h2 className={styles.itineraryTitle}>{generatedItinerary.title}</h2>
-                  <p className={styles.itineraryMeta}>
-                    <Calendar size={14} style={{ marginRight: 6, verticalAlign: 'middle' }} />
-                    Starting from <strong>{hub}</strong> • Best Season: <strong>{generatedItinerary.season}</strong> • Pace: <strong>{pace}</strong>
-                  </p>
+                  <Badge variant="gold">
+                    {generatedItinerary.circuit}
+                  </Badge>
+                  <h2 className={styles.resultTitle}>{generatedItinerary.title}</h2>
+                  <div className={styles.resultMeta}>
+                    <span>
+                      <Calendar size={13} style={{ marginRight: 4, verticalAlign: 'middle' }} />
+                      {generatedItinerary.season}
+                    </span>
+                    <span>•</span>
+                    <span>
+                      {t('estimatedCost', 'Est. Cost')}: ₹{(generatedItinerary.totalCost * travelers).toLocaleString('en-IN')} ({travelers} {language === 'mr' ? 'प्रवासी' : language === 'hi' ? 'यात्री' : 'Travelers'})
+                    </span>
+                  </div>
                 </div>
 
-                <div className={styles.headerRight}>
-                  <div className={styles.budgetPill}>
-                    <span className={styles.budgetPillLabel}>Estimated Budget</span>
-                    <span className={styles.budgetPillValue}>₹{(generatedItinerary.totalCost * travelers).toLocaleString('en-IN')}</span>
-                  </div>
-                  <Button variant="primary" onClick={handleSaveTrip} icon={<Backpack size={16} />}>
-                    Save Itinerary to My Trips
-                  </Button>
-                </div>
+                <Button
+                  variant="primary"
+                  onClick={handleSaveToTrips}
+                  icon={<Backpack size={16} />}
+                >
+                  {t('saveItinerary', 'Save Itinerary to Trips')}
+                </Button>
               </div>
 
-              {/* Day by Day Cards */}
+              {/* Day-by-Day Cards */}
               <div className={styles.daysList}>
-                {generatedItinerary.days.map((d) => (
-                  <div key={d.day} className={styles.dayCard}>
-                    <div className={styles.dayHeader}>
-                      <span className={styles.dayPill}>Day {d.day}</span>
-                      <h3 className={styles.dayTitle}>{d.title}</h3>
+                {generatedItinerary.days.map((day) => (
+                  <div key={day.day} className={styles.dayCard}>
+                    <div className={styles.daySidebar}>
+                      <span className={styles.dayNumber}>
+                        {language === 'mr' ? `दिवस ${day.day}` : language === 'hi' ? `दिन ${day.day}` : `Day ${day.day}`}
+                      </span>
                     </div>
 
-                    <div className={styles.dayGrid}>
-                      <div className={styles.dayBlock}>
-                        <span className={styles.blockIcon}>
-                          <Sunrise size={16} />
-                        </span>
-                        <div>
-                          <strong>Morning Exploration:</strong>
-                          <p>{d.morning}</p>
-                        </div>
-                      </div>
+                    <div className={styles.dayDetails}>
+                      <h3 className={styles.dayTitle}>{day.title}</h3>
 
-                      <div className={styles.dayBlock}>
-                        <span className={styles.blockIcon}>
-                          <Utensils size={16} />
-                        </span>
-                        <div>
-                          <strong>Authentic Culinary Stop:</strong>
-                          <p>{d.food}</p>
+                      <div className={styles.dayTimeBlocks}>
+                        <div className={styles.timeBlock}>
+                          <span className={styles.timeLabel}>
+                            <Sunrise size={14} style={{ marginRight: 4, verticalAlign: 'middle', color: 'var(--color-primary)' }} />
+                            {language === 'mr' ? 'सकाळ' : language === 'hi' ? 'प्रातःकाल' : 'Morning'}:
+                          </span>
+                          <p>{day.morning}</p>
                         </div>
-                      </div>
 
-                      <div className={styles.dayBlock}>
-                        <span className={styles.blockIcon}>
-                          <Sunset size={16} />
-                        </span>
-                        <div>
-                          <strong>Afternoon & Sunset:</strong>
-                          <p>{d.evening}</p>
+                        <div className={styles.timeBlock}>
+                          <span className={styles.timeLabel}>
+                            <Utensils size={14} style={{ marginRight: 4, verticalAlign: 'middle', color: 'var(--color-secondary)' }} />
+                            {language === 'mr' ? 'खाद्य अनुभव' : language === 'hi' ? 'खानपान' : 'Culinary'}:
+                          </span>
+                          <p>{day.food}</p>
                         </div>
-                      </div>
 
-                      <div className={styles.dayBlock}>
-                        <span className={styles.blockIcon}>
-                          <Building size={16} />
-                        </span>
-                        <div>
-                          <strong>Night Stay Recommendation:</strong>
-                          <p>{d.nightStay}</p>
+                        <div className={styles.timeBlock}>
+                          <span className={styles.timeLabel}>
+                            <Sunset size={14} style={{ marginRight: 4, verticalAlign: 'middle', color: 'var(--color-accent)' }} />
+                            {language === 'mr' ? 'संध्याकाळ' : language === 'hi' ? 'संध्या' : 'Evening'}:
+                          </span>
+                          <p>{day.evening}</p>
+                        </div>
+
+                        <div className={styles.timeBlock}>
+                          <span className={styles.timeLabel}>
+                            <Building size={14} style={{ marginRight: 4, verticalAlign: 'middle', color: 'var(--color-text-secondary)' }} />
+                            {language === 'mr' ? 'रात्रीचा मुक्काम' : language === 'hi' ? 'रात्रि विश्राम' : 'Night Stay'}:
+                          </span>
+                          <p><strong>{day.nightStay}</strong></p>
                         </div>
                       </div>
                     </div>
                   </div>
                 ))}
-              </div>
-
-              <div className={styles.itineraryFooter}>
-                <Button variant="primary" size="lg" onClick={handleSaveTrip} icon={<Backpack size={16} />}>
-                  Save & Confirm This Itinerary
-                </Button>
               </div>
             </div>
           </Container>

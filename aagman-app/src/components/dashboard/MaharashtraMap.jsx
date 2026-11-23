@@ -12,12 +12,14 @@ import {
   ArrowRight,
   Sparkles,
   X,
-  Info
+  Info,
+  Layers
 } from '../common/Icons';
 import { useLanguage } from '../../context/LanguageContext';
 import { DESTINATIONS } from '../../data/destinations';
 import {
   MAHARASHTRA_DISTRICTS,
+  MAHARASHTRA_DIVISIONS,
   PROJECTED_DESTINATIONS,
   ARABIAN_SEA_PATH,
   KONKAN_COASTLINE_PATH
@@ -25,17 +27,23 @@ import {
 import styles from './MaharashtraMap.module.css';
 
 export default function MaharashtraMap() {
-  const { language, t, getDistrictName } = useLanguage();
+  const { language, t } = useLanguage();
 
   const [activeCategory, setActiveCategory] = useState('all');
+  const [activeDivision, setActiveDivision] = useState('all');
   const [selectedDistrictId, setSelectedDistrictId] = useState(null);
   const [hoveredDistrict, setHoveredDistrict] = useState(null);
   const [selectedPinId, setSelectedPinId] = useState('raigad');
 
-  // Filter destination pins by category
-  const filteredPins = activeCategory === 'all'
-    ? PROJECTED_DESTINATIONS
-    : PROJECTED_DESTINATIONS.filter(p => p.category === activeCategory);
+  // Filter destination pins by category and optional division
+  const filteredPins = PROJECTED_DESTINATIONS.filter(pin => {
+    const matchesCategory = activeCategory === 'all' || pin.category === activeCategory;
+    if (!matchesCategory) return false;
+
+    if (activeDivision === 'all') return true;
+    const parentDistrict = MAHARASHTRA_DISTRICTS.find(d => d.id === pin.districtId);
+    return parentDistrict && parentDistrict.division.toLowerCase().includes(activeDivision.toLowerCase());
+  });
 
   // Selected destination data
   const activePin = PROJECTED_DESTINATIONS.find(p => p.id === selectedPinId) || PROJECTED_DESTINATIONS[0];
@@ -56,6 +64,20 @@ export default function MaharashtraMap() {
         );
       })
     : [];
+
+  const getDistrictDisplayName = (d) => {
+    if (!d) return '';
+    if (language === 'mr') return d.marathiName || d.name;
+    if (language === 'hi') return d.hindiName || d.name;
+    return d.name;
+  };
+
+  const getPinDisplayName = (pin) => {
+    if (!pin) return '';
+    if (language === 'mr') return pin.marathiName || pin.name;
+    if (language === 'hi') return pin.hindiName || pin.name;
+    return pin.name;
+  };
 
   const handleDistrictClick = (district) => {
     if (selectedDistrictId === district.id) {
@@ -80,6 +102,13 @@ export default function MaharashtraMap() {
 
   const handleClearSelection = () => {
     setSelectedDistrictId(null);
+  };
+
+  const handleResetFilters = () => {
+    setActiveCategory('all');
+    setActiveDivision('all');
+    setSelectedDistrictId(null);
+    setSelectedPinId('raigad');
   };
 
   return (
@@ -134,12 +163,63 @@ export default function MaharashtraMap() {
         </div>
       </div>
 
+      {/* Division Selector Sub-Bar */}
+      <div className={styles.divisionBar} role="group" aria-label="Filter by administrative division">
+        <span className={styles.divisionLabel}>
+          <Layers size={13} style={{ verticalAlign: 'middle', marginRight: 4 }} />
+          {t('filterByDivision', 'Division')}:
+        </span>
+        <button
+          type="button"
+          className={`${styles.divisionBtn} ${activeDivision === 'all' ? styles.activeDivisionBtn : ''}`}
+          onClick={() => setActiveDivision('all')}
+        >
+          {t('allDivisions', 'All Maharashtra (36 Districts)')}
+        </button>
+        <button
+          type="button"
+          className={`${styles.divisionBtn} ${activeDivision === 'Konkan' ? styles.activeDivisionBtn : ''}`}
+          onClick={() => setActiveDivision('Konkan')}
+        >
+          {language === 'mr' ? 'कोकण' : language === 'hi' ? 'कोंकण' : 'Konkan'}
+        </button>
+        <button
+          type="button"
+          className={`${styles.divisionBtn} ${activeDivision === 'Pune' ? styles.activeDivisionBtn : ''}`}
+          onClick={() => setActiveDivision('Pune')}
+        >
+          {language === 'mr' ? 'पुणे / पश्चिम महा.' : language === 'hi' ? 'पुणे संभाग' : 'Pune (Western MH)'}
+        </button>
+        <button
+          type="button"
+          className={`${styles.divisionBtn} ${activeDivision === 'Nashik' ? styles.activeDivisionBtn : ''}`}
+          onClick={() => setActiveDivision('Nashik')}
+        >
+          {language === 'mr' ? 'नाशिक / खान्देश' : language === 'hi' ? 'नासिक / खानदेश' : 'Nashik (Khandesh)'}
+        </button>
+        <button
+          type="button"
+          className={`${styles.divisionBtn} ${activeDivision === 'Chhatrapati Sambhajinagar' ? styles.activeDivisionBtn : ''}`}
+          onClick={() => setActiveDivision('Chhatrapati Sambhajinagar')}
+        >
+          {language === 'mr' ? 'छ. संभाजीनगर (मराठवाडा)' : language === 'hi' ? 'छ. संभाजीनगर (मराठवाड़ा)' : 'Marathwada'}
+        </button>
+        <button
+          type="button"
+          className={`${styles.divisionBtn} ${activeDivision === 'Amravati' || activeDivision === 'Nagpur' ? styles.activeDivisionBtn : ''}`}
+          onClick={() => setActiveDivision(activeDivision === 'Amravati' ? 'Nagpur' : 'Amravati')}
+        >
+          {language === 'mr' ? 'विदर्भ (अमरावती / नागपूर)' : language === 'hi' ? 'विदर्भ (अमरावती / नागपुर)' : 'Vidarbha'}
+        </button>
+      </div>
+
       {/* Main Map + Details Layout */}
       <div className={styles.mapLayout}>
         {/* SVG Map Section - Fixed Stationary ViewBox 0 0 1000 750 */}
         <div className={styles.svgWrapper}>
           <svg
             viewBox="0 0 1000 750"
+            preserveAspectRatio="xMidYMid meet"
             className={styles.svgMap}
             xmlns="http://www.w3.org/2000/svg"
             role="img"
@@ -148,9 +228,9 @@ export default function MaharashtraMap() {
             <defs>
               {/* Sea Water Gradient */}
               <linearGradient id="arabianSeaGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="var(--color-sea-deep, #D0E1F0)" stopOpacity="0.75" />
-                <stop offset="85%" stopColor="var(--color-sea-shallow, #E3EFF9)" stopOpacity="0.4" />
-                <stop offset="100%" stopColor="var(--color-sea-shallow, #E3EFF9)" stopOpacity="0.1" />
+                <stop offset="0%" stopColor="#C2D8EC" stopOpacity="0.8" />
+                <stop offset="70%" stopColor="#D8E8F5" stopOpacity="0.45" />
+                <stop offset="100%" stopColor="#EBF3F9" stopOpacity="0.2" />
               </linearGradient>
 
               {/* District Base Gradient */}
@@ -161,7 +241,7 @@ export default function MaharashtraMap() {
 
               {/* Soft Drop Shadow for State Boundary */}
               <filter id="boundaryShadow" x="-5%" y="-5%" width="115%" height="115%">
-                <feDropShadow dx="2" dy="4" stdDeviation="5" floodColor="#40291C" floodOpacity="0.12" />
+                <feDropShadow dx="1.5" dy="3" stdDeviation="4" floodColor="#40291C" floodOpacity="0.1" />
               </filter>
             </defs>
 
@@ -177,7 +257,7 @@ export default function MaharashtraMap() {
               <text x="0" y="0" className={styles.seaText}>
                 {language === 'mr' ? 'अरबी समुद्र' : language === 'hi' ? 'अरब सागर' : 'ARABIAN SEA'}
               </text>
-              <line x1="-30" y1="12" x2="120" y2="12" stroke="currentColor" strokeWidth="0.8" strokeDasharray="3,3" opacity="0.4" />
+              <line x1="-30" y1="12" x2="120" y2="12" stroke="currentColor" strokeWidth="0.8" strokeDasharray="3,3" opacity="0.35" />
             </g>
 
             {/* 2. All 36 Administrative District Boundaries */}
@@ -185,7 +265,8 @@ export default function MaharashtraMap() {
               {MAHARASHTRA_DISTRICTS.map((district) => {
                 const isSelected = selectedDistrictId === district.id;
                 const isHovered = hoveredDistrict?.id === district.id;
-                const hasDestinations = district.destinations.length > 0;
+                const hasDestinations = district.destinations && district.destinations.length > 0;
+                const isDivisionMatch = activeDivision === 'all' || district.division.toLowerCase().includes(activeDivision.toLowerCase());
 
                 return (
                   <path
@@ -196,11 +277,12 @@ export default function MaharashtraMap() {
                       ${isSelected ? styles.selectedDistrictPath : ''} 
                       ${isHovered ? styles.hoveredDistrictPath : ''}
                       ${hasDestinations ? styles.hasDestinationsPath : ''}
+                      ${!isDivisionMatch ? styles.dimmedDistrictPath : ''}
                     `}
                     onClick={() => handleDistrictClick(district)}
                     onMouseEnter={() => setHoveredDistrict(district)}
                     onMouseLeave={() => setHoveredDistrict(null)}
-                    aria-label={`${district.name} District`}
+                    aria-label={`${getDistrictDisplayName(district)} District`}
                     role="button"
                     tabIndex={0}
                   />
@@ -215,22 +297,25 @@ export default function MaharashtraMap() {
               className={styles.coastlineStroke}
             />
 
-            {/* 4. Major Division Watermark Labels */}
+            {/* 4. Major Division Watermark Labels (Localized) */}
             <g className={styles.divisionLabels}>
-              <text x="210" y="470" className={styles.divLabelKonkan} transform="rotate(-65 210,470)">
-                {t('konkanRegion', 'KONKAN')}
+              <text x="195" y="440" className={styles.divLabelKonkan} transform="rotate(-68 195,440)">
+                {language === 'mr' ? 'कोकण' : language === 'hi' ? 'कोंकण' : 'KONKAN'}
               </text>
-              <text x="295" y="420" className={styles.divLabel}>
-                {t('westernMhRegion', 'WESTERN MAHARASHTRA')}
+              <text x="310" y="440" className={styles.divLabel}>
+                {language === 'mr' ? 'पश्चिम महाराष्ट्र' : language === 'hi' ? 'पश्चिम महाराष्ट्र' : 'WESTERN MAHARASHTRA'}
               </text>
-              <text x="360" y="155" className={styles.divLabel}>
-                {t('khandeshRegion', 'KHANDESH')}
+              <text x="350" y="155" className={styles.divLabel}>
+                {language === 'mr' ? 'खान्देश' : language === 'hi' ? 'खानदेश' : 'KHANDESH'}
               </text>
-              <text x="500" y="275" className={styles.divLabel}>
-                {t('marathwadaRegion', 'MARATHWADA')}
+              <text x="500" y="285" className={styles.divLabel}>
+                {language === 'mr' ? 'मराठवाडा' : language === 'hi' ? 'मराठवाड़ा' : 'MARATHWADA'}
               </text>
-              <text x="730" y="235" className={styles.divLabel}>
-                {t('vidarbhaRegion', 'VIDARBHA')}
+              <text x="670" y="220" className={styles.divLabel}>
+                {language === 'mr' ? 'पश्चिम विदर्भ' : language === 'hi' ? 'पश्चिम विदर्भ' : 'WEST VIDARBHA'}
+              </text>
+              <text x="815" y="220" className={styles.divLabel}>
+                {language === 'mr' ? 'पूर्व विदर्भ' : language === 'hi' ? 'पूर्व विदर्भ' : 'EAST VIDARBHA'}
               </text>
             </g>
 
@@ -248,17 +333,17 @@ export default function MaharashtraMap() {
                     cursor="pointer"
                     role="button"
                     tabIndex={0}
-                    aria-label={pin.name}
+                    aria-label={getPinDisplayName(pin)}
                   >
                     {/* Outer halo */}
                     <circle
-                      r={isSelected ? 14 : 9}
+                      r={isSelected ? 13 : 8}
                       className={styles.pinHalo}
                     />
 
                     {/* Core pin dot */}
                     <circle
-                      r={isSelected ? 7 : 5}
+                      r={isSelected ? 6.5 : 4.5}
                       className={styles.pinCenter}
                     />
 
@@ -266,10 +351,10 @@ export default function MaharashtraMap() {
                     {isSelected && (
                       <g className={styles.activePinLabelGroup}>
                         <text y="-14" textAnchor="middle" className={styles.pinTextShadow}>
-                          {language === 'mr' ? pin.marathiName : pin.name}
+                          {getPinDisplayName(pin)}
                         </text>
                         <text y="-14" textAnchor="middle" className={styles.pinText}>
-                          {language === 'mr' ? pin.marathiName : pin.name}
+                          {getPinDisplayName(pin)}
                         </text>
                       </g>
                     )}
@@ -285,26 +370,13 @@ export default function MaharashtraMap() {
               {hoveredDistrict ? (
                 <span>
                   <Compass size={13} style={{ verticalAlign: 'middle', marginRight: 4 }} />
-                  <strong>
-                    {language === 'mr'
-                      ? hoveredDistrict.marathiName
-                      : language === 'hi'
-                      ? hoveredDistrict.hindiName
-                      : hoveredDistrict.name}
-                  </strong>{' '}
+                  <strong>{getDistrictDisplayName(hoveredDistrict)}</strong>{' '}
                   ({hoveredDistrict.division} {t('divisionName', 'Division')})
                 </span>
               ) : selectedDistrict ? (
                 <span>
                   <MapPin size={13} style={{ verticalAlign: 'middle', marginRight: 4 }} />
-                  {t('selectedDistrict', 'Selected')}:{' '}
-                  <strong>
-                    {language === 'mr'
-                      ? selectedDistrict.marathiName
-                      : language === 'hi'
-                      ? selectedDistrict.hindiName
-                      : selectedDistrict.name}
-                  </strong>
+                  {t('selectedDistrict', 'Selected')}: <strong>{getDistrictDisplayName(selectedDistrict)}</strong>
                 </span>
               ) : (
                 <span className={styles.hintText}>
@@ -314,14 +386,14 @@ export default function MaharashtraMap() {
               )}
             </div>
 
-            {selectedDistrictId && (
+            {(selectedDistrictId || activeCategory !== 'all' || activeDivision !== 'all') && (
               <button
                 type="button"
                 className={styles.clearBtn}
-                onClick={handleClearSelection}
-                title={t('clearSelection', 'Clear Selection')}
+                onClick={handleResetFilters}
+                title={t('resetMap', 'Reset Map View')}
               >
-                <X size={12} /> {t('clearSelection', 'Clear Selection')}
+                <X size={12} /> {t('resetMap', 'Reset Map View')}
               </button>
             )}
           </div>
@@ -329,7 +401,7 @@ export default function MaharashtraMap() {
 
         {/* Selected Destination / District Preview Card (Stationary) */}
         <div className={styles.previewPanel}>
-          {/* If a District with multiple destinations is selected, show District Explorer Banner */}
+          {/* If a District is selected, show District Explorer Banner */}
           {selectedDistrict && (
             <div className={styles.districtCard}>
               <div className={styles.districtCardHeader}>
@@ -338,12 +410,7 @@ export default function MaharashtraMap() {
                     {selectedDistrict.division} {t('divisionName', 'Division')}
                   </span>
                   <h4 className={styles.districtTitle}>
-                    {language === 'mr'
-                      ? selectedDistrict.marathiName
-                      : language === 'hi'
-                      ? selectedDistrict.hindiName
-                      : selectedDistrict.name}{' '}
-                    {t('districtName', 'District')}
+                    {getDistrictDisplayName(selectedDistrict)} {t('districtName', 'District')}
                   </h4>
                   <p className={styles.districtHq}>
                     {t('headquarters', 'Headquarters')}: {selectedDistrict.headquarters}
@@ -372,14 +439,14 @@ export default function MaharashtraMap() {
                         className={`${styles.districtDestChip} ${activePin?.slug === dest.slug ? styles.activeChip : ''}`}
                         onClick={() => setSelectedPinId(dest.slug)}
                       >
-                        {dest.name}
+                        {language === 'mr' ? dest.marathiName || dest.name : dest.name}
                       </button>
                     ))}
                   </div>
                 </div>
               ) : (
                 <p className={styles.noDestText}>
-                  {t('noDestDestinationsInDistrict', 'No major listed destinations in this district yet. Check regional circuits!')}
+                  {t('noDestinationsInDistrict', 'No major listed destinations in this district yet. Check regional circuits!')}
                 </p>
               )}
             </div>
@@ -390,13 +457,17 @@ export default function MaharashtraMap() {
             <div className={styles.destinationCard}>
               <div className={styles.cardMedia}>
                 <img
-                  src={matchedDestination.thumbnail || matchedDestination.heroImage}
+                  src={matchedDestination.thumbnail || matchedDestination.heroImage || '/assets/homepage/hero/raigad-banner.jpg'}
                   alt={matchedDestination.name}
                   className={styles.cardImage}
+                  onError={(e) => {
+                    e.currentTarget.onerror = null;
+                    e.currentTarget.src = 'https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=800&q=80';
+                  }}
                 />
                 <span className={styles.cardCategory}>
                   <Badge variant={matchedDestination.category} size="sm">
-                    {matchedDestination.category.toUpperCase()}
+                    {t(matchedDestination.category, matchedDestination.category.toUpperCase())}
                   </Badge>
                 </span>
               </div>
@@ -411,8 +482,12 @@ export default function MaharashtraMap() {
                   </span>
                 </div>
 
-                <h4 className={styles.cardTitle}>{matchedDestination.name}</h4>
-                <p className={styles.cardMarathi}>{matchedDestination.marathiName}</p>
+                <h4 className={styles.cardTitle}>
+                  {language === 'mr' ? matchedDestination.marathiName || matchedDestination.name : matchedDestination.name}
+                </h4>
+                {language !== 'mr' && matchedDestination.marathiName && (
+                  <p className={styles.cardMarathi}>{matchedDestination.marathiName}</p>
+                )}
                 <p className={styles.cardSummary}>{matchedDestination.summary}</p>
 
                 <div className={styles.cardDetailsGrid}>

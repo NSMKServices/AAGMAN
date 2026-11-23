@@ -37,6 +37,8 @@ import AdminForgotPasswordPage from '../pages/admin/AdminForgotPasswordPage';
 import AdminResetPasswordPage from '../pages/admin/AdminResetPasswordPage';
 import AdminDashboardPage from '../pages/admin/AdminDashboardPage';
 import AdminContentPage from '../pages/admin/AdminContentPage';
+import AdminVideosPage from '../pages/admin/AdminVideosPage';
+import AdminAuditLogsPage from '../pages/admin/AdminAuditLogsPage';
 import AdminUsersPage from '../pages/admin/AdminUsersPage';
 import AdminSettingsPage from '../pages/admin/AdminSettingsPage';
 
@@ -105,6 +107,14 @@ export const router = createBrowserRouter([
           { index: true, element: <AdminDashboardPage /> },
           { path: 'destinations', element: <AdminContentPage category="destinations" /> },
           { path: 'festivals', element: <AdminContentPage category="festivals" /> },
+          { path: 'videos', element: <AdminVideosPage /> },
+          // Content Managers and Super Admins
+          {
+            element: <AdminProtectedRoute allowedRoles={['super_admin', 'content_manager']} />,
+            children: [
+              { path: 'audit-logs', element: <AdminAuditLogsPage /> }
+            ]
+          },
           // Super Admin Only Protected Sub-tree
           {
             element: <AdminProtectedRoute allowedRoles={['super_admin']} />,

@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Button from '../components/common/Button';
 import { useAuth } from '../context/AuthContext';
+import { useLanguage } from '../context/LanguageContext';
 import { Castle, Sparkles } from '../components/common/Icons';
 import styles from './Auth.module.css';
 
 export default function RegisterPage() {
   const navigate = useNavigate();
   const { register } = useAuth();
+  const { language, t } = useLanguage();
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -26,15 +28,15 @@ export default function RegisterPage() {
           <span className={styles.brandSymbol}>
             <Castle size={32} color="var(--color-gold)" />
           </span>
-          <h1 className={styles.authTitle}>Join AAGMAN</h1>
+          <h1 className={styles.authTitle}>{t('registerTitle', 'Join AAGMAN')}</h1>
           <p className={styles.authSubtitle}>
-            Create your traveler account to explore Maharashtra's sacred temples, historic forts, and pristine coastlines.
+            {t('registerSub', 'Create your traveler account to explore Maharashtra\'s sacred temples, historic forts, and pristine coastlines.')}
           </p>
         </div>
 
         <form onSubmit={handleSubmit} className={styles.authForm}>
           <div className={styles.formGroup}>
-            <label className={styles.label}>Full Name:</label>
+            <label className={styles.label}>{t('nameLabel', 'Full Name')}:</label>
             <input
               type="text"
               value={fullName}
@@ -46,7 +48,7 @@ export default function RegisterPage() {
           </div>
 
           <div className={styles.formGroup}>
-            <label className={styles.label}>Email Address:</label>
+            <label className={styles.label}>{t('emailLabel', 'Email Address')}:</label>
             <input
               type="email"
               value={email}
@@ -58,7 +60,7 @@ export default function RegisterPage() {
           </div>
 
           <div className={styles.formGroup}>
-            <label className={styles.label}>Password:</label>
+            <label className={styles.label}>{t('passwordLabel', 'Password')}:</label>
             <input
               type="password"
               value={password}
@@ -70,7 +72,7 @@ export default function RegisterPage() {
           </div>
 
           <div className={styles.formGroup}>
-            <label className={styles.label}>Home Base City:</label>
+            <label className={styles.label}>{language === 'mr' ? 'मूळ शहर' : language === 'hi' ? 'गृह नगर' : 'Home Base City'}:</label>
             <select
               className={styles.select}
               value={homeCity}
@@ -80,26 +82,25 @@ export default function RegisterPage() {
               <option value="Mumbai">Mumbai</option>
               <option value="Nashik">Nashik</option>
               <option value="Chhatrapati Sambhajinagar">Chhatrapati Sambhajinagar</option>
-              <option value="Kolhapur">Kolhapur</option>
               <option value="Nagpur">Nagpur</option>
+              <option value="Kolhapur">Kolhapur</option>
             </select>
           </div>
 
-          <Button
-            type="submit"
-            variant="primary"
-            className={styles.submitBtn}
-            icon={<Sparkles size={16} />}
-          >
-            Register & Start Exploring
-          </Button>
+          <div className={styles.formActions}>
+            <Button type="submit" variant="primary" size="lg" className={styles.submitBtn}>
+              {t('registerButton', 'Create Free Account')}
+            </Button>
+          </div>
         </form>
 
         <div className={styles.authFooter}>
-          Already have an account?{' '}
-          <Link to="/login" className={styles.authLink}>
-            Sign In Here
-          </Link>
+          <p>
+            {t('alreadyHaveAccount', 'Already have an account?')}{' '}
+            <Link to="/login" className={styles.authLink}>
+              {t('signInNow', 'Sign In Now')}
+            </Link>
+          </p>
         </div>
       </div>
     </div>

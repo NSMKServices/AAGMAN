@@ -1,16 +1,13 @@
 /**
- * AAGMAN - Accurate Maharashtra Geospatial Atlas & Administrative Boundaries
+ * AAGMAN - High-Precision Maharashtra Geospatial Atlas & Administrative Boundaries
  * 
- * Geographic Bounding Box:
- * Latitude: 15.60° N – 22.05° N
- * Longitude: 72.45° E – 80.95° E
- * SVG Viewport: 0 0 1000 750
- * 
- * Includes:
- * 1. Mathematically projected real lat/lng coordinates (Mercator / Equirectangular).
- * 2. All 36 administrative districts of Maharashtra with verified Marathi and Hindi Devanagari names.
- * 3. Western Konkan coastline with realistic Arabian Sea bathymetric representation.
- * 4. Automatic pin positioning from destination lat/long coordinates.
+ * Geographically calibrated from official Census & GIS boundary datasets.
+ * Features:
+ * 1. All 36 administrative districts of Maharashtra across 6 revenue divisions.
+ * 2. Mathematically projected lat/lng coordinates (Mercator / Equirectangular) into a fixed 1000x750 SVG viewport.
+ * 3. Western Konkan coastline with accurate Arabian Sea coverage.
+ * 4. Zero unwanted movement, zero auto-pan, zero layout jitter.
+ * 5. Complete trilingual support (English, Marathi, Hindi).
  */
 
 export const MAHARASHTRA_PROJECTION = {
@@ -33,594 +30,828 @@ export const MAHARASHTRA_PROJECTION = {
   }
 };
 
-/**
- * 36 Administrative Districts of Maharashtra
- * Grouped across the 6 Revenue Divisions:
- * - Konkan (7)
- * - Pune / Paschim Maharashtra (5)
- * - Nashik / Khandesh (5)
- * - Chhatrapati Sambhajinagar / Marathwada (8)
- * - Amravati / West Vidarbha (5)
- * - Nagpur / East Vidarbha (6)
- */
-export const MAHARASHTRA_DISTRICTS = [
-  // ==========================================
-  // KONKAN DIVISION (7 Districts)
-  // ==========================================
+export const MAHARASHTRA_DIVISIONS = [
   {
-    id: "palghar",
-    name: "Palghar",
-    marathiName: "पालघर",
-    hindiName: "पालघर",
-    division: "Konkan",
-    headquarters: "Palghar",
-    lat: 19.85,
-    lng: 72.90,
-    destinations: [],
-    svgPath: "M 185,225 L 215,220 L 235,240 L 230,285 L 195,290 L 185,255 Z"
+    "id": "all",
+    "name": "All Maharashtra",
+    "marathiName": "संपूर्ण महाराष्ट्र",
+    "hindiName": "संपूर्ण महाराष्ट्र"
   },
   {
-    id: "thane",
-    name: "Thane",
-    marathiName: "ठाणे",
-    hindiName: "ठाणे",
-    division: "Konkan",
-    headquarters: "Thane",
-    lat: 19.30,
-    lng: 73.15,
-    destinations: [],
-    svgPath: "M 195,290 L 230,285 L 250,310 L 235,355 L 205,350 L 195,320 Z"
+    "id": "Konkan",
+    "name": "Konkan Division",
+    "marathiName": "कोकण विभाग",
+    "hindiName": "कोंकण संभाग",
+    "districtsCount": 7
   },
   {
-    id: "mumbai-suburban",
-    name: "Mumbai Suburban",
-    marathiName: "मुंबई उपनगर",
-    hindiName: "मुंबई उपनगर",
-    division: "Konkan",
-    headquarters: "Bandra",
-    lat: 19.12,
-    lng: 72.87,
-    destinations: [],
-    svgPath: "M 190,320 L 205,320 L 205,350 L 190,350 Z"
+    "id": "Pune",
+    "name": "Pune (Paschim Maharashtra)",
+    "marathiName": "पुणे विभाग (पश्चिम महाराष्ट्र)",
+    "hindiName": "पुणे संभाग (पश्चिम महाराष्ट्र)",
+    "districtsCount": 5
   },
   {
-    id: "mumbai-city",
-    name: "Mumbai City",
-    marathiName: "मुंबई शहर",
-    hindiName: "मुंबई शहर",
-    division: "Konkan",
-    headquarters: "Mumbai",
-    lat: 18.94,
-    lng: 72.83,
-    destinations: ["csmt-station", "elephanta-caves"],
-    svgPath: "M 188,350 L 205,350 L 203,375 L 188,375 Z"
+    "id": "Nashik",
+    "name": "Nashik (Khandesh)",
+    "marathiName": "नाशिक विभाग (खान्देश)",
+    "hindiName": "नासिक संभाग (खानदेश)",
+    "districtsCount": 5
   },
   {
-    id: "raigad",
-    name: "Raigad",
-    marathiName: "रायगड",
-    hindiName: "रायगढ़",
-    division: "Konkan",
-    headquarters: "Alibaug",
-    lat: 18.40,
-    lng: 73.15,
-    destinations: ["raigad", "murud-janjira", "kashid"],
-    svgPath: "M 195,370 L 235,355 L 255,390 L 245,460 L 210,460 L 198,400 Z"
+    "id": "Chhatrapati Sambhajinagar",
+    "name": "Chhatrapati Sambhajinagar (Marathwada)",
+    "marathiName": "छत्रपती संभाजीनगर विभाग (मराठवाडा)",
+    "hindiName": "छत्रपति संभाजीनगर संभाग (मराठवाड़ा)",
+    "districtsCount": 8
   },
   {
-    id: "ratnagiri",
-    name: "Ratnagiri",
-    marathiName: "रत्नागिरी",
-    hindiName: "रत्नागिरी",
-    division: "Konkan",
-    headquarters: "Ratnagiri",
-    lat: 17.20,
-    lng: 73.40,
-    destinations: ["ganpatipule"],
-    svgPath: "M 210,460 L 245,460 L 255,530 L 250,590 L 230,590 L 220,530 Z"
+    "id": "Amravati",
+    "name": "Amravati (West Vidarbha)",
+    "marathiName": "अमरावती विभाग (पश्चिम विदर्भ)",
+    "hindiName": "अमरावती संभाग (पश्चिम विदर्भ)",
+    "districtsCount": 5
   },
   {
-    id: "sindhudurg",
-    name: "Sindhudurg",
-    marathiName: "सिंधुदुर्ग",
-    hindiName: "सिंधुदुर्ग",
-    division: "Konkan",
-    headquarters: "Oros",
-    lat: 16.15,
-    lng: 73.70,
-    destinations: ["sindhudurg", "tarkarli"],
-    svgPath: "M 230,590 L 250,590 L 270,615 L 275,680 L 255,680 L 240,640 Z"
-  },
-
-  // ==========================================
-  // PUNE DIVISION / PASCHIM MAHARASHTRA (5 Districts)
-  // ==========================================
-  {
-    id: "pune",
-    name: "Pune",
-    marathiName: "पुणे",
-    hindiName: "पुणे",
-    division: "Pune",
-    headquarters: "Pune",
-    lat: 18.65,
-    lng: 74.00,
-    destinations: ["sinhagad", "shivneri", "rajgad", "torna", "lohagad-visapur", "mayureshwar"],
-    svgPath: "M 250,310 L 285,305 L 340,360 L 325,435 L 255,420 L 235,355 Z"
-  },
-  {
-    id: "satara",
-    name: "Satara",
-    marathiName: "सातारा",
-    hindiName: "सातारा",
-    division: "Pune",
-    headquarters: "Satara",
-    lat: 17.70,
-    lng: 74.10,
-    destinations: ["pratapgad"],
-    svgPath: "M 245,430 L 325,435 L 320,495 L 265,510 L 245,460 Z"
-  },
-  {
-    id: "kolhapur",
-    name: "Kolhapur",
-    marathiName: "कोल्हापूर",
-    hindiName: "कोल्हापुर",
-    division: "Pune",
-    headquarters: "Kolhapur",
-    lat: 16.65,
-    lng: 74.25,
-    destinations: ["panhala"],
-    svgPath: "M 265,510 L 305,510 L 310,580 L 285,630 L 260,630 L 255,540 Z"
-  },
-  {
-    id: "sangli",
-    name: "Sangli",
-    marathiName: "सांगली",
-    hindiName: "सांगली",
-    division: "Pune",
-    headquarters: "Sangli",
-    lat: 17.10,
-    lng: 74.75,
-    destinations: [],
-    svgPath: "M 305,505 L 365,500 L 360,570 L 310,580 L 305,510 Z"
-  },
-  {
-    id: "solapur",
-    name: "Solapur",
-    marathiName: "सोलापूर",
-    hindiName: "सोलापुर",
-    division: "Pune",
-    headquarters: "Solapur",
-    lat: 17.75,
-    lng: 75.50,
-    destinations: ["pandharpur"],
-    svgPath: "M 325,435 L 420,430 L 440,500 L 365,530 L 320,495 Z"
-  },
-
-  // ==========================================
-  // NASHIK DIVISION / KHANDESH (5 Districts)
-  // ==========================================
-  {
-    id: "nandurbar",
-    name: "Nandurbar",
-    marathiName: "नंदुरबार",
-    hindiName: "नंदुरबार",
-    division: "Nashik",
-    headquarters: "Nandurbar",
-    lat: 21.60,
-    lng: 74.20,
-    destinations: [],
-    svgPath: "M 265,80 L 325,75 L 320,135 L 260,140 Z"
-  },
-  {
-    id: "dhule",
-    name: "Dhule",
-    marathiName: "धुळे",
-    hindiName: "धुले",
-    division: "Nashik",
-    headquarters: "Dhule",
-    lat: 21.05,
-    lng: 74.75,
-    destinations: [],
-    svgPath: "M 320,125 L 375,120 L 370,185 L 315,190 L 315,140 Z"
-  },
-  {
-    id: "jalgaon",
-    name: "Jalgaon",
-    marathiName: "जळगाव",
-    hindiName: "जलगांव",
-    division: "Nashik",
-    headquarters: "Jalgaon",
-    lat: 21.00,
-    lng: 75.55,
-    destinations: [],
-    svgPath: "M 375,120 L 475,115 L 465,185 L 370,185 Z"
-  },
-  {
-    id: "nashik",
-    name: "Nashik",
-    marathiName: "नाशिक",
-    hindiName: "नासिक",
-    division: "Nashik",
-    headquarters: "Nashik",
-    lat: 20.00,
-    lng: 73.90,
-    destinations: ["trimbakeshwar"],
-    svgPath: "M 230,225 L 315,190 L 365,225 L 325,290 L 245,295 Z"
-  },
-  {
-    id: "ahmednagar",
-    name: "Ahmednagar (Ahilyanagar)",
-    marathiName: "अहिल्यानगर (अहमदनगर)",
-    hindiName: "अहिल्यानगर (अहमदनगर)",
-    division: "Nashik",
-    headquarters: "Ahilyanagar",
-    lat: 19.20,
-    lng: 74.70,
-    destinations: ["harishchandragad", "kalsubai", "shirdi"],
-    svgPath: "M 315,255 L 365,225 L 420,270 L 405,370 L 340,360 L 315,290 Z"
-  },
-
-  // ==========================================
-  // CHHATRAPATI SAMBHAJINAGAR / MARATHWADA (8 Districts)
-  // ==========================================
-  {
-    id: "chhatrapati-sambhajinagar",
-    name: "Chhatrapati Sambhajinagar",
-    marathiName: "छत्रपती संभाजीनगर",
-    hindiName: "छत्रपति संभाजीनगर",
-    division: "Chhatrapati Sambhajinagar",
-    headquarters: "Chhatrapati Sambhajinagar",
-    lat: 20.00,
-    lng: 75.35,
-    destinations: ["ajanta-caves", "ellora-caves"],
-    svgPath: "M 365,215 L 445,200 L 460,265 L 410,280 L 365,245 Z"
-  },
-  {
-    id: "jalna",
-    name: "Jalna",
-    marathiName: "जालना",
-    hindiName: "जालना",
-    division: "Chhatrapati Sambhajinagar",
-    headquarters: "Jalna",
-    lat: 19.85,
-    lng: 75.90,
-    destinations: [],
-    svgPath: "M 445,200 L 500,205 L 505,275 L 455,270 Z"
-  },
-  {
-    id: "parbhani",
-    name: "Parbhani",
-    marathiName: "परभणी",
-    hindiName: "परभणी",
-    division: "Chhatrapati Sambhajinagar",
-    headquarters: "Parbhani",
-    lat: 19.25,
-    lng: 76.75,
-    destinations: [],
-    svgPath: "M 500,270 L 565,270 L 555,340 L 495,335 Z"
-  },
-  {
-    id: "hingoli",
-    name: "Hingoli",
-    marathiName: "हिंगोली",
-    hindiName: "हिंगोली",
-    division: "Chhatrapati Sambhajinagar",
-    headquarters: "Hingoli",
-    lat: 19.70,
-    lng: 77.15,
-    destinations: [],
-    svgPath: "M 545,225 L 595,225 L 585,280 L 540,280 Z"
-  },
-  {
-    id: "nanded",
-    name: "Nanded",
-    marathiName: "नांदेड",
-    hindiName: "नांदेड़",
-    division: "Chhatrapati Sambhajinagar",
-    headquarters: "Nanded",
-    lat: 19.15,
-    lng: 77.30,
-    destinations: [],
-    svgPath: "M 555,280 L 635,275 L 625,365 L 555,355 Z"
-  },
-  {
-    id: "beed",
-    name: "Beed",
-    marathiName: "बीड",
-    hindiName: "बीड",
-    division: "Chhatrapati Sambhajinagar",
-    headquarters: "Beed",
-    lat: 19.00,
-    lng: 75.75,
-    destinations: [],
-    svgPath: "M 410,280 L 485,275 L 490,360 L 420,365 Z"
-  },
-  {
-    id: "latur",
-    name: "Latur",
-    marathiName: "लातूर",
-    hindiName: "लातूर",
-    division: "Chhatrapati Sambhajinagar",
-    headquarters: "Latur",
-    lat: 18.40,
-    lng: 76.60,
-    destinations: [],
-    svgPath: "M 485,360 L 555,355 L 545,430 L 480,425 Z"
-  },
-  {
-    id: "dharashiv",
-    name: "Dharashiv (Osmanabad)",
-    marathiName: "धाराशिव (उस्मानाबाद)",
-    hindiName: "धाराशिव (उस्मानाबाद)",
-    division: "Chhatrapati Sambhajinagar",
-    headquarters: "Dharashiv",
-    lat: 18.20,
-    lng: 75.90,
-    destinations: [],
-    svgPath: "M 425,370 L 485,365 L 480,435 L 435,440 Z"
-  },
-
-  // ==========================================
-  // AMRAVATI DIVISION / WEST VIDARBHA (5 Districts)
-  // ==========================================
-  {
-    id: "buldhana",
-    name: "Buldhana",
-    marathiName: "बुलढाणा",
-    hindiName: "बुलढाणा",
-    division: "Amravati",
-    headquarters: "Buldhana",
-    lat: 20.55,
-    lng: 76.35,
-    destinations: [],
-    svgPath: "M 470,135 L 535,130 L 530,225 L 470,220 Z"
-  },
-  {
-    id: "akola",
-    name: "Akola",
-    marathiName: "अकोला",
-    hindiName: "अकोला",
-    division: "Amravati",
-    headquarters: "Akola",
-    lat: 20.70,
-    lng: 77.05,
-    destinations: [],
-    svgPath: "M 535,135 L 585,135 L 580,210 L 535,210 Z"
-  },
-  {
-    id: "washim",
-    name: "Washim",
-    marathiName: "वाशीम",
-    hindiName: "वाशिम",
-    division: "Amravati",
-    headquarters: "Washim",
-    lat: 20.10,
-    lng: 77.10,
-    destinations: [],
-    svgPath: "M 535,210 L 585,210 L 575,270 L 530,270 Z"
-  },
-  {
-    id: "amravati",
-    name: "Amravati",
-    marathiName: "अमरावती",
-    hindiName: "अमरावती",
-    division: "Amravati",
-    headquarters: "Amravati",
-    lat: 21.25,
-    lng: 77.75,
-    destinations: [],
-    svgPath: "M 580,95 L 665,95 L 655,190 L 580,185 Z"
-  },
-  {
-    id: "yavatmal",
-    name: "Yavatmal",
-    marathiName: "यवतमाळ",
-    hindiName: "यवतमाल",
-    division: "Amravati",
-    headquarters: "Yavatmal",
-    lat: 20.15,
-    lng: 78.10,
-    destinations: [],
-    svgPath: "M 580,195 L 655,190 L 660,270 L 595,275 Z"
-  },
-
-  // ==========================================
-  // NAGPUR DIVISION / EAST VIDARBHA (6 Districts)
-  // ==========================================
-  {
-    id: "wardha",
-    name: "Wardha",
-    marathiName: "वर्धा",
-    hindiName: "वर्धा",
-    division: "Nagpur",
-    headquarters: "Wardha",
-    lat: 20.75,
-    lng: 78.60,
-    destinations: [],
-    svgPath: "M 655,160 L 710,155 L 705,225 L 655,220 Z"
-  },
-  {
-    id: "nagpur",
-    name: "Nagpur",
-    marathiName: "नागपूर",
-    hindiName: "नागपुर",
-    division: "Nagpur",
-    headquarters: "Nagpur",
-    lat: 21.15,
-    lng: 79.10,
-    destinations: [],
-    svgPath: "M 705,105 L 775,100 L 770,175 L 705,175 Z"
-  },
-  {
-    id: "bhandara",
-    name: "Bhandara",
-    marathiName: "भंडारा",
-    hindiName: "भंडारा",
-    division: "Nagpur",
-    headquarters: "Bhandara",
-    lat: 21.15,
-    lng: 79.75,
-    destinations: [],
-    svgPath: "M 775,105 L 825,105 L 820,175 L 775,175 Z"
-  },
-  {
-    id: "gondia",
-    name: "Gondia",
-    marathiName: "गोंदिया",
-    hindiName: "गोंदिया",
-    division: "Nagpur",
-    headquarters: "Gondia",
-    lat: 21.40,
-    lng: 80.25,
-    destinations: [],
-    svgPath: "M 825,85 L 885,85 L 880,170 L 820,170 Z"
-  },
-  {
-    id: "chandrapur",
-    name: "Chandrapur",
-    marathiName: "चंद्रपूर",
-    hindiName: "चंद्रपूर",
-    division: "Nagpur",
-    headquarters: "Chandrapur",
-    lat: 19.95,
-    lng: 79.30,
-    destinations: [],
-    svgPath: "M 685,215 L 775,210 L 770,310 L 680,305 Z"
-  },
-  {
-    id: "gadchiroli",
-    name: "Gadchiroli",
-    marathiName: "गडचिरोली",
-    hindiName: "गढ़चिरोली",
-    division: "Nagpur",
-    headquarters: "Gadchiroli",
-    lat: 19.50,
-    lng: 80.20,
-    destinations: [],
-    svgPath: "M 775,175 L 885,175 L 890,345 L 770,340 Z"
+    "id": "Nagpur",
+    "name": "Nagpur (East Vidarbha)",
+    "marathiName": "नागपूर विभाग (पूर्व विदर्भ)",
+    "hindiName": "नागपुर संभाग (पूर्व विदर्भ)",
+    "districtsCount": 6
   }
 ];
 
-/**
- * Arabian Sea Path (Western Ocean representation)
- * Covers the entire western expanse with an organic coastline indentation
- */
-export const ARABIAN_SEA_PATH = `
-  M 0,0 
-  L 185,0 
-  L 185,225 
-  L 190,290 
-  L 188,350 
-  L 188,375 
-  L 198,400 
-  L 210,460 
-  L 220,530 
-  L 230,590 
-  L 240,640 
-  L 275,680 
-  L 275,750 
-  L 0,750 
-  Z
-`;
+export const MAHARASHTRA_DISTRICTS = [
+  {
+    "id": "palghar",
+    "name": "Palghar",
+    "marathiName": "पालघर",
+    "hindiName": "पालघर",
+    "division": "Konkan",
+    "headquarters": "Palghar",
+    "lat": 19.6967,
+    "lng": 72.7655,
+    "destinations": [],
+    "svgPath": "M 233,250 L 233,251 L 237,251 L 237,255 L 237,255 L 237,255 L 237,256 L 241,256 L 242,258 L 246,258 L 247,262 L 249,262 L 250,264 L 248,265 L 248,267 L 247,268 L 248,273 L 246,274 L 246,274 L 247,276 L 249,277 L 249,282 L 249,283 L 249,283 L 249,283 L 254,284 L 254,284 L 254,286 L 254,286 L 253,287 L 253,287 L 253,287 L 252,287 L 252,286 L 252,287 L 249,288 L 248,289 L 246,289 L 246,290 L 243,290 L 241,292 L 240,290 L 239,290 L 238,292 L 235,290 L 233,294 L 235,297 L 232,296 L 231,298 L 230,298 L 230,299 L 227,299 L 228,303 L 224,307 L 221,307 L 221,309 L 214,311 L 213,309 L 212,310 L 211,308 L 209,309 L 208,310 L 208,312 L 211,314 L 211,315 L 210,315 L 209,317 L 207,318 L 207,319 L 205,319 L 205,321 L 204,325 L 204,325 L 206,329 L 203,330 L 203,330 L 202,330 L 200,330 L 200,330 L 196,327 L 191,328 L 191,328 L 191,328 L 191,326 L 189,321 L 189,323 L 188,321 L 189,318 L 188,319 L 186,313 L 189,310 L 188,308 L 184,305 L 185,303 L 184,302 L 184,300 L 187,299 L 186,300 L 188,299 L 188,301 L 189,299 L 190,300 L 190,299 L 189,299 L 190,298 L 189,296 L 188,299 L 187,298 L 186,299 L 185,299 L 185,296 L 187,297 L 187,295 L 185,295 L 185,296 L 184,295 L 184,296 L 183,291 L 184,290 L 182,287 L 183,287 L 183,286 L 182,286 L 181,284 L 182,280 L 180,278 L 181,277 L 179,278 L 178,276 L 179,275 L 181,275 L 180,274 L 181,273 L 181,274 L 182,274 L 182,272 L 182,273 L 181,272 L 181,273 L 181,269 L 180,270 L 179,267 L 181,266 L 181,264 L 184,263 L 183,264 L 185,265 L 184,266 L 185,268 L 186,268 L 185,269 L 186,270 L 187,268 L 188,272 L 188,270 L 189,270 L 188,266 L 189,266 L 189,265 L 187,265 L 187,264 L 189,264 L 188,262 L 186,262 L 186,263 L 186,261 L 185,263 L 185,261 L 184,263 L 184,261 L 183,253 L 185,251 L 186,248 L 189,247 L 191,248 L 190,246 L 192,245 L 193,246 L 193,242 L 195,242 L 194,241 L 195,240 L 197,240 L 197,238 L 198,238 L 206,240 L 206,242 L 207,243 L 206,248 L 207,249 L 209,249 L 209,246 L 210,247 L 209,249 L 213,254 L 214,254 L 214,251 L 215,251 L 218,251 L 219,253 L 221,252 L 224,255 L 226,255 L 226,253 L 228,252 L 228,248 L 229,247 L 229,248 L 231,248 L 232,249 L 233,250 Z M 209,239 L 207,239 L 207,237 L 210,238 L 209,239 Z"
+  },
+  {
+    "id": "thane",
+    "name": "Thane",
+    "marathiName": "ठाणे",
+    "hindiName": "ठाणे",
+    "division": "Konkan",
+    "headquarters": "Thane",
+    "lat": 19.2183,
+    "lng": 72.9781,
+    "destinations": [],
+    "svgPath": "M 253,287 L 256,289 L 255,290 L 256,290 L 258,294 L 259,295 L 260,297 L 261,298 L 261,299 L 262,299 L 264,300 L 264,300 L 264,301 L 265,302 L 265,305 L 266,306 L 268,305 L 269,308 L 270,308 L 270,307 L 271,309 L 273,310 L 273,311 L 269,313 L 271,316 L 274,316 L 274,317 L 277,319 L 278,320 L 279,320 L 279,320 L 280,323 L 280,326 L 278,324 L 278,326 L 276,326 L 276,325 L 269,328 L 269,329 L 269,330 L 271,332 L 271,333 L 271,333 L 268,335 L 265,338 L 265,337 L 264,337 L 263,339 L 257,340 L 257,342 L 257,343 L 258,344 L 258,346 L 256,345 L 256,345 L 255,345 L 252,345 L 249,345 L 241,345 L 237,348 L 238,350 L 236,351 L 236,350 L 234,350 L 232,352 L 227,346 L 227,346 L 226,346 L 225,347 L 223,347 L 222,346 L 221,347 L 216,347 L 214,348 L 214,348 L 213,348 L 213,356 L 212,358 L 209,359 L 205,359 L 207,354 L 206,349 L 207,343 L 206,341 L 203,339 L 201,334 L 197,332 L 195,332 L 193,334 L 190,332 L 190,328 L 191,328 L 191,328 L 191,328 L 196,327 L 200,330 L 200,330 L 202,330 L 203,330 L 203,330 L 206,329 L 204,325 L 204,325 L 205,321 L 205,319 L 207,319 L 207,318 L 209,317 L 210,315 L 211,315 L 211,314 L 208,312 L 208,310 L 209,309 L 211,308 L 212,310 L 213,309 L 214,311 L 221,309 L 221,307 L 224,307 L 228,303 L 227,299 L 230,299 L 230,298 L 231,298 L 232,296 L 235,297 L 233,294 L 235,290 L 238,292 L 239,290 L 240,290 L 241,292 L 243,290 L 246,290 L 246,289 L 248,289 L 249,288 L 252,287 L 252,286 L 252,287 L 253,287 Z"
+  },
+  {
+    "id": "mumbai-suburban",
+    "name": "Mumbai Suburban",
+    "marathiName": "मुंबई उपनगर",
+    "hindiName": "मुंबई उपनगर",
+    "division": "Konkan",
+    "headquarters": "Bandra",
+    "lat": 19.125,
+    "lng": 72.875,
+    "destinations": [],
+    "svgPath": "M 195,353 L 193,354 L 194,349 L 193,346 L 191,344 L 190,345 L 190,342 L 191,341 L 191,339 L 190,339 L 189,336 L 190,332 L 193,334 L 195,332 L 197,332 L 201,334 L 203,339 L 206,341 L 207,343 L 206,349 L 207,354 Z"
+  },
+  {
+    "id": "mumbai-city",
+    "name": "Mumbai City",
+    "marathiName": "मुंबई शहर",
+    "hindiName": "मुंबई शहर",
+    "division": "Konkan",
+    "headquarters": "Mumbai",
+    "lat": 18.9388,
+    "lng": 72.8354,
+    "destinations": [
+      "csmt-station",
+      "elephanta-caves"
+    ],
+    "svgPath": "M 200,360 L 201,360 L 201,361 L 201,362 L 201,363 L 198,366 L 197,367 L 197,367 L 197,367 L 195,371 L 194,371 L 192,367 L 193,366 L 192,367 L 194,366 L 193,365 L 193,363 L 192,362 L 191,364 L 191,363 L 193,360 L 193,355 L 193,356 L 195,355 L 195,353 L 193,354 L 207,354 L 205,359 L 200,360 Z"
+  },
+  {
+    "id": "raigad",
+    "name": "Raigad",
+    "marathiName": "रायगड",
+    "hindiName": "रायगढ़",
+    "division": "Konkan",
+    "headquarters": "Alibaug",
+    "lat": 18.5158,
+    "lng": 73.1812,
+    "destinations": [
+      "raigad",
+      "murud-janjira",
+      "kashid"
+    ],
+    "svgPath": "M 256,345 L 256,345 L 255,349 L 255,350 L 256,350 L 256,353 L 255,352 L 255,353 L 255,353 L 257,353 L 257,355 L 257,356 L 258,357 L 258,357 L 255,361 L 252,360 L 252,361 L 250,361 L 250,361 L 250,365 L 249,365 L 248,366 L 249,368 L 249,368 L 248,370 L 245,373 L 244,372 L 243,378 L 242,378 L 240,382 L 241,382 L 241,385 L 239,387 L 240,388 L 241,386 L 242,386 L 241,387 L 243,386 L 244,388 L 244,392 L 241,393 L 240,397 L 239,396 L 238,401 L 239,402 L 241,401 L 240,404 L 241,404 L 244,406 L 245,406 L 243,407 L 243,409 L 241,408 L 242,410 L 243,410 L 244,408 L 246,407 L 245,412 L 244,412 L 245,416 L 247,416 L 247,419 L 249,421 L 247,423 L 247,425 L 247,426 L 247,426 L 247,426 L 248,426 L 249,426 L 252,426 L 252,429 L 254,428 L 255,429 L 254,431 L 257,432 L 256,433 L 257,433 L 256,435 L 257,436 L 256,437 L 256,437 L 257,437 L 258,435 L 259,436 L 259,435 L 260,437 L 261,438 L 262,438 L 263,437 L 268,439 L 269,440 L 268,441 L 267,440 L 267,442 L 266,441 L 265,443 L 265,444 L 263,444 L 263,442 L 263,442 L 262,445 L 264,446 L 263,448 L 265,448 L 264,450 L 264,450 L 268,453 L 267,453 L 268,454 L 265,457 L 266,458 L 263,462 L 261,461 L 260,464 L 257,466 L 260,466 L 260,468 L 259,468 L 259,469 L 257,467 L 254,470 L 253,469 L 250,469 L 249,470 L 248,465 L 247,464 L 245,467 L 242,467 L 243,463 L 240,458 L 241,455 L 241,455 L 240,453 L 239,454 L 238,453 L 236,453 L 235,452 L 236,450 L 235,449 L 229,450 L 227,449 L 226,450 L 225,450 L 225,450 L 220,457 L 219,458 L 217,457 L 213,457 L 213,457 L 212,457 L 209,454 L 211,453 L 210,451 L 208,450 L 209,448 L 207,443 L 208,440 L 208,437 L 205,434 L 203,434 L 204,432 L 203,428 L 206,428 L 207,430 L 206,432 L 211,432 L 215,435 L 214,436 L 214,438 L 216,441 L 219,442 L 216,437 L 216,435 L 217,434 L 216,434 L 215,431 L 216,430 L 215,428 L 214,428 L 214,427 L 217,427 L 218,430 L 217,425 L 217,424 L 219,423 L 217,423 L 216,425 L 213,425 L 212,427 L 214,429 L 212,430 L 211,428 L 209,428 L 209,429 L 208,426 L 205,425 L 205,423 L 202,421 L 201,420 L 203,419 L 203,418 L 201,416 L 201,413 L 200,410 L 201,406 L 201,403 L 201,404 L 203,403 L 199,393 L 197,392 L 196,387 L 197,377 L 194,372 L 195,371 L 197,367 L 197,367 L 197,367 L 198,366 L 201,363 L 201,362 L 201,361 L 201,360 L 200,360 L 205,359 L 209,359 L 212,358 L 213,356 L 213,348 L 214,348 L 214,348 L 216,347 L 221,347 L 222,346 L 223,347 L 225,347 L 226,346 L 227,346 L 227,346 L 232,352 L 234,350 L 236,350 L 236,351 L 238,350 L 237,348 L 241,345 L 249,345 L 252,345 L 255,345 L 256,345 L 256,345 Z"
+  },
+  {
+    "id": "ratnagiri",
+    "name": "Ratnagiri",
+    "marathiName": "रत्नागिरी",
+    "hindiName": "रत्नागिरी",
+    "division": "Konkan",
+    "headquarters": "Ratnagiri",
+    "lat": 16.9902,
+    "lng": 73.312,
+    "destinations": [
+      "ganpatipule"
+    ],
+    "svgPath": "M 260,468 L 261,468 L 261,469 L 261,469 L 262,470 L 261,472 L 263,476 L 261,476 L 262,477 L 260,483 L 262,485 L 264,484 L 266,485 L 267,484 L 271,486 L 270,487 L 272,489 L 271,492 L 274,493 L 273,494 L 274,496 L 273,497 L 276,499 L 275,501 L 274,502 L 272,504 L 272,505 L 271,506 L 272,508 L 272,512 L 271,512 L 269,515 L 267,515 L 270,517 L 270,519 L 270,524 L 270,524 L 271,528 L 271,528 L 271,528 L 271,531 L 273,533 L 271,536 L 271,536 L 271,536 L 272,537 L 272,537 L 271,538 L 271,539 L 273,539 L 275,541 L 276,541 L 276,541 L 281,545 L 281,547 L 283,548 L 283,550 L 284,551 L 284,554 L 284,554 L 283,554 L 279,554 L 277,557 L 280,560 L 280,562 L 280,562 L 278,562 L 277,563 L 275,562 L 275,562 L 275,563 L 276,563 L 276,565 L 278,566 L 278,568 L 278,568 L 276,569 L 275,568 L 273,570 L 277,573 L 277,574 L 277,576 L 279,575 L 279,575 L 280,576 L 280,576 L 282,576 L 282,576 L 282,576 L 283,577 L 284,578 L 284,579 L 284,579 L 284,579 L 282,582 L 286,584 L 285,585 L 286,586 L 286,586 L 286,586 L 286,587 L 285,587 L 285,588 L 285,587 L 285,587 L 283,588 L 278,586 L 278,586 L 278,588 L 276,588 L 278,590 L 278,592 L 273,592 L 272,590 L 271,590 L 269,594 L 268,593 L 269,594 L 267,595 L 267,596 L 267,596 L 265,594 L 263,598 L 263,598 L 261,598 L 258,601 L 256,600 L 255,601 L 254,600 L 251,603 L 251,603 L 246,601 L 242,601 L 242,601 L 240,599 L 238,593 L 238,592 L 240,592 L 241,591 L 240,590 L 239,590 L 240,589 L 238,589 L 238,588 L 239,587 L 239,584 L 240,585 L 240,583 L 240,583 L 239,584 L 238,583 L 236,580 L 238,572 L 236,571 L 235,567 L 236,567 L 235,565 L 236,564 L 235,563 L 234,564 L 235,561 L 234,558 L 235,558 L 236,555 L 234,554 L 233,555 L 233,553 L 234,553 L 234,552 L 232,551 L 232,549 L 234,550 L 235,548 L 235,542 L 235,543 L 234,542 L 233,542 L 233,538 L 233,538 L 232,535 L 230,534 L 231,534 L 231,532 L 229,529 L 229,527 L 228,526 L 227,527 L 227,525 L 226,524 L 227,523 L 229,524 L 229,526 L 231,526 L 231,524 L 231,522 L 229,521 L 230,520 L 228,519 L 229,519 L 228,516 L 226,516 L 224,514 L 226,513 L 226,511 L 228,511 L 226,510 L 226,509 L 227,508 L 225,504 L 223,502 L 221,499 L 222,498 L 223,498 L 224,497 L 224,498 L 225,496 L 221,494 L 221,491 L 222,491 L 219,486 L 220,485 L 222,485 L 221,483 L 222,483 L 221,483 L 219,476 L 218,474 L 217,474 L 218,471 L 216,466 L 214,465 L 214,462 L 213,462 L 212,460 L 212,459 L 213,457 L 213,457 L 217,457 L 219,458 L 220,457 L 225,450 L 225,450 L 226,450 L 227,449 L 229,450 L 235,449 L 236,450 L 235,452 L 236,453 L 238,453 L 239,454 L 240,453 L 241,455 L 241,455 L 240,458 L 243,463 L 242,467 L 245,467 L 247,464 L 248,465 L 249,470 L 250,469 L 253,469 L 254,470 L 257,467 L 259,469 L 259,468 L 260,468 Z"
+  },
+  {
+    "id": "sindhudurg",
+    "name": "Sindhudurg",
+    "marathiName": "सिंधुदुर्ग",
+    "hindiName": "सिंधुदुर्ग",
+    "division": "Konkan",
+    "headquarters": "Oros",
+    "lat": 16.12,
+    "lng": 73.69,
+    "destinations": [
+      "sindhudurg",
+      "tarkarli"
+    ],
+    "svgPath": "M 240,599 L 242,601 L 242,601 L 246,601 L 251,603 L 251,603 L 254,600 L 255,601 L 256,600 L 258,601 L 261,598 L 263,598 L 263,598 L 265,594 L 267,596 L 267,596 L 267,595 L 269,594 L 268,593 L 269,594 L 271,590 L 272,590 L 273,592 L 278,592 L 278,590 L 276,588 L 278,588 L 278,586 L 278,586 L 283,588 L 285,587 L 285,587 L 285,588 L 285,588 L 286,591 L 284,594 L 285,595 L 283,597 L 282,598 L 285,599 L 284,601 L 286,605 L 288,604 L 289,606 L 289,607 L 284,612 L 286,615 L 284,617 L 285,619 L 284,620 L 284,620 L 284,620 L 285,620 L 285,622 L 286,620 L 286,621 L 288,619 L 290,619 L 290,621 L 288,624 L 289,626 L 291,627 L 289,629 L 293,627 L 291,630 L 292,631 L 294,631 L 293,633 L 293,634 L 291,634 L 290,638 L 287,637 L 286,637 L 285,636 L 285,638 L 284,642 L 284,642 L 286,644 L 284,642 L 286,641 L 287,641 L 286,642 L 289,642 L 290,641 L 298,642 L 298,643 L 299,644 L 298,645 L 298,647 L 299,647 L 303,648 L 304,646 L 305,649 L 306,649 L 307,650 L 303,655 L 304,657 L 305,656 L 307,661 L 307,663 L 301,667 L 302,670 L 305,669 L 305,667 L 306,667 L 308,667 L 308,668 L 312,667 L 311,668 L 313,668 L 312,672 L 314,673 L 317,672 L 317,675 L 313,675 L 310,678 L 310,680 L 310,682 L 306,683 L 309,685 L 309,686 L 301,688 L 300,689 L 298,689 L 296,687 L 295,681 L 294,680 L 294,679 L 293,676 L 287,675 L 288,673 L 286,671 L 286,670 L 285,672 L 283,674 L 283,676 L 280,677 L 279,678 L 276,677 L 274,678 L 271,678 L 268,676 L 269,675 L 265,665 L 264,665 L 262,660 L 260,659 L 257,657 L 255,657 L 253,652 L 252,647 L 250,646 L 251,644 L 250,643 L 250,638 L 246,624 L 246,623 L 248,623 L 249,621 L 248,623 L 246,622 L 246,624 L 244,618 L 244,616 L 245,616 L 248,615 L 245,616 L 244,616 L 244,615 L 243,616 L 242,615 L 242,613 L 243,614 L 244,612 L 245,613 L 246,611 L 252,611 L 254,610 L 251,610 L 252,608 L 251,610 L 247,611 L 246,611 L 246,610 L 245,612 L 242,612 L 241,608 L 242,608 L 244,607 L 241,608 L 238,601 L 237,601 L 237,598 L 239,596 L 240,599 Z"
+  },
+  {
+    "id": "pune",
+    "name": "Pune",
+    "marathiName": "पुणे",
+    "hindiName": "पुणे",
+    "division": "Pune",
+    "headquarters": "Pune",
+    "lat": 18.5204,
+    "lng": 73.8567,
+    "destinations": [
+      "sinhagad",
+      "shivneri",
+      "rajgad",
+      "torna",
+      "lohagad-visapur",
+      "mayureshwar"
+    ],
+    "svgPath": "M 279,320 L 281,319 L 283,321 L 285,323 L 287,323 L 288,322 L 289,322 L 292,324 L 293,325 L 293,325 L 298,323 L 299,325 L 301,327 L 301,329 L 300,329 L 301,331 L 301,332 L 301,333 L 303,332 L 303,334 L 307,336 L 306,335 L 310,336 L 312,336 L 313,338 L 314,336 L 318,338 L 322,336 L 327,338 L 325,340 L 322,340 L 322,342 L 320,346 L 317,345 L 314,355 L 314,355 L 317,357 L 318,357 L 317,358 L 319,359 L 318,361 L 320,361 L 320,363 L 321,362 L 323,366 L 325,367 L 326,372 L 328,374 L 330,373 L 334,375 L 333,377 L 334,380 L 334,381 L 334,383 L 337,382 L 338,385 L 341,385 L 341,388 L 344,390 L 341,393 L 344,396 L 348,396 L 347,399 L 350,402 L 347,406 L 348,408 L 351,409 L 354,410 L 356,412 L 356,412 L 359,410 L 357,409 L 357,409 L 358,408 L 362,406 L 363,408 L 364,408 L 363,414 L 364,416 L 366,417 L 368,416 L 370,416 L 371,418 L 370,421 L 370,421 L 370,421 L 370,422 L 373,423 L 373,423 L 374,426 L 374,426 L 373,427 L 373,427 L 373,427 L 373,427 L 371,426 L 370,426 L 370,427 L 371,429 L 373,431 L 374,432 L 383,430 L 387,432 L 392,430 L 392,431 L 389,435 L 390,437 L 393,436 L 395,434 L 398,434 L 398,436 L 396,441 L 396,444 L 401,444 L 403,445 L 400,447 L 400,448 L 396,449 L 395,452 L 392,453 L 390,459 L 391,460 L 393,460 L 394,458 L 397,458 L 398,456 L 398,456 L 398,456 L 399,456 L 400,458 L 400,458 L 400,458 L 400,458 L 399,459 L 400,460 L 399,460 L 399,461 L 398,462 L 398,462 L 397,461 L 395,461 L 396,463 L 395,464 L 394,464 L 392,463 L 393,465 L 390,466 L 390,464 L 383,463 L 382,461 L 380,461 L 379,462 L 376,460 L 374,461 L 376,456 L 373,456 L 372,454 L 370,456 L 370,456 L 367,453 L 366,454 L 364,453 L 363,453 L 362,453 L 362,453 L 362,453 L 360,451 L 359,449 L 358,449 L 357,449 L 357,449 L 356,451 L 356,451 L 355,450 L 353,451 L 351,450 L 351,451 L 351,451 L 349,449 L 340,451 L 338,449 L 333,449 L 330,446 L 325,449 L 319,446 L 317,446 L 315,445 L 313,445 L 312,444 L 311,444 L 309,443 L 306,444 L 303,442 L 301,443 L 299,440 L 297,441 L 294,438 L 290,440 L 290,440 L 289,438 L 289,438 L 289,438 L 288,439 L 290,443 L 288,444 L 286,444 L 288,447 L 286,453 L 285,452 L 283,453 L 282,452 L 280,454 L 278,453 L 277,452 L 272,451 L 269,453 L 269,453 L 268,453 L 268,453 L 264,450 L 264,450 L 265,448 L 263,448 L 264,446 L 262,445 L 263,442 L 263,442 L 263,444 L 265,444 L 265,443 L 266,441 L 267,442 L 267,440 L 268,441 L 269,440 L 268,439 L 263,437 L 262,438 L 261,438 L 260,437 L 259,435 L 259,436 L 258,435 L 257,437 L 256,437 L 256,437 L 257,436 L 256,435 L 257,433 L 256,433 L 257,432 L 254,431 L 255,429 L 254,428 L 252,429 L 252,426 L 249,426 L 248,426 L 247,426 L 247,426 L 247,426 L 247,425 L 247,423 L 249,421 L 247,419 L 247,416 L 245,416 L 244,412 L 245,412 L 246,407 L 244,408 L 243,410 L 242,410 L 241,408 L 243,409 L 243,407 L 245,406 L 244,406 L 241,404 L 240,404 L 241,401 L 239,402 L 238,401 L 239,396 L 240,397 L 241,393 L 244,392 L 244,388 L 243,386 L 241,387 L 242,386 L 241,386 L 240,388 L 239,387 L 241,385 L 241,382 L 240,382 L 242,378 L 243,378 L 244,372 L 245,373 L 248,370 L 249,368 L 249,368 L 248,366 L 249,365 L 250,365 L 250,361 L 250,361 L 252,361 L 252,360 L 255,361 L 258,357 L 258,357 L 257,356 L 257,355 L 257,353 L 255,353 L 255,353 L 255,352 L 256,353 L 256,350 L 255,350 L 255,349 L 256,345 L 256,345 L 258,346 L 258,344 L 257,343 L 257,342 L 257,340 L 263,339 L 264,337 L 265,337 L 265,338 L 268,335 L 271,333 L 271,333 L 271,332 L 269,330 L 269,329 L 269,328 L 276,325 L 276,326 L 278,326 L 278,324 L 280,326 L 280,323 L 279,320 Z"
+  },
+  {
+    "id": "satara",
+    "name": "Satara",
+    "marathiName": "सातारा",
+    "hindiName": "सातारा",
+    "division": "Pune",
+    "headquarters": "Satara",
+    "lat": 17.6805,
+    "lng": 73.9928,
+    "destinations": [
+      "pratapgad"
+    ],
+    "svgPath": "M 268,453 L 268,453 L 269,453 L 269,453 L 272,451 L 277,452 L 278,453 L 280,454 L 282,452 L 283,453 L 285,452 L 286,453 L 288,447 L 286,444 L 288,444 L 290,443 L 288,439 L 289,438 L 289,438 L 289,438 L 290,440 L 290,440 L 294,438 L 297,441 L 299,440 L 301,443 L 303,442 L 306,444 L 309,443 L 311,444 L 312,444 L 313,445 L 315,445 L 317,446 L 319,446 L 325,449 L 330,446 L 333,449 L 338,449 L 340,451 L 349,449 L 351,451 L 351,451 L 351,450 L 353,451 L 355,450 L 356,451 L 356,451 L 357,449 L 357,449 L 358,449 L 359,449 L 360,451 L 362,453 L 362,453 L 362,453 L 362,453 L 359,455 L 358,455 L 358,455 L 358,457 L 358,458 L 358,461 L 357,463 L 355,465 L 355,468 L 353,469 L 353,469 L 353,471 L 354,471 L 353,472 L 354,472 L 354,472 L 355,472 L 355,472 L 355,471 L 355,471 L 355,471 L 356,472 L 356,472 L 356,472 L 357,471 L 356,471 L 357,471 L 356,470 L 357,469 L 358,469 L 359,470 L 359,472 L 360,472 L 360,474 L 360,475 L 361,474 L 361,475 L 360,475 L 362,476 L 361,476 L 362,476 L 362,476 L 365,475 L 364,476 L 366,476 L 366,478 L 365,477 L 366,478 L 365,478 L 366,478 L 366,479 L 367,478 L 367,479 L 368,477 L 373,482 L 376,482 L 376,485 L 376,485 L 376,485 L 378,487 L 378,487 L 380,492 L 377,494 L 377,498 L 375,499 L 375,503 L 371,509 L 371,509 L 369,508 L 360,506 L 361,506 L 361,510 L 360,512 L 360,515 L 359,515 L 358,514 L 354,514 L 354,513 L 352,509 L 351,513 L 346,512 L 343,516 L 340,515 L 337,515 L 334,513 L 329,513 L 330,512 L 324,512 L 321,518 L 322,519 L 324,518 L 324,518 L 324,520 L 325,523 L 322,523 L 321,525 L 322,528 L 324,529 L 324,531 L 322,532 L 324,533 L 324,534 L 323,536 L 322,535 L 321,535 L 321,537 L 319,538 L 321,538 L 321,539 L 314,539 L 313,541 L 310,542 L 310,542 L 309,541 L 307,543 L 307,543 L 303,543 L 301,544 L 297,542 L 297,540 L 293,540 L 290,538 L 288,538 L 287,535 L 285,534 L 284,531 L 278,529 L 276,526 L 274,528 L 271,528 L 271,528 L 270,524 L 270,524 L 270,519 L 270,517 L 267,515 L 269,515 L 271,512 L 272,512 L 272,508 L 271,506 L 272,505 L 272,504 L 274,502 L 275,501 L 276,499 L 273,497 L 274,496 L 273,494 L 274,493 L 271,492 L 272,489 L 270,487 L 271,486 L 267,484 L 266,485 L 264,484 L 262,485 L 260,483 L 262,477 L 261,476 L 263,476 L 261,472 L 262,470 L 261,469 L 261,469 L 261,468 L 260,468 L 260,466 L 257,466 L 260,464 L 261,461 L 263,462 L 266,458 L 265,457 L 268,454 L 267,453 L 268,453 Z"
+  },
+  {
+    "id": "kolhapur",
+    "name": "Kolhapur",
+    "marathiName": "कोल्हापूर",
+    "hindiName": "कोल्हापुर",
+    "division": "Pune",
+    "headquarters": "Kolhapur",
+    "lat": 16.705,
+    "lng": 74.2433,
+    "destinations": [
+      "panhala"
+    ],
+    "svgPath": "M 285,588 L 285,587 L 286,587 L 286,586 L 286,586 L 286,586 L 285,585 L 286,584 L 282,582 L 284,579 L 284,579 L 284,579 L 284,578 L 283,577 L 282,576 L 282,576 L 282,576 L 280,576 L 280,576 L 279,575 L 279,575 L 277,576 L 277,574 L 277,573 L 273,570 L 275,568 L 276,569 L 278,568 L 278,568 L 278,566 L 276,565 L 276,563 L 275,563 L 275,562 L 275,562 L 277,563 L 278,562 L 280,562 L 280,562 L 280,560 L 277,557 L 279,554 L 283,554 L 284,554 L 284,554 L 284,551 L 283,550 L 283,548 L 281,547 L 281,545 L 276,541 L 276,541 L 275,541 L 273,539 L 271,539 L 271,538 L 272,537 L 272,537 L 273,536 L 274,537 L 276,536 L 276,538 L 276,538 L 278,539 L 278,536 L 279,535 L 285,538 L 287,540 L 287,541 L 287,542 L 290,544 L 291,546 L 292,546 L 293,546 L 297,550 L 297,550 L 296,552 L 296,553 L 296,554 L 296,554 L 296,554 L 296,554 L 298,554 L 301,555 L 301,559 L 302,559 L 302,561 L 304,563 L 304,563 L 307,561 L 309,562 L 312,565 L 314,563 L 317,564 L 318,562 L 320,564 L 324,561 L 325,563 L 330,566 L 331,568 L 335,565 L 336,565 L 335,568 L 340,568 L 341,566 L 343,567 L 343,570 L 345,569 L 345,567 L 348,570 L 349,572 L 355,574 L 356,577 L 361,579 L 360,581 L 361,581 L 360,584 L 359,584 L 360,585 L 358,586 L 357,589 L 360,591 L 360,592 L 356,591 L 355,594 L 354,594 L 352,596 L 350,597 L 348,596 L 349,594 L 347,593 L 347,589 L 342,589 L 341,586 L 339,588 L 340,592 L 338,592 L 336,594 L 334,594 L 333,599 L 331,598 L 330,596 L 329,597 L 327,597 L 327,602 L 326,602 L 326,599 L 325,599 L 324,600 L 323,597 L 322,598 L 323,602 L 321,602 L 322,604 L 323,604 L 324,602 L 325,602 L 324,606 L 328,607 L 329,612 L 331,611 L 330,615 L 329,612 L 328,614 L 327,614 L 328,617 L 327,618 L 327,618 L 327,619 L 328,619 L 328,620 L 329,622 L 327,623 L 328,624 L 330,624 L 330,622 L 331,623 L 332,625 L 333,624 L 336,623 L 336,626 L 339,626 L 340,627 L 342,627 L 344,629 L 343,630 L 344,631 L 342,637 L 342,640 L 342,642 L 337,640 L 333,642 L 334,643 L 332,643 L 331,646 L 332,646 L 332,647 L 337,645 L 340,646 L 340,647 L 337,655 L 333,660 L 335,665 L 333,665 L 331,661 L 331,663 L 329,665 L 333,666 L 331,669 L 332,669 L 332,672 L 330,674 L 327,673 L 326,675 L 324,676 L 323,675 L 320,676 L 319,675 L 319,672 L 314,673 L 312,672 L 313,668 L 311,668 L 312,667 L 308,668 L 308,667 L 306,667 L 305,667 L 305,669 L 302,670 L 301,667 L 307,663 L 307,661 L 305,656 L 304,657 L 303,655 L 307,650 L 306,649 L 305,649 L 304,646 L 303,648 L 299,647 L 298,647 L 298,645 L 299,644 L 298,643 L 298,642 L 290,641 L 289,642 L 286,642 L 287,641 L 286,641 L 284,642 L 286,644 L 284,642 L 284,642 L 285,638 L 285,636 L 286,637 L 287,637 L 290,638 L 291,634 L 293,634 L 293,633 L 294,631 L 292,631 L 291,630 L 293,627 L 289,629 L 291,627 L 289,626 L 288,624 L 290,621 L 290,619 L 288,619 L 286,621 L 286,620 L 285,622 L 285,620 L 284,620 L 284,620 L 284,620 L 285,619 L 284,617 L 286,615 L 284,612 L 289,607 L 289,606 L 288,604 L 286,605 L 284,601 L 285,599 L 282,598 L 283,597 L 285,595 L 284,594 L 286,591 L 285,588 L 285,588 Z"
+  },
+  {
+    "id": "sangli",
+    "name": "Sangli",
+    "marathiName": "सांगली",
+    "hindiName": "सांगली",
+    "division": "Pune",
+    "headquarters": "Sangli",
+    "lat": 16.8524,
+    "lng": 74.5815,
+    "destinations": [],
+    "svgPath": "M 380,492 L 380,493 L 381,493 L 380,497 L 384,495 L 385,498 L 387,500 L 382,503 L 385,507 L 385,507 L 386,508 L 386,508 L 390,505 L 391,505 L 391,505 L 391,507 L 391,512 L 390,513 L 389,513 L 388,514 L 387,515 L 389,517 L 385,520 L 384,525 L 382,525 L 382,526 L 380,526 L 378,532 L 374,533 L 376,533 L 376,534 L 376,535 L 379,534 L 378,536 L 379,535 L 381,537 L 382,537 L 383,536 L 384,534 L 383,534 L 384,534 L 386,534 L 389,533 L 389,531 L 395,532 L 395,529 L 396,529 L 398,530 L 404,530 L 405,527 L 406,527 L 408,528 L 410,528 L 409,532 L 407,534 L 408,535 L 412,535 L 412,539 L 414,539 L 415,537 L 413,534 L 414,532 L 418,532 L 418,530 L 421,530 L 421,535 L 424,535 L 424,533 L 426,527 L 430,530 L 434,530 L 437,526 L 442,523 L 444,524 L 444,526 L 447,527 L 447,528 L 447,532 L 445,535 L 444,535 L 444,536 L 446,540 L 446,542 L 448,542 L 449,547 L 446,548 L 445,550 L 448,550 L 448,555 L 448,557 L 445,558 L 445,556 L 442,556 L 442,553 L 439,552 L 439,557 L 435,556 L 432,559 L 431,556 L 430,554 L 427,555 L 426,556 L 423,555 L 419,557 L 413,558 L 413,561 L 414,563 L 413,565 L 412,567 L 409,566 L 408,569 L 407,569 L 404,569 L 405,565 L 404,566 L 400,566 L 400,564 L 399,562 L 397,562 L 396,558 L 390,560 L 390,559 L 387,558 L 385,558 L 385,560 L 382,559 L 381,560 L 384,563 L 385,562 L 384,565 L 379,567 L 381,576 L 376,575 L 376,576 L 375,575 L 374,577 L 370,578 L 368,578 L 364,581 L 361,581 L 360,581 L 361,579 L 356,577 L 355,574 L 349,572 L 348,570 L 345,567 L 345,569 L 343,570 L 343,567 L 341,566 L 340,568 L 335,568 L 336,565 L 335,565 L 331,568 L 330,566 L 325,563 L 324,561 L 320,564 L 318,562 L 317,564 L 314,563 L 312,565 L 309,562 L 307,561 L 304,563 L 304,563 L 302,561 L 302,559 L 301,559 L 301,555 L 298,554 L 296,554 L 296,554 L 296,554 L 296,554 L 296,553 L 296,552 L 297,550 L 297,550 L 293,546 L 292,546 L 291,546 L 290,544 L 287,542 L 287,541 L 287,540 L 285,538 L 279,535 L 278,536 L 278,539 L 276,538 L 276,538 L 276,536 L 274,537 L 273,536 L 272,537 L 271,536 L 271,536 L 271,536 L 273,533 L 271,531 L 271,528 L 271,528 L 274,528 L 276,526 L 278,529 L 284,531 L 285,534 L 287,535 L 288,538 L 290,538 L 293,540 L 297,540 L 297,542 L 301,544 L 303,543 L 307,543 L 307,543 L 309,541 L 310,542 L 310,542 L 313,541 L 314,539 L 321,539 L 321,538 L 319,538 L 321,537 L 321,535 L 322,535 L 323,536 L 324,534 L 324,533 L 322,532 L 324,531 L 324,529 L 322,528 L 321,525 L 322,523 L 325,523 L 324,520 L 324,518 L 324,518 L 322,519 L 321,518 L 324,512 L 330,512 L 329,513 L 334,513 L 337,515 L 340,515 L 343,516 L 346,512 L 351,513 L 352,509 L 354,513 L 354,514 L 358,514 L 359,515 L 360,515 L 360,512 L 361,510 L 361,506 L 360,506 L 369,508 L 371,509 L 371,509 L 375,503 L 375,499 L 377,498 L 377,494 L 380,492 Z"
+  },
+  {
+    "id": "solapur",
+    "name": "Solapur",
+    "marathiName": "सोलापूर",
+    "hindiName": "सोलापुर",
+    "division": "Pune",
+    "headquarters": "Solapur",
+    "lat": 17.6599,
+    "lng": 75.9064,
+    "destinations": [
+      "pandharpur"
+    ],
+    "svgPath": "M 373,423 L 375,423 L 376,423 L 376,421 L 380,421 L 380,419 L 385,418 L 386,417 L 389,416 L 389,413 L 393,415 L 395,414 L 396,413 L 397,408 L 399,408 L 400,404 L 402,405 L 406,404 L 407,402 L 410,403 L 411,406 L 414,404 L 416,405 L 414,407 L 415,413 L 414,416 L 415,418 L 418,418 L 423,424 L 424,424 L 423,425 L 424,427 L 423,430 L 426,430 L 425,432 L 427,436 L 426,438 L 429,440 L 429,439 L 431,439 L 432,441 L 433,440 L 433,440 L 433,441 L 435,442 L 436,442 L 437,440 L 437,438 L 438,437 L 437,436 L 438,436 L 439,432 L 441,431 L 444,432 L 444,430 L 443,429 L 446,423 L 446,423 L 449,424 L 452,423 L 453,420 L 453,418 L 451,417 L 453,413 L 456,413 L 457,416 L 459,419 L 462,419 L 465,421 L 467,420 L 468,421 L 471,428 L 471,430 L 473,433 L 472,437 L 474,440 L 472,443 L 473,445 L 473,447 L 476,447 L 477,449 L 476,450 L 479,450 L 479,451 L 479,451 L 478,453 L 477,456 L 476,456 L 476,458 L 470,458 L 470,458 L 470,458 L 469,455 L 464,455 L 463,457 L 463,462 L 464,463 L 464,463 L 464,466 L 465,468 L 466,469 L 466,471 L 471,472 L 471,470 L 472,470 L 474,473 L 475,473 L 476,471 L 479,472 L 478,480 L 480,478 L 482,479 L 485,477 L 487,479 L 489,478 L 489,479 L 490,479 L 491,482 L 493,482 L 492,484 L 491,483 L 490,485 L 492,485 L 494,487 L 497,486 L 497,485 L 500,484 L 502,482 L 504,482 L 504,482 L 506,484 L 506,485 L 509,485 L 510,486 L 511,486 L 511,489 L 516,490 L 515,494 L 507,495 L 508,500 L 510,501 L 510,502 L 508,503 L 508,505 L 511,505 L 507,507 L 507,511 L 511,511 L 510,516 L 514,517 L 514,519 L 513,519 L 512,523 L 509,523 L 508,519 L 506,519 L 506,521 L 502,521 L 502,518 L 500,518 L 499,516 L 498,517 L 498,518 L 493,519 L 494,522 L 493,524 L 492,524 L 492,520 L 488,517 L 486,518 L 484,521 L 483,519 L 479,519 L 477,520 L 471,522 L 468,518 L 468,514 L 467,512 L 465,516 L 464,513 L 461,512 L 461,517 L 459,517 L 457,516 L 456,514 L 454,512 L 452,513 L 450,513 L 448,509 L 445,507 L 442,512 L 443,515 L 439,516 L 440,519 L 443,520 L 442,523 L 437,526 L 434,530 L 430,530 L 426,527 L 424,533 L 424,535 L 421,535 L 421,530 L 418,530 L 418,532 L 414,532 L 413,534 L 415,537 L 414,539 L 412,539 L 412,535 L 408,535 L 407,534 L 409,532 L 410,528 L 408,528 L 406,527 L 405,527 L 404,530 L 398,530 L 396,529 L 395,529 L 395,532 L 389,531 L 389,533 L 386,534 L 384,534 L 383,534 L 384,534 L 383,536 L 382,537 L 381,537 L 379,535 L 378,536 L 379,534 L 376,535 L 376,534 L 376,533 L 374,533 L 378,532 L 380,526 L 382,526 L 382,525 L 384,525 L 385,520 L 389,517 L 387,515 L 388,514 L 389,513 L 390,513 L 391,512 L 391,507 L 391,505 L 391,505 L 390,505 L 386,508 L 386,508 L 385,507 L 385,507 L 382,503 L 387,500 L 385,498 L 384,495 L 380,497 L 381,493 L 380,493 L 380,492 L 378,487 L 378,487 L 376,485 L 376,485 L 376,485 L 376,482 L 373,482 L 368,477 L 367,479 L 367,478 L 366,479 L 366,478 L 365,478 L 366,478 L 365,477 L 366,478 L 366,476 L 364,476 L 365,475 L 362,476 L 362,476 L 361,476 L 362,476 L 360,475 L 361,475 L 361,474 L 360,475 L 360,474 L 360,472 L 359,472 L 359,470 L 358,469 L 357,469 L 356,470 L 357,471 L 356,471 L 357,471 L 356,472 L 356,472 L 356,472 L 355,471 L 355,471 L 355,471 L 355,472 L 355,472 L 354,472 L 354,472 L 353,472 L 354,471 L 353,471 L 353,469 L 353,469 L 355,468 L 355,465 L 357,463 L 358,461 L 358,458 L 358,457 L 358,455 L 358,455 L 359,455 L 362,453 L 362,453 L 363,453 L 364,453 L 366,454 L 367,453 L 370,456 L 370,456 L 372,454 L 373,456 L 376,456 L 374,461 L 376,460 L 379,462 L 380,461 L 382,461 L 383,463 L 390,464 L 390,466 L 393,465 L 392,463 L 394,464 L 395,464 L 396,463 L 395,461 L 397,461 L 398,462 L 398,462 L 399,461 L 399,460 L 400,460 L 399,459 L 400,458 L 400,458 L 400,458 L 400,458 L 399,456 L 398,456 L 398,456 L 398,456 L 397,458 L 394,458 L 393,460 L 391,460 L 390,459 L 392,453 L 395,452 L 396,449 L 400,448 L 400,447 L 403,445 L 401,444 L 396,444 L 396,441 L 398,436 L 398,434 L 395,434 L 393,436 L 390,437 L 389,435 L 392,431 L 392,430 L 387,432 L 383,430 L 374,432 L 373,431 L 371,429 L 370,427 L 370,426 L 371,426 L 373,427 L 373,427 L 373,427 L 373,427 L 374,426 L 374,426 L 373,423 Z"
+  },
+  {
+    "id": "nashik",
+    "name": "Nashik",
+    "marathiName": "नाशिक",
+    "hindiName": "नासिक",
+    "division": "Nashik",
+    "headquarters": "Nashik",
+    "lat": 19.9975,
+    "lng": 73.7898,
+    "destinations": [
+      "trimbakeshwar"
+    ],
+    "svgPath": "M 371,198 L 371,200 L 371,200 L 371,203 L 369,204 L 370,207 L 370,207 L 368,208 L 367,208 L 369,211 L 368,214 L 369,214 L 370,217 L 373,220 L 372,221 L 375,223 L 375,223 L 375,223 L 376,228 L 376,228 L 375,232 L 375,232 L 375,232 L 377,233 L 378,234 L 382,234 L 382,236 L 380,236 L 380,239 L 382,239 L 381,245 L 380,245 L 379,243 L 375,243 L 375,238 L 373,237 L 372,236 L 369,237 L 369,238 L 370,238 L 369,240 L 367,240 L 367,242 L 363,241 L 362,243 L 363,247 L 361,249 L 364,249 L 364,252 L 362,252 L 363,255 L 362,256 L 363,258 L 360,259 L 360,263 L 359,264 L 359,264 L 359,265 L 349,265 L 345,262 L 345,263 L 341,264 L 342,261 L 340,261 L 338,263 L 333,262 L 331,264 L 330,263 L 330,262 L 327,262 L 326,263 L 324,262 L 324,262 L 324,264 L 321,264 L 321,267 L 323,267 L 323,269 L 329,271 L 329,273 L 331,273 L 332,280 L 328,280 L 327,283 L 323,282 L 323,284 L 321,285 L 314,287 L 312,291 L 311,290 L 311,292 L 309,295 L 308,295 L 307,295 L 305,293 L 300,292 L 292,292 L 290,291 L 291,289 L 289,288 L 289,285 L 288,285 L 287,285 L 284,286 L 284,286 L 284,286 L 284,287 L 282,288 L 282,291 L 280,291 L 281,292 L 279,293 L 279,294 L 280,295 L 279,295 L 278,297 L 278,296 L 275,298 L 274,297 L 272,300 L 270,300 L 268,301 L 266,300 L 264,301 L 264,300 L 264,300 L 262,299 L 261,299 L 261,298 L 260,297 L 259,295 L 258,294 L 256,290 L 255,290 L 256,289 L 253,287 L 253,287 L 253,287 L 254,286 L 254,286 L 254,284 L 254,284 L 249,283 L 249,283 L 249,283 L 249,282 L 249,277 L 247,276 L 246,274 L 246,274 L 248,273 L 247,268 L 248,267 L 248,265 L 250,264 L 249,262 L 247,262 L 246,258 L 242,258 L 241,256 L 237,256 L 237,255 L 237,255 L 237,255 L 237,251 L 233,251 L 233,250 L 231,248 L 232,247 L 234,246 L 235,241 L 236,240 L 240,241 L 241,239 L 241,241 L 242,241 L 243,240 L 244,241 L 247,240 L 246,234 L 247,233 L 246,225 L 245,223 L 243,224 L 243,222 L 247,220 L 248,216 L 251,212 L 251,209 L 253,208 L 252,207 L 251,203 L 248,202 L 247,199 L 246,199 L 244,197 L 248,195 L 248,194 L 249,194 L 249,190 L 252,190 L 253,193 L 252,194 L 253,196 L 254,195 L 256,195 L 256,194 L 258,197 L 260,197 L 264,199 L 265,203 L 268,205 L 269,205 L 271,204 L 276,205 L 279,202 L 281,202 L 284,200 L 284,196 L 283,194 L 282,195 L 282,193 L 284,192 L 286,193 L 287,189 L 291,189 L 293,188 L 293,186 L 293,186 L 293,178 L 295,178 L 296,177 L 300,179 L 300,178 L 301,177 L 303,179 L 304,177 L 307,178 L 308,177 L 310,176 L 310,176 L 312,177 L 313,177 L 313,176 L 320,177 L 321,176 L 322,177 L 325,177 L 327,178 L 328,177 L 328,179 L 330,176 L 331,178 L 333,178 L 334,176 L 335,178 L 333,179 L 338,182 L 339,180 L 341,180 L 341,179 L 342,180 L 344,180 L 344,181 L 347,179 L 349,180 L 350,179 L 350,181 L 354,182 L 355,184 L 358,185 L 357,186 L 358,188 L 357,192 L 362,193 L 364,194 L 364,195 L 370,196 L 370,198 L 371,198 L 371,198 L 371,198 Z"
+  },
+  {
+    "id": "ahmednagar",
+    "name": "Ahilyanagar (Ahmednagar)",
+    "marathiName": "अहिल्यानगर (अहमदनगर)",
+    "hindiName": "अहिल्यानगर (अहमदनगर)",
+    "division": "Nashik",
+    "headquarters": "Ahilyanagar",
+    "lat": 19.0952,
+    "lng": 74.7496,
+    "destinations": [
+      "shirdi",
+      "harishchandragad",
+      "kalsubai"
+    ],
+    "svgPath": "M 359,265 L 359,265 L 359,268 L 357,268 L 356,274 L 358,274 L 357,276 L 353,275 L 351,282 L 352,282 L 353,283 L 353,283 L 355,280 L 356,280 L 357,282 L 360,283 L 361,284 L 362,283 L 361,282 L 363,282 L 363,284 L 364,283 L 366,285 L 367,284 L 367,286 L 369,286 L 369,288 L 371,289 L 371,291 L 375,295 L 378,294 L 378,295 L 380,295 L 382,296 L 385,295 L 388,297 L 392,297 L 392,298 L 393,299 L 396,298 L 402,300 L 405,300 L 405,300 L 406,301 L 406,303 L 411,307 L 413,304 L 413,305 L 412,308 L 415,308 L 416,310 L 417,309 L 417,311 L 418,311 L 418,309 L 420,309 L 420,311 L 419,311 L 418,312 L 417,313 L 417,315 L 419,314 L 420,316 L 418,318 L 421,319 L 427,316 L 428,318 L 430,317 L 431,316 L 432,317 L 431,320 L 432,321 L 434,320 L 436,321 L 434,326 L 436,326 L 437,326 L 436,327 L 435,330 L 435,331 L 434,331 L 429,333 L 428,336 L 428,336 L 426,336 L 424,339 L 426,341 L 428,342 L 429,344 L 426,344 L 426,346 L 431,346 L 431,348 L 428,350 L 428,349 L 425,350 L 421,350 L 423,346 L 425,345 L 424,344 L 419,346 L 420,343 L 419,343 L 418,343 L 418,345 L 420,347 L 421,350 L 418,350 L 416,348 L 413,350 L 414,351 L 413,355 L 418,355 L 419,359 L 414,360 L 412,358 L 411,355 L 412,353 L 411,351 L 408,351 L 408,349 L 407,347 L 405,349 L 406,351 L 405,353 L 407,355 L 407,356 L 404,357 L 403,356 L 403,354 L 400,354 L 394,353 L 395,351 L 396,351 L 395,350 L 397,350 L 397,348 L 398,347 L 397,346 L 394,346 L 395,346 L 394,347 L 395,348 L 393,348 L 393,347 L 391,348 L 392,347 L 390,348 L 390,347 L 389,348 L 386,347 L 386,347 L 383,345 L 381,349 L 380,354 L 384,355 L 383,357 L 384,358 L 384,361 L 381,361 L 381,362 L 379,361 L 379,360 L 377,359 L 373,361 L 372,359 L 371,360 L 371,362 L 373,363 L 372,364 L 374,367 L 376,368 L 378,366 L 378,369 L 379,370 L 379,373 L 381,372 L 381,375 L 383,375 L 384,376 L 386,375 L 385,376 L 387,378 L 389,377 L 389,379 L 392,381 L 395,386 L 397,387 L 402,393 L 404,386 L 403,384 L 407,383 L 411,385 L 413,384 L 417,377 L 418,379 L 420,378 L 421,381 L 422,380 L 424,374 L 427,378 L 428,382 L 430,382 L 433,385 L 435,384 L 435,382 L 438,384 L 438,386 L 440,387 L 440,387 L 440,387 L 440,388 L 440,389 L 437,389 L 437,393 L 436,393 L 435,393 L 433,395 L 432,394 L 429,396 L 425,404 L 419,401 L 417,404 L 417,404 L 417,404 L 416,405 L 414,404 L 411,406 L 410,403 L 407,402 L 406,404 L 402,405 L 400,404 L 399,408 L 397,408 L 396,413 L 395,414 L 393,415 L 389,413 L 389,416 L 386,417 L 385,418 L 380,419 L 380,421 L 376,421 L 376,423 L 375,423 L 373,423 L 373,423 L 370,422 L 370,421 L 370,421 L 370,421 L 371,418 L 370,416 L 368,416 L 366,417 L 364,416 L 363,414 L 364,408 L 363,408 L 362,406 L 358,408 L 357,409 L 357,409 L 359,410 L 356,412 L 356,412 L 354,410 L 351,409 L 348,408 L 347,406 L 350,402 L 347,399 L 348,396 L 344,396 L 341,393 L 344,390 L 341,388 L 341,385 L 338,385 L 337,382 L 334,383 L 334,381 L 334,380 L 333,377 L 334,375 L 330,373 L 328,374 L 326,372 L 325,367 L 323,366 L 321,362 L 320,363 L 320,361 L 318,361 L 319,359 L 317,358 L 318,357 L 317,357 L 314,355 L 314,355 L 317,345 L 320,346 L 322,342 L 322,340 L 325,340 L 327,338 L 322,336 L 318,338 L 314,336 L 313,338 L 312,336 L 310,336 L 306,335 L 307,336 L 303,334 L 303,332 L 301,333 L 301,332 L 301,331 L 300,329 L 301,329 L 301,327 L 299,325 L 298,323 L 293,325 L 293,325 L 292,324 L 289,322 L 288,322 L 287,323 L 285,323 L 283,321 L 281,319 L 279,320 L 279,320 L 278,320 L 277,319 L 274,317 L 274,316 L 271,316 L 269,313 L 273,311 L 273,310 L 271,309 L 270,307 L 270,308 L 269,308 L 268,305 L 266,306 L 265,305 L 265,302 L 264,301 L 266,300 L 268,301 L 270,300 L 272,300 L 274,297 L 275,298 L 278,296 L 278,297 L 279,295 L 280,295 L 279,294 L 279,293 L 281,292 L 280,291 L 282,291 L 282,288 L 284,287 L 284,286 L 284,286 L 284,286 L 287,285 L 288,285 L 289,285 L 289,288 L 291,289 L 290,291 L 292,292 L 300,292 L 305,293 L 307,295 L 308,295 L 309,295 L 311,292 L 311,290 L 312,291 L 314,287 L 321,285 L 323,284 L 323,282 L 327,283 L 328,280 L 332,280 L 331,273 L 329,273 L 329,271 L 323,269 L 323,267 L 321,267 L 321,264 L 324,264 L 324,262 L 324,262 L 326,263 L 327,262 L 330,262 L 330,263 L 331,264 L 333,262 L 338,263 L 340,261 L 342,261 L 341,264 L 345,263 L 345,262 L 349,265 L 359,265 Z"
+  },
+  {
+    "id": "dhule",
+    "name": "Dhule",
+    "marathiName": "धुळे",
+    "hindiName": "धुले",
+    "division": "Nashik",
+    "headquarters": "Dhule",
+    "lat": 20.9042,
+    "lng": 74.7749,
+    "destinations": [],
+    "svgPath": "M 402,123 L 401,125 L 400,125 L 400,127 L 401,129 L 399,129 L 401,131 L 401,132 L 400,135 L 398,138 L 397,139 L 397,140 L 393,142 L 392,142 L 391,144 L 391,144 L 388,144 L 386,141 L 386,141 L 386,141 L 383,140 L 384,142 L 384,143 L 385,144 L 382,147 L 380,147 L 379,148 L 378,151 L 376,153 L 376,155 L 374,156 L 374,157 L 375,158 L 375,157 L 378,158 L 378,159 L 380,160 L 380,163 L 382,166 L 380,166 L 380,170 L 382,170 L 382,171 L 385,172 L 385,177 L 386,179 L 386,180 L 385,180 L 384,182 L 384,182 L 384,182 L 387,186 L 387,187 L 387,188 L 383,190 L 384,193 L 382,196 L 379,196 L 378,197 L 372,199 L 371,198 L 371,198 L 371,198 L 371,198 L 370,198 L 370,196 L 364,195 L 364,194 L 362,193 L 357,192 L 358,188 L 357,186 L 358,185 L 355,184 L 354,182 L 350,181 L 350,179 L 349,180 L 347,179 L 344,181 L 344,180 L 342,180 L 341,179 L 341,180 L 339,180 L 338,182 L 333,179 L 335,178 L 334,176 L 333,178 L 331,178 L 330,176 L 328,179 L 328,177 L 327,178 L 325,177 L 322,177 L 321,176 L 320,177 L 313,176 L 313,177 L 312,177 L 310,176 L 310,176 L 308,177 L 307,178 L 304,177 L 303,179 L 301,177 L 300,178 L 300,179 L 296,177 L 295,178 L 292,178 L 291,172 L 289,169 L 289,167 L 290,166 L 290,164 L 287,164 L 285,163 L 286,159 L 288,160 L 290,158 L 294,159 L 295,159 L 294,157 L 295,156 L 294,154 L 296,152 L 299,151 L 300,153 L 299,150 L 300,149 L 302,148 L 303,149 L 303,150 L 305,150 L 306,149 L 304,146 L 309,142 L 312,142 L 311,141 L 313,140 L 313,142 L 315,142 L 315,141 L 318,141 L 318,139 L 321,138 L 325,139 L 327,138 L 327,140 L 329,140 L 331,140 L 330,138 L 335,137 L 335,137 L 338,138 L 337,139 L 342,139 L 343,135 L 343,133 L 341,134 L 341,133 L 342,132 L 341,128 L 342,128 L 343,126 L 344,125 L 343,124 L 343,122 L 343,121 L 346,121 L 350,123 L 352,122 L 355,123 L 355,123 L 360,123 L 360,121 L 362,118 L 361,117 L 366,116 L 366,106 L 368,102 L 373,103 L 376,101 L 379,101 L 380,103 L 386,104 L 390,107 L 393,107 L 396,112 L 398,117 L 406,122 L 402,123 Z"
+  },
+  {
+    "id": "jalgaon",
+    "name": "Jalgaon",
+    "marathiName": "जळगाव",
+    "hindiName": "जलगांव",
+    "division": "Nashik",
+    "headquarters": "Jalgaon",
+    "lat": 21.0077,
+    "lng": 75.5626,
+    "destinations": [],
+    "svgPath": "M 511,165 L 510,165 L 508,167 L 502,167 L 501,164 L 492,159 L 491,162 L 488,165 L 487,167 L 485,168 L 485,170 L 484,171 L 488,173 L 487,174 L 484,178 L 484,179 L 482,181 L 482,182 L 482,183 L 478,184 L 476,186 L 479,189 L 478,190 L 477,192 L 477,193 L 478,197 L 478,197 L 478,199 L 476,200 L 473,200 L 473,202 L 471,202 L 471,204 L 467,205 L 467,202 L 466,202 L 466,200 L 464,200 L 464,200 L 463,200 L 463,202 L 462,203 L 462,204 L 463,205 L 462,206 L 460,205 L 458,205 L 458,203 L 456,204 L 455,200 L 453,201 L 453,200 L 451,200 L 451,196 L 449,195 L 447,195 L 447,196 L 447,199 L 447,199 L 447,199 L 446,200 L 442,200 L 443,201 L 441,202 L 441,202 L 441,202 L 438,201 L 437,202 L 436,201 L 436,202 L 435,203 L 435,206 L 433,206 L 432,209 L 431,207 L 429,206 L 429,210 L 428,208 L 426,209 L 426,210 L 423,209 L 423,204 L 421,204 L 420,202 L 420,203 L 417,202 L 416,204 L 414,205 L 412,205 L 411,204 L 410,207 L 410,206 L 410,208 L 409,208 L 409,209 L 408,210 L 408,212 L 406,211 L 406,214 L 402,214 L 402,217 L 399,218 L 397,220 L 399,226 L 396,227 L 393,227 L 393,230 L 387,227 L 387,231 L 384,231 L 383,233 L 383,234 L 383,234 L 383,234 L 382,234 L 378,234 L 377,233 L 375,232 L 375,232 L 375,232 L 376,228 L 376,228 L 375,223 L 375,223 L 375,223 L 372,221 L 373,220 L 370,217 L 369,214 L 368,214 L 369,211 L 367,208 L 368,208 L 370,207 L 370,207 L 369,204 L 371,203 L 371,200 L 371,200 L 371,198 L 371,198 L 372,199 L 378,197 L 379,196 L 382,196 L 384,193 L 383,190 L 387,188 L 387,187 L 387,186 L 384,182 L 384,182 L 384,182 L 385,180 L 386,180 L 386,179 L 385,177 L 385,172 L 382,171 L 382,170 L 380,170 L 380,166 L 382,166 L 380,163 L 380,160 L 378,159 L 378,158 L 375,157 L 375,158 L 374,157 L 374,156 L 376,155 L 376,153 L 378,151 L 379,148 L 380,147 L 382,147 L 385,144 L 384,143 L 384,142 L 383,140 L 386,141 L 386,141 L 386,141 L 388,144 L 391,144 L 391,144 L 392,142 L 393,142 L 397,140 L 397,139 L 398,138 L 400,135 L 401,132 L 401,131 L 399,129 L 401,129 L 400,127 L 400,125 L 401,125 L 402,123 L 409,122 L 411,123 L 414,122 L 415,125 L 415,124 L 419,124 L 420,123 L 422,126 L 426,124 L 435,125 L 437,127 L 442,124 L 444,126 L 448,126 L 453,125 L 462,126 L 467,124 L 469,125 L 474,124 L 476,127 L 480,127 L 482,128 L 486,126 L 489,135 L 490,135 L 492,138 L 490,139 L 490,140 L 492,141 L 492,142 L 493,143 L 492,144 L 493,145 L 493,146 L 489,145 L 487,146 L 490,151 L 493,152 L 492,155 L 501,154 L 502,154 L 502,156 L 512,155 L 512,155 L 513,159 L 511,165 Z"
+  },
+  {
+    "id": "nandurbar",
+    "name": "Nandurbar",
+    "marathiName": "नंदुरबार",
+    "hindiName": "नंदुरबार",
+    "division": "Nashik",
+    "headquarters": "Nandurbar",
+    "lat": 21.3739,
+    "lng": 74.2403,
+    "destinations": [],
+    "svgPath": "M 368,102 L 366,106 L 366,116 L 361,117 L 362,118 L 360,121 L 360,123 L 355,123 L 355,123 L 352,122 L 350,123 L 346,121 L 343,121 L 343,122 L 343,124 L 344,125 L 343,126 L 342,128 L 341,128 L 342,132 L 341,133 L 341,134 L 343,133 L 343,135 L 342,139 L 337,139 L 338,138 L 335,137 L 335,137 L 330,138 L 331,140 L 329,140 L 327,140 L 327,138 L 325,139 L 321,138 L 318,139 L 318,141 L 315,141 L 315,142 L 313,142 L 313,140 L 311,141 L 312,142 L 309,142 L 304,146 L 306,149 L 305,150 L 303,150 L 303,149 L 302,148 L 300,149 L 299,150 L 300,153 L 299,151 L 296,152 L 294,154 L 295,156 L 294,157 L 295,159 L 294,159 L 290,158 L 288,160 L 286,159 L 285,163 L 280,158 L 282,157 L 281,154 L 279,156 L 277,156 L 274,155 L 276,151 L 274,153 L 272,152 L 272,151 L 271,153 L 267,152 L 267,151 L 264,151 L 264,149 L 263,147 L 261,148 L 261,146 L 263,145 L 264,147 L 265,147 L 265,149 L 267,149 L 269,147 L 275,149 L 275,148 L 274,147 L 275,146 L 278,146 L 279,145 L 282,146 L 283,144 L 283,143 L 282,143 L 282,142 L 282,140 L 283,139 L 283,136 L 288,137 L 293,134 L 293,133 L 294,128 L 293,123 L 295,124 L 299,121 L 303,122 L 303,119 L 304,116 L 305,118 L 308,119 L 310,117 L 311,118 L 313,117 L 315,117 L 315,118 L 317,117 L 318,116 L 320,115 L 320,117 L 321,117 L 321,116 L 326,115 L 326,114 L 327,114 L 328,109 L 326,109 L 325,107 L 323,108 L 322,110 L 320,110 L 319,108 L 316,111 L 315,110 L 314,107 L 313,107 L 311,109 L 309,108 L 309,109 L 308,108 L 305,109 L 303,108 L 302,110 L 302,109 L 299,109 L 298,110 L 296,110 L 297,112 L 296,112 L 295,110 L 294,112 L 290,111 L 289,113 L 286,113 L 287,114 L 285,114 L 284,112 L 282,104 L 281,104 L 279,101 L 282,100 L 284,101 L 285,99 L 289,99 L 289,95 L 288,93 L 283,88 L 284,87 L 283,86 L 284,85 L 283,85 L 283,83 L 281,83 L 280,82 L 282,80 L 287,80 L 303,72 L 310,70 L 313,70 L 316,72 L 324,71 L 325,68 L 329,67 L 332,65 L 334,63 L 333,62 L 335,63 L 337,62 L 338,63 L 339,64 L 337,65 L 338,67 L 339,69 L 341,68 L 341,69 L 342,69 L 342,70 L 344,71 L 344,73 L 345,74 L 343,85 L 345,88 L 344,92 L 348,92 L 348,94 L 348,96 L 350,96 L 351,98 L 358,99 L 360,101 L 368,102 Z"
+  },
+  {
+    "id": "chhatrapati-sambhajinagar",
+    "name": "Chhatrapati Sambhajinagar",
+    "marathiName": "छत्रपती संभाजीनगर",
+    "hindiName": "छत्रपति संभाजीनगर",
+    "division": "Chhatrapati Sambhajinagar",
+    "headquarters": "Chhatrapati Sambhajinagar",
+    "lat": 19.8762,
+    "lng": 75.3433,
+    "destinations": [
+      "ajanta-caves",
+      "ellora-caves"
+    ],
+    "svgPath": "M 382,234 L 383,234 L 383,234 L 383,234 L 383,233 L 384,231 L 387,231 L 387,227 L 393,230 L 393,227 L 396,227 L 399,226 L 397,220 L 399,218 L 402,217 L 402,214 L 406,214 L 406,211 L 408,212 L 408,210 L 409,209 L 409,208 L 410,208 L 410,206 L 410,207 L 411,204 L 412,205 L 414,205 L 416,204 L 417,202 L 420,203 L 420,202 L 421,204 L 423,204 L 423,209 L 426,210 L 426,209 L 428,208 L 429,210 L 429,206 L 431,207 L 432,209 L 433,206 L 435,206 L 435,203 L 436,202 L 436,201 L 437,202 L 438,201 L 441,202 L 441,202 L 441,202 L 443,201 L 442,200 L 446,200 L 447,199 L 447,199 L 447,199 L 447,196 L 447,195 L 449,195 L 451,196 L 451,200 L 453,200 L 453,201 L 455,200 L 456,204 L 458,203 L 458,205 L 460,205 L 462,206 L 463,205 L 462,204 L 462,203 L 463,202 L 463,200 L 464,200 L 464,200 L 466,200 L 466,202 L 467,202 L 467,205 L 471,204 L 471,202 L 473,202 L 473,200 L 476,200 L 478,199 L 478,197 L 478,197 L 480,198 L 481,204 L 481,206 L 479,206 L 479,208 L 479,209 L 478,208 L 478,209 L 475,209 L 475,208 L 475,208 L 473,208 L 470,206 L 467,205 L 466,206 L 465,205 L 467,209 L 465,209 L 464,213 L 466,216 L 468,217 L 465,217 L 465,215 L 463,216 L 461,214 L 459,215 L 459,216 L 456,216 L 455,219 L 453,220 L 455,221 L 455,224 L 456,224 L 457,227 L 455,228 L 454,228 L 454,228 L 452,228 L 451,230 L 449,230 L 450,233 L 448,237 L 449,242 L 448,242 L 446,242 L 444,250 L 440,251 L 441,254 L 442,255 L 441,258 L 441,260 L 446,260 L 445,264 L 448,266 L 449,268 L 447,269 L 446,276 L 447,277 L 447,279 L 445,279 L 446,281 L 444,283 L 444,293 L 444,294 L 442,294 L 442,295 L 440,296 L 441,299 L 446,300 L 447,302 L 444,313 L 443,312 L 442,314 L 442,316 L 443,316 L 442,320 L 442,320 L 441,321 L 437,320 L 434,318 L 433,316 L 432,315 L 432,315 L 431,315 L 430,316 L 431,316 L 430,317 L 428,318 L 427,316 L 421,319 L 418,318 L 420,316 L 419,314 L 417,315 L 417,313 L 418,312 L 419,311 L 420,311 L 420,309 L 418,309 L 418,311 L 417,311 L 417,309 L 416,310 L 415,308 L 412,308 L 413,305 L 413,304 L 411,307 L 406,303 L 406,301 L 405,300 L 405,300 L 402,300 L 396,298 L 393,299 L 392,298 L 392,297 L 388,297 L 385,295 L 382,296 L 380,295 L 378,295 L 378,294 L 375,295 L 371,291 L 371,289 L 369,288 L 369,286 L 367,286 L 367,284 L 366,285 L 364,283 L 363,284 L 363,282 L 361,282 L 362,283 L 361,284 L 360,283 L 357,282 L 356,280 L 355,280 L 353,283 L 353,283 L 352,282 L 351,282 L 353,275 L 357,276 L 358,274 L 356,274 L 357,268 L 359,268 L 359,265 L 359,265 L 359,264 L 359,264 L 360,263 L 360,259 L 363,258 L 362,256 L 363,255 L 362,252 L 364,252 L 364,249 L 361,249 L 363,247 L 362,243 L 363,241 L 367,242 L 367,240 L 369,240 L 370,238 L 369,238 L 369,237 L 372,236 L 373,237 L 375,238 L 375,243 L 379,243 L 380,245 L 381,245 L 382,239 L 380,239 L 380,236 L 382,236 L 382,234 Z"
+  },
+  {
+    "id": "jalna",
+    "name": "Jalna",
+    "marathiName": "जालना",
+    "hindiName": "जालना",
+    "division": "Chhatrapati Sambhajinagar",
+    "headquarters": "Jalna",
+    "lat": 19.841,
+    "lng": 75.8864,
+    "destinations": [],
+    "svgPath": "M 475,208 L 475,208 L 475,209 L 474,209 L 472,211 L 472,211 L 472,211 L 473,215 L 472,218 L 474,224 L 472,224 L 472,227 L 471,229 L 471,230 L 471,231 L 473,231 L 475,229 L 480,230 L 482,227 L 485,224 L 486,226 L 487,226 L 489,227 L 489,229 L 491,230 L 490,231 L 495,231 L 492,237 L 489,238 L 491,240 L 489,241 L 488,244 L 487,244 L 486,251 L 482,251 L 482,252 L 483,253 L 484,253 L 479,255 L 480,258 L 474,260 L 474,260 L 475,261 L 476,262 L 476,263 L 479,263 L 478,265 L 479,265 L 482,265 L 483,268 L 484,269 L 484,272 L 486,274 L 489,273 L 489,275 L 490,275 L 491,275 L 491,274 L 494,275 L 495,273 L 498,273 L 500,272 L 504,273 L 506,272 L 509,270 L 510,267 L 512,270 L 514,268 L 522,268 L 521,271 L 525,273 L 525,275 L 524,275 L 523,277 L 523,277 L 523,280 L 521,280 L 521,281 L 523,283 L 523,283 L 523,283 L 523,284 L 521,283 L 521,285 L 518,285 L 519,287 L 521,287 L 521,292 L 519,292 L 519,293 L 518,293 L 518,298 L 516,299 L 516,301 L 517,301 L 517,305 L 511,305 L 510,312 L 508,312 L 508,314 L 505,312 L 504,316 L 503,316 L 503,322 L 501,322 L 500,323 L 502,324 L 501,325 L 499,325 L 498,327 L 496,327 L 496,329 L 497,329 L 496,331 L 496,331 L 495,330 L 495,330 L 492,330 L 492,330 L 492,329 L 490,330 L 489,328 L 489,328 L 488,329 L 487,328 L 487,328 L 485,331 L 481,330 L 480,329 L 479,325 L 475,328 L 472,329 L 472,329 L 469,327 L 469,327 L 469,325 L 471,321 L 470,320 L 470,320 L 467,321 L 466,320 L 463,322 L 459,319 L 456,320 L 456,321 L 455,323 L 452,323 L 449,323 L 448,322 L 446,322 L 445,321 L 444,321 L 442,320 L 443,316 L 442,316 L 442,314 L 443,312 L 444,313 L 447,302 L 446,300 L 441,299 L 440,296 L 442,295 L 442,294 L 444,294 L 444,293 L 444,283 L 446,281 L 445,279 L 447,279 L 447,277 L 446,276 L 447,269 L 449,268 L 448,266 L 445,264 L 446,260 L 441,260 L 441,258 L 442,255 L 441,254 L 440,251 L 444,250 L 446,242 L 448,242 L 449,242 L 448,237 L 450,233 L 449,230 L 451,230 L 452,228 L 454,228 L 454,228 L 455,228 L 457,227 L 456,224 L 455,224 L 455,221 L 453,220 L 455,219 L 456,216 L 459,216 L 459,215 L 461,214 L 463,216 L 465,215 L 465,217 L 468,217 L 466,216 L 464,213 L 465,209 L 467,209 L 465,205 L 466,206 L 467,205 L 470,206 L 473,208 L 475,208 L 475,208 Z"
+  },
+  {
+    "id": "beed",
+    "name": "Beed",
+    "marathiName": "बीड",
+    "hindiName": "बीड",
+    "division": "Chhatrapati Sambhajinagar",
+    "headquarters": "Beed",
+    "lat": 18.9891,
+    "lng": 75.7601,
+    "destinations": [],
+    "svgPath": "M 496,331 L 497,333 L 498,333 L 498,333 L 497,334 L 500,334 L 500,334 L 503,332 L 503,332 L 503,332 L 507,333 L 508,333 L 509,334 L 510,335 L 510,335 L 510,336 L 509,339 L 510,343 L 510,343 L 507,345 L 506,347 L 509,348 L 511,345 L 512,346 L 514,349 L 516,348 L 516,351 L 518,353 L 517,354 L 518,357 L 520,358 L 519,360 L 520,362 L 522,363 L 524,366 L 525,366 L 525,363 L 530,363 L 530,370 L 533,371 L 534,373 L 535,373 L 535,375 L 537,376 L 539,380 L 537,381 L 541,382 L 542,382 L 543,387 L 538,388 L 537,391 L 538,392 L 538,394 L 537,394 L 534,392 L 535,391 L 534,390 L 531,390 L 530,390 L 529,395 L 526,392 L 525,392 L 524,394 L 524,395 L 523,395 L 522,396 L 522,396 L 520,396 L 519,394 L 518,395 L 513,397 L 513,397 L 512,403 L 510,403 L 509,400 L 502,400 L 502,401 L 502,401 L 500,401 L 500,399 L 493,398 L 493,398 L 493,401 L 492,401 L 492,401 L 492,401 L 491,399 L 491,399 L 487,398 L 486,398 L 482,400 L 480,397 L 479,396 L 478,398 L 477,399 L 477,399 L 476,398 L 477,396 L 477,395 L 473,396 L 473,397 L 473,396 L 472,393 L 464,392 L 465,391 L 464,392 L 460,390 L 458,392 L 456,389 L 455,389 L 453,390 L 448,388 L 448,392 L 446,392 L 445,392 L 445,392 L 442,389 L 442,388 L 441,388 L 440,387 L 440,387 L 440,387 L 438,386 L 438,384 L 435,382 L 435,384 L 433,385 L 430,382 L 428,382 L 427,378 L 424,374 L 422,380 L 421,381 L 420,378 L 418,379 L 417,377 L 413,384 L 411,385 L 407,383 L 403,384 L 404,386 L 402,393 L 397,387 L 395,386 L 392,381 L 389,379 L 389,377 L 387,378 L 385,376 L 386,375 L 384,376 L 383,375 L 381,375 L 381,372 L 379,373 L 379,370 L 378,369 L 378,366 L 376,368 L 374,367 L 372,364 L 373,363 L 371,362 L 371,360 L 372,359 L 373,361 L 377,359 L 379,360 L 379,361 L 381,362 L 381,361 L 384,361 L 384,358 L 383,357 L 384,355 L 380,354 L 381,349 L 383,345 L 386,347 L 386,347 L 389,348 L 390,347 L 390,348 L 392,347 L 391,348 L 393,347 L 393,348 L 395,348 L 394,347 L 395,346 L 394,346 L 397,346 L 398,347 L 397,348 L 397,350 L 395,350 L 396,351 L 395,351 L 394,353 L 400,354 L 403,354 L 403,356 L 404,357 L 407,356 L 407,355 L 405,353 L 406,351 L 405,349 L 407,347 L 408,349 L 408,351 L 411,351 L 412,353 L 411,355 L 412,358 L 414,360 L 419,359 L 418,355 L 413,355 L 414,351 L 413,350 L 416,348 L 418,350 L 421,350 L 420,347 L 418,345 L 418,343 L 419,343 L 420,343 L 419,346 L 424,344 L 425,345 L 423,346 L 421,350 L 425,350 L 428,349 L 428,350 L 431,348 L 431,346 L 426,346 L 426,344 L 429,344 L 428,342 L 426,341 L 424,339 L 426,336 L 428,336 L 428,336 L 429,333 L 434,331 L 435,331 L 435,330 L 436,327 L 437,326 L 436,326 L 434,326 L 436,321 L 434,320 L 432,321 L 431,320 L 432,317 L 431,316 L 430,316 L 431,315 L 432,315 L 432,315 L 433,316 L 434,318 L 437,320 L 441,321 L 442,320 L 442,320 L 444,321 L 445,321 L 446,322 L 448,322 L 449,323 L 452,323 L 455,323 L 456,321 L 456,320 L 459,319 L 463,322 L 466,320 L 467,321 L 470,320 L 470,320 L 471,321 L 469,325 L 469,327 L 469,327 L 472,329 L 472,329 L 475,328 L 479,325 L 480,329 L 481,330 L 485,331 L 487,328 L 487,328 L 488,329 L 489,328 L 489,328 L 490,330 L 492,329 L 492,330 L 492,330 L 495,330 L 495,330 L 496,331 L 496,331 Z"
+  },
+  {
+    "id": "latur",
+    "name": "Latur",
+    "marathiName": "लातूर",
+    "hindiName": "लातूर",
+    "division": "Chhatrapati Sambhajinagar",
+    "headquarters": "Latur",
+    "lat": 18.4088,
+    "lng": 76.5604,
+    "destinations": [],
+    "svgPath": "M 566,375 L 566,375 L 566,375 L 568,381 L 572,380 L 572,385 L 571,387 L 571,389 L 579,387 L 579,386 L 580,387 L 583,387 L 584,388 L 581,389 L 581,392 L 585,392 L 586,395 L 591,396 L 590,400 L 593,402 L 592,405 L 591,405 L 589,407 L 589,408 L 592,409 L 591,411 L 590,411 L 591,412 L 591,414 L 588,415 L 588,417 L 589,419 L 587,420 L 587,421 L 587,422 L 586,424 L 585,425 L 586,428 L 582,428 L 582,430 L 580,432 L 580,434 L 576,436 L 577,439 L 577,440 L 573,441 L 571,439 L 570,438 L 569,438 L 569,440 L 567,440 L 566,437 L 563,437 L 562,440 L 561,440 L 560,441 L 561,443 L 560,444 L 564,446 L 562,447 L 563,452 L 559,452 L 558,455 L 560,464 L 558,464 L 556,466 L 553,465 L 552,467 L 550,467 L 549,468 L 547,468 L 546,465 L 544,465 L 543,465 L 543,464 L 543,464 L 538,464 L 538,461 L 538,461 L 538,459 L 539,459 L 538,456 L 531,455 L 532,452 L 531,453 L 528,452 L 527,453 L 525,452 L 524,453 L 523,453 L 523,451 L 522,451 L 522,453 L 515,452 L 513,450 L 511,447 L 507,448 L 507,446 L 502,445 L 503,438 L 504,433 L 503,433 L 503,431 L 506,428 L 506,423 L 503,422 L 503,418 L 500,420 L 495,417 L 498,413 L 501,414 L 501,410 L 502,410 L 500,408 L 501,407 L 500,405 L 502,404 L 502,401 L 502,401 L 502,400 L 509,400 L 510,403 L 512,403 L 513,397 L 513,397 L 518,395 L 519,394 L 520,396 L 522,396 L 522,396 L 523,395 L 524,395 L 524,394 L 525,392 L 526,392 L 529,395 L 530,390 L 531,390 L 534,390 L 535,391 L 534,392 L 537,394 L 538,394 L 538,392 L 537,391 L 538,388 L 543,387 L 542,382 L 542,382 L 543,382 L 544,380 L 547,380 L 547,378 L 551,376 L 554,377 L 555,374 L 556,374 L 557,374 L 559,374 L 566,375 Z"
+  },
+  {
+    "id": "dharashiv",
+    "name": "Dharashiv (Osmanabad)",
+    "marathiName": "धाराशिव (उस्मानाबाद)",
+    "hindiName": "धाराशिव (उस्मानाबाद)",
+    "division": "Chhatrapati Sambhajinagar",
+    "headquarters": "Dharashiv",
+    "lat": 18.1856,
+    "lng": 76.0419,
+    "destinations": [],
+    "svgPath": "M 416,405 L 417,404 L 417,404 L 417,404 L 419,401 L 425,404 L 429,396 L 432,394 L 433,395 L 435,393 L 436,393 L 437,393 L 437,389 L 440,389 L 440,388 L 440,387 L 441,388 L 442,388 L 442,389 L 445,392 L 445,392 L 446,392 L 448,392 L 448,388 L 453,390 L 455,389 L 456,389 L 458,392 L 460,390 L 464,392 L 465,391 L 464,392 L 472,393 L 473,396 L 473,397 L 473,396 L 477,395 L 477,396 L 476,398 L 477,399 L 477,399 L 478,398 L 479,396 L 480,397 L 482,400 L 486,398 L 487,398 L 491,399 L 491,399 L 492,401 L 492,401 L 492,401 L 493,401 L 493,398 L 493,398 L 500,399 L 500,401 L 502,401 L 502,401 L 502,401 L 502,404 L 500,405 L 501,407 L 500,408 L 502,410 L 501,410 L 501,414 L 498,413 L 495,417 L 500,420 L 503,418 L 503,422 L 506,423 L 506,428 L 503,431 L 503,433 L 504,433 L 503,438 L 502,445 L 507,446 L 507,448 L 511,447 L 513,450 L 515,452 L 522,453 L 522,451 L 523,451 L 523,453 L 524,453 L 525,452 L 527,453 L 528,452 L 531,453 L 532,452 L 531,455 L 538,456 L 539,459 L 538,459 L 538,461 L 538,461 L 538,464 L 543,464 L 543,464 L 543,465 L 543,470 L 546,470 L 548,473 L 546,476 L 541,477 L 543,481 L 540,482 L 539,487 L 537,486 L 536,483 L 534,482 L 534,480 L 532,478 L 531,482 L 529,484 L 528,484 L 528,480 L 529,479 L 524,479 L 524,483 L 521,483 L 521,489 L 518,489 L 517,490 L 517,491 L 511,489 L 511,486 L 510,486 L 509,485 L 506,485 L 506,484 L 504,482 L 504,482 L 502,482 L 500,484 L 497,485 L 497,486 L 494,487 L 492,485 L 490,485 L 491,483 L 492,484 L 493,482 L 491,482 L 490,479 L 489,479 L 489,478 L 487,479 L 485,477 L 482,479 L 480,478 L 478,480 L 479,472 L 476,471 L 475,473 L 474,473 L 472,470 L 471,470 L 471,472 L 466,471 L 466,469 L 465,468 L 464,466 L 464,463 L 464,463 L 463,462 L 463,457 L 464,455 L 469,455 L 470,458 L 470,458 L 470,458 L 476,458 L 476,456 L 477,456 L 478,453 L 479,451 L 479,451 L 479,450 L 476,450 L 477,449 L 476,447 L 473,447 L 473,445 L 472,443 L 474,440 L 472,437 L 473,433 L 471,430 L 471,428 L 468,421 L 467,420 L 465,421 L 462,419 L 459,419 L 457,416 L 456,413 L 453,413 L 451,417 L 453,418 L 453,420 L 452,423 L 449,424 L 446,423 L 446,423 L 443,429 L 444,430 L 444,432 L 441,431 L 439,432 L 438,436 L 437,436 L 438,437 L 437,438 L 437,440 L 436,442 L 435,442 L 433,441 L 433,440 L 433,440 L 432,441 L 431,439 L 429,439 L 429,440 L 426,438 L 427,436 L 425,432 L 426,430 L 423,430 L 424,427 L 423,425 L 424,424 L 423,424 L 418,418 L 415,418 L 414,416 L 415,413 L 414,407 L 416,405 Z"
+  },
+  {
+    "id": "nanded",
+    "name": "Nanded",
+    "marathiName": "नांदेड",
+    "hindiName": "नांदेड़",
+    "division": "Chhatrapati Sambhajinagar",
+    "headquarters": "Nanded",
+    "lat": 19.1383,
+    "lng": 77.321,
+    "destinations": [],
+    "svgPath": "M 608,291 L 615,293 L 616,294 L 619,294 L 620,295 L 621,295 L 622,296 L 622,296 L 623,297 L 623,299 L 624,299 L 624,300 L 625,303 L 623,303 L 624,304 L 629,305 L 630,307 L 632,306 L 633,307 L 634,308 L 632,310 L 633,311 L 630,311 L 629,313 L 629,315 L 629,315 L 634,316 L 638,314 L 639,313 L 640,315 L 641,315 L 643,314 L 641,311 L 642,310 L 642,308 L 644,307 L 646,309 L 646,307 L 648,306 L 651,309 L 652,308 L 654,308 L 656,313 L 656,313 L 656,313 L 658,313 L 658,313 L 658,312 L 658,310 L 662,313 L 662,313 L 662,313 L 665,311 L 666,311 L 667,308 L 668,307 L 668,307 L 667,304 L 670,305 L 673,303 L 673,303 L 674,298 L 672,294 L 672,294 L 668,293 L 667,294 L 665,294 L 664,296 L 661,293 L 660,291 L 659,290 L 657,291 L 655,292 L 655,292 L 654,290 L 650,286 L 646,287 L 645,285 L 644,285 L 644,282 L 643,280 L 643,279 L 645,278 L 645,277 L 647,272 L 652,269 L 658,269 L 661,268 L 663,270 L 665,271 L 666,271 L 668,271 L 669,269 L 671,269 L 675,270 L 675,270 L 679,268 L 679,270 L 678,272 L 679,273 L 679,273 L 681,273 L 682,269 L 684,269 L 682,275 L 686,276 L 686,278 L 688,279 L 689,282 L 687,286 L 687,288 L 685,289 L 684,290 L 681,290 L 680,293 L 682,295 L 684,299 L 683,302 L 682,303 L 681,303 L 681,304 L 682,305 L 684,311 L 683,313 L 682,314 L 680,313 L 678,316 L 675,316 L 674,318 L 672,318 L 673,319 L 672,324 L 674,327 L 672,331 L 672,335 L 669,335 L 667,334 L 664,335 L 663,333 L 661,335 L 660,334 L 660,331 L 658,331 L 657,329 L 651,324 L 648,327 L 647,327 L 644,328 L 644,330 L 648,331 L 648,332 L 648,333 L 645,333 L 643,339 L 644,340 L 641,345 L 643,347 L 643,349 L 641,350 L 639,348 L 638,351 L 638,353 L 635,352 L 635,355 L 636,358 L 636,360 L 640,360 L 640,363 L 644,363 L 642,367 L 646,367 L 647,369 L 648,369 L 648,371 L 652,373 L 652,375 L 648,375 L 642,377 L 637,389 L 636,388 L 636,387 L 634,387 L 634,389 L 632,390 L 634,398 L 633,401 L 630,401 L 625,404 L 625,403 L 625,401 L 624,402 L 623,401 L 622,402 L 620,402 L 620,404 L 621,405 L 619,406 L 621,407 L 621,409 L 618,408 L 618,410 L 616,410 L 616,411 L 619,411 L 619,412 L 617,413 L 614,412 L 614,414 L 617,415 L 616,418 L 614,419 L 614,422 L 617,423 L 618,425 L 616,427 L 613,425 L 613,428 L 611,429 L 610,429 L 608,430 L 606,428 L 606,425 L 603,426 L 600,426 L 599,425 L 603,422 L 602,420 L 604,417 L 603,416 L 600,416 L 600,411 L 598,413 L 595,411 L 595,412 L 591,414 L 591,412 L 590,411 L 591,411 L 592,409 L 589,408 L 589,407 L 591,405 L 592,405 L 593,402 L 590,400 L 591,396 L 586,395 L 585,392 L 581,392 L 581,389 L 584,388 L 583,387 L 580,387 L 579,386 L 579,387 L 571,389 L 571,387 L 572,385 L 572,380 L 568,381 L 566,375 L 566,375 L 566,375 L 569,373 L 568,370 L 563,370 L 563,369 L 561,368 L 562,367 L 563,364 L 565,366 L 566,364 L 569,365 L 572,359 L 572,358 L 571,358 L 571,355 L 573,355 L 572,351 L 572,351 L 574,347 L 576,348 L 576,349 L 575,349 L 575,350 L 575,351 L 578,350 L 578,350 L 578,350 L 578,351 L 579,351 L 581,350 L 581,346 L 581,346 L 582,346 L 584,344 L 584,342 L 583,342 L 583,336 L 585,334 L 587,331 L 588,331 L 588,326 L 592,327 L 592,326 L 594,326 L 595,323 L 598,323 L 599,325 L 601,325 L 604,321 L 607,320 L 606,318 L 607,315 L 609,315 L 609,313 L 610,313 L 610,310 L 610,310 L 609,310 L 609,310 L 609,310 L 609,310 L 608,303 L 607,303 L 607,302 L 610,299 L 608,298 L 609,293 L 607,292 L 608,291 Z"
+  },
+  {
+    "id": "parbhani",
+    "name": "Parbhani",
+    "marathiName": "परभणी",
+    "hindiName": "परभणी",
+    "division": "Chhatrapati Sambhajinagar",
+    "headquarters": "Parbhani",
+    "lat": 19.2686,
+    "lng": 76.7708,
+    "destinations": [],
+    "svgPath": "M 496,331 L 497,329 L 496,329 L 496,327 L 498,327 L 499,325 L 501,325 L 502,324 L 500,323 L 501,322 L 503,322 L 503,316 L 504,316 L 505,312 L 508,314 L 508,312 L 510,312 L 511,305 L 517,305 L 517,301 L 516,301 L 516,299 L 518,298 L 518,293 L 519,293 L 519,292 L 521,292 L 521,287 L 519,287 L 518,285 L 521,285 L 521,283 L 523,284 L 523,283 L 523,283 L 523,283 L 521,281 L 521,280 L 523,280 L 523,277 L 528,278 L 528,277 L 530,277 L 530,277 L 532,279 L 531,280 L 532,281 L 530,281 L 531,282 L 533,281 L 534,279 L 535,282 L 537,282 L 539,284 L 541,283 L 543,287 L 543,288 L 545,291 L 546,290 L 546,288 L 547,286 L 548,292 L 550,291 L 551,292 L 550,289 L 553,289 L 555,292 L 553,294 L 556,295 L 555,297 L 556,297 L 558,295 L 559,295 L 559,297 L 561,298 L 560,300 L 557,301 L 556,306 L 554,306 L 553,308 L 555,312 L 557,313 L 555,315 L 558,316 L 558,314 L 560,315 L 557,321 L 557,323 L 558,325 L 558,324 L 559,325 L 558,326 L 557,328 L 558,329 L 560,329 L 560,328 L 565,327 L 565,327 L 565,327 L 566,328 L 566,330 L 569,330 L 568,331 L 568,333 L 571,334 L 572,335 L 570,338 L 573,339 L 575,341 L 576,341 L 575,343 L 578,343 L 575,344 L 576,346 L 576,347 L 574,347 L 572,351 L 572,351 L 573,355 L 571,355 L 571,358 L 572,358 L 572,359 L 569,365 L 566,364 L 565,366 L 563,364 L 562,367 L 561,368 L 563,369 L 563,370 L 568,370 L 569,373 L 566,375 L 559,374 L 557,374 L 556,374 L 555,374 L 554,377 L 551,376 L 547,378 L 547,380 L 544,380 L 543,382 L 542,382 L 542,382 L 541,382 L 537,381 L 539,380 L 537,376 L 535,375 L 535,373 L 534,373 L 533,371 L 530,370 L 530,363 L 525,363 L 525,366 L 524,366 L 522,363 L 520,362 L 519,360 L 520,358 L 518,357 L 517,354 L 518,353 L 516,351 L 516,348 L 514,349 L 512,346 L 511,345 L 509,348 L 506,347 L 507,345 L 510,343 L 510,343 L 509,339 L 510,336 L 510,335 L 510,335 L 509,334 L 508,333 L 507,333 L 503,332 L 503,332 L 503,332 L 500,334 L 500,334 L 497,334 L 498,333 L 498,333 L 497,333 L 496,331 Z"
+  },
+  {
+    "id": "hingoli",
+    "name": "Hingoli",
+    "marathiName": "हिंगोली",
+    "hindiName": "हिंगोली",
+    "division": "Chhatrapati Sambhajinagar",
+    "headquarters": "Hingoli",
+    "lat": 19.718,
+    "lng": 77.1492,
+    "destinations": [],
+    "svgPath": "M 525,275 L 525,275 L 528,275 L 532,276 L 533,276 L 535,273 L 538,275 L 540,272 L 544,273 L 544,269 L 546,270 L 547,267 L 551,267 L 552,264 L 557,265 L 558,264 L 560,263 L 566,260 L 566,259 L 568,260 L 570,259 L 572,261 L 576,267 L 576,267 L 579,266 L 579,265 L 582,264 L 583,262 L 583,262 L 585,261 L 586,263 L 585,266 L 585,266 L 588,266 L 589,270 L 588,271 L 588,271 L 590,270 L 591,270 L 591,270 L 591,270 L 591,268 L 591,268 L 592,269 L 592,270 L 593,269 L 594,269 L 595,269 L 595,270 L 593,270 L 593,270 L 593,271 L 593,271 L 593,272 L 596,271 L 598,272 L 598,274 L 599,274 L 598,275 L 599,276 L 597,276 L 597,276 L 598,277 L 598,277 L 598,278 L 598,278 L 599,278 L 600,277 L 601,278 L 601,281 L 603,282 L 601,283 L 601,287 L 601,287 L 602,287 L 604,285 L 606,287 L 607,289 L 606,290 L 606,291 L 607,291 L 608,291 L 607,292 L 609,293 L 608,298 L 610,299 L 607,302 L 607,303 L 608,303 L 609,310 L 609,310 L 609,310 L 609,310 L 610,310 L 610,310 L 610,313 L 609,313 L 609,315 L 607,315 L 606,318 L 607,320 L 604,321 L 601,325 L 599,325 L 598,323 L 595,323 L 594,326 L 592,326 L 592,327 L 588,326 L 588,331 L 587,331 L 585,334 L 583,336 L 583,342 L 584,342 L 584,344 L 582,346 L 581,346 L 581,346 L 581,350 L 579,351 L 578,351 L 578,350 L 578,350 L 578,350 L 575,351 L 575,350 L 575,349 L 576,349 L 576,348 L 574,347 L 576,347 L 576,346 L 575,344 L 578,343 L 575,343 L 576,341 L 575,341 L 573,339 L 570,338 L 572,335 L 571,334 L 568,333 L 568,331 L 569,330 L 566,330 L 566,328 L 565,327 L 565,327 L 565,327 L 560,328 L 560,329 L 558,329 L 557,328 L 558,326 L 559,325 L 558,324 L 558,325 L 557,323 L 557,321 L 560,315 L 558,314 L 558,316 L 555,315 L 557,313 L 555,312 L 553,308 L 554,306 L 556,306 L 557,301 L 560,300 L 561,298 L 559,297 L 559,295 L 558,295 L 556,297 L 555,297 L 556,295 L 553,294 L 555,292 L 553,289 L 550,289 L 551,292 L 550,291 L 548,292 L 547,286 L 546,288 L 546,290 L 545,291 L 543,288 L 543,287 L 541,283 L 539,284 L 537,282 L 535,282 L 534,279 L 533,281 L 531,282 L 530,281 L 532,281 L 531,280 L 532,279 L 530,277 L 530,277 L 528,277 L 528,278 L 523,277 L 523,277 L 524,275 L 525,275 Z"
+  },
+  {
+    "id": "amravati",
+    "name": "Amravati",
+    "marathiName": "अमरावती",
+    "hindiName": "अमरावती",
+    "division": "Amravati",
+    "headquarters": "Amravati",
+    "lat": 20.9374,
+    "lng": 77.7796,
+    "destinations": [],
+    "svgPath": "M 677,130 L 677,131 L 670,130 L 669,129 L 669,129 L 663,128 L 663,128 L 663,130 L 662,133 L 663,135 L 662,135 L 661,138 L 661,139 L 663,139 L 663,141 L 665,143 L 664,145 L 669,149 L 668,151 L 669,153 L 670,155 L 670,158 L 668,159 L 669,160 L 668,162 L 669,164 L 669,167 L 671,168 L 672,172 L 675,172 L 675,171 L 679,174 L 679,174 L 681,178 L 682,178 L 682,179 L 684,179 L 684,179 L 684,180 L 685,180 L 685,180 L 683,181 L 683,181 L 682,182 L 682,185 L 684,186 L 684,188 L 683,192 L 683,192 L 683,192 L 682,191 L 682,191 L 681,192 L 681,192 L 681,193 L 680,192 L 679,194 L 679,194 L 676,193 L 676,193 L 675,194 L 673,194 L 670,196 L 668,196 L 668,197 L 666,198 L 665,198 L 665,195 L 664,195 L 660,195 L 658,198 L 658,199 L 656,199 L 654,203 L 650,204 L 650,206 L 648,205 L 649,201 L 647,199 L 645,201 L 644,201 L 644,202 L 642,203 L 642,205 L 639,203 L 639,205 L 636,207 L 634,207 L 633,205 L 629,204 L 626,204 L 625,205 L 625,205 L 623,205 L 626,198 L 625,197 L 625,196 L 624,196 L 623,191 L 621,190 L 621,190 L 622,184 L 621,184 L 621,182 L 616,180 L 616,177 L 614,177 L 609,176 L 610,174 L 608,174 L 606,178 L 597,178 L 595,176 L 592,178 L 587,176 L 586,177 L 583,177 L 581,175 L 580,176 L 578,176 L 579,170 L 581,165 L 579,165 L 579,164 L 582,164 L 582,161 L 582,160 L 580,159 L 580,156 L 583,155 L 582,151 L 584,151 L 584,149 L 581,149 L 581,148 L 582,144 L 583,143 L 582,141 L 584,140 L 584,139 L 582,139 L 582,139 L 579,141 L 575,140 L 574,141 L 570,138 L 567,140 L 567,143 L 559,143 L 548,145 L 548,144 L 547,144 L 546,144 L 545,141 L 544,141 L 544,139 L 544,138 L 542,134 L 537,135 L 533,130 L 544,122 L 544,120 L 548,117 L 549,115 L 546,112 L 548,110 L 547,107 L 549,105 L 552,105 L 554,103 L 558,104 L 560,102 L 573,92 L 578,92 L 582,93 L 583,92 L 584,92 L 584,94 L 586,95 L 587,94 L 587,93 L 590,93 L 591,91 L 593,92 L 592,88 L 603,89 L 610,87 L 610,89 L 612,90 L 614,92 L 614,93 L 615,94 L 618,102 L 618,108 L 620,108 L 622,110 L 618,111 L 612,109 L 607,108 L 607,110 L 605,110 L 605,112 L 606,115 L 606,117 L 609,118 L 610,126 L 613,126 L 614,122 L 617,124 L 617,126 L 619,127 L 621,127 L 621,124 L 625,124 L 627,127 L 629,124 L 630,128 L 633,127 L 634,125 L 638,125 L 638,123 L 646,125 L 646,126 L 651,125 L 651,124 L 659,121 L 672,114 L 673,113 L 672,111 L 672,108 L 676,109 L 681,107 L 680,106 L 680,105 L 683,106 L 684,107 L 687,105 L 689,106 L 690,105 L 690,103 L 694,104 L 694,107 L 695,112 L 695,114 L 695,115 L 695,116 L 695,117 L 696,123 L 694,124 L 693,125 L 689,124 L 689,125 L 687,125 L 684,128 L 682,128 L 679,130 L 679,130 L 677,130 Z"
+  },
+  {
+    "id": "akola",
+    "name": "Akola",
+    "marathiName": "अकोला",
+    "hindiName": "अकोला",
+    "division": "Amravati",
+    "headquarters": "Akola",
+    "lat": 20.7002,
+    "lng": 77.0082,
+    "destinations": [],
+    "svgPath": "M 551,233 L 550,233 L 548,232 L 548,230 L 546,229 L 544,228 L 544,227 L 540,226 L 541,223 L 542,221 L 541,219 L 541,217 L 539,215 L 541,214 L 541,211 L 542,210 L 543,210 L 543,212 L 544,212 L 545,210 L 546,210 L 547,204 L 546,204 L 548,203 L 547,201 L 545,201 L 546,199 L 544,199 L 545,197 L 543,196 L 544,193 L 542,193 L 543,190 L 546,190 L 545,188 L 547,184 L 546,183 L 544,182 L 546,177 L 545,175 L 544,175 L 544,174 L 542,174 L 539,171 L 544,170 L 547,170 L 548,172 L 548,170 L 547,169 L 548,168 L 548,166 L 550,167 L 550,166 L 550,166 L 550,166 L 550,166 L 548,165 L 547,164 L 547,163 L 547,163 L 549,162 L 549,161 L 548,160 L 548,160 L 548,160 L 547,160 L 546,159 L 547,157 L 548,156 L 547,154 L 548,152 L 547,145 L 547,145 L 547,144 L 548,144 L 548,145 L 559,143 L 567,143 L 567,140 L 570,138 L 574,141 L 575,140 L 579,141 L 582,139 L 582,139 L 584,139 L 584,140 L 582,141 L 583,143 L 582,144 L 581,148 L 581,149 L 584,149 L 584,151 L 582,151 L 583,155 L 580,156 L 580,159 L 582,160 L 582,161 L 582,164 L 579,164 L 579,165 L 581,165 L 579,170 L 578,176 L 580,176 L 581,175 L 583,177 L 586,177 L 587,176 L 592,178 L 595,176 L 597,178 L 606,178 L 608,174 L 610,174 L 609,176 L 614,177 L 616,177 L 616,180 L 621,182 L 621,184 L 622,184 L 621,190 L 621,190 L 619,189 L 617,192 L 613,192 L 615,192 L 615,193 L 613,194 L 612,195 L 611,194 L 610,196 L 605,196 L 604,197 L 606,197 L 608,200 L 608,200 L 604,201 L 603,203 L 600,204 L 599,205 L 597,204 L 597,209 L 599,210 L 602,209 L 602,211 L 601,213 L 600,213 L 600,212 L 596,212 L 596,213 L 597,213 L 598,214 L 596,214 L 596,216 L 593,217 L 593,219 L 592,219 L 591,215 L 587,214 L 587,217 L 583,216 L 583,218 L 584,219 L 583,221 L 580,221 L 579,223 L 578,220 L 575,219 L 575,222 L 572,222 L 571,222 L 571,219 L 572,217 L 570,217 L 569,216 L 568,220 L 566,220 L 566,222 L 565,223 L 565,224 L 563,225 L 561,224 L 561,225 L 560,225 L 558,228 L 557,229 L 559,230 L 556,232 L 556,233 L 555,233 L 555,233 L 555,233 L 554,231 L 553,231 L 551,232 L 551,233 Z"
+  },
+  {
+    "id": "buldhana",
+    "name": "Buldhana",
+    "marathiName": "बुलढाणा",
+    "hindiName": "बुलढाणा",
+    "division": "Amravati",
+    "headquarters": "Buldhana",
+    "lat": 20.5293,
+    "lng": 76.1843,
+    "destinations": [],
+    "svgPath": "M 478,197 L 478,197 L 477,193 L 477,192 L 478,190 L 479,189 L 476,186 L 478,184 L 482,183 L 482,182 L 482,181 L 484,179 L 484,178 L 487,174 L 488,173 L 484,171 L 485,170 L 485,168 L 487,167 L 488,165 L 491,162 L 492,159 L 501,164 L 502,167 L 508,167 L 510,165 L 511,165 L 513,159 L 512,155 L 512,155 L 511,155 L 514,154 L 514,153 L 518,152 L 518,151 L 518,150 L 520,149 L 519,149 L 520,148 L 520,145 L 521,144 L 525,145 L 528,143 L 533,145 L 534,143 L 535,139 L 537,139 L 537,135 L 542,134 L 544,138 L 544,139 L 544,141 L 545,141 L 546,144 L 547,144 L 547,145 L 547,145 L 548,152 L 547,154 L 548,156 L 547,157 L 546,159 L 547,160 L 548,160 L 548,160 L 548,160 L 549,161 L 549,162 L 547,163 L 547,163 L 547,164 L 548,165 L 550,166 L 550,166 L 550,166 L 550,166 L 550,167 L 548,166 L 548,168 L 547,169 L 548,170 L 548,172 L 547,170 L 544,170 L 539,171 L 542,174 L 544,174 L 544,175 L 545,175 L 546,177 L 544,182 L 546,183 L 547,184 L 545,188 L 546,190 L 543,190 L 542,193 L 544,193 L 543,196 L 545,197 L 544,199 L 546,199 L 545,201 L 547,201 L 548,203 L 546,204 L 547,204 L 546,210 L 545,210 L 544,212 L 543,212 L 543,210 L 542,210 L 541,211 L 541,214 L 539,215 L 541,217 L 541,219 L 542,221 L 541,223 L 540,226 L 544,227 L 544,228 L 546,229 L 548,230 L 548,232 L 550,233 L 551,233 L 551,237 L 551,237 L 551,237 L 549,239 L 548,240 L 544,240 L 544,244 L 545,244 L 545,248 L 537,248 L 535,253 L 534,252 L 533,255 L 537,256 L 536,260 L 535,262 L 536,263 L 537,263 L 536,264 L 534,265 L 534,267 L 532,268 L 532,271 L 536,270 L 536,270 L 536,271 L 535,273 L 533,276 L 532,276 L 528,275 L 525,275 L 525,275 L 525,273 L 521,271 L 522,268 L 514,268 L 512,270 L 510,267 L 509,270 L 506,272 L 504,273 L 500,272 L 498,273 L 495,273 L 494,275 L 491,274 L 491,275 L 490,275 L 489,275 L 489,273 L 486,274 L 484,272 L 484,269 L 483,268 L 482,265 L 479,265 L 478,265 L 479,263 L 476,263 L 476,262 L 475,261 L 474,260 L 474,260 L 480,258 L 479,255 L 484,253 L 483,253 L 482,252 L 482,251 L 486,251 L 487,244 L 488,244 L 489,241 L 491,240 L 489,238 L 492,237 L 495,231 L 490,231 L 491,230 L 489,229 L 489,227 L 487,226 L 486,226 L 485,224 L 482,227 L 480,230 L 475,229 L 473,231 L 471,231 L 471,230 L 471,229 L 472,227 L 472,224 L 474,224 L 472,218 L 473,215 L 472,211 L 472,211 L 472,211 L 474,209 L 475,209 L 475,208 L 475,208 L 475,209 L 478,209 L 478,208 L 479,209 L 479,208 L 479,206 L 481,206 L 481,204 L 480,198 L 478,197 L 478,197 Z"
+  },
+  {
+    "id": "washim",
+    "name": "Washim",
+    "marathiName": "वाशिम",
+    "hindiName": "वाशिम",
+    "division": "Amravati",
+    "headquarters": "Washim",
+    "lat": 20.111,
+    "lng": 77.136,
+    "destinations": [],
+    "svgPath": "M 535,273 L 536,271 L 536,270 L 536,270 L 532,271 L 532,268 L 534,267 L 534,265 L 536,264 L 537,263 L 536,263 L 535,262 L 536,260 L 537,256 L 533,255 L 534,252 L 535,253 L 537,248 L 545,248 L 545,244 L 544,244 L 544,240 L 548,240 L 549,239 L 551,237 L 551,237 L 551,237 L 551,233 L 551,232 L 553,231 L 554,231 L 555,233 L 555,233 L 555,233 L 556,233 L 556,232 L 559,230 L 557,229 L 558,228 L 560,225 L 561,225 L 561,224 L 563,225 L 565,224 L 565,223 L 566,222 L 566,220 L 568,220 L 569,216 L 570,217 L 572,217 L 571,219 L 571,222 L 572,222 L 575,222 L 575,219 L 578,220 L 579,223 L 580,221 L 583,221 L 584,219 L 583,218 L 583,216 L 587,217 L 587,214 L 591,215 L 592,219 L 593,219 L 593,217 L 596,216 L 596,214 L 598,214 L 597,213 L 596,213 L 596,212 L 600,212 L 600,213 L 601,213 L 602,211 L 602,209 L 599,210 L 597,209 L 597,204 L 599,205 L 600,204 L 603,203 L 604,201 L 608,200 L 608,200 L 606,197 L 604,197 L 605,196 L 610,196 L 611,194 L 612,195 L 613,194 L 615,193 L 615,192 L 613,192 L 617,192 L 619,189 L 621,190 L 623,191 L 624,196 L 625,196 L 625,197 L 626,198 L 623,205 L 625,205 L 624,208 L 627,208 L 629,208 L 628,209 L 626,210 L 625,212 L 624,216 L 622,215 L 620,217 L 621,218 L 620,218 L 620,220 L 619,220 L 618,221 L 619,224 L 618,226 L 618,227 L 618,228 L 619,228 L 620,233 L 621,233 L 621,234 L 626,236 L 624,242 L 625,243 L 628,244 L 628,244 L 627,246 L 627,250 L 626,251 L 623,257 L 619,257 L 616,256 L 614,251 L 611,252 L 610,252 L 608,253 L 599,251 L 600,251 L 598,254 L 600,256 L 599,259 L 597,259 L 597,263 L 596,264 L 594,264 L 594,266 L 592,266 L 592,269 L 591,268 L 591,268 L 591,270 L 591,270 L 591,270 L 590,270 L 588,271 L 588,271 L 589,270 L 588,266 L 585,266 L 585,266 L 586,263 L 585,261 L 583,262 L 583,262 L 582,264 L 579,265 L 579,266 L 576,267 L 576,267 L 572,261 L 570,259 L 568,260 L 566,259 L 566,260 L 560,263 L 558,264 L 557,265 L 552,264 L 551,267 L 547,267 L 546,270 L 544,269 L 544,273 L 540,272 L 538,275 L 535,273 Z"
+  },
+  {
+    "id": "yavatmal",
+    "name": "Yavatmal",
+    "marathiName": "यवतमाळ",
+    "hindiName": "यवतमाल",
+    "division": "Amravati",
+    "headquarters": "Yavatmal",
+    "lat": 20.3888,
+    "lng": 78.1204,
+    "destinations": [],
+    "svgPath": "M 681,193 L 681,193 L 680,194 L 680,195 L 680,195 L 678,197 L 680,204 L 681,206 L 683,205 L 693,210 L 695,209 L 696,210 L 698,209 L 702,209 L 704,215 L 707,217 L 710,218 L 711,217 L 712,218 L 714,218 L 714,219 L 718,224 L 718,225 L 720,226 L 720,230 L 722,230 L 722,231 L 722,232 L 727,231 L 728,231 L 728,231 L 730,233 L 729,236 L 729,236 L 739,235 L 739,237 L 742,240 L 742,243 L 744,246 L 743,246 L 743,248 L 746,248 L 747,249 L 750,252 L 750,254 L 752,254 L 753,258 L 755,259 L 756,261 L 754,262 L 755,263 L 754,265 L 754,268 L 759,270 L 759,271 L 758,272 L 756,274 L 755,275 L 755,275 L 754,275 L 752,278 L 749,278 L 748,280 L 743,279 L 741,280 L 740,282 L 741,285 L 741,285 L 740,285 L 737,286 L 737,286 L 735,285 L 735,285 L 735,285 L 735,284 L 735,283 L 735,283 L 731,283 L 728,284 L 726,282 L 724,282 L 722,281 L 721,283 L 719,281 L 710,278 L 702,278 L 702,280 L 700,280 L 698,278 L 695,278 L 692,276 L 691,275 L 690,272 L 686,271 L 685,270 L 686,269 L 685,268 L 684,269 L 682,269 L 681,273 L 679,273 L 679,273 L 678,272 L 679,270 L 679,268 L 675,270 L 675,270 L 671,269 L 669,269 L 668,271 L 666,271 L 665,271 L 663,270 L 661,268 L 658,269 L 652,269 L 647,272 L 645,277 L 645,278 L 643,279 L 643,280 L 644,282 L 644,285 L 645,285 L 646,287 L 650,286 L 654,290 L 655,292 L 655,292 L 657,291 L 659,290 L 660,291 L 661,293 L 664,296 L 665,294 L 667,294 L 668,293 L 672,294 L 672,294 L 674,298 L 673,303 L 673,303 L 670,305 L 667,304 L 668,307 L 668,307 L 667,308 L 666,311 L 665,311 L 662,313 L 662,313 L 662,313 L 658,310 L 658,312 L 658,313 L 658,313 L 656,313 L 656,313 L 656,313 L 654,308 L 652,308 L 651,309 L 648,306 L 646,307 L 646,309 L 644,307 L 642,308 L 642,310 L 641,311 L 643,314 L 641,315 L 640,315 L 639,313 L 638,314 L 634,316 L 629,315 L 629,315 L 629,313 L 630,311 L 633,311 L 632,310 L 634,308 L 633,307 L 632,306 L 630,307 L 629,305 L 624,304 L 623,303 L 625,303 L 624,300 L 624,299 L 623,299 L 623,297 L 622,296 L 622,296 L 621,295 L 620,295 L 619,294 L 616,294 L 615,293 L 608,291 L 607,291 L 606,291 L 606,290 L 607,289 L 606,287 L 604,285 L 602,287 L 601,287 L 601,287 L 601,283 L 603,282 L 601,281 L 601,278 L 600,277 L 599,278 L 598,278 L 598,278 L 598,277 L 598,277 L 597,276 L 597,276 L 599,276 L 598,275 L 599,274 L 598,274 L 598,272 L 596,271 L 593,272 L 593,271 L 593,271 L 593,270 L 593,270 L 595,270 L 595,269 L 594,269 L 593,269 L 592,270 L 592,269 L 592,266 L 594,266 L 594,264 L 596,264 L 597,263 L 597,259 L 599,259 L 600,256 L 598,254 L 600,251 L 599,251 L 608,253 L 610,252 L 611,252 L 614,251 L 616,256 L 619,257 L 623,257 L 626,251 L 627,250 L 627,246 L 628,244 L 628,244 L 625,243 L 624,242 L 626,236 L 621,234 L 621,233 L 620,233 L 619,228 L 618,228 L 618,227 L 618,226 L 619,224 L 618,221 L 619,220 L 620,220 L 620,218 L 621,218 L 620,217 L 622,215 L 624,216 L 625,212 L 626,210 L 628,209 L 629,208 L 627,208 L 624,208 L 625,205 L 625,205 L 626,204 L 629,204 L 633,205 L 634,207 L 636,207 L 639,205 L 639,203 L 642,205 L 642,203 L 644,202 L 644,201 L 645,201 L 647,199 L 649,201 L 648,205 L 650,206 L 650,204 L 654,203 L 656,199 L 658,199 L 658,198 L 660,195 L 664,195 L 665,195 L 665,198 L 666,198 L 668,197 L 668,196 L 670,196 L 673,194 L 675,194 L 676,193 L 676,193 L 679,194 L 679,194 L 680,192 L 681,193 Z"
+  },
+  {
+    "id": "nagpur",
+    "name": "Nagpur",
+    "marathiName": "नागपूर",
+    "hindiName": "नागपुर",
+    "division": "Nagpur",
+    "headquarters": "Nagpur",
+    "lat": 21.1458,
+    "lng": 79.0882,
+    "destinations": [],
+    "svgPath": "M 792,190 L 792,190 L 791,192 L 789,191 L 788,194 L 785,196 L 781,196 L 780,194 L 777,194 L 777,196 L 776,197 L 777,198 L 774,203 L 772,202 L 765,203 L 765,203 L 764,202 L 764,202 L 763,202 L 762,200 L 761,199 L 761,197 L 759,196 L 758,194 L 755,193 L 755,190 L 754,191 L 750,188 L 745,188 L 745,186 L 740,185 L 741,183 L 738,181 L 738,179 L 735,178 L 735,179 L 734,179 L 734,178 L 733,178 L 732,174 L 732,173 L 731,173 L 730,173 L 729,174 L 726,173 L 725,172 L 726,171 L 724,170 L 722,168 L 723,168 L 722,168 L 721,166 L 721,162 L 718,161 L 717,159 L 714,159 L 714,157 L 711,156 L 711,154 L 710,154 L 710,152 L 706,151 L 704,149 L 703,146 L 699,141 L 696,139 L 695,140 L 693,139 L 686,138 L 685,136 L 683,136 L 684,134 L 683,134 L 679,130 L 679,130 L 682,128 L 684,128 L 687,125 L 689,125 L 689,124 L 693,125 L 694,124 L 696,123 L 695,117 L 695,116 L 695,115 L 695,114 L 699,114 L 702,111 L 707,112 L 709,115 L 711,115 L 712,116 L 714,115 L 716,116 L 718,115 L 721,117 L 723,117 L 723,114 L 725,115 L 726,117 L 726,116 L 728,115 L 734,114 L 736,115 L 737,114 L 740,115 L 741,112 L 739,112 L 739,110 L 737,109 L 740,108 L 738,107 L 738,105 L 741,105 L 743,102 L 746,102 L 747,104 L 752,103 L 754,104 L 755,103 L 755,102 L 756,102 L 759,100 L 761,100 L 759,99 L 759,98 L 766,99 L 766,97 L 765,95 L 767,93 L 766,92 L 770,93 L 772,95 L 777,96 L 777,96 L 781,97 L 783,95 L 790,97 L 792,101 L 791,103 L 791,106 L 794,108 L 794,110 L 794,110 L 792,110 L 788,115 L 786,120 L 788,121 L 789,124 L 790,124 L 793,128 L 795,130 L 795,133 L 797,136 L 795,142 L 796,144 L 795,146 L 795,147 L 793,147 L 793,145 L 790,145 L 791,147 L 790,149 L 793,151 L 793,153 L 792,154 L 793,155 L 795,154 L 797,156 L 798,155 L 799,156 L 804,166 L 803,170 L 800,172 L 800,176 L 799,176 L 797,178 L 795,177 L 794,177 L 795,181 L 793,185 L 793,187 L 792,190 Z"
+  },
+  {
+    "id": "wardha",
+    "name": "Wardha",
+    "marathiName": "वर्धा",
+    "hindiName": "वर्धा",
+    "division": "Nagpur",
+    "headquarters": "Wardha",
+    "lat": 20.7453,
+    "lng": 78.6022,
+    "destinations": [],
+    "svgPath": "M 677,130 L 679,130 L 683,134 L 684,134 L 683,136 L 685,136 L 686,138 L 693,139 L 695,140 L 696,139 L 699,141 L 703,146 L 704,149 L 706,151 L 710,152 L 710,154 L 711,154 L 711,156 L 714,157 L 714,159 L 717,159 L 718,161 L 721,162 L 721,166 L 722,168 L 723,168 L 722,168 L 724,170 L 726,171 L 725,172 L 726,173 L 729,174 L 730,173 L 731,173 L 732,173 L 732,174 L 733,178 L 734,178 L 734,179 L 735,179 L 735,178 L 738,179 L 738,181 L 741,183 L 740,185 L 745,186 L 745,188 L 750,188 L 754,191 L 755,190 L 755,193 L 758,194 L 759,196 L 761,197 L 761,199 L 762,200 L 763,202 L 764,202 L 764,202 L 765,203 L 765,203 L 765,206 L 763,208 L 762,210 L 761,210 L 760,214 L 758,213 L 757,216 L 756,216 L 755,215 L 750,215 L 750,214 L 748,213 L 746,216 L 745,215 L 743,215 L 742,218 L 737,218 L 737,218 L 733,219 L 732,218 L 732,218 L 731,218 L 731,219 L 731,219 L 731,219 L 732,220 L 729,221 L 730,225 L 730,226 L 730,228 L 731,229 L 730,229 L 728,231 L 728,231 L 727,231 L 722,232 L 722,231 L 722,230 L 720,230 L 720,226 L 718,225 L 718,224 L 714,219 L 714,218 L 712,218 L 711,217 L 710,218 L 707,217 L 704,215 L 702,209 L 698,209 L 696,210 L 695,209 L 693,210 L 683,205 L 681,206 L 680,204 L 678,197 L 680,195 L 680,195 L 680,194 L 681,193 L 681,193 L 681,192 L 681,192 L 682,191 L 682,191 L 683,192 L 683,192 L 683,192 L 684,188 L 684,186 L 682,185 L 682,182 L 683,181 L 683,181 L 685,180 L 685,180 L 684,180 L 684,179 L 684,179 L 682,179 L 682,178 L 681,178 L 679,174 L 679,174 L 675,171 L 675,172 L 672,172 L 671,168 L 669,167 L 669,164 L 668,162 L 669,160 L 668,159 L 670,158 L 670,155 L 669,153 L 668,151 L 669,149 L 664,145 L 665,143 L 663,141 L 663,139 L 661,139 L 661,138 L 662,135 L 663,135 L 662,133 L 663,130 L 663,128 L 663,128 L 669,129 L 669,129 L 670,130 L 677,131 L 677,130 Z"
+  },
+  {
+    "id": "bhandara",
+    "name": "Bhandara",
+    "marathiName": "भंडारा",
+    "hindiName": "भंडारा",
+    "division": "Nagpur",
+    "headquarters": "Bhandara",
+    "lat": 21.1714,
+    "lng": 79.6543,
+    "destinations": [],
+    "svgPath": "M 828,112 L 828,115 L 825,118 L 824,121 L 817,126 L 817,127 L 818,128 L 818,131 L 820,132 L 820,134 L 821,135 L 819,136 L 823,137 L 823,138 L 821,137 L 821,138 L 820,140 L 820,140 L 823,140 L 823,138 L 823,138 L 826,138 L 829,138 L 832,140 L 834,140 L 835,141 L 837,140 L 837,142 L 841,143 L 842,144 L 841,147 L 843,148 L 840,152 L 842,153 L 841,155 L 843,155 L 841,157 L 842,158 L 841,159 L 844,159 L 844,163 L 842,164 L 841,167 L 840,167 L 841,168 L 838,166 L 835,168 L 830,167 L 830,169 L 828,172 L 829,172 L 830,173 L 831,174 L 831,176 L 828,174 L 827,174 L 827,177 L 825,176 L 823,179 L 827,180 L 828,180 L 828,182 L 827,183 L 826,180 L 824,180 L 823,179 L 822,180 L 822,180 L 822,180 L 822,181 L 823,182 L 823,184 L 825,183 L 824,185 L 829,183 L 828,187 L 827,188 L 830,188 L 831,187 L 835,187 L 835,186 L 836,186 L 836,188 L 834,188 L 833,190 L 833,190 L 833,191 L 834,194 L 832,192 L 829,194 L 829,195 L 829,195 L 825,193 L 821,194 L 817,192 L 816,190 L 813,188 L 813,189 L 813,192 L 813,193 L 809,193 L 808,194 L 808,197 L 808,198 L 805,196 L 805,195 L 801,194 L 800,192 L 798,193 L 796,192 L 796,191 L 792,190 L 793,187 L 793,185 L 795,181 L 794,177 L 795,177 L 797,178 L 799,176 L 800,176 L 800,172 L 803,170 L 804,166 L 799,156 L 798,155 L 797,156 L 795,154 L 793,155 L 792,154 L 793,153 L 793,151 L 790,149 L 791,147 L 790,145 L 793,145 L 793,147 L 795,147 L 795,146 L 796,144 L 795,142 L 797,136 L 795,133 L 795,130 L 793,128 L 790,124 L 789,124 L 788,121 L 786,120 L 788,115 L 792,110 L 794,110 L 794,110 L 796,109 L 798,110 L 801,108 L 804,108 L 805,106 L 812,104 L 816,105 L 820,109 L 825,112 L 828,112 Z"
+  },
+  {
+    "id": "gondia",
+    "name": "Gondia",
+    "marathiName": "गोंदिया",
+    "hindiName": "गोंदिया",
+    "division": "Nagpur",
+    "headquarters": "Gondia",
+    "lat": 21.4554,
+    "lng": 80.196,
+    "destinations": [],
+    "svgPath": "M 876,180 L 872,180 L 870,181 L 870,181 L 865,180 L 863,189 L 862,191 L 860,191 L 859,194 L 857,194 L 857,196 L 851,194 L 850,192 L 847,193 L 845,192 L 843,193 L 840,191 L 838,192 L 836,195 L 836,194 L 834,194 L 834,194 L 833,191 L 833,190 L 833,190 L 834,188 L 836,188 L 836,186 L 835,186 L 835,187 L 831,187 L 830,188 L 827,188 L 828,187 L 829,183 L 824,185 L 825,183 L 823,184 L 823,182 L 822,181 L 822,180 L 822,180 L 822,180 L 823,179 L 824,180 L 826,180 L 827,183 L 828,182 L 828,180 L 827,180 L 823,179 L 825,176 L 827,177 L 827,174 L 828,174 L 831,176 L 831,174 L 830,173 L 829,172 L 828,172 L 830,169 L 830,167 L 835,168 L 838,166 L 841,168 L 840,167 L 841,167 L 842,164 L 844,163 L 844,159 L 841,159 L 842,158 L 841,157 L 843,155 L 841,155 L 842,153 L 840,152 L 843,148 L 841,147 L 842,144 L 841,143 L 837,142 L 837,140 L 835,141 L 834,140 L 832,140 L 829,138 L 826,138 L 823,138 L 823,138 L 823,140 L 820,140 L 820,140 L 821,138 L 821,137 L 823,138 L 823,137 L 819,136 L 821,135 L 820,134 L 820,132 L 818,131 L 818,128 L 817,127 L 817,126 L 824,121 L 825,118 L 828,115 L 828,112 L 828,111 L 829,108 L 832,108 L 835,110 L 838,108 L 842,108 L 844,105 L 845,105 L 846,103 L 849,103 L 853,100 L 855,102 L 859,102 L 860,104 L 861,105 L 862,106 L 864,106 L 865,108 L 865,109 L 869,111 L 869,115 L 873,120 L 870,123 L 872,126 L 875,126 L 876,123 L 882,124 L 884,126 L 886,128 L 886,129 L 888,129 L 889,131 L 891,131 L 894,130 L 896,132 L 896,133 L 894,134 L 893,138 L 890,140 L 888,141 L 885,143 L 882,143 L 881,145 L 877,145 L 875,151 L 876,151 L 874,153 L 876,159 L 873,162 L 875,163 L 877,169 L 884,169 L 885,180 L 882,179 L 876,180 Z"
+  },
+  {
+    "id": "chandrapur",
+    "name": "Chandrapur",
+    "marathiName": "चंद्रपूर",
+    "hindiName": "चंद्रपुर",
+    "division": "Nagpur",
+    "headquarters": "Chandrapur",
+    "lat": 19.9615,
+    "lng": 79.2961,
+    "destinations": [],
+    "svgPath": "M 829,195 L 829,195 L 829,199 L 830,201 L 828,206 L 831,208 L 830,217 L 830,217 L 832,220 L 831,223 L 833,226 L 830,229 L 830,232 L 834,237 L 834,239 L 834,239 L 829,241 L 827,245 L 827,246 L 827,246 L 828,247 L 829,247 L 832,249 L 834,256 L 831,261 L 828,263 L 827,263 L 824,262 L 824,262 L 823,261 L 822,257 L 822,257 L 821,257 L 819,258 L 818,258 L 816,259 L 814,263 L 814,264 L 814,264 L 817,271 L 815,274 L 812,276 L 812,278 L 813,284 L 816,287 L 816,295 L 818,301 L 815,299 L 812,298 L 809,301 L 802,302 L 801,303 L 799,308 L 795,307 L 794,304 L 792,305 L 792,307 L 788,309 L 784,305 L 783,306 L 782,306 L 778,302 L 774,302 L 774,303 L 773,300 L 770,299 L 767,298 L 767,299 L 768,300 L 767,303 L 767,306 L 764,310 L 766,312 L 763,313 L 754,306 L 750,304 L 745,305 L 744,303 L 743,304 L 740,304 L 740,303 L 743,301 L 742,299 L 742,294 L 737,292 L 736,294 L 732,294 L 733,291 L 731,283 L 735,283 L 735,283 L 735,284 L 735,285 L 735,285 L 735,285 L 737,286 L 737,286 L 740,285 L 741,285 L 741,285 L 740,282 L 741,280 L 743,279 L 748,280 L 749,278 L 752,278 L 754,275 L 755,275 L 755,275 L 756,274 L 758,272 L 759,271 L 759,270 L 754,268 L 754,265 L 755,263 L 754,262 L 756,261 L 755,259 L 753,258 L 752,254 L 750,254 L 750,252 L 747,249 L 746,248 L 743,248 L 743,246 L 744,246 L 742,243 L 742,240 L 739,237 L 739,235 L 729,236 L 729,236 L 730,233 L 728,231 L 728,231 L 728,231 L 730,229 L 731,229 L 730,228 L 730,226 L 730,225 L 729,221 L 732,220 L 731,219 L 731,219 L 731,219 L 731,218 L 732,218 L 732,218 L 733,219 L 737,218 L 737,218 L 742,218 L 743,215 L 745,215 L 746,216 L 748,213 L 750,214 L 750,215 L 755,215 L 756,216 L 757,216 L 758,213 L 760,214 L 761,210 L 762,210 L 763,208 L 765,206 L 765,203 L 772,202 L 774,203 L 777,198 L 776,197 L 777,196 L 777,194 L 780,194 L 781,196 L 785,196 L 788,194 L 789,191 L 791,192 L 792,190 L 792,190 L 796,191 L 796,192 L 798,193 L 800,192 L 801,194 L 805,195 L 805,196 L 808,198 L 808,197 L 808,194 L 809,193 L 813,193 L 813,192 L 813,189 L 813,188 L 816,190 L 817,192 L 821,194 L 825,193 L 829,195 L 829,195 Z"
+  },
+  {
+    "id": "gadchiroli",
+    "name": "Gadchiroli",
+    "marathiName": "गडचिरोली",
+    "hindiName": "गढ़चिरोली",
+    "division": "Nagpur",
+    "headquarters": "Gadchiroli",
+    "lat": 20.1809,
+    "lng": 80.0033,
+    "destinations": [],
+    "svgPath": "M 834,194 L 834,194 L 836,194 L 836,195 L 838,192 L 840,191 L 843,193 L 845,192 L 847,193 L 850,192 L 851,194 L 857,196 L 857,194 L 859,194 L 860,191 L 862,191 L 863,189 L 865,180 L 870,181 L 870,181 L 872,180 L 876,180 L 882,179 L 885,180 L 884,183 L 884,186 L 885,187 L 886,191 L 888,193 L 887,195 L 882,196 L 878,200 L 880,203 L 882,204 L 887,201 L 892,202 L 890,203 L 891,205 L 890,207 L 890,211 L 889,216 L 890,218 L 888,222 L 890,224 L 891,228 L 890,229 L 884,230 L 881,234 L 878,233 L 870,236 L 871,239 L 873,240 L 870,244 L 871,246 L 874,247 L 876,247 L 876,245 L 880,246 L 884,249 L 884,251 L 885,253 L 884,259 L 884,262 L 882,266 L 879,267 L 877,265 L 875,264 L 872,266 L 872,269 L 875,270 L 877,269 L 879,270 L 880,273 L 879,274 L 877,277 L 874,279 L 871,278 L 871,280 L 877,280 L 879,283 L 878,280 L 877,279 L 878,277 L 882,277 L 884,278 L 884,282 L 884,283 L 896,290 L 895,298 L 899,298 L 901,299 L 904,301 L 904,303 L 910,303 L 912,307 L 915,307 L 915,311 L 913,314 L 910,314 L 908,316 L 908,318 L 909,321 L 911,322 L 904,327 L 902,330 L 897,330 L 897,327 L 896,326 L 892,328 L 890,328 L 887,319 L 884,320 L 882,324 L 878,325 L 875,332 L 870,335 L 869,337 L 870,340 L 865,344 L 864,345 L 865,348 L 864,349 L 865,351 L 862,353 L 862,356 L 859,359 L 859,364 L 866,373 L 867,376 L 862,378 L 860,381 L 857,381 L 859,385 L 857,387 L 854,387 L 853,389 L 849,387 L 846,389 L 840,385 L 837,380 L 832,380 L 827,375 L 832,371 L 830,355 L 829,353 L 824,354 L 822,348 L 824,346 L 830,341 L 828,336 L 829,332 L 832,328 L 831,325 L 833,319 L 830,312 L 827,309 L 823,308 L 818,301 L 816,295 L 816,287 L 813,284 L 812,278 L 812,276 L 815,274 L 817,271 L 814,264 L 814,264 L 814,263 L 816,259 L 818,258 L 819,258 L 821,257 L 822,257 L 822,257 L 823,261 L 824,262 L 824,262 L 827,263 L 828,263 L 831,261 L 834,256 L 832,249 L 829,247 L 828,247 L 827,246 L 827,246 L 827,245 L 829,241 L 834,239 L 834,239 L 834,237 L 830,232 L 830,229 L 833,226 L 831,223 L 832,220 L 830,217 L 830,217 L 831,208 L 828,206 L 830,201 L 829,199 L 829,195 L 829,195 L 829,194 L 832,192 L 834,194 Z"
+  }
+];
 
-/**
- * Detailed Konkan Coastline Stroke Path
- */
-export const KONKAN_COASTLINE_PATH = `
-  M 185,225 
-  C 188,250 190,270 190,290 
-  C 192,310 188,335 188,350 
-  C 188,360 195,370 198,400 
-  C 202,425 208,445 210,460 
-  C 214,485 218,510 220,530 
-  C 224,555 228,575 230,590 
-  C 234,615 238,630 240,640 
-  C 255,660 270,670 275,680
-`;
+export const ARABIAN_SEA_PATH = "M 0,0 L 197,0 L 197,238 L 193,242 L 186,248 L 183,253 L 183,253 L 183,264 L 179,267 L 179,267 L 178,276 L 178,276 L 181,284 L 182,286 L 183,291 L 184,300 L 184,302 L 184,305 L 186,313 L 188,321 L 188,321 L 190,332 L 189,336 L 189,336 L 190,342 L 190,345 L 193,355 L 193,360 L 191,363 L 191,364 L 194,371 L 197,377 L 240,382 L 196,387 L 197,392 L 199,393 L 201,403 L 200,410 L 200,410 L 201,416 L 201,420 L 203,428 L 203,434 L 203,434 L 207,443 L 207,443 L 208,450 L 209,454 L 212,460 L 213,462 L 218,471 L 217,474 L 219,476 L 219,486 L 219,486 L 221,491 L 221,499 L 223,502 L 226,509 L 224,514 L 226,516 L 226,524 L 227,525 L 230,534 L 233,538 L 233,542 L 232,551 L 232,551 L 233,555 L 234,564 L 235,565 L 236,571 L 236,580 L 236,580 L 238,588 L 238,593 L 237,598 L 237,601 L 241,608 L 242,612 L 242,615 L 244,618 L 246,624 L 289,629 L 250,638 L 250,638 L 250,646 L 252,647 L 253,652 L 255,657 L 264,665 L 283,674 L 268,676 L 271,678 L 296,687 L 296,750 L 0,750 Z";
 
-/**
- * Complete Outer Boundary Silhouette of Maharashtra State
- */
-export const MAHARASHTRA_OUTER_BOUNDARY = `
-  M 185,225 
-  L 215,220 
-  L 230,225 
-  L 265,80 
-  L 325,75 
-  L 375,120 
-  L 475,115 
-  L 535,130 
-  L 580,95 
-  L 665,95 
-  L 705,105 
-  L 775,100 
-  L 825,85 
-  L 885,85 
-  L 885,175 
-  L 890,345 
-  L 770,340 
-  L 680,305 
-  L 625,365 
-  L 555,355 
-  L 545,430 
-  L 480,425 
-  L 440,500 
-  L 365,530 
-  L 360,570 
-  L 310,580 
-  L 285,630 
-  L 275,680 
-  L 240,640 
-  L 230,590 
-  L 220,530 
-  L 210,460 
-  L 198,400 
-  L 188,375 
-  L 188,350 
-  L 190,290 
-  Z
-`;
+export const KONKAN_COASTLINE_PATH = "M 197,238 L 193,242 L 186,248 L 183,253 L 183,253 L 183,264 L 179,267 L 179,267 L 178,276 L 178,276 L 181,284 L 182,286 L 183,291 L 184,300 L 184,302 L 184,305 L 186,313 L 188,321 L 188,321 L 190,332 L 189,336 L 189,336 L 190,342 L 190,345 L 193,355 L 193,360 L 191,363 L 191,364 L 194,371 L 197,377 L 240,382 L 196,387 L 197,392 L 199,393 L 201,403 L 200,410 L 200,410 L 201,416 L 201,420 L 203,428 L 203,434 L 203,434 L 207,443 L 207,443 L 208,450 L 209,454 L 212,460 L 213,462 L 218,471 L 217,474 L 219,476 L 219,486 L 219,486 L 221,491 L 221,499 L 223,502 L 226,509 L 224,514 L 226,516 L 226,524 L 227,525 L 230,534 L 233,538 L 233,542 L 232,551 L 232,551 L 233,555 L 234,564 L 235,565 L 236,571 L 236,580 L 236,580 L 238,588 L 238,593 L 237,598 L 237,601 L 241,608 L 242,612 L 242,615 L 244,618 L 246,624 L 289,629 L 250,638 L 250,638 L 250,646 L 252,647 L 253,652 L 255,657 L 264,665 L 283,674 L 268,676 L 271,678 L 296,687";
 
-/**
- * Canonical 23 destinations with projected (x, y) coordinates
- * Generated directly from real latitude and longitude
- */
 export const PROJECTED_DESTINATIONS = [
-  // Forts
-  { id: "raigad", slug: "raigad", name: "Raigad Fort", marathiName: "किल्ले रायगड", category: "forts", districtId: "raigad", lat: 18.2356, lng: 73.4412 },
-  { id: "sinhagad", slug: "sinhagad", name: "Sinhagad Fort", marathiName: "सिंहगड किल्ला", category: "forts", districtId: "pune", lat: 18.3663, lng: 73.7558 },
-  { id: "pratapgad", slug: "pratapgad", name: "Pratapgad Fort", marathiName: "प्रतापगड किल्ला", category: "forts", districtId: "satara", lat: 17.9333, lng: 73.5833 },
-  { id: "murud-janjira", slug: "murud-janjira", name: "Murud-Janjira", marathiName: "मुरुड जंजिरा जलदुर्ग", category: "forts", districtId: "raigad", lat: 18.3006, lng: 72.9642 },
-  { id: "shivneri", slug: "shivneri", name: "Shivneri Fort", marathiName: "किल्ले शिवनेरी", category: "forts", districtId: "pune", lat: 19.1953, lng: 73.8594 },
-  { id: "rajgad", slug: "rajgad", name: "Rajgad Fort", marathiName: "किल्ले राजगड", category: "forts", districtId: "pune", lat: 18.2464, lng: 73.6828 },
-  { id: "torna", slug: "torna", name: "Torna Fort", marathiName: "किल्ले तोरणा", category: "forts", districtId: "pune", lat: 18.2764, lng: 73.6231 },
-  { id: "harishchandragad", slug: "harishchandragad", name: "Harishchandragad", marathiName: "हरिश्चंद्रगड", category: "forts", districtId: "ahmednagar", lat: 19.3875, lng: 73.7783 },
-  { id: "sindhudurg", slug: "sindhudurg", name: "Sindhudurg Fort", marathiName: "सिंधुदुर्ग किल्ला", category: "forts", districtId: "sindhudurg", lat: 16.0592, lng: 73.4619 },
-  { id: "panhala", slug: "panhala", name: "Panhala Fort", marathiName: "पन्हाळा किल्ला", category: "forts", districtId: "kolhapur", lat: 16.8122, lng: 74.1089 },
-  { id: "lohagad-visapur", slug: "lohagad-visapur", name: "Lohagad Fort", marathiName: "लोहगड किल्ला", category: "forts", districtId: "pune", lat: 18.7006, lng: 73.4797 },
-  { id: "kalsubai", slug: "kalsubai", name: "Kalsubai Peak", marathiName: "कळसूबाई शिखर", category: "forts", districtId: "ahmednagar", lat: 19.6006, lng: 73.7103 },
-
-  // Temples
-  { id: "trimbakeshwar", slug: "trimbakeshwar", name: "Trimbakeshwar", marathiName: "त्र्यंबकेश्वर ज्योतिर्लिंग", category: "temples", districtId: "nashik", lat: 19.9328, lng: 73.5306 },
-  { id: "mayureshwar", slug: "mayureshwar", name: "Mayureshwar (Morgaon)", marathiName: "मयूरेश्वर (मोरगाव)", category: "temples", districtId: "pune", lat: 18.2758, lng: 74.3164 },
-  { id: "shirdi", slug: "shirdi", name: "Shirdi Sai Baba", marathiName: "शिर्डी साईबाबा", category: "temples", districtId: "ahmednagar", lat: 19.7667, lng: 74.4772 },
-  { id: "pandharpur", slug: "pandharpur", name: "Pandharpur Vitthal", marathiName: "पंढरपूर विठ्ठल मंदिर", category: "temples", districtId: "solapur", lat: 17.6775, lng: 75.3267 },
-
-  // Beaches
-  { id: "kashid", slug: "kashid", name: "Kashid Beach", marathiName: "काशीद समुद्रकिनारा", category: "beaches", districtId: "raigad", lat: 18.4289, lng: 72.9056 },
-  { id: "ganpatipule", slug: "ganpatipule", name: "Ganpatipule Beach", marathiName: "गणपतीपुळे समुद्रकिनारा", category: "beaches", districtId: "ratnagiri", lat: 17.1467, lng: 73.2683 },
-  { id: "tarkarli", slug: "tarkarli", name: "Tarkarli Coral Beach", marathiName: "तारकर्ली समुद्रकिनारा", category: "beaches", districtId: "sindhudurg", lat: 16.0289, lng: 73.4914 },
-
-  // Heritage
-  { id: "ajanta-caves", slug: "ajanta-caves", name: "Ajanta Caves", marathiName: "अजिंठा लेणी", category: "heritage", districtId: "chhatrapati-sambhajinagar", lat: 20.5519, lng: 75.7033 },
-  { id: "ellora-caves", slug: "ellora-caves", name: "Ellora Caves (Kailasa)", marathiName: "वेरूळ लेणी व कैलास मंदिर", category: "heritage", districtId: "chhatrapati-sambhajinagar", lat: 20.0264, lng: 75.1792 },
-  { id: "elephanta-caves", slug: "elephanta-caves", name: "Elephanta Caves", marathiName: "घरापुरी (एलिफंटा) लेणी", category: "heritage", districtId: "mumbai-city", lat: 18.9633, lng: 72.9315 },
-  { id: "csmt-station", slug: "csmt-station", name: "CSMT Mumbai", marathiName: "छत्रपती शिवाजी महाराज टर्मिनस", category: "heritage", districtId: "mumbai-city", lat: 18.9398, lng: 72.8354 }
-].map(dest => {
-  const projected = MAHARASHTRA_PROJECTION.project(dest.lat, dest.lng);
-  return {
-    ...dest,
-    x: projected.x,
-    y: projected.y
-  };
-});
+  {
+    "id": "raigad",
+    "slug": "raigad",
+    "name": "Raigad Fort",
+    "marathiName": "किल्ले रायगड",
+    "hindiName": "रायगढ़ किला",
+    "category": "forts",
+    "districtId": "raigad",
+    "lat": 18.2356,
+    "lng": 73.4412,
+    "x": 249,
+    "y": 433
+  },
+  {
+    "id": "sinhagad",
+    "slug": "sinhagad",
+    "name": "Sinhagad Fort",
+    "marathiName": "सिंहगड किल्ला",
+    "hindiName": "सिंहगढ़ किला",
+    "category": "forts",
+    "districtId": "pune",
+    "lat": 18.3663,
+    "lng": 73.7558,
+    "x": 277,
+    "y": 420
+  },
+  {
+    "id": "pratapgad",
+    "slug": "pratapgad",
+    "name": "Pratapgad Fort",
+    "marathiName": "प्रतापगड किल्ला",
+    "hindiName": "प्रतापगढ़ किला",
+    "category": "forts",
+    "districtId": "satara",
+    "lat": 17.9333,
+    "lng": 73.5833,
+    "x": 261,
+    "y": 462
+  },
+  {
+    "id": "murud-janjira",
+    "slug": "murud-janjira",
+    "name": "Murud-Janjira",
+    "marathiName": "मुरुड जंजिरा जलदुर्ग",
+    "hindiName": "मुरुड जंजीरा जलदुर्ग",
+    "category": "forts",
+    "districtId": "raigad",
+    "lat": 18.3006,
+    "lng": 72.9642,
+    "x": 206,
+    "y": 426
+  },
+  {
+    "id": "shivneri",
+    "slug": "shivneri",
+    "name": "Shivneri Fort",
+    "marathiName": "किल्ले शिवनेरी",
+    "hindiName": "शिवनेरी किला",
+    "category": "forts",
+    "districtId": "pune",
+    "lat": 19.1953,
+    "lng": 73.8594,
+    "x": 286,
+    "y": 339
+  },
+  {
+    "id": "rajgad",
+    "slug": "rajgad",
+    "name": "Rajgad Fort",
+    "marathiName": "किल्ले राजगड",
+    "hindiName": "राजगढ़ किला",
+    "category": "forts",
+    "districtId": "pune",
+    "lat": 18.2464,
+    "lng": 73.6828,
+    "x": 270,
+    "y": 432
+  },
+  {
+    "id": "torna",
+    "slug": "torna",
+    "name": "Torna Fort",
+    "marathiName": "किल्ले तोरणा",
+    "hindiName": "तोरणा किला",
+    "category": "forts",
+    "districtId": "pune",
+    "lat": 18.2764,
+    "lng": 73.6231,
+    "x": 265,
+    "y": 429
+  },
+  {
+    "id": "harishchandragad",
+    "slug": "harishchandragad",
+    "name": "Harishchandragad",
+    "marathiName": "हरिश्चंद्रगड",
+    "hindiName": "हरिश्चंद्रगढ़",
+    "category": "forts",
+    "districtId": "ahmednagar",
+    "lat": 19.3875,
+    "lng": 73.7783,
+    "x": 279,
+    "y": 320
+  },
+  {
+    "id": "sindhudurg",
+    "slug": "sindhudurg",
+    "name": "Sindhudurg Fort",
+    "marathiName": "सिंधुदुर्ग किल्ला",
+    "hindiName": "सिंधुदुर्ग किला",
+    "category": "forts",
+    "districtId": "sindhudurg",
+    "lat": 16.0592,
+    "lng": 73.4619,
+    "x": 250,
+    "y": 645
+  },
+  {
+    "id": "panhala",
+    "slug": "panhala",
+    "name": "Panhala Fort",
+    "marathiName": "पन्हाळा किल्ला",
+    "hindiName": "पन्हाळा किला",
+    "category": "forts",
+    "districtId": "kolhapur",
+    "lat": 16.8122,
+    "lng": 74.1089,
+    "x": 308,
+    "y": 572
+  },
+  {
+    "id": "lohagad-visapur",
+    "slug": "lohagad-visapur",
+    "name": "Lohagad Fort",
+    "marathiName": "लोहगड किल्ला",
+    "hindiName": "लोहगढ़ किला",
+    "category": "forts",
+    "districtId": "pune",
+    "lat": 18.7006,
+    "lng": 73.4797,
+    "x": 252,
+    "y": 387
+  },
+  {
+    "id": "kalsubai",
+    "slug": "kalsubai",
+    "name": "Kalsubai Peak",
+    "marathiName": "कळसूबाई शिखर",
+    "hindiName": "कलसुबाई शिखर",
+    "category": "forts",
+    "districtId": "ahmednagar",
+    "lat": 19.6006,
+    "lng": 73.7103,
+    "x": 273,
+    "y": 299
+  },
+  {
+    "id": "trimbakeshwar",
+    "slug": "trimbakeshwar",
+    "name": "Trimbakeshwar",
+    "marathiName": "त्र्यंबकेश्वर ज्योतिर्लिंग",
+    "hindiName": "त्र्यंबकेश्वर ज्योतिर्लिंग",
+    "category": "temples",
+    "districtId": "nashik",
+    "lat": 19.9328,
+    "lng": 73.5306,
+    "x": 257,
+    "y": 267
+  },
+  {
+    "id": "mayureshwar",
+    "slug": "mayureshwar",
+    "name": "Mayureshwar (Morgaon)",
+    "marathiName": "मयूरेश्वर (मोरगाव)",
+    "hindiName": "मयूरेश्वर (मोरगांव)",
+    "category": "temples",
+    "districtId": "pune",
+    "lat": 18.2758,
+    "lng": 74.3164,
+    "x": 327,
+    "y": 429
+  },
+  {
+    "id": "shirdi",
+    "slug": "shirdi",
+    "name": "Shirdi Sai Baba",
+    "marathiName": "शिर्डी साईबाबा",
+    "hindiName": "शिरडी साईं बाबा",
+    "category": "temples",
+    "districtId": "ahmednagar",
+    "lat": 19.7667,
+    "lng": 74.4772,
+    "x": 341,
+    "y": 283
+  },
+  {
+    "id": "pandharpur",
+    "slug": "pandharpur",
+    "name": "Pandharpur Vitthal",
+    "marathiName": "पंढरपूर विठ्ठल मंदिर",
+    "hindiName": "पंढरपुर विट्ठल मंदिर",
+    "category": "temples",
+    "districtId": "solapur",
+    "lat": 17.6775,
+    "lng": 75.3267,
+    "x": 417,
+    "y": 487
+  },
+  {
+    "id": "kashid",
+    "slug": "kashid",
+    "name": "Kashid Beach",
+    "marathiName": "काशीद समुद्रकिनारा",
+    "hindiName": "काशीद बीच",
+    "category": "beaches",
+    "districtId": "raigad",
+    "lat": 18.4289,
+    "lng": 72.9056,
+    "x": 201,
+    "y": 414
+  },
+  {
+    "id": "ganpatipule",
+    "slug": "ganpatipule",
+    "name": "Ganpatipule Beach",
+    "marathiName": "गणपतीपुळे समुद्रकिनारा",
+    "hindiName": "गणपतिपुले बीच",
+    "category": "beaches",
+    "districtId": "ratnagiri",
+    "lat": 17.1467,
+    "lng": 73.2683,
+    "x": 233,
+    "y": 539
+  },
+  {
+    "id": "tarkarli",
+    "slug": "tarkarli",
+    "name": "Tarkarli Coral Beach",
+    "marathiName": "तारकर्ली समुद्रकिनारा",
+    "hindiName": "तारकर्ली बीच",
+    "category": "beaches",
+    "districtId": "sindhudurg",
+    "lat": 16.0289,
+    "lng": 73.4914,
+    "x": 253,
+    "y": 648
+  },
+  {
+    "id": "ajanta-caves",
+    "slug": "ajanta-caves",
+    "name": "Ajanta Caves",
+    "marathiName": "अजिंठा लेणी",
+    "hindiName": "अजंता गुफाएं",
+    "category": "heritage",
+    "districtId": "chhatrapati-sambhajinagar",
+    "lat": 20.5519,
+    "lng": 75.7033,
+    "x": 451,
+    "y": 206
+  },
+  {
+    "id": "ellora-caves",
+    "slug": "ellora-caves",
+    "name": "Ellora Caves (Kailasa)",
+    "marathiName": "वेरूळ लेणी व कैलास मंदिर",
+    "hindiName": "एलोरा गुफाएं एवं कैलाश मंदिर",
+    "category": "heritage",
+    "districtId": "chhatrapati-sambhajinagar",
+    "lat": 20.0264,
+    "lng": 75.1792,
+    "x": 404,
+    "y": 258
+  },
+  {
+    "id": "elephanta-caves",
+    "slug": "elephanta-caves",
+    "name": "Elephanta Caves",
+    "marathiName": "घरापुरी (एलिफंटा) लेणी",
+    "hindiName": "एलिफेंटा गुफाएं",
+    "category": "heritage",
+    "districtId": "mumbai-city",
+    "lat": 18.9633,
+    "lng": 72.9315,
+    "x": 203,
+    "y": 361
+  },
+  {
+    "id": "csmt-station",
+    "slug": "csmt-station",
+    "name": "CSMT Mumbai",
+    "marathiName": "छत्रपती शिवाजी महाराज टर्मिनस",
+    "hindiName": "छत्रपति शिवाजी महाराज टर्मिनस",
+    "category": "heritage",
+    "districtId": "mumbai-city",
+    "lat": 18.9398,
+    "lng": 72.8354,
+    "x": 194,
+    "y": 364
+  }
+];

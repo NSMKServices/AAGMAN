@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
+import { auditService } from '../services/auditService';
 
 const AdminAuthContext = createContext(null);
 
@@ -224,6 +225,15 @@ export function AdminAuthProvider({ children }) {
       setUser(data.user);
       setAdminProfile(profile);
       setLoading(false);
+
+      auditService.logAction({
+        adminProfile: profile,
+        action: 'AUTH_LOGIN',
+        entityType: 'auth',
+        entityId: profile.email,
+        details: { role: profile.role, gateway: 'supabase_auth' }
+      }).catch(err => console.warn('Audit log error:', err));
+
       return { user: data.user, profile };
     } catch (err) {
       setLoading(false);
@@ -272,6 +282,15 @@ export function AdminAuthProvider({ children }) {
     setSession({ user: { id: chosen.id, email: chosen.email }, access_token: 'demo-admin-token' });
     localStorage.setItem('aagman_demo_admin_profile', JSON.stringify(chosen));
     setLoading(false);
+
+    auditService.logAction({
+      adminProfile: chosen,
+      action: 'AUTH_LOGIN',
+      entityType: 'auth',
+      entityId: chosen.email,
+      details: { role: chosen.role, gateway: 'demo_simulator' }
+    }).catch(err => console.warn('Audit log error:', err));
+
     return chosen;
   };
 
@@ -279,6 +298,16 @@ export function AdminAuthProvider({ children }) {
   const logout = async () => {
     setLoading(true);
     try {
+      if (adminProfile) {
+        await auditService.logAction({
+          adminProfile,
+          action: 'AUTH_LOGOUT',
+          entityType: 'auth',
+          entityId: adminProfile.email,
+          details: { role: adminProfile.role }
+        }).catch(err => console.warn('Audit log error:', err));
+      }
+
       localStorage.removeItem('aagman_demo_admin_profile');
       if (isSupabaseConfigured) {
         await supabase.auth.signOut();
