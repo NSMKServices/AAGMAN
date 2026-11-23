@@ -3,10 +3,12 @@ import { Link } from 'react-router-dom';
 import Badge from './Badge';
 import { Castle, Landmark, Umbrella, BookOpen, Heart, MapPin, Star } from './Icons';
 import { useWishlist } from '../../context/WishlistContext';
+import { useLanguage } from '../../context/LanguageContext';
 import styles from './DestinationCard.module.css';
 
 export default function DestinationCard({ destination }) {
   const { isWishlisted, toggleWishlist } = useWishlist();
+  const { language, t } = useLanguage();
   const wishlisted = isWishlisted(destination.slug);
 
   const handleWishlistClick = (e) => {
@@ -30,12 +32,20 @@ export default function DestinationCard({ destination }) {
     }
   };
 
+  const displayName = language === 'mr'
+    ? (destination.marathiName || destination.name)
+    : destination.name;
+
+  const subtitleName = language === 'mr'
+    ? destination.name
+    : destination.marathiName;
+
   return (
     <div className={styles.card}>
       <Link to={`/${destination.category}/${destination.slug}`} className={styles.imageWrapper}>
         <img
           src={destination.thumbnail || destination.heroImage}
-          alt={destination.name}
+          alt={displayName}
           className={styles.image}
           loading="lazy"
           onError={(e) => {
@@ -50,15 +60,15 @@ export default function DestinationCard({ destination }) {
           <Badge variant={destination.category} size="sm">
             <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }}>
               {getCategoryIcon(destination.category)}
-              {destination.category.toUpperCase()}
+              {t(destination.category, destination.category.toUpperCase())}
             </span>
           </Badge>
           <button
             type="button"
             className={`${styles.wishlistBtn} ${wishlisted ? styles.activeWishlist : ''}`}
             onClick={handleWishlistClick}
-            aria-label={wishlisted ? "Remove from wishlist" : "Add to wishlist"}
-            title={wishlisted ? "Remove from wishlist" : "Add to wishlist"}
+            aria-label={wishlisted ? t('removeFromWishlist', 'Remove from wishlist') : t('addToWishlist', 'Add to wishlist')}
+            title={wishlisted ? t('removeFromWishlist', 'Remove from wishlist') : t('addToWishlist', 'Add to wishlist')}
           >
             <Heart
               size={16}
@@ -80,10 +90,10 @@ export default function DestinationCard({ destination }) {
         </div>
 
         <Link to={`/${destination.category}/${destination.slug}`} className={styles.titleLink}>
-          <h3 className={styles.title}>{destination.name}</h3>
+          <h3 className={styles.title}>{displayName}</h3>
         </Link>
-        {destination.marathiName && (
-          <p className={styles.marathiName}>{destination.marathiName}</p>
+        {subtitleName && (
+          <p className={styles.marathiName}>{subtitleName}</p>
         )}
 
         <p className={styles.summary}>{destination.summary}</p>
@@ -93,7 +103,7 @@ export default function DestinationCard({ destination }) {
             {destination.elevation || destination.timings || destination.circuit || 'Historic Site'}
           </span>
           <Link to={`/${destination.category}/${destination.slug}`} className={styles.viewLink}>
-            Explore →
+            {t('viewDetails', 'Explore →')}
           </Link>
         </div>
       </div>

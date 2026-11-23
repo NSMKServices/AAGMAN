@@ -14,9 +14,11 @@ import {
   Video
 } from '../components/common/Icons';
 import { CURATED_VIDEOS } from '../data/videos';
+import { useLanguage } from '../context/LanguageContext';
 import styles from './VideosPage.module.css';
 
 export default function VideosPage() {
+  const { language, t } = useLanguage();
   const [activeCategory, setActiveCategory] = useState('all');
 
   const filteredVideos = activeCategory === 'all'
@@ -39,19 +41,21 @@ export default function VideosPage() {
       <section className={styles.heroSection}>
         <Container>
           <div className={styles.heroContent}>
-            <span className={styles.heroEyebrow}>VISUAL JOURNEYS & DOCUMENTARIES</span>
-            <h1 className={styles.heroTitle}>Videos & Experiences</h1>
+            <span className={styles.heroEyebrow}>
+              {language === 'mr' ? 'दृकश्राव्य अनुभव आणि माहितीपट' : language === 'hi' ? 'दृश्य अनुभव एवं वृत्तचित्र' : 'VISUAL JOURNEYS & DOCUMENTARIES'}
+            </span>
+            <h1 className={styles.heroTitle}>{t('videosTitle', 'Videos & Experiences')}</h1>
             <p className={styles.heroSubtitle}>
-              Immerse yourself in authentic destination travel films, drone surveys, and cultural documentaries. In accordance with platform standards, all original videos open directly on YouTube in external browser tabs.
+              {t('videosSub', 'Immerse yourself in authentic destination travel films, drone surveys, and cultural documentaries. In accordance with platform standards, all original videos open directly on YouTube in external browser tabs.')}
             </p>
 
             <div className={styles.filterPills}>
               {[
-                { id: 'all', label: 'All Experiences' },
-                { id: 'forts', label: 'Historic Forts', icon: Castle },
-                { id: 'temples', label: 'Sacred Temples', icon: Landmark },
-                { id: 'beaches', label: 'Konkan Coast', icon: Umbrella },
-                { id: 'heritage', label: 'UNESCO Caves', icon: BookOpen }
+                { id: 'all', label: t('allVideos', 'All Experiences') },
+                { id: 'forts', label: t('forts', 'Historic Forts'), icon: Castle },
+                { id: 'temples', label: t('temples', 'Sacred Temples'), icon: Landmark },
+                { id: 'beaches', label: t('beaches', 'Konkan Coast'), icon: Umbrella },
+                { id: 'heritage', label: t('heritage', 'UNESCO Caves'), icon: BookOpen }
               ].map(tab => {
                 const TabIcon = tab.icon;
                 return (
@@ -75,8 +79,12 @@ export default function VideosPage() {
       <section className={styles.gridSection}>
         <Container>
           <div className={styles.gridHeader}>
-            <h2 className={styles.sectionHeading}>Curated YouTube Directory</h2>
-            <span className={styles.countBadge}>{filteredVideos.length} Documentaries Available</span>
+            <h2 className={styles.sectionHeading}>
+              {language === 'mr' ? 'निवडक व्हिडिओ निर्देशिका' : language === 'hi' ? 'विशेष चयनित वीडियो संग्रह' : 'Curated YouTube Directory'}
+            </h2>
+            <span className={styles.countBadge}>
+              {filteredVideos.length} {language === 'mr' ? 'व्हिडिओ उपलब्ध' : language === 'hi' ? 'वीडियो उपलब्ध' : 'Documentaries Available'}
+            </span>
           </div>
 
           <div className={styles.videosGrid}>
@@ -99,7 +107,7 @@ export default function VideosPage() {
                     <Badge variant={video.category} size="sm">
                       <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.3rem' }}>
                         {getCategoryIcon(video.category)}
-                        {video.category.toUpperCase()}
+                        {t(video.category, video.category.toUpperCase())}
                       </span>
                     </Badge>
                   </div>
@@ -123,7 +131,7 @@ export default function VideosPage() {
                     className={styles.watchBtn}
                     title="Watch full documentary on YouTube"
                   >
-                    <span>Watch on YouTube</span>
+                    <span>{t('watchNow', 'Watch on YouTube')}</span>
                     <ExternalLink size={14} />
                   </a>
                 </div>

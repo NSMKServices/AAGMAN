@@ -61,10 +61,10 @@ export default function AdminProtectedRoute({ allowedRoles = ['super_admin', 'co
   // 3. Authenticated but insufficient role -> Render dedicated Access Denied page
   if (allowedRoles && allowedRoles.length > 0 && !allowedRoles.includes(role)) {
     return (
-      <AdminAccessDeniedPage
-        requiredRoles={allowedRoles}
-        currentRole={role}
-        adminName={adminProfile?.full_name}
+      <AdminAccessDeniedPage 
+        requiredRoles={allowedRoles} 
+        currentRole={role} 
+        adminName={adminProfile?.full_name} 
       />
     );
   }

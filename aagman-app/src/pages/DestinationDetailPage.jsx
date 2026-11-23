@@ -8,6 +8,7 @@ import { DESTINATIONS } from '../data/destinations';
 import { getDestinationGallery } from '../data/imageRegistry';
 import { videoService } from '../services/videoService';
 import { useWishlist } from '../context/WishlistContext';
+import { useLanguage } from '../context/LanguageContext';
 import {
   Compass,
   MapPin,
@@ -30,6 +31,7 @@ import styles from './DestinationDetailPage.module.css';
 export default function DestinationDetailPage() {
   const { category, slug } = useParams();
   const { isWishlisted, toggleWishlist } = useWishlist();
+  const { language, t } = useLanguage();
 
   const destination = DESTINATIONS.find(
     d => d.slug === slug || (category && d.category === category && d.slug === slug)
@@ -41,9 +43,9 @@ export default function DestinationDetailPage() {
         <span className={styles.largeIcon}>
           <Compass size={48} />
         </span>
-        <h2 className={styles.notFoundTitle}>Destination Not Found</h2>
-        <p className={styles.notFoundSub}>The requested destination could not be located in the Aagman catalog.</p>
-        <Button to="/explore" variant="primary">Return to Destination Explorer</Button>
+        <h2 className={styles.notFoundTitle}>{t('destinationNotFound', 'Destination Not Found')}</h2>
+        <p className={styles.notFoundSub}>{t('destinationNotFoundSub', 'The requested destination could not be located in the Aagman catalog.')}</p>
+        <Button to="/explore" variant="primary">{t('returnExplorer', 'Return to Destination Explorer')}</Button>
       </Container>
     );
   }
@@ -54,43 +56,60 @@ export default function DestinationDetailPage() {
     .filter(d => d.category === destination.category && d.slug !== destination.slug)
     .slice(0, 3);
 
+  const displayName = language === 'mr'
+    ? (destination.marathiName || destination.name)
+    : destination.name;
+
+  const subtitleName = language === 'mr'
+    ? destination.name
+    : destination.marathiName;
+
   return (
     <div className={styles.detailPage}>
       {/* Hero Visual Section */}
       <section className={styles.heroSection}>
         <img
           src={destination.heroImage}
-          alt={destination.name}
+          alt={displayName}
           className={styles.heroBg}
+          onError={(e) => {
+            const fallback = destination.thumbnail;
+            if (fallback && e.currentTarget.src !== fallback) {
+              e.currentTarget.onerror = null;
+              e.currentTarget.src = fallback;
+            }
+          }}
         />
         <div className={styles.heroOverlay} />
 
         <Container className={styles.heroContent}>
           <div className={styles.breadcrumb}>
-            <Link to="/">Home</Link>
+            <Link to="/">{t('home', 'Home')}</Link>
             <span>/</span>
-            <Link to={`/explore?category=${destination.category}`}>{destination.category.toUpperCase()}</Link>
+            <Link to={`/explore?category=${destination.category}`}>
+              {t(destination.category, destination.category.toUpperCase())}
+            </Link>
             <span>/</span>
-            <span className={styles.currentBreadcrumb}>{destination.name}</span>
+            <span className={styles.currentBreadcrumb}>{displayName}</span>
           </div>
 
           <div className={styles.badgeRow}>
             <Badge variant={destination.category} size="lg">
-              {destination.category.toUpperCase()}
+              {t(destination.category, destination.category.toUpperCase())}
             </Badge>
             <span className={styles.districtBadge}>
               <MapPin size={14} style={{ marginRight: 4 }} />
-              {destination.district} District, {destination.region}
+              {destination.district} {t('districtName', 'District')}, {destination.region}
             </span>
             <span className={styles.ratingBadge}>
               <Star size={14} style={{ marginRight: 4 }} fill="var(--color-gold)" color="var(--color-gold)" />
-              {destination.rating} ({destination.reviewsCount} reviews)
+              {destination.rating} ({destination.reviewsCount} {t('reviews', 'reviews')})
             </span>
           </div>
 
-          <h1 className={styles.heroTitle}>{destination.name}</h1>
-          {destination.marathiName && (
-            <p className={styles.heroMarathi}>{destination.marathiName}</p>
+          <h1 className={styles.heroTitle}>{displayName}</h1>
+          {subtitleName && (
+            <p className={styles.heroMarathi}>{subtitleName}</p>
           )}
 
           <div className={styles.heroActions}>
@@ -104,14 +123,14 @@ export default function DestinationDetailPage() {
                 />
               }
             >
-              {wishlisted ? "Saved in Wishlist" : "Add to Wishlist"}
+              {wishlisted ? t('removeFromWishlist', 'Saved in Wishlist') : t('addToWishlist', 'Add to Wishlist')}
             </Button>
             <Button
               to="/planner"
               variant="accent"
               icon={<Sparkles size={16} />}
             >
-              Include in Journey Plan
+              {t('includeInJourneyPlan', 'Include in Journey Plan')}
             </Button>
           </div>
         </Container>
@@ -124,7 +143,7 @@ export default function DestinationDetailPage() {
             {/* Left Column: Historical Narrative & Attractions */}
             <div className={styles.mainColumn}>
               <div className={styles.contentBlock}>
-                <h2 className={styles.sectionHeading}>Historical Chronicle & Significance</h2>
+                <h2 className={styles.sectionHeading}>{t('historicalSignificance', 'Historical Chronicle & Significance')}</h2>
                 <div className={styles.heritageDivider} />
                 <p className={styles.narrativeText}>{destination.history}</p>
                 <p className={styles.narrativeText}>{destination.summary}</p>
@@ -133,7 +152,7 @@ export default function DestinationDetailPage() {
               {/* Major Attractions */}
               {destination.attractions && destination.attractions.length > 0 && (
                 <div className={styles.contentBlock}>
-                  <h3 className={styles.sectionSubheading}>Major Landmarks & Highlights</h3>
+                  <h3 className={styles.sectionSubheading}>{t('majorLandmarks', 'Major Landmarks & Highlights')}</h3>
                   <div className={styles.attractionsGrid}>
                     {destination.attractions.map((att, idx) => (
                       <div key={idx} className={styles.attractionItem}>
@@ -145,255 +164,169 @@ export default function DestinationDetailPage() {
                 </div>
               )}
 
-              {/* Destination Photo Gallery (Standard Perspectives) */}
+              {/* Destination Photo Gallery */}
               {galleryImages && galleryImages.length > 0 && (
                 <div className={styles.contentBlock}>
-                  <div className={styles.galleryHeaderRow}>
-                    <h3 className={styles.sectionSubheading}>Photographic Perspectives & Architecture</h3>
-                    <span className={styles.galleryFolderTag}>
-                      <code>{destination.assetsFolder || `/assets/${destination.category}/${destination.id}`}</code>
-                    </span>
-                  </div>
-                  <div className={styles.photoGalleryGrid}>
-                    {galleryImages.map((img, idx) => (
-                      <div key={idx} className={styles.galleryPhotoCard}>
-                        <div className={styles.galleryImgWrapper}>
-                          <img
-                            src={img.src}
-                            alt={`${destination.name} - ${img.label}`}
-                            className={styles.galleryImg}
-                            loading="lazy"
-                            onError={(e) => {
-                              if (img.fallback && e.currentTarget.src !== img.fallback) {
-                                e.currentTarget.onerror = null;
-                                e.currentTarget.src = img.fallback;
-                              }
-                            }}
-                          />
-                          <span className={styles.photoSlotBadge}>{img.slot}.jpg</span>
-                        </div>
-                        <span className={styles.galleryPhotoLabel}>{img.label}</span>
+                  <h3 className={styles.sectionSubheading}>{t('visualGallery', 'Visual Perspectives & Gallery')}</h3>
+                  <div className={styles.galleryGrid}>
+                    {galleryImages.map((imgObj, idx) => (
+                      <div key={idx} className={styles.galleryItem}>
+                        <img
+                          src={imgObj.src}
+                          alt={imgObj.caption || `${displayName} view`}
+                          className={styles.galleryImg}
+                          loading="lazy"
+                        />
+                        <span className={styles.galleryCaption}>{imgObj.caption}</span>
                       </div>
                     ))}
                   </div>
                 </div>
               )}
 
-              {/* Local Food & Cultural Delights */}
-              {destination.localCuisine && (
-                <div className={styles.cuisineBox}>
-                  <span className={styles.cuisineIcon}>
-                    <Utensils size={24} />
-                  </span>
-                  <div>
-                    <h4 className={styles.cuisineTitle}>Local Maharashtrian Culinary Specialties</h4>
-                    <p className={styles.cuisineText}>{destination.localCuisine}</p>
+              {/* Documentaries & Video Integration */}
+              <div className={styles.contentBlock}>
+                <h3 className={styles.sectionSubheading}>{t('videoDocumentaries', 'Video Documentaries & Aerial Exploration')}</h3>
+                <div className={styles.videoEmbedWrapper}>
+                  <iframe
+                    src={videoService.getEmbedUrl(destination.slug, destination.category)}
+                    title={`${destination.name} Documentary`}
+                    className={styles.videoIframe}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                </div>
+              </div>
+
+              {/* Cultural Food & Cuisine Specialties */}
+              {destination.foodSpecialties && destination.foodSpecialties.length > 0 && (
+                <div className={styles.contentBlock}>
+                  <h3 className={styles.sectionSubheading}>
+                    <Utensils size={18} style={{ marginRight: 6, verticalAlign: 'middle', color: 'var(--color-primary)' }} />
+                    {t('cuisineGastronomy', 'Cultural Cuisine & Gastronomy')}
+                  </h3>
+                  <div className={styles.foodGrid}>
+                    {destination.foodSpecialties.map((dish, idx) => (
+                      <div key={idx} className={styles.foodCard}>
+                        <h4 className={styles.dishName}>{dish.name}</h4>
+                        <p className={styles.dishDesc}>{dish.description}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Right Column: Travel Metadata, Coordinates & Logistics */}
+            <aside className={styles.sideColumn}>
+              <div className={styles.metaCard}>
+                <h3 className={styles.metaCardTitle}>{t('travelCoordinates', 'Essential Travel Coordinates')}</h3>
+
+                <div className={styles.metaList}>
+                  <div className={styles.metaListItem}>
+                    <span className={styles.metaIcon}><Clock size={16} /></span>
+                    <div>
+                      <strong className={styles.metaItemLabel}>{t('timingsAccess', 'Timings & Access')}:</strong>
+                      <p className={styles.metaItemVal}>{destination.timings || 'Sunrise to Sunset'}</p>
+                    </div>
+                  </div>
+
+                  <div className={styles.metaListItem}>
+                    <span className={styles.metaIcon}><Ticket size={16} /></span>
+                    <div>
+                      <strong className={styles.metaItemLabel}>{t('entryTariffs', 'Entry Tariffs')}:</strong>
+                      <p className={styles.metaItemVal}>{destination.entryFee || 'Free Entry / Archaeological Survey of India'}</p>
+                    </div>
+                  </div>
+
+                  <div className={styles.metaListItem}>
+                    <span className={styles.metaIcon}><Sun size={16} /></span>
+                    <div>
+                      <strong className={styles.metaItemLabel}>{t('idealSeason', 'Ideal Season')}:</strong>
+                      <p className={styles.metaItemVal}>{destination.bestTime}</p>
+                    </div>
+                  </div>
+
+                  {destination.elevation && (
+                    <div className={styles.metaListItem}>
+                      <span className={styles.metaIcon}><Mountain size={16} /></span>
+                      <div>
+                        <strong className={styles.metaItemLabel}>{t('elevationTopography', 'Elevation / Topography')}:</strong>
+                        <p className={styles.metaItemVal}>{destination.elevation}</p>
+                      </div>
+                    </div>
+                  )}
+
+                  {destination.difficulty && (
+                    <div className={styles.metaListItem}>
+                      <span className={styles.metaIcon}><Compass size={16} /></span>
+                      <div>
+                        <strong className={styles.metaItemLabel}>{t('expeditionDifficulty', 'Expedition Difficulty')}:</strong>
+                        <p className={styles.metaItemVal}>{destination.difficulty}</p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Transit Directions */}
+              {destination.howToReach && (
+                <div className={styles.metaCard}>
+                  <h3 className={styles.metaCardTitle}>{t('howToReach', 'How to Reach & Transit Guidance')}</h3>
+                  <div className={styles.reachList}>
+                    {destination.howToReach.air && (
+                      <div className={styles.reachItem}>
+                        <Plane size={15} color="var(--color-primary)" />
+                        <div>
+                          <strong>{t('byAir', 'By Air')}:</strong>
+                          <p>{destination.howToReach.air}</p>
+                        </div>
+                      </div>
+                    )}
+                    {destination.howToReach.rail && (
+                      <div className={styles.reachItem}>
+                        <Train size={15} color="var(--color-primary)" />
+                        <div>
+                          <strong>{t('byRail', 'By Rail')}:</strong>
+                          <p>{destination.howToReach.rail}</p>
+                        </div>
+                      </div>
+                    )}
+                    {destination.howToReach.road && (
+                      <div className={styles.reachItem}>
+                        <Car size={15} color="var(--color-primary)" />
+                        <div>
+                          <strong>{t('byRoad', 'By Road')}:</strong>
+                          <p>{destination.howToReach.road}</p>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
               )}
 
-              {/* Google Maps Geographic Embed */}
-              <div className={styles.contentBlock}>
-                <h3 className={styles.sectionSubheading}>Geographical Coordinates & Route</h3>
-                <div className={styles.mapCard}>
-                  <div className={styles.coordinatesHeader}>
-                    <span>GPS: {destination.coordinates.lat}° N, {destination.coordinates.lng}° E</span>
-                    <a
-                      href={destination.coordinates.mapsUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={styles.mapsExternalLink}
-                    >
-                      Open in Google Maps <ExternalLink size={14} style={{ marginLeft: 4 }} />
-                    </a>
-                  </div>
-                  <iframe
-                    title={`Map location for ${destination.name}`}
-                    src={`https://maps.google.com/maps?q=${destination.coordinates.lat},${destination.coordinates.lng}&z=13&output=embed`}
-                    className={styles.mapIframe}
-                    loading="lazy"
-                  />
+              {/* Practical Tips */}
+              {destination.tips && destination.tips.length > 0 && (
+                <div className={styles.metaCard}>
+                  <h3 className={styles.metaCardTitle}>{t('travelTipsTitle', 'Traveler Tips & Guidelines')}</h3>
+                  <ul className={styles.tipsList}>
+                    {destination.tips.map((tip, idx) => (
+                      <li key={idx} className={styles.tipItem}>
+                        <span>•</span> {tip}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-              </div>
-            </div>
-
-            {/* Right Column: Essential Visitor Guidelines */}
-            <div className={styles.sideColumn}>
-              <div className={styles.visitorCard}>
-                <h3 className={styles.visitorCardTitle}>Essential Visitor Guidelines</h3>
-
-                <div className={styles.infoRow}>
-                  <span className={styles.infoIcon}>
-                    <Clock size={16} />
-                  </span>
-                  <div>
-                    <span className={styles.infoLabel}>Timings</span>
-                    <span className={styles.infoValue}>{destination.timings}</span>
-                  </div>
-                </div>
-
-                <div className={styles.infoRow}>
-                  <span className={styles.infoIcon}>
-                    <Ticket size={16} />
-                  </span>
-                  <div>
-                    <span className={styles.infoLabel}>Entry Fee</span>
-                    <span className={styles.infoValue}>{destination.entryFee}</span>
-                  </div>
-                </div>
-
-                <div className={styles.infoRow}>
-                  <span className={styles.infoIcon}>
-                    <Sun size={16} />
-                  </span>
-                  <div>
-                    <span className={styles.infoLabel}>Best Season</span>
-                    <span className={styles.infoValue}>{destination.bestTime}</span>
-                  </div>
-                </div>
-
-                {destination.elevation && (
-                  <div className={styles.infoRow}>
-                    <span className={styles.infoIcon}>
-                      <Mountain size={16} />
-                    </span>
-                    <div>
-                      <span className={styles.infoLabel}>Elevation</span>
-                      <span className={styles.infoValue}>{destination.elevation}</span>
-                    </div>
-                  </div>
-                )}
-
-                {destination.difficulty && (
-                  <div className={styles.infoRow}>
-                    <span className={styles.infoIcon}>
-                      <Compass size={16} />
-                    </span>
-                    <div>
-                      <span className={styles.infoLabel}>Trek Difficulty</span>
-                      <span className={styles.infoValue}>{destination.difficulty}</span>
-                    </div>
-                  </div>
-                )}
-
-                <div className={styles.travelHowTo}>
-                  <h4 className={styles.howToTitle}>How to Reach</h4>
-                  <div className={styles.howToItem}>
-                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
-                      <Plane size={14} />
-                      <strong>By Air:</strong>
-                    </span>{' '}
-                    {destination.howToReach.air}
-                  </div>
-                  <div className={styles.howToItem}>
-                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
-                      <Train size={14} />
-                      <strong>By Rail:</strong>
-                    </span>{' '}
-                    {destination.howToReach.rail}
-                  </div>
-                  <div className={styles.howToItem}>
-                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
-                      <Car size={14} />
-                      <strong>By Road:</strong>
-                    </span>{' '}
-                    {destination.howToReach.road}
-                  </div>
-                </div>
-              </div>
-            </div>
+              )}
+            </aside>
           </div>
 
-          {/* Associated YouTube Video Documentaries */}
-          {(() => {
-            const associatedVideos = videoService.getVideosForDestination(destination.id, destination.name);
-            if (associatedVideos.length === 0) return null;
-
-            return (
-              <div style={{ marginTop: '2.5rem', marginBottom: '2.5rem' }}>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem', flexWrap: 'wrap', gap: '0.5rem' }}>
-                  <div>
-                    <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.65rem', color: 'var(--color-primary)', margin: 0 }}>
-                      Visual Journeys & Documentaries
-                    </h3>
-                    <p style={{ fontSize: '0.875rem', color: 'var(--color-text-secondary)', margin: '0.25rem 0 0' }}>
-                      Authentic aerial explorations and cultural travelogues. Opens external YouTube page in a new tab.
-                    </p>
-                  </div>
-                  <Link to="/videos" style={{ color: 'var(--color-maroon, #541D16)', fontWeight: 700, fontSize: '0.85rem' }}>
-                    View All Videos →
-                  </Link>
-                </div>
-
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.25rem' }}>
-                  {associatedVideos.map(vid => (
-                    <div
-                      key={vid.id}
-                      style={{
-                        background: 'var(--color-surface)',
-                        border: '1px solid var(--color-border)',
-                        borderRadius: 'var(--radius-md)',
-                        overflow: 'hidden',
-                        boxShadow: 'var(--shadow-sm)'
-                      }}
-                    >
-                      <div style={{ position: 'relative', height: 160 }}>
-                        <img
-                          src={vid.thumbnail}
-                          alt={vid.title}
-                          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                        />
-                        <span style={{
-                          position: 'absolute', bottom: 8, right: 8,
-                          background: 'rgba(0,0,0,0.8)', color: '#fff',
-                          fontSize: '0.75rem', padding: '2px 6px', borderRadius: 4, fontWeight: 600
-                        }}>
-                          {vid.duration}
-                        </span>
-                      </div>
-                      <div style={{ padding: '1rem' }}>
-                        <h4 style={{ fontSize: '1rem', fontWeight: 700, margin: '0 0 0.4rem', color: 'var(--color-heading)' }}>
-                          {vid.title}
-                        </h4>
-                        <p style={{ fontSize: '0.8rem', color: 'var(--color-text-secondary)', margin: '0 0 1rem', lineHeight: 1.45 }}>
-                          {vid.summary || vid.description}
-                        </p>
-                        <a
-                          href={vid.youtubeUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          style={{
-                            display: 'inline-flex',
-                            alignItems: 'center',
-                            gap: 6,
-                            background: 'var(--color-maroon, #541D16)',
-                            color: '#FFF9F0',
-                            padding: '0.5rem 1rem',
-                            borderRadius: 'var(--radius-sm)',
-                            fontSize: '0.8rem',
-                            fontWeight: 700,
-                            textDecoration: 'none'
-                          }}
-                        >
-                          <span>Watch on YouTube</span>
-                          <ExternalLink size={13} />
-                        </a>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            );
-          })()}
-
-          {/* Related Destinations */}
+          {/* Related Regional Circuits */}
           {relatedDestinations.length > 0 && (
             <div className={styles.relatedSection}>
               <div className={styles.relatedHeader}>
-                <h3 className={styles.relatedTitle}>More in {destination.category.toUpperCase()}</h3>
-                <Link to={`/explore?category=${destination.category}`} className={styles.relatedLink}>
-                  View All {destination.category} <ArrowRight size={14} style={{ marginLeft: 4 }} />
-                </Link>
+                <span className={styles.relatedEyebrow}>{t('circuits', 'SIGNATURE CIRCUITS')}</span>
+                <h3 className={styles.relatedTitle}>{t('nearbyAttractions', 'Nearby Circuit Attractions')}</h3>
               </div>
               <div className={styles.relatedGrid}>
                 {relatedDestinations.map(d => (

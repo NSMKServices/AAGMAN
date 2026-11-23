@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Button from '../components/common/Button';
 import { useAuth } from '../context/AuthContext';
+import { useLanguage } from '../context/LanguageContext';
 import { Castle, Sparkles, Shield } from '../components/common/Icons';
 import styles from './Auth.module.css';
 
 export default function LoginPage() {
   const navigate = useNavigate();
   const { login, demoLogin } = useAuth();
+  const { language, t } = useLanguage();
   const [email, setEmail] = useState('rohan.deshmukh@example.com');
   const [password, setPassword] = useState('••••••••');
 
@@ -29,15 +31,15 @@ export default function LoginPage() {
           <span className={styles.brandSymbol}>
             <Castle size={32} color="var(--color-gold)" />
           </span>
-          <h1 className={styles.authTitle}>Sign In to AAGMAN</h1>
+          <h1 className={styles.authTitle}>{t('signInTitle', 'Sign In to AAGMAN')}</h1>
           <p className={styles.authSubtitle}>
-            Access your saved Sahyadri itineraries, custom wishlist, and personalized travel recommendations.
+            {t('signInSub', 'Access your saved Sahyadri itineraries, custom wishlist, and personalized travel recommendations.')}
           </p>
         </div>
 
         <form onSubmit={handleSubmit} className={styles.authForm}>
           <div className={styles.formGroup}>
-            <label className={styles.label}>Email Address:</label>
+            <label className={styles.label}>{t('emailLabel', 'Email Address')}:</label>
             <input
               type="email"
               value={email}
@@ -49,7 +51,7 @@ export default function LoginPage() {
           </div>
 
           <div className={styles.formGroup}>
-            <label className={styles.label}>Password:</label>
+            <label className={styles.label}>{t('passwordLabel', 'Password')}:</label>
             <input
               type="password"
               value={password}
@@ -60,40 +62,34 @@ export default function LoginPage() {
             />
           </div>
 
-          <Button type="submit" variant="primary" className={styles.submitBtn}>
-            Sign In to Portal
-          </Button>
+          <div className={styles.formActions}>
+            <Button type="submit" variant="primary" size="lg" className={styles.submitBtn}>
+              {t('loginButton', 'Sign In')}
+            </Button>
+          </div>
         </form>
 
-        <div className={styles.divider}>OR</div>
-
-        <Button
-          type="button"
-          variant="secondary"
-          className={styles.demoBtn}
-          onClick={handleDemoLogin}
-          icon={<Sparkles size={16} />}
-        >
-          Instant Demo Access (Rohan Deshmukh)
-        </Button>
+        <div className={styles.demoSection}>
+          <div className={styles.divider}>
+            <span>{language === 'mr' ? 'किंवा' : language === 'hi' ? 'अथवा' : 'OR'}</span>
+          </div>
+          <button
+            type="button"
+            className={styles.demoBtn}
+            onClick={handleDemoLogin}
+          >
+            <Sparkles size={16} />
+            <span>{t('demoLoginButton', 'One-Click Demo Sign In')}</span>
+          </button>
+        </div>
 
         <div className={styles.authFooter}>
-          Don't have an account yet?{' '}
-          <Link to="/register" className={styles.authLink}>
-            Create an Account
-          </Link>
-        </div>
-
-        <div style={{ marginTop: '0.75rem', textAlign: 'center', fontSize: '0.8rem', color: 'var(--color-text-muted)' }}>
-          Tourism Official or Content Manager?{' '}
-          <Link to="/admin/login" style={{ color: 'var(--color-maroon, #541D16)', fontWeight: 700 }}>
-            Official Admin Gateway →
-          </Link>
-        </div>
-
-        <div className={styles.demoNotice}>
-          <Shield size={14} style={{ marginRight: 6, verticalAlign: 'middle' }} />
-          College Demo Mode: Instant offline authentication stored securely in client session.
+          <p>
+            {t('dontHaveAccount', "Don't have an account?")}{' '}
+            <Link to="/register" className={styles.authLink}>
+              {t('registerFree', 'Register Free')}
+            </Link>
+          </p>
         </div>
       </div>
     </div>

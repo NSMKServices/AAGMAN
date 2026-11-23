@@ -1,7 +1,13 @@
 import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
+import { auditService } from '../services/auditService';
 
 const AdminAuthContext = createContext(null);
+
+const isProduction = Boolean(
+  (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.PROD) ||
+  (typeof process !== 'undefined' && process.env && process.env.NODE_ENV === 'production')
+);
 
 // Friendly human-readable error translation
 export function formatAuthError(error) {
@@ -78,21 +84,30 @@ export function AdminAuthProvider({ children }) {
       setLoading(true);
       setAuthError(null);
 
-      // Check if there is an offline/demo admin session stored
-      try {
-        const storedDemoAdmin = localStorage.getItem('aagman_demo_admin_profile');
-        if (storedDemoAdmin) {
-          const parsed = JSON.parse(storedDemoAdmin);
-          if (isMounted) {
-            setAdminProfile(parsed);
-            setUser({ id: parsed.id, email: parsed.email });
-            setSession({ user: { id: parsed.id, email: parsed.email }, access_token: 'demo-token' });
-            setLoading(false);
-            return;
-          }
+      // In production mode, demo admin sessions are strictly purged and rejected (fail-closed)
+      if (isProduction) {
+        try {
+          localStorage.removeItem('aagman_demo_admin_profile');
+        } catch (e) {
+          // ignore
         }
-      } catch (e) {
-        console.warn('Error reading demo admin session:', e);
+      } else {
+        // Development-only demo admin session restoration (only when Supabase unconfigured)
+        try {
+          const storedDemoAdmin = localStorage.getItem('aagman_demo_admin_profile');
+          if (storedDemoAdmin && !isSupabaseConfigured) {
+            const parsed = JSON.parse(storedDemoAdmin);
+            if (isMounted) {
+              setAdminProfile(parsed);
+              setUser({ id: parsed.id, email: parsed.email });
+              setSession({ user: { id: parsed.id, email: parsed.email }, access_token: 'demo-token' });
+              setLoading(false);
+              return;
+            }
+          }
+        } catch (e) {
+          console.warn('Error reading demo admin session:', e);
+        }
       }
 
       // Check Supabase session
@@ -224,6 +239,15 @@ export function AdminAuthProvider({ children }) {
       setUser(data.user);
       setAdminProfile(profile);
       setLoading(false);
+
+      auditService.logAction({
+        adminProfile: profile,
+        action: 'AUTH_LOGIN',
+        entityType: 'auth',
+        entityId: profile.email,
+        details: { role: profile.role, gateway: 'supabase_auth' }
+      }).catch(err => console.warn('Audit log error:', err));
+
       return { user: data.user, profile };
     } catch (err) {
       setLoading(false);
@@ -231,8 +255,11 @@ export function AdminAuthProvider({ children }) {
     }
   };
 
-  // Demo Admin Login (for local verification without external network dependency)
+  // Demo Admin Login (strictly restricted to local development builds)
   const demoAdminLogin = (targetRole = 'super_admin') => {
+    if (isProduction) {
+      throw new Error('Administrative demo mode is disabled in production builds. Authentic Supabase credentials required.');
+    }
     setLoading(true);
     setAuthError(null);
 
@@ -272,6 +299,15 @@ export function AdminAuthProvider({ children }) {
     setSession({ user: { id: chosen.id, email: chosen.email }, access_token: 'demo-admin-token' });
     localStorage.setItem('aagman_demo_admin_profile', JSON.stringify(chosen));
     setLoading(false);
+
+    auditService.logAction({
+      adminProfile: chosen,
+      action: 'AUTH_LOGIN',
+      entityType: 'auth',
+      entityId: chosen.email,
+      details: { role: chosen.role, gateway: 'demo_simulator' }
+    }).catch(err => console.warn('Audit log error:', err));
+
     return chosen;
   };
 
@@ -279,6 +315,16 @@ export function AdminAuthProvider({ children }) {
   const logout = async () => {
     setLoading(true);
     try {
+      if (adminProfile) {
+        await auditService.logAction({
+          adminProfile,
+          action: 'AUTH_LOGOUT',
+          entityType: 'auth',
+          entityId: adminProfile.email,
+          details: { role: adminProfile.role }
+        }).catch(err => console.warn('Audit log error:', err));
+      }
+
       localStorage.removeItem('aagman_demo_admin_profile');
       if (isSupabaseConfigured) {
         await supabase.auth.signOut();

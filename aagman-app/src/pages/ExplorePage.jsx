@@ -17,7 +17,7 @@ import {
 import styles from './ExplorePage.module.css';
 
 export default function ExplorePage({ defaultCategory = 'all' }) {
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const urlCategory = searchParams.get('category') || defaultCategory;
@@ -27,11 +27,11 @@ export default function ExplorePage({ defaultCategory = 'all' }) {
   const [selectedRegion, setSelectedRegion] = useState('all');
 
   const categories = [
-    { id: 'all', label: 'All Destinations', Icon: Compass },
-    { id: 'forts', label: 'Historic Forts', Icon: Castle },
-    { id: 'temples', label: 'Sacred Temples', Icon: Landmark },
-    { id: 'beaches', label: 'Konkan Beaches', Icon: Umbrella },
-    { id: 'heritage', label: 'UNESCO Caves', Icon: BookOpen }
+    { id: 'all', label: t('allDestinations', 'All Destinations'), Icon: Compass },
+    { id: 'forts', label: t('forts', 'Historic Forts'), Icon: Castle },
+    { id: 'temples', label: t('temples', 'Sacred Temples'), Icon: Landmark },
+    { id: 'beaches', label: t('beaches', 'Konkan Beaches'), Icon: Umbrella },
+    { id: 'heritage', label: t('heritage', 'UNESCO Caves'), Icon: BookOpen }
   ];
 
   // Extract unique districts
@@ -61,16 +61,51 @@ export default function ExplorePage({ defaultCategory = 'all' }) {
     setSearchParams(catId === 'all' ? {} : { category: catId });
   };
 
+  const getPageHeader = () => {
+    switch (selectedCategory) {
+      case 'forts':
+        return {
+          eyebrow: language === 'mr' ? 'शिवछत्रपतींचे दुर्ग' : language === 'hi' ? 'शिवकालीन दुर्ग' : 'MARATHA CITADELS',
+          title: t('fortsTitle', 'Historic Forts of Maharashtra'),
+          sub: t('fortsSubtitle', 'Centuries of Maratha chivalry etched into the cliffs of the Sahyadri mountains.')
+        };
+      case 'temples':
+        return {
+          eyebrow: language === 'mr' ? 'पवित्र तीर्थक्षेत्रे' : language === 'hi' ? 'पवित्र देवालय' : 'SACRED DEVSTHAN',
+          title: t('templesTitle', 'Sacred Temples & Pilgrimages'),
+          sub: t('templesSubtitle', 'Millennia of devotion, ancient Hemadpanthi architecture, and sacred river ghats.')
+        };
+      case 'beaches':
+        return {
+          eyebrow: language === 'mr' ? 'कोकण किनारपट्टी' : language === 'hi' ? 'कोंकण समुद्र तट' : 'KONKAN COASTLINE',
+          title: t('beachesTitle', 'Konkan Coastal Beaches'),
+          sub: t('beachesSubtitle', '720 kilometers of untouched golden sands, palm fronds, and azure Arabian waters.')
+        };
+      case 'heritage':
+        return {
+          eyebrow: language === 'mr' ? 'जागतिक वारसा' : language === 'hi' ? 'विश्व धरोहर' : 'UNESCO WORLD HERITAGE',
+          title: t('heritageTitle', 'UNESCO Caves & Heritage Monuments'),
+          sub: t('heritageSubtitle', 'Masterpieces of rock-cut architecture, Buddhist frescoes, and royal palaces.')
+        };
+      default:
+        return {
+          eyebrow: language === 'mr' ? 'महाराष्ट्र दर्शन' : language === 'hi' ? 'महाराष्ट्र दर्शन' : 'DISCOVER MAHARASHTRA',
+          title: t('exploreBtn', 'Explore Heritage & Tourism Destinations'),
+          sub: t('heroSubtitle', 'Browse historical fortresses, sacred pilgrimage shrines, golden Konkan beaches, and UNESCO rock-cut caves.')
+        };
+    }
+  };
+
+  const headerInfo = getPageHeader();
+
   return (
     <div className={styles.explorePage}>
       {/* Header Banner */}
       <section className={styles.pageHeader}>
         <Container>
-          <span className={styles.eyebrow}>DISCOVER MAHARASHTRA</span>
-          <h1 className={styles.pageTitle}>Explore Heritage & Tourism Destinations</h1>
-          <p className={styles.pageSubtitle}>
-            Browse historical fortresses, sacred pilgrimage shrines, golden Konkan beaches, and UNESCO rock-cut caves.
-          </p>
+          <span className={styles.eyebrow}>{headerInfo.eyebrow}</span>
+          <h1 className={styles.pageTitle}>{headerInfo.title}</h1>
+          <p className={styles.pageSubtitle}>{headerInfo.sub}</p>
 
           {/* Category Tabs */}
           <div className={styles.categoryTabs}>
@@ -100,20 +135,20 @@ export default function ExplorePage({ defaultCategory = 'all' }) {
               <SearchInput
                 value={searchQuery}
                 onChange={setSearchQuery}
-                placeholder="Search by name, district, or keyword..."
+                placeholder={t('searchPlaceholder', 'Search by name, district, or keyword...')}
               />
             </div>
 
             <div className={styles.dropdownsGroup}>
               {/* District Dropdown */}
               <div className={styles.selectWrapper}>
-                <label className={styles.selectLabel}>District:</label>
+                <label className={styles.selectLabel}>{t('district', 'District')}:</label>
                 <select
                   className={styles.selectDropdown}
                   value={selectedDistrict}
                   onChange={(e) => setSelectedDistrict(e.target.value)}
                 >
-                  <option value="all">All Districts</option>
+                  <option value="all">{t('allDistricts', 'All Districts')}</option>
                   {districts.map(dist => (
                     <option key={dist} value={dist}>{dist}</option>
                   ))}
@@ -122,17 +157,17 @@ export default function ExplorePage({ defaultCategory = 'all' }) {
 
               {/* Region Dropdown */}
               <div className={styles.selectWrapper}>
-                <label className={styles.selectLabel}>Region:</label>
+                <label className={styles.selectLabel}>{t('region', 'Region')}:</label>
                 <select
                   className={styles.selectDropdown}
                   value={selectedRegion}
                   onChange={(e) => setSelectedRegion(e.target.value)}
                 >
-                  <option value="all">All Regions</option>
-                  <option value="Konkan">Konkan</option>
-                  <option value="Western Maharashtra">Western Maharashtra</option>
-                  <option value="Marathwada">Marathwada</option>
-                  <option value="North Maharashtra">North Maharashtra</option>
+                  <option value="all">{t('allRegions', 'All Regions')}</option>
+                  <option value="Konkan">{t('konkanRegion', 'Konkan')}</option>
+                  <option value="Western Maharashtra">{t('westernMhRegion', 'Western Maharashtra')}</option>
+                  <option value="Marathwada">{t('marathwadaRegion', 'Marathwada')}</option>
+                  <option value="North Maharashtra">{t('khandeshRegion', 'North Maharashtra')}</option>
                 </select>
               </div>
             </div>
@@ -141,49 +176,52 @@ export default function ExplorePage({ defaultCategory = 'all' }) {
           {/* Results Summary */}
           <div className={styles.resultsInfoRow}>
             <span className={styles.resultsCount}>
-              Showing <strong>{filteredDestinations.length}</strong> of {DESTINATIONS.length} heritage destinations
+              {t('showingResults', 'Showing')} <strong>{filteredDestinations.length}</strong> {t('heritageDestinations', 'heritage destinations')}
             </span>
             {(searchQuery || selectedDistrict !== 'all' || selectedRegion !== 'all' || selectedCategory !== 'all') && (
               <button
                 type="button"
                 className={styles.resetFiltersBtn}
                 onClick={() => {
-                  setSearchQuery('');
+                  setSelectedCategory('all');
                   setSelectedDistrict('all');
                   setSelectedRegion('all');
-                  handleCategoryChange('all');
+                  setSearchQuery('');
+                  setSearchParams({});
                 }}
               >
-                Reset All Filters <X size={14} style={{ marginLeft: 4 }} />
+                <X size={13} style={{ verticalAlign: 'middle', marginRight: 4 }} />
+                {t('resetFilters', 'Reset Filters')}
               </button>
             )}
           </div>
 
-          {/* Destination Grid */}
+          {/* Cards Grid */}
           {filteredDestinations.length > 0 ? (
-            <div className={styles.destinationGrid}>
-              {filteredDestinations.map(dest => (
+            <div className={styles.destinationsGrid}>
+              {filteredDestinations.map((dest) => (
                 <DestinationCard key={dest.id} destination={dest} />
               ))}
             </div>
           ) : (
-            <div className={styles.emptyState}>
-              <span className={styles.emptyIcon}>
-                <Search size={36} />
-              </span>
-              <h3 className={styles.emptyTitle}>No matching destinations found</h3>
-              <p className={styles.emptySubtitle}>Try adjusting your search keywords or clearing district filters.</p>
+            <div className={styles.noResultsBox}>
+              <Compass size={40} className={styles.noResultsIcon} />
+              <h3 className={styles.noResultsTitle}>{t('noDestinationsFound', 'No destinations found matching your criteria.')}</h3>
+              <p className={styles.noResultsSub}>
+                {t('mapSub', 'Try clearing your search query or selecting a different district filter.')}
+              </p>
               <button
                 type="button"
-                className={styles.resetBtn}
+                className={styles.clearFiltersAction}
                 onClick={() => {
-                  setSearchQuery('');
+                  setSelectedCategory('all');
                   setSelectedDistrict('all');
                   setSelectedRegion('all');
-                  handleCategoryChange('all');
+                  setSearchQuery('');
+                  setSearchParams({});
                 }}
               >
-                Clear Filters
+                {t('resetFilters', 'Reset All Filters')}
               </button>
             </div>
           )}

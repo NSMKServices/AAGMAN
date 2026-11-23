@@ -28,6 +28,7 @@ import {
 import { useWishlist } from '../context/WishlistContext';
 import { useTrips } from '../context/TripContext';
 import { useAuth } from '../context/AuthContext';
+import { useLanguage } from '../context/LanguageContext';
 import { DESTINATIONS } from '../data/destinations';
 import styles from './DashboardPage.module.css';
 
@@ -35,11 +36,12 @@ export default function DashboardPage() {
   const { wishlistCount, wishlistedDestinations } = useWishlist();
   const { trips, upcomingTrip } = useTrips();
   const { user } = useAuth();
+  const { language, t } = useLanguage();
 
   const travelerName = user?.name || localStorage.getItem('aagman_traveler_name') || 'Rohan Deshmukh';
   const homeCity = localStorage.getItem('aagman_home_city') || 'Pune';
 
-  // Recently viewed destinations (persisted in localStorage or default fallback)
+  // Recently viewed destinations
   const [recentlyViewed, setRecentlyViewed] = useState([]);
 
   useEffect(() => {
@@ -52,7 +54,6 @@ export default function DashboardPage() {
           .slice(0, 3);
         setRecentlyViewed(matched);
       } else {
-        // Default authentic recent suggestions
         setRecentlyViewed([
           DESTINATIONS.find(d => d.slug === 'raigad') || DESTINATIONS[0],
           DESTINATIONS.find(d => d.slug === 'trimbakeshwar') || DESTINATIONS[1],
@@ -66,36 +67,38 @@ export default function DashboardPage() {
 
   return (
     <div className={styles.dashboardPage}>
-      {/* ========================================================
-          1. WELCOME SECTION WITH PERSONALIZED GREETING
-          ======================================================== */}
+      {/* 1. WELCOME SECTION */}
       <section className={styles.heroBanner}>
         <Container>
           <div className={styles.heroContent}>
             <div className={styles.userBadgeRow}>
               <span className={styles.userBadge}>
                 <Shield size={14} color="var(--color-accent)" />
-                <span>Traveler Portal</span>
+                <span>{language === 'mr' ? 'पर्यटक कक्ष' : language === 'hi' ? 'पर्यटक पोर्टल' : 'Traveler Portal'}</span>
               </span>
               <span className={styles.homeCityBadge}>
                 <MapPin size={12} color="#FFF9F0" />
-                <span>Base: {homeCity}</span>
+                <span>{language === 'mr' ? 'मूळ शहर' : language === 'hi' ? 'गृह नगर' : 'Base'}: {homeCity}</span>
               </span>
               <span className={styles.roleBadge}>
-                <span>Sahyadri Explorer</span>
+                <span>{language === 'mr' ? 'सह्याद्री दुर्गभ्रमंतीकार' : language === 'hi' ? 'सह्याद्रि खोजी' : 'Sahyadri Explorer'}</span>
               </span>
             </div>
-            <h1 className={styles.heroTitle}>सस्नेह जय महाराष्ट्र, {travelerName}</h1>
+            <h1 className={styles.heroTitle}>
+              {language === 'mr' ? `सस्नेह जय महाराष्ट्र, ${travelerName}` : language === 'hi' ? `जय महाराष्ट्र, ${travelerName}` : `Welcome back, ${travelerName}`}
+            </h1>
             <p className={styles.heroSubtitle}>
-              Welcome back to your personalized Maharashtra Tourism & Heritage Portal. Manage your upcoming Sahyadri expeditions, saved fortresses, and custom itineraries.
+              {language === 'mr'
+                ? 'आपल्या वैयक्तिक महाराष्ट्र पर्यटन व वारसा कक्षात आपले सहर्ष स्वागत. आगामी सहली, जतन केलेले किल्ले आणि नियोजनांचे व्यवस्थापन करा.'
+                : language === 'hi'
+                ? 'महाराष्ट्र पर्यटन एवं धरोहर पोर्टल पर आपका स्वागत है। अपनी आगामी यात्राओं, सहेजे गए किलों और यात्रा योजनाओं का प्रबंधन करें।'
+                : 'Welcome back to your personalized Maharashtra Tourism & Heritage Portal. Manage your upcoming Sahyadri expeditions, saved fortresses, and custom itineraries.'}
             </p>
           </div>
         </Container>
       </section>
 
-      {/* ========================================================
-          2. METRICS OVERVIEW ROW
-          ======================================================== */}
+      {/* 2. METRICS OVERVIEW ROW */}
       <section className={styles.metricsSection}>
         <Container>
           <div className={styles.metricsGrid}>
@@ -105,7 +108,7 @@ export default function DashboardPage() {
               </div>
               <div className={styles.metricText}>
                 <span className={styles.metricVal}>{trips.length}</span>
-                <span className={styles.metricLabel}>Planned Expeditions</span>
+                <span className={styles.metricLabel}>{t('plannedTripsCount', 'Planned Expeditions')}</span>
               </div>
             </Link>
 
@@ -115,7 +118,7 @@ export default function DashboardPage() {
               </div>
               <div className={styles.metricText}>
                 <span className={styles.metricVal}>{wishlistCount}</span>
-                <span className={styles.metricLabel}>Bookmarked Sites</span>
+                <span className={styles.metricLabel}>{t('savedDestinationsCount', 'Bookmarked Sites')}</span>
               </div>
             </Link>
 
@@ -124,8 +127,8 @@ export default function DashboardPage() {
                 <Map size={22} color="var(--color-accent)" />
               </div>
               <div className={styles.metricText}>
-                <span className={styles.metricVal}>4 Circuits</span>
-                <span className={styles.metricLabel}>Interactive Routes</span>
+                <span className={styles.metricVal}>4 {language === 'mr' ? 'सर्किट्स' : language === 'hi' ? 'परिपथ' : 'Circuits'}</span>
+                <span className={styles.metricLabel}>{t('circuits', 'Interactive Routes')}</span>
               </div>
             </Link>
 
@@ -134,31 +137,31 @@ export default function DashboardPage() {
                 <Wallet size={22} color="var(--color-primary)" />
               </div>
               <div className={styles.metricText}>
-                <span className={styles.metricVal}>Budget Tool</span>
-                <span className={styles.metricLabel}>Real-Time Calculator</span>
+                <span className={styles.metricVal}>{t('budgetPlanner', 'Budget Tool')}</span>
+                <span className={styles.metricLabel}>{language === 'mr' ? 'खर्च कॅल्क्युलेटर' : language === 'hi' ? 'बजट कैलकुलेटर' : 'Real-Time Calculator'}</span>
               </div>
             </Link>
           </div>
         </Container>
       </section>
 
-      {/* ========================================================
-          MAIN WORKSPACE LAYOUT (2 COLUMNS)
-          ======================================================== */}
+      {/* MAIN WORKSPACE LAYOUT */}
       <section className={styles.contentSection}>
         <Container>
           <div className={styles.dashboardLayout}>
-            {/* Left Column: Expeditions, Wishlist & Itineraries */}
+            {/* Left Column: Expeditions & Wishlist */}
             <div className={styles.mainCol}>
               {/* 3. UPCOMING TRIPS / EXPEDITIONS */}
               <div className={styles.cardBlock}>
                 <div className={styles.sectionHeader}>
                   <div>
-                    <span className={styles.blockEyebrow}>EXPEDITION TIMELINE</span>
-                    <h2 className={styles.sectionTitle}>Next Scheduled Expedition</h2>
+                    <span className={styles.blockEyebrow}>{t('upcomingTrip', 'EXPEDITION TIMELINE')}</span>
+                    <h2 className={styles.sectionTitle}>
+                      {language === 'mr' ? 'पुढील नियोजित सहल' : language === 'hi' ? 'आगामी यात्रा' : 'Next Scheduled Expedition'}
+                    </h2>
                   </div>
                   <Link to="/trips" className={styles.viewAllLink}>
-                    <span>View All Trips ({trips.length})</span>
+                    <span>{t('myTrips', 'View All Trips')} ({trips.length})</span>
                     <ArrowRight size={13} />
                   </Link>
                 </div>
@@ -175,12 +178,12 @@ export default function DashboardPage() {
                         <h3 className={styles.tripCardTitle}>{upcomingTrip.name}</h3>
                         <p className={styles.tripCardDates}>
                           <Calendar size={13} color="var(--color-secondary)" />
-                          <span>{upcomingTrip.startDate} to {upcomingTrip.endDate} ({upcomingTrip.durationDays} Days)</span>
+                          <span>{upcomingTrip.startDate} to {upcomingTrip.endDate} ({upcomingTrip.durationDays} {language === 'mr' ? 'दिवस' : language === 'hi' ? 'दिन' : 'Days'})</span>
                         </p>
                       </div>
 
                       <div className={styles.tripBudgetBadge}>
-                        <span className={styles.budgetSmall}>Allocated Budget</span>
+                        <span className={styles.budgetSmall}>{t('tripBudget', 'Allocated Budget')}</span>
                         <strong className={styles.budgetAmount}>
                           ₹{upcomingTrip.allocatedBudget?.toLocaleString('en-IN') || '14,000'}
                         </strong>
@@ -188,7 +191,7 @@ export default function DashboardPage() {
                     </div>
 
                     <div className={styles.destinationsRow}>
-                      <span className={styles.destLabel}>Key Circuit Stops:</span>
+                      <span className={styles.destLabel}>{t('keyStops', 'Key Circuit Stops')}:</span>
                       <div className={styles.destList}>
                         {upcomingTrip.destinations?.map((d, i) => (
                           <span key={i} className={styles.destChip}>
@@ -201,7 +204,9 @@ export default function DashboardPage() {
                     <div className={styles.dayPreviewList}>
                       {upcomingTrip.itineraryDays?.slice(0, 3).map((day) => (
                         <div key={day.day} className={styles.dayPreviewItem}>
-                          <div className={styles.dayNumber}>Day {day.day}</div>
+                          <div className={styles.dayNumber}>
+                            {language === 'mr' ? `दिवस ${day.day}` : language === 'hi' ? `दिन ${day.day}` : `Day ${day.day}`}
+                          </div>
                           <div className={styles.dayPreviewContent}>
                             <h4 className={styles.dayPreviewHeading}>{day.title}</h4>
                             <p className={styles.dayPreviewText}>{day.highlights}</p>
@@ -212,10 +217,14 @@ export default function DashboardPage() {
 
                     <div className={styles.tripActions}>
                       <Link to="/trips">
-                        <Button variant="primary" size="sm">Manage Expedition Schedule</Button>
+                        <Button variant="primary" size="sm">
+                          {language === 'mr' ? 'सहलीचे नियोजन पहा' : language === 'hi' ? 'यात्रा विवरण देखें' : 'Manage Expedition Schedule'}
+                        </Button>
                       </Link>
                       <Link to="/map">
-                        <Button variant="outline" size="sm">Open Circuit Route Map</Button>
+                        <Button variant="outline" size="sm">
+                          {language === 'mr' ? 'नकाशा पहा' : language === 'hi' ? 'नक्शा देखें' : 'Open Circuit Route Map'}
+                        </Button>
                       </Link>
                     </div>
                   </div>
@@ -224,17 +233,21 @@ export default function DashboardPage() {
                     <div className={styles.emptyIconBox}>
                       <Backpack size={32} color="var(--color-accent)" />
                     </div>
-                    <h3 className={styles.emptyTitle}>No scheduled expeditions yet</h3>
+                    <h3 className={styles.emptyTitle}>{t('noTripsYet', 'No scheduled expeditions yet')}</h3>
                     <p className={styles.emptySub}>
-                      Plan your next journey across Chhatrapati Shivaji Maharaj's citadels, UNESCO rock caves, or Konkan shorelines.
+                      {language === 'mr'
+                        ? 'छत्रपती शिवाजी महाराजांचे गडकोट, प्राचीन लेणी किंवा कोकण किनाऱ्यांसाठी आपली पहिली सहल आखा.'
+                        : language === 'hi'
+                        ? 'छत्रपति शिवाजी महाराज के किलों, गुफाओं या कोंकण तट के लिए अपनी पहली यात्रा की योजना बनाएं।'
+                        : 'Plan your next journey across Chhatrapati Shivaji Maharaj\'s citadels, UNESCO rock caves, or Konkan shorelines.'}
                     </p>
                     <div className={styles.emptyActions}>
                       <Button to="/planner" variant="primary" size="sm">
-                        <span>Plan Your First Trip</span>
+                        <span>{t('planTripBtn', 'Plan Your First Trip')}</span>
                         <Sparkles size={14} />
                       </Button>
                       <Button to="/explore" variant="outline" size="sm">
-                        Browse 23 Destinations
+                        {t('exploreBtn', 'Browse Destinations')}
                       </Button>
                     </div>
                   </div>
@@ -245,11 +258,13 @@ export default function DashboardPage() {
               <div className={styles.cardBlock}>
                 <div className={styles.sectionHeader}>
                   <div>
-                    <span className={styles.blockEyebrow}>BOOKMARKED HERITAGE</span>
-                    <h2 className={styles.sectionTitle}>Your Saved Places</h2>
+                    <span className={styles.blockEyebrow}>{t('wishlistTitle', 'BOOKMARKED HERITAGE')}</span>
+                    <h2 className={styles.sectionTitle}>
+                      {language === 'mr' ? 'आपली जतन केलेली ठिकाणे' : language === 'hi' ? 'आपके सहेजे गए स्थल' : 'Your Saved Places'}
+                    </h2>
                   </div>
                   <Link to="/wishlist" className={styles.viewAllLink}>
-                    <span>View Wishlist ({wishlistCount})</span>
+                    <span>{t('wishlist', 'View Wishlist')} ({wishlistCount})</span>
                     <ArrowRight size={13} />
                   </Link>
                 </div>
@@ -265,199 +280,83 @@ export default function DashboardPage() {
                     <div className={styles.emptyIconBox}>
                       <Heart size={32} color="var(--color-accent)" />
                     </div>
-                    <h3 className={styles.emptyTitle}>Your travel wishlist is empty</h3>
+                    <h3 className={styles.emptyTitle}>
+                      {language === 'mr' ? 'आपली आवडती यादी रिकामी आहे' : language === 'hi' ? 'आपकी पसंदीदा सूची खाली है' : 'Your travel wishlist is empty'}
+                    </h3>
                     <p className={styles.emptySub}>
-                      Click the heart icon on any destination card to bookmark forts, temples, and beaches for your upcoming journey.
+                      {language === 'mr'
+                        ? 'किल्ले, मंदिरे आणि समुद्रकिनारे जतन करण्यासाठी कोणत्याही कार्डावरील हृदय चिन्हावर क्लिक करा.'
+                        : language === 'hi'
+                        ? 'किलों, मंदिरों और समुद्र तटों को सहेजने के लिए किसी भी कार्ड पर दिल के आइकन पर क्लिक करें।'
+                        : 'Click the heart icon on any destination card to bookmark forts, temples, and beaches for your upcoming journey.'}
                     </p>
                     <Button to="/explore" variant="outline" size="sm">
-                      Explore Destinations to Bookmark
+                      {t('exploreBtn', 'Explore Destinations')}
                     </Button>
                   </div>
                 )}
               </div>
-
-              {/* 5. SAVED ITINERARIES & CIRCUIT BLUEPRINTS */}
-              <div className={styles.cardBlock}>
-                <div className={styles.sectionHeader}>
-                  <div>
-                    <span className={styles.blockEyebrow}>RECOMMENDED CIRCUITS</span>
-                    <h2 className={styles.sectionTitle}>Suggested Travel Blueprints</h2>
-                  </div>
-                  <Link to="/planner" className={styles.viewAllLink}>
-                    <span>Custom Itinerary Builder</span>
-                    <ArrowRight size={13} />
-                  </Link>
-                </div>
-
-                <div className={styles.circuitRows}>
-                  <div className={styles.circuitMiniCard}>
-                    <div className={styles.circuitMiniMeta}>
-                      <Badge variant="forts" size="sm">Maratha Imperial</Badge>
-                      <span className={styles.miniDuration}>
-                        <Clock size={12} /> 4 Days
-                      </span>
-                    </div>
-                    <h4 className={styles.circuitMiniTitle}>Pune – Sinhagad – Raigad – Pratapgad</h4>
-                    <p className={styles.circuitMiniSub}>
-                      Ascend the sacred coronation citadel of Swarajya with authentic village homestays.
-                    </p>
-                    <div className={styles.circuitMiniAction}>
-                      <span className={styles.budgetNote}>Est. ₹8,500 – ₹14,000</span>
-                      <Link to="/planner" className={styles.loadPlanLink}>Load into Planner →</Link>
-                    </div>
-                  </div>
-
-                  <div className={styles.circuitMiniCard}>
-                    <div className={styles.circuitMiniMeta}>
-                      <Badge variant="beaches" size="sm">Konkan Coastal</Badge>
-                      <span className={styles.miniDuration}>
-                        <Clock size={12} /> 5 Days
-                      </span>
-                    </div>
-                    <h4 className={styles.circuitMiniTitle}>Alibaug – Murud-Janjira – Ganpatipule – Tarkarli</h4>
-                    <p className={styles.circuitMiniSub}>
-                      Pristine beaches, marine sea fortress sailboat ferries, and Malvan scuba diving.
-                    </p>
-                    <div className={styles.circuitMiniAction}>
-                      <span className={styles.budgetNote}>Est. ₹12,000 – ₹18,500</span>
-                      <Link to="/planner" className={styles.loadPlanLink}>Load into Planner →</Link>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
 
-            {/* Right Column: Profile, Activity, Recommendations & Helplines */}
+            {/* Right Column: Profile & Helplines */}
             <div className={styles.sidebarCol}>
-              {/* 6. PROFILE & ACCOUNT SHORTCUTS */}
+              {/* Profile Card */}
               <div className={styles.sideCard}>
                 <div className={styles.userProfileCard}>
                   <div className={styles.avatarCircle}>{user?.avatarInitials || 'RD'}</div>
                   <div>
                     <h3 className={styles.profileName}>{travelerName}</h3>
                     <p className={styles.profileEmail}>{user?.email || 'rohan.deshmukh@gmail.com'}</p>
-                    <span className={styles.profileRole}>Verified Explorer</span>
+                    <span className={styles.profileRole}>
+                      {language === 'mr' ? 'सत्यापित दुर्गभ्रमंतीकार' : language === 'hi' ? 'सत्यापित खोजी' : 'Verified Explorer'}
+                    </span>
                   </div>
                 </div>
 
                 <div className={styles.shortcutLinks}>
                   <Link to="/trips" className={styles.shortcutItem}>
                     <Backpack size={16} color="var(--color-secondary)" />
-                    <span>My Expeditions ({trips.length})</span>
+                    <span>{t('myTrips', 'My Expeditions')} ({trips.length})</span>
                   </Link>
                   <Link to="/wishlist" className={styles.shortcutItem}>
                     <Heart size={16} color="var(--color-highlight)" />
-                    <span>Saved Wishlist ({wishlistCount})</span>
+                    <span>{t('wishlist', 'Saved Wishlist')} ({wishlistCount})</span>
                   </Link>
                   <Link to="/budget" className={styles.shortcutItem}>
                     <Wallet size={16} color="var(--color-accent)" />
-                    <span>Trip Cost Estimator</span>
+                    <span>{t('budgetPlanner', 'Trip Cost Estimator')}</span>
                   </Link>
                   <Link to="/settings" className={styles.shortcutItem}>
                     <Settings size={16} color="var(--color-text-muted)" />
-                    <span>Profile & Preferences</span>
+                    <span>{t('settings', 'Profile & Preferences')}</span>
                   </Link>
                 </div>
               </div>
 
-              {/* 7. RECENTLY VIEWED DESTINATIONS */}
+              {/* Helplines */}
               <div className={styles.sideCard}>
                 <div className={styles.sideHeader}>
-                  <span className={styles.sideEyebrow}>YOUR BROWSING HISTORY</span>
-                  <h3 className={styles.sideCardTitle}>Recently Viewed</h3>
-                </div>
-
-                <div className={styles.recentList}>
-                  {recentlyViewed.map((dest) => (
-                    <Link
-                      key={dest.id}
-                      to={`/${dest.category}/${dest.slug}`}
-                      className={styles.recentItem}
-                    >
-                      <img src={dest.thumbnail} alt={dest.name} className={styles.recentThumb} />
-                      <div className={styles.recentInfo}>
-                        <strong className={styles.recentTitle}>{dest.name}</strong>
-                        <span className={styles.recentMeta}>
-                          <MapPin size={11} /> {dest.district} • {dest.category}
-                        </span>
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-              </div>
-
-              {/* 8. SEASONAL TRAVEL RECOMMENDATION */}
-              <div className={styles.recommendationCard}>
-                <div className={styles.recHeader}>
-                  <Sparkles size={18} color="var(--color-accent)" />
-                  <span className={styles.recTag}>SEASONAL ADVISORY</span>
-                </div>
-                <h4 className={styles.recTitle}>Peak Sahyadri Fort Exploration</h4>
-                <p className={styles.recBody}>
-                  Winter season provides clear summit visibility across Sinhagad, Rajgad, and Torna with cool morning breezes and calm Konkan tides.
-                </p>
-                <Link to="/forts" className={styles.recLink}>
-                  <span>Explore Recommended Forts</span>
-                  <ArrowRight size={12} />
-                </Link>
-              </div>
-
-              {/* 9. RECENT TRAVELER ACTIVITY */}
-              <div className={styles.sideCard}>
-                <div className={styles.sideHeader}>
-                  <span className={styles.sideEyebrow}>LOGGED ACTIONS</span>
-                  <h3 className={styles.sideCardTitle}>Recent Activity</h3>
-                </div>
-
-                <ul className={styles.activityList}>
-                  <li className={styles.activityItem}>
-                    <span className={styles.activityDot} />
-                    <div>
-                      <p className={styles.activityText}>Bookmarked <strong>Raigad Fort</strong></p>
-                      <span className={styles.activityTime}>Today, 09:30 AM</span>
-                    </div>
-                  </li>
-                  <li className={styles.activityItem}>
-                    <span className={styles.activityDot} />
-                    <div>
-                      <p className={styles.activityText}>Inspected <strong>Maratha Imperial Circuit</strong></p>
-                      <span className={styles.activityTime}>Yesterday</span>
-                    </div>
-                  </li>
-                  <li className={styles.activityItem}>
-                    <span className={styles.activityDot} />
-                    <div>
-                      <p className={styles.activityText}>Checked travel permits for <strong>Kalsubai Peak</strong></p>
-                      <span className={styles.activityTime}>3 days ago</span>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-
-              {/* 10. TOURIST HELPLINES & ASSISTANCE */}
-              <div className={styles.sideCard}>
-                <div className={styles.sideHeader}>
-                  <span className={styles.sideEyebrow}>ASSISTANCE & EMERGENCIES</span>
-                  <h3 className={styles.sideCardTitle}>Tourist Helplines</h3>
+                  <span className={styles.sideEyebrow}>{t('helplineTitle', 'ASSISTANCE & EMERGENCIES')}</span>
+                  <h3 className={styles.sideCardTitle}>{t('helplineTitle', 'Tourist Helplines')}</h3>
                 </div>
 
                 <div className={styles.helplineList}>
                   <div className={styles.helplineItem}>
-                    <span className={styles.helpName}>MTDC Tourist Helpline:</span>
+                    <span className={styles.helpName}>{t('mtdcHelpline', 'MTDC Tourist Helpline')}:</span>
                     <a href="tel:1800229930" className={styles.helpPhone}>1800-229-930</a>
                   </div>
                   <div className={styles.helplineItem}>
-                    <span className={styles.helpName}>Emergency Police/Ambulance:</span>
+                    <span className={styles.helpName}>{t('emergencyHelpline', 'Emergency Response')}:</span>
                     <a href="tel:112" className={styles.helpPhone}>112</a>
                   </div>
                   <div className={styles.helplineItem}>
-                    <span className={styles.helpName}>Sahyadri Mountain Rescue:</span>
+                    <span className={styles.helpName}>{t('sahyadriRescue', 'Sahyadri Rescue')}:</span>
                     <a href="tel:+919422012345" className={styles.helpPhone}>+91 94220 12345</a>
                   </div>
                 </div>
               </div>
 
-              {/* 11. CULTURAL ROYAL DECREE */}
+              {/* Cultural Royal Decree */}
               <div className={styles.quoteCard}>
                 <Shield size={22} color="var(--color-accent)" />
                 <p className={styles.quoteText}>
@@ -465,7 +364,11 @@ export default function DashboardPage() {
                 </p>
                 <span className={styles.quoteAuthor}>— रामचंद्रपंत अमात्य (आज्ञापत्र, १६९८)</span>
                 <p className={styles.quoteTranslation}>
-                  "Forts are the true essence of sovereignty. He who commands the hill citadels commands the realm."
+                  "{language === 'mr'
+                    ? 'दुर्ग हेच राष्ट्राचे प्राण आहेत. ज्याच्याकडे गडकोट त्याचेच राज्य.'
+                    : language === 'hi'
+                    ? 'किले ही राज्य का सार हैं। जिसके पास दुर्ग, उसी का राज्य।'
+                    : 'Forts are the true essence of sovereignty. He who commands the hill citadels commands the realm.'}"
                 </p>
               </div>
             </div>

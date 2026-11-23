@@ -3,6 +3,11 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAdminAuth } from '../../context/AdminAuthContext';
 import styles from './AdminAuth.module.css';
 
+const isProduction = Boolean(
+  (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.PROD) ||
+  (typeof process !== 'undefined' && process.env && process.env.NODE_ENV === 'production')
+);
+
 export default function AdminLoginPage() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -170,40 +175,44 @@ export default function AdminLoginPage() {
             </button>
           </form>
 
-          <div className={styles.divider}>Offline & Testing Access</div>
+          {!isProduction && (
+            <>
+              <div className={styles.divider}>Offline & Testing Access</div>
 
-          <div className={styles.demoBox}>
-            <div className={styles.demoTitle}>
-              <span>Role-Based Verification Simulator</span>
-              <span className={styles.demoBadge}>Offline Ready</span>
-            </div>
-            <div className={styles.demoBtnGroup}>
-              <button
-                type="button"
-                className={styles.demoRoleBtn}
-                onClick={() => handleDemoLogin('super_admin')}
-                title="Sign in with Super Administrator privileges"
-              >
-                Super Admin
-              </button>
-              <button
-                type="button"
-                className={styles.demoRoleBtn}
-                onClick={() => handleDemoLogin('content_manager')}
-                title="Sign in with Content Manager privileges"
-              >
-                Content Mgr
-              </button>
-              <button
-                type="button"
-                className={styles.demoRoleBtn}
-                onClick={() => handleDemoLogin('editor')}
-                title="Sign in with Editor privileges"
-              >
-                Editor
-              </button>
-            </div>
-          </div>
+              <div className={styles.demoBox}>
+                <div className={styles.demoTitle}>
+                  <span>Role-Based Verification Simulator</span>
+                  <span className={styles.demoBadge}>Offline Ready</span>
+                </div>
+                <div className={styles.demoBtnGroup}>
+                  <button
+                    type="button"
+                    className={styles.demoRoleBtn}
+                    onClick={() => handleDemoLogin('super_admin')}
+                    title="Sign in with Super Administrator privileges"
+                  >
+                    Super Admin
+                  </button>
+                  <button
+                    type="button"
+                    className={styles.demoRoleBtn}
+                    onClick={() => handleDemoLogin('content_manager')}
+                    title="Sign in with Content Manager privileges"
+                  >
+                    Content Mgr
+                  </button>
+                  <button
+                    type="button"
+                    className={styles.demoRoleBtn}
+                    onClick={() => handleDemoLogin('editor')}
+                    title="Sign in with Editor privileges"
+                  >
+                    Editor
+                  </button>
+                </div>
+              </div>
+            </>
+          )}
         </div>
 
         <div className={styles.cardFooter}>

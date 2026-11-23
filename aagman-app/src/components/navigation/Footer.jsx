@@ -14,9 +14,12 @@ import {
   Shield,
   Phone
 } from '../common/Icons';
+import { useLanguage } from '../../context/LanguageContext';
 import styles from './Footer.module.css';
 
 export default function Footer() {
+  const { t } = useLanguage();
+
   return (
     <footer className={styles.footer}>
       <Container>
@@ -28,46 +31,46 @@ export default function Footer() {
                 <Shield size={22} color="var(--color-gold)" />
               </div>
               <div className={styles.brandText}>
-                <span className={styles.brandTitle}>AAGMAN</span>
-                <span className={styles.brandSub}>MAHARASHTRA TOURISM</span>
+                <span className={styles.brandTitle}>{t('brandName', 'AAGMAN')}</span>
+                <span className={styles.brandSub}>{t('brandSubtitle', 'MAHARASHTRA TOURISM')}</span>
               </div>
             </div>
             <p className={styles.tagline}>
-              Comprehensive Maharashtra tourism discovery and travel-planning platform celebrating the timeless splendor of Chhatrapati Shivaji Maharaj's royal forts, sacred pilgrimages, pristine Konkan coastlines, and living traditions.
+              {t('officialPlatform', 'Comprehensive Maharashtra tourism discovery and travel-planning platform celebrating the timeless splendor of Chhatrapati Shivaji Maharaj\'s royal forts, sacred pilgrimages, pristine Konkan coastlines, and living traditions.')}
             </p>
             <div className={styles.stateMotto}>
               <Shield size={16} color="var(--color-secondary)" />
-              <span>"जय जय महाराष्ट्र माझा, गर्जा महाराष्ट्र माझा"</span>
+              <span>"{t('stateMotto', 'जय जय महाराष्ट्र माझा, गर्जा महाराष्ट्र माझा')}"</span>
             </div>
           </div>
 
           {/* Tourism Categories */}
           <div className={styles.linksCol}>
-            <h4 className={styles.colTitle}>Destinations & Circuits</h4>
+            <h4 className={styles.colTitle}>{t('destinations', 'Destinations & Circuits')}</h4>
             <ul className={styles.linksList}>
               <li>
                 <Link to="/forts" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.45rem' }}>
-                  <Castle size={16} /> Historic Forts & Sahyadris
+                  <Castle size={16} /> {t('forts', 'Historic Forts & Sahyadris')}
                 </Link>
               </li>
               <li>
                 <Link to="/temples" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.45rem' }}>
-                  <Landmark size={16} /> Sacred Temples & Shrines
+                  <Landmark size={16} /> {t('temples', 'Sacred Temples & Shrines')}
                 </Link>
               </li>
               <li>
                 <Link to="/beaches" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.45rem' }}>
-                  <Umbrella size={16} /> Konkan Coastal Beaches
+                  <Umbrella size={16} /> {t('beaches', 'Konkan Coastal Beaches')}
                 </Link>
               </li>
               <li>
                 <Link to="/heritage" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.45rem' }}>
-                  <BookOpen size={16} /> UNESCO Caves & Heritage
+                  <BookOpen size={16} /> {t('heritage', 'UNESCO Caves & Heritage')}
                 </Link>
               </li>
               <li>
                 <Link to="/explore" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.45rem' }}>
-                  <Compass size={16} /> All Curated Sites
+                  <Compass size={16} /> {t('allDestinations', 'All Curated Sites')}
                 </Link>
               </li>
             </ul>
@@ -75,31 +78,31 @@ export default function Footer() {
 
           {/* Travel Planning & Experiences */}
           <div className={styles.linksCol}>
-            <h4 className={styles.colTitle}>Plan Your Expedition</h4>
+            <h4 className={styles.colTitle}>{t('itineraries', 'Plan Your Expedition')}</h4>
             <ul className={styles.linksList}>
               <li>
                 <Link to="/planner" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.45rem' }}>
-                  <Sparkles size={16} /> Smart Journey Planner
+                  <Sparkles size={16} /> {t('planner', 'Smart Journey Planner')}
                 </Link>
               </li>
               <li>
                 <Link to="/map" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.45rem' }}>
-                  <Map size={16} /> Interactive Route Atlas
+                  <Map size={16} /> {t('interactiveMap', 'Interactive Route Atlas')}
                 </Link>
               </li>
               <li>
                 <Link to="/budget" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.45rem' }}>
-                  <Wallet size={16} /> Travel Cost Estimator
+                  <Wallet size={16} /> {t('budgetPlanner', 'Travel Cost Estimator')}
                 </Link>
               </li>
               <li>
                 <Link to="/festivals" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.45rem' }}>
-                  <Sparkles size={16} /> Festivals & Cultural Events
+                  <Sparkles size={16} /> {t('festivals', 'Festivals & Cultural Events')}
                 </Link>
               </li>
               <li>
                 <Link to="/videos" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.45rem' }}>
-                  <Video size={16} /> Videos & Experiences
+                  <Video size={16} /> {t('videos', 'Videos & Experiences')}
                 </Link>
               </li>
             </ul>
@@ -107,22 +110,24 @@ export default function Footer() {
 
           {/* Helplines & Assistance */}
           <div className={styles.linksCol}>
-            <h4 className={styles.colTitle}>Helplines & Assistance</h4>
+            <h4 className={styles.colTitle}>{t('helplineTitle', 'Helplines & Assistance')}</h4>
             <ul className={styles.helpList}>
               <li>
-                <span className={styles.helpLabel}>MTDC Tourist Helpline:</span>
+                <span className={styles.helpLabel}>{t('mtdcHelpline', 'MTDC Tourist Helpline')}:</span>
                 <a href="tel:1800229930" className={styles.helpNumber}>1800-229-930</a>
               </li>
               <li>
-                <span className={styles.helpLabel}>Emergency Response:</span>
+                <span className={styles.helpLabel}>{t('emergencyHelpline', 'Emergency Response')}:</span>
                 <a href="tel:112" className={styles.helpNumber}>112</a>
               </li>
               <li>
-                <span className={styles.helpLabel}>Sahyadri Rescue:</span>
+                <span className={styles.helpLabel}>{t('sahyadriRescue', 'Sahyadri Rescue')}:</span>
                 <a href="tel:+919422012345" className={styles.helpNumber}>+91 94220 12345</a>
               </li>
               <li className={styles.contactActionRow}>
-                <Link to="/contact" className={styles.contactBtn}>Contact Tourism Liaison →</Link>
+                <Link to="/contact" className={styles.contactBtn}>
+                  {t('contactTourismLiaison', 'Contact Tourism Liaison →')}
+                </Link>
               </li>
             </ul>
           </div>
@@ -131,18 +136,18 @@ export default function Footer() {
         {/* Bottom Legal & Copyright Bar */}
         <div className={styles.footerBottom}>
           <div className={styles.bottomLinks}>
-            <Link to="/about">About AAGMAN</Link>
+            <Link to="/about">{t('about', 'About AAGMAN')}</Link>
             <span className={styles.bottomDot}>•</span>
-            <Link to="/faq">Travel Guidelines & FAQ</Link>
+            <Link to="/faq">{t('faq', 'Travel Guidelines & FAQ')}</Link>
             <span className={styles.bottomDot}>•</span>
-            <Link to="/contact">Contact Support</Link>
+            <Link to="/contact">{t('contact', 'Contact Support')}</Link>
             <span className={styles.bottomDot}>•</span>
-            <Link to="/settings">Settings & Preferences</Link>
+            <Link to="/settings">{t('settings', 'Settings & Preferences')}</Link>
             <span className={styles.bottomDot}>•</span>
-            <Link to="/admin">Admin Portal</Link>
+            <Link to="/admin">{t('adminPortal', 'Admin Portal')}</Link>
           </div>
           <p className={styles.copyrightText}>
-            © {new Date().getFullYear()} AAGMAN — Official Maharashtra Cultural & Heritage Tourism Platform. Preserving and promoting the royal history, cultural heritage, and natural wonders of Maharashtra.
+            © {new Date().getFullYear()} {t('brandName', 'AAGMAN')} — {t('copyright', 'Official Maharashtra Cultural & Heritage Tourism Platform. Preserving and promoting the royal history, cultural heritage, and natural wonders of Maharashtra.')}
           </p>
         </div>
       </Container>
