@@ -1,0 +1,295 @@
+.adminWrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #F4F7FB;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  color: #0F2744;
+}
+
+.topHeader {
+  height: 64px;
+  background: #0B1B33;
+  border-bottom: 1px solid #1D3B66;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.5rem;
+  color: #FFFFFF;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(7, 18, 36, 0.25);
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+}
+
+.brandGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.emblem {
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(135deg, #153E75 0%, #1D68BD 100%);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(29, 104, 189, 0.4);
+}
+
+.brandDetails {
+  display: flex;
+  flex-direction: column;
+}
+
+.portalTitle {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  letter-spacing: -0.01em;
+}
+
+.portalSub {
+  font-size: 0.675rem;
+  font-weight: 600;
+  color: #8CA0BA;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.headerRight {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.publicSiteLink {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  color: #9BB5D6;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0.35rem 0.65rem;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.15s ease;
+}
+
+.publicSiteLink:hover {
+  background: rgba(29, 104, 189, 0.25);
+  color: #FFFFFF;
+  border-color: #1D68BD;
+}
+
+.userSection {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.userMeta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.userName {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
+.rolePill {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.1rem 0.45rem;
+  border-radius: 4px;
+}
+
+.rolePill.super_admin {
+  background: #065F46;
+  color: #A7F3D0;
+}
+
+.rolePill.content_manager {
+  background: #92400E;
+  color: #FDE68A;
+}
+
+.rolePill.editor {
+  background: #1E3A8A;
+  color: #BFDBFE;
+}
+
+.logoutBtn {
+  background: rgba(220, 38, 38, 0.15);
+  border: 1px solid rgba(220, 38, 38, 0.3);
+  color: #FCA5A5;
+  border-radius: 6px;
+  padding: 0.4rem 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: all 0.15s ease;
+}
+
+.logoutBtn:hover {
+  background: #DC2626;
+  color: #FFFFFF;
+}
+
+.mainLayout {
+  display: flex;
+  flex: 1;
+}
+
+.sidebar {
+  width: 250px;
+  background: #0F2744;
+  border-right: 1px solid #1D3B66;
+  color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+
+.navSection {
+  padding: 1.25rem 0.85rem 0.5rem;
+}
+
+.navSectionTitle {
+  font-size: 0.675rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #6C829F;
+  padding: 0 0.5rem 0.5rem;
+  display: block;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.65rem 0.75rem;
+  border-radius: 6px;
+  color: #A8BBD1;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: all 0.15s ease;
+  position: relative;
+}
+
+.navItem:hover {
+  background: rgba(29, 104, 189, 0.15);
+  color: #FFFFFF;
+}
+
+.navItemActive {
+  background: #1D68BD;
+  color: #FFFFFF;
+  box-shadow: 0 2px 6px rgba(29, 104, 189, 0.3);
+}
+
+.lockBadge {
+  margin-left: auto;
+  font-size: 0.65rem;
+  background: rgba(255, 255, 255, 0.15);
+  color: #E2E8F0;
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.sidebarFooter {
+  margin-top: auto;
+  padding: 1rem 0.85rem;
+  background: #0B1B33;
+  border-top: 1px solid #1D3B66;
+}
+
+.roleSwitcherHeader {
+  font-size: 0.675rem;
+  font-weight: 700;
+  color: #6C829F;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.4rem;
+}
+
+.roleSwitcherButtons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.35rem;
+}
+
+.roleSwitchBtn {
+  background: #152A4A;
+  border: 1px solid #1D3B66;
+  color: #CBDCEE;
+  padding: 0.3rem 0;
+  border-radius: 4px;
+  font-size: 0.675rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.15s ease;
+}
+
+.roleSwitchBtn:hover {
+  border-color: #1D68BD;
+  color: #FFFFFF;
+}
+
+.roleSwitchActive {
+  background: #1D68BD;
+  color: #FFFFFF;
+  border-color: #1D68BD;
+}
+
+.contentArea {
+  flex: 1;
+  padding: 2rem;
+  overflow-y: auto;
+  background: #F4F7FB;
+}
+
+@media (max-width: 900px) {
+  .sidebar {
+    width: 200px;
+  }
+  .contentArea {
+    padding: 1.25rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .mainLayout {
+    flex-direction: column;
+  }
+  .sidebar {
+    width: 100%;
+  }
+}

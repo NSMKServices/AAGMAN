@@ -4,13 +4,27 @@ import Container from '../components/layout/Container';
 import Button from '../components/common/Button';
 import Badge from '../components/common/Badge';
 import { useTrips } from '../context/TripContext';
+import {
+  Castle,
+  Umbrella,
+  BookOpen,
+  Landmark,
+  MapPin,
+  Sparkles,
+  Calendar,
+  Backpack,
+  Sunrise,
+  Sunset,
+  Utensils,
+  Building
+} from '../components/common/Icons';
 import styles from './PlannerPage.module.css';
 
 const THEMES = [
-  { id: 'forts', label: 'Historic Forts & Sahyadri Treks', icon: '🏰', destinations: ['Sinhagad', 'Rajgad', 'Torna', 'Raigad'] },
-  { id: 'beaches', label: 'Konkan Coastline & Sea Forts', icon: '🏖️', destinations: ['Kashid Beach', 'Murud-Janjira', 'Ganpatipule', 'Tarkarli'] },
-  { id: 'caves', label: 'UNESCO Caves & Rock Architecture', icon: '📜', destinations: ['Ellora Caves', 'Ajanta Caves', 'Daulatabad Fort', 'Elephanta'] },
-  { id: 'temples', label: 'Sacred Jyotirlinga & Ashtavinayak', icon: '🛕', destinations: ['Trimbakeshwar', 'Bhimashankar', 'Shirdi', 'Pandharpur'] }
+  { id: 'forts', label: 'Historic Forts & Sahyadri Treks', Icon: Castle, destinations: ['Sinhagad', 'Rajgad', 'Torna', 'Raigad'] },
+  { id: 'beaches', label: 'Konkan Coastline & Sea Forts', Icon: Umbrella, destinations: ['Kashid Beach', 'Murud-Janjira', 'Ganpatipule', 'Tarkarli'] },
+  { id: 'caves', label: 'UNESCO Caves & Rock Architecture', Icon: BookOpen, destinations: ['Ellora Caves', 'Ajanta Caves', 'Daulatabad Fort', 'Elephanta'] },
+  { id: 'temples', label: 'Sacred Jyotirlinga & Ashtavinayak', Icon: Landmark, destinations: ['Trimbakeshwar', 'Bhimashankar', 'Shirdi', 'Pandharpur'] }
 ];
 
 const GENERATED_TEMPLATES = {
@@ -231,7 +245,7 @@ export default function PlannerPage() {
                     className={`${styles.chipBtn} ${hub === city ? styles.activeChip : ''}`}
                     onClick={() => setHub(city)}
                   >
-                    📍 {city}
+                    <MapPin size={12} style={{ marginRight: 4 }} /> {city}
                   </button>
                 ))}
               </div>
@@ -248,7 +262,9 @@ export default function PlannerPage() {
                     className={`${styles.themeCard} ${selectedTheme === theme.id ? styles.activeTheme : ''}`}
                     onClick={() => setSelectedTheme(theme.id)}
                   >
-                    <span className={styles.themeIcon}>{theme.icon}</span>
+                    <span className={styles.themeIcon}>
+                      <theme.Icon size={20} />
+                    </span>
                     <span className={styles.themeTitle}>{theme.label}</span>
                   </button>
                 ))}
@@ -322,8 +338,9 @@ export default function PlannerPage() {
                 onClick={handleGenerate}
                 disabled={isGenerating}
                 className={styles.generateBtn}
+                icon={!isGenerating && <Sparkles size={16} />}
               >
-                {isGenerating ? 'Generating Itinerary...' : 'Generate Custom Itinerary ✨'}
+                {isGenerating ? 'Generating Itinerary...' : 'Generate Custom Itinerary'}
               </Button>
             </div>
 
@@ -348,7 +365,8 @@ export default function PlannerPage() {
                   <Badge variant="gold">{generatedItinerary.circuit}</Badge>
                   <h2 className={styles.itineraryTitle}>{generatedItinerary.title}</h2>
                   <p className={styles.itineraryMeta}>
-                    🗓️ Starting from <strong>{hub}</strong> • Best Season: <strong>{generatedItinerary.season}</strong> • Pace: <strong>{pace}</strong>
+                    <Calendar size={14} style={{ marginRight: 6, verticalAlign: 'middle' }} />
+                    Starting from <strong>{hub}</strong> • Best Season: <strong>{generatedItinerary.season}</strong> • Pace: <strong>{pace}</strong>
                   </p>
                 </div>
 
@@ -357,8 +375,8 @@ export default function PlannerPage() {
                     <span className={styles.budgetPillLabel}>Estimated Budget</span>
                     <span className={styles.budgetPillValue}>₹{(generatedItinerary.totalCost * travelers).toLocaleString('en-IN')}</span>
                   </div>
-                  <Button variant="primary" onClick={handleSaveTrip}>
-                    Save Itinerary to My Trips 🎒
+                  <Button variant="primary" onClick={handleSaveTrip} icon={<Backpack size={16} />}>
+                    Save Itinerary to My Trips
                   </Button>
                 </div>
               </div>
@@ -374,7 +392,9 @@ export default function PlannerPage() {
 
                     <div className={styles.dayGrid}>
                       <div className={styles.dayBlock}>
-                        <span className={styles.blockIcon}>🌅</span>
+                        <span className={styles.blockIcon}>
+                          <Sunrise size={16} />
+                        </span>
                         <div>
                           <strong>Morning Exploration:</strong>
                           <p>{d.morning}</p>
@@ -382,7 +402,9 @@ export default function PlannerPage() {
                       </div>
 
                       <div className={styles.dayBlock}>
-                        <span className={styles.blockIcon}>🍲</span>
+                        <span className={styles.blockIcon}>
+                          <Utensils size={16} />
+                        </span>
                         <div>
                           <strong>Authentic Culinary Stop:</strong>
                           <p>{d.food}</p>
@@ -390,7 +412,9 @@ export default function PlannerPage() {
                       </div>
 
                       <div className={styles.dayBlock}>
-                        <span className={styles.blockIcon}>🌇</span>
+                        <span className={styles.blockIcon}>
+                          <Sunset size={16} />
+                        </span>
                         <div>
                           <strong>Afternoon & Sunset:</strong>
                           <p>{d.evening}</p>
@@ -398,7 +422,9 @@ export default function PlannerPage() {
                       </div>
 
                       <div className={styles.dayBlock}>
-                        <span className={styles.blockIcon}>🏨</span>
+                        <span className={styles.blockIcon}>
+                          <Building size={16} />
+                        </span>
                         <div>
                           <strong>Night Stay Recommendation:</strong>
                           <p>{d.nightStay}</p>
@@ -410,8 +436,8 @@ export default function PlannerPage() {
               </div>
 
               <div className={styles.itineraryFooter}>
-                <Button variant="primary" size="lg" onClick={handleSaveTrip}>
-                  Save & Confirm This Itinerary 🎒
+                <Button variant="primary" size="lg" onClick={handleSaveTrip} icon={<Backpack size={16} />}>
+                  Save & Confirm This Itinerary
                 </Button>
               </div>
             </div>

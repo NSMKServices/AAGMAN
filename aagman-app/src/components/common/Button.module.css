@@ -22,67 +22,75 @@
 
 /* Sizes */
 .sm {
-  padding: 0.4rem 0.85rem;
+  padding: 0.45rem 0.95rem;
   font-size: var(--font-size-xs);
 }
 
 .md {
-  padding: 0.65rem 1.25rem;
+  padding: 0.65rem 1.35rem;
   font-size: var(--font-size-sm);
 }
 
 .lg {
-  padding: 0.85rem 1.75rem;
+  padding: 0.85rem 1.85rem;
   font-size: var(--font-size-base);
 }
 
 /* Variants */
 .primary {
   background-color: var(--color-primary);
-  color: var(--color-text-inverse);
-  box-shadow: 0 2px 8px rgba(114, 45, 27, 0.25);
+  color: var(--color-text-inverse, #FFF9F0);
+  border: 1px solid rgba(200, 157, 60, 0.30);
+  box-shadow: var(--shadow-sm);
 }
 
 .primary:hover {
   background-color: var(--color-primary-hover);
-  color: var(--color-text-inverse);
+  color: var(--color-text-inverse, #FFF9F0);
   transform: translateY(-1px);
-  box-shadow: 0 4px 14px rgba(114, 45, 27, 0.35);
+  border-color: var(--color-gold);
+  box-shadow: var(--shadow-md);
 }
 
 .secondary {
   background-color: var(--color-secondary);
-  color: var(--color-text-inverse);
-  box-shadow: 0 2px 8px rgba(196, 90, 50, 0.25);
+  color: var(--color-text-inverse, #FFF9F0);
+  border: 1px solid rgba(96, 67, 49, 0.25);
+  box-shadow: var(--shadow-xs);
 }
 
 .secondary:hover {
-  background-color: var(--color-secondary-hover);
-  color: var(--color-text-inverse);
+  background-color: var(--color-maroon);
+  color: var(--color-text-inverse, #FFF9F0);
   transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
 }
 
 .accent {
   background-color: var(--color-accent);
-  color: #2F170F;
+  color: var(--color-espresso, #21140F);
   font-weight: var(--font-weight-bold);
-  box-shadow: 0 2px 8px rgba(230, 162, 60, 0.3);
+  border: 1px solid rgba(200, 157, 60, 0.4);
+  box-shadow: var(--shadow-xs);
 }
 
 .accent:hover {
   background-color: var(--color-accent-hover);
+  color: var(--color-espresso, #21140F);
   transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
 }
 
 .outline {
   background-color: transparent;
-  color: var(--color-primary);
-  border-color: var(--color-primary);
+  color: var(--color-secondary);
+  border-color: var(--color-secondary);
 }
 
 .outline:hover {
-  background-color: var(--color-primary-light);
-  color: var(--color-primary);
+  background-color: var(--color-parchment);
+  color: var(--color-maroon);
+  border-color: var(--color-maroon);
 }
 
 [data-theme="dark"] .outline {
@@ -91,7 +99,7 @@
 }
 
 [data-theme="dark"] .outline:hover {
-  background-color: rgba(230, 162, 60, 0.12);
+  background-color: rgba(200, 157, 60, 0.12);
 }
 
 .ghost {
@@ -100,8 +108,17 @@
 }
 
 .ghost:hover {
-  background-color: var(--color-primary-light);
-  color: var(--color-primary);
+  background-color: var(--color-parchment);
+  color: var(--color-secondary);
+}
+
+.danger {
+  background-color: var(--color-error);
+  color: #FFFFFF;
+}
+
+.danger:hover {
+  background-color: #B91C1C;
 }
 
 .icon {

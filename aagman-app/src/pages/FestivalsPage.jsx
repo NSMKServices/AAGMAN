@@ -5,11 +5,16 @@ import Button from '../components/common/Button';
 import Badge from '../components/common/Badge';
 import SearchInput from '../components/common/SearchInput';
 import { FESTIVALS } from '../data/festivals';
+import { getFestivalGallery } from '../data/imageRegistry';
+import { videoService } from '../services/videoService';
+import { Calendar, MapPin, Check, Sparkles, ExternalLink } from '../components/common/Icons';
 import styles from './FestivalsPage.module.css';
 
 export default function FestivalsPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedFestival, setSelectedFestival] = useState(null);
+
+  const festivalGallery = selectedFestival ? getFestivalGallery(selectedFestival.id) : [];
 
   const filteredFestivals = useMemo(() => {
     return FESTIVALS.filter(f => {
@@ -70,7 +75,10 @@ export default function FestivalsPage() {
                     loading="lazy"
                   />
                   <div className={styles.cardDates}>
-                    <span>🗓️ {festival.dates}</span>
+                    <span>
+                      <Calendar size={12} style={{ marginRight: 4, verticalAlign: 'middle' }} />
+                      {festival.dates}
+                    </span>
                   </div>
                 </div>
 
@@ -82,14 +90,20 @@ export default function FestivalsPage() {
                     )}
                   </div>
 
-                  <p className={styles.locationTag}>📍 {festival.location}</p>
+                  <p className={styles.locationTag}>
+                    <MapPin size={12} style={{ marginRight: 4, verticalAlign: 'middle' }} />
+                    {festival.location}
+                  </p>
                   <p className={styles.description}>{festival.description}</p>
 
                   <div className={styles.highlightsContainer}>
                     <span className={styles.highlightsTitle}>Cultural Highlights:</span>
                     <div className={styles.highlightChips}>
                       {festival.highlights.map((h, i) => (
-                        <span key={i} className={styles.chip}>✓ {h}</span>
+                        <span key={i} className={styles.chip}>
+                          <Check size={12} style={{ marginRight: 4 }} />
+                          {h}
+                        </span>
                       ))}
                     </div>
                   </div>
@@ -99,8 +113,9 @@ export default function FestivalsPage() {
                       variant="primary"
                       size="sm"
                       onClick={() => setSelectedFestival(festival)}
+                      icon={<Sparkles size={14} />}
                     >
-                      View Celebration Guide 🪔
+                      View Celebration Guide
                     </Button>
                   </div>
                 </div>
@@ -125,7 +140,10 @@ export default function FestivalsPage() {
             />
             <div className={styles.modalMetaRow}>
               <Badge variant="gold">{selectedFestival.dates}</Badge>
-              <span className={styles.modalLocation}>📍 {selectedFestival.location}</span>
+              <span className={styles.modalLocation}>
+                <MapPin size={12} style={{ marginRight: 4, verticalAlign: 'middle' }} />
+                {selectedFestival.location}
+              </span>
             </div>
 
             <div className={styles.modalSection}>
@@ -153,6 +171,85 @@ export default function FestivalsPage() {
                 During peak festive dates, advance hotel reservations in Pune, Mumbai, or Pandharpur are highly recommended. Respect local prayer customs and obtain permission before taking close-up portraits during religious rites.
               </p>
             </div>
+
+            {/* Festival Photographic Perspectives Gallery */}
+            {festivalGallery && festivalGallery.length > 0 && (
+              <div className={styles.modalSection}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.65rem' }}>
+                  <h4 className={styles.modalSectionTitle} style={{ margin: 0 }}>Celebration Perspectives & Gallery</h4>
+                  <span style={{ fontSize: '0.7rem', color: 'var(--color-secondary)', background: 'var(--color-parchment)', padding: '0.2rem 0.5rem', borderRadius: 'var(--radius-xs)', border: '1px solid var(--color-border)' }}>
+                    <code>/assets/festivals/{selectedFestival.id}/</code>
+                  </span>
+                </div>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.75rem' }}>
+                  {festivalGallery.map((img, idx) => (
+                    <div key={idx} style={{ background: 'var(--color-surface-elevated)', border: '1px solid var(--color-border)', borderRadius: 'var(--radius-sm)', overflow: 'hidden' }}>
+                      <div style={{ position: 'relative', width: '100%', height: '115px' }}>
+                        <img
+                          src={img.src}
+                          alt={img.label}
+                          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                          loading="lazy"
+                          onError={(e) => {
+                            if (img.fallback && e.currentTarget.src !== img.fallback) {
+                              e.currentTarget.onerror = null;
+                              e.currentTarget.src = img.fallback;
+                            }
+                          }}
+                        />
+                        <span style={{ position: 'absolute', top: 4, right: 4, background: 'rgba(40, 20, 15, 0.85)', color: 'var(--color-accent)', fontSize: '0.6rem', padding: '1px 5px', borderRadius: '3px', fontFamily: 'monospace' }}>
+                          {img.slot}.jpg
+                        </span>
+                      </div>
+                      <span style={{ display: 'block', fontSize: '0.725rem', fontWeight: 600, padding: '0.35rem 0.5rem', color: 'var(--color-primary)' }}>
+                        {img.label}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Festival Videos */}
+            {(() => {
+              const fVideos = videoService.getVideosForFestival(selectedFestival.id, selectedFestival.name);
+              if (fVideos.length === 0) return null;
+
+              return (
+                <div className={styles.modalSection}>
+                  <h4 className={styles.modalSectionTitle}>Official Festival Documentaries & Footage</h4>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
+                    {fVideos.map(vid => (
+                      <a
+                        key={vid.id}
+                        href={vid.youtubeUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: 12,
+                          padding: '0.65rem 0.85rem',
+                          background: 'var(--color-surface, #FFF9F0)',
+                          border: '1px solid var(--color-border)',
+                          borderRadius: 'var(--radius-sm)',
+                          textDecoration: 'none',
+                          color: 'inherit'
+                        }}
+                      >
+                        <img src={vid.thumbnail} alt={vid.title} style={{ width: 84, height: 52, objectFit: 'cover', borderRadius: 4, flexShrink: 0 }} />
+                        <div style={{ flex: 1 }}>
+                          <strong style={{ fontSize: '0.875rem', color: 'var(--color-heading)', display: 'block' }}>{vid.title}</strong>
+                          <span style={{ fontSize: '0.75rem', color: 'var(--color-maroon, #541D16)', fontWeight: 600 }}>
+                            Watch on YouTube (External Tab) ↗
+                          </span>
+                        </div>
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              );
+            })()}
 
             <div className={styles.modalFooter}>
               <Button variant="primary" onClick={() => setSelectedFestival(null)}>

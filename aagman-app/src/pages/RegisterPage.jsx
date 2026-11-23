@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Button from '../components/common/Button';
+import { useAuth } from '../context/AuthContext';
+import { Castle, Sparkles } from '../components/common/Icons';
 import styles from './Auth.module.css';
 
 export default function RegisterPage() {
   const navigate = useNavigate();
+  const { register } = useAuth();
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -12,9 +15,7 @@ export default function RegisterPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    localStorage.setItem('aagman_traveler_name', fullName.trim() || 'New Traveler');
-    localStorage.setItem('aagman_home_city', homeCity);
-    localStorage.setItem('aagman_is_logged_in', 'true');
+    register({ fullName, email, password, homeCity });
     navigate('/dashboard');
   };
 
@@ -22,7 +23,9 @@ export default function RegisterPage() {
     <div className={styles.authPage}>
       <div className={styles.authCard}>
         <div className={styles.authHeader}>
-          <span className={styles.brandSymbol}>🚩</span>
+          <span className={styles.brandSymbol}>
+            <Castle size={32} color="var(--color-gold)" />
+          </span>
           <h1 className={styles.authTitle}>Join AAGMAN</h1>
           <p className={styles.authSubtitle}>
             Create your traveler account to explore Maharashtra's sacred temples, historic forts, and pristine coastlines.
@@ -82,8 +85,13 @@ export default function RegisterPage() {
             </select>
           </div>
 
-          <Button type="submit" variant="primary" className={styles.submitBtn}>
-            Register & Start Exploring ✨
+          <Button
+            type="submit"
+            variant="primary"
+            className={styles.submitBtn}
+            icon={<Sparkles size={16} />}
+          >
+            Register & Start Exploring
           </Button>
         </form>
 

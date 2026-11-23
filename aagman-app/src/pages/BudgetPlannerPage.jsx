@@ -4,6 +4,16 @@ import Container from '../components/layout/Container';
 import Button from '../components/common/Button';
 import Badge from '../components/common/Badge';
 import { useTrips } from '../context/TripContext';
+import {
+  Building,
+  Car,
+  Utensils,
+  Ticket,
+  Shield,
+  Check,
+  Backpack,
+  Info
+} from '../components/common/Icons';
 import styles from './BudgetPlannerPage.module.css';
 
 const STAY_TIERS = [
@@ -310,27 +320,42 @@ export default function BudgetPlannerPage() {
 
                   <div className={styles.breakdownList}>
                     <div className={styles.breakdownRow}>
-                      <span className={styles.rowLabel}>🏨 Accommodation ({days - 1} nights)</span>
+                      <span className={styles.rowLabel}>
+                        <Building size={14} style={{ marginRight: 6 }} />
+                        Accommodation ({days - 1} nights)
+                      </span>
                       <span className={styles.rowValue}>₹{budget.totalStay.toLocaleString('en-IN')}</span>
                     </div>
 
                     <div className={styles.breakdownRow}>
-                      <span className={styles.rowLabel}>🚗 Transportation ({days} days)</span>
+                      <span className={styles.rowLabel}>
+                        <Car size={14} style={{ marginRight: 6 }} />
+                        Transportation ({days} days)
+                      </span>
                       <span className={styles.rowValue}>₹{budget.totalTransport.toLocaleString('en-IN')}</span>
                     </div>
 
                     <div className={styles.breakdownRow}>
-                      <span className={styles.rowLabel}>🍲 Meals & Local Dining</span>
+                      <span className={styles.rowLabel}>
+                        <Utensils size={14} style={{ marginRight: 6 }} />
+                        Meals & Local Dining
+                      </span>
                       <span className={styles.rowValue}>₹{budget.totalFood.toLocaleString('en-IN')}</span>
                     </div>
 
                     <div className={styles.breakdownRow}>
-                      <span className={styles.rowLabel}>🎫 Passes, Guides & Activities</span>
+                      <span className={styles.rowLabel}>
+                        <Ticket size={14} style={{ marginRight: 6 }} />
+                        Passes, Guides & Activities
+                      </span>
                       <span className={styles.rowValue}>₹{budget.totalActivities.toLocaleString('en-IN')}</span>
                     </div>
 
                     <div className={styles.breakdownRow}>
-                      <span className={styles.rowLabel}>🛡️ Contingency & Ghat Tolls (10%)</span>
+                      <span className={styles.rowLabel}>
+                        <Shield size={14} style={{ marginRight: 6 }} />
+                        Contingency & Ghat Tolls (10%)
+                      </span>
                       <span className={styles.rowValue}>₹{budget.contingency.toLocaleString('en-IN')}</span>
                     </div>
                   </div>
@@ -347,7 +372,8 @@ export default function BudgetPlannerPage() {
 
                     {saveSuccess && (
                       <div className={styles.successToast}>
-                        ✓ Budget saved successfully! Opening My Trips...
+                        <Check size={14} style={{ marginRight: 6 }} />
+                        Budget saved successfully! Opening My Trips...
                       </div>
                     )}
 
@@ -355,15 +381,19 @@ export default function BudgetPlannerPage() {
                       variant="primary"
                       onClick={handleSaveToTrips}
                       className={styles.saveBtn}
+                      icon={<Backpack size={16} />}
                     >
-                      Save Budget to My Trips 🎒
+                      Save Budget to My Trips
                     </Button>
                   </div>
                 </div>
 
                 {/* Benchmark card */}
                 <div className={styles.benchmarkCard}>
-                  <h4 className={styles.benchmarkTitle}>💡 Maharashtra Travel Insights</h4>
+                  <h4 className={styles.benchmarkTitle}>
+                    <Info size={16} style={{ marginRight: 6 }} />
+                    Maharashtra Travel Insights
+                  </h4>
                   <ul className={styles.benchmarkList}>
                     <li><strong>MTDC Resorts:</strong> Best locations overlooking forts and beaches; book 2 weeks ahead in winter.</li>
                     <li><strong>MSRTC Shivneri:</strong> Direct AC Volvos running every 30 mins between Mumbai & Pune.</li>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Badge from './Badge';
+import { Castle, Landmark, Umbrella, BookOpen, Heart, MapPin, Star } from './Icons';
 import { useWishlist } from '../../context/WishlistContext';
 import styles from './DestinationCard.module.css';
 
@@ -14,11 +15,19 @@ export default function DestinationCard({ destination }) {
     toggleWishlist(destination.slug);
   };
 
-  const categoryIcons = {
-    forts: "🏰",
-    temples: "🛕",
-    beaches: "🏖️",
-    heritage: "🏛️"
+  const getCategoryIcon = (category) => {
+    switch (category) {
+      case 'forts':
+        return <Castle size={13} />;
+      case 'temples':
+        return <Landmark size={13} />;
+      case 'beaches':
+        return <Umbrella size={13} />;
+      case 'heritage':
+        return <BookOpen size={13} />;
+      default:
+        return null;
+    }
   };
 
   return (
@@ -29,10 +38,20 @@ export default function DestinationCard({ destination }) {
           alt={destination.name}
           className={styles.image}
           loading="lazy"
+          onError={(e) => {
+            const fallback = destination.heroImage || destination.thumbnail;
+            if (fallback && e.currentTarget.src !== fallback) {
+              e.currentTarget.onerror = null;
+              e.currentTarget.src = fallback;
+            }
+          }}
         />
         <div className={styles.topBadges}>
-          <Badge variant={destination.category} size="sm" icon={categoryIcons[destination.category]}>
-            {destination.category.toUpperCase()}
+          <Badge variant={destination.category} size="sm">
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }}>
+              {getCategoryIcon(destination.category)}
+              {destination.category.toUpperCase()}
+            </span>
           </Badge>
           <button
             type="button"
@@ -41,15 +60,23 @@ export default function DestinationCard({ destination }) {
             aria-label={wishlisted ? "Remove from wishlist" : "Add to wishlist"}
             title={wishlisted ? "Remove from wishlist" : "Add to wishlist"}
           >
-            {wishlisted ? '❤️' : '🤍'}
+            <Heart
+              size={16}
+              color={wishlisted ? "var(--color-highlight)" : "currentColor"}
+              style={{ fill: wishlisted ? "var(--color-highlight)" : "none" }}
+            />
           </button>
         </div>
       </Link>
 
       <div className={styles.content}>
         <div className={styles.metaRow}>
-          <span className={styles.district}>📍 {destination.district}, {destination.region}</span>
-          <span className={styles.rating}>⭐ {destination.rating || '4.8'}</span>
+          <span className={styles.district} style={{ display: 'inline-flex', alignItems: 'center', gap: '0.3rem' }}>
+            <MapPin size={12} color="var(--color-secondary)" /> {destination.district}, {destination.region}
+          </span>
+          <span className={styles.rating} style={{ display: 'inline-flex', alignItems: 'center', gap: '0.25rem' }}>
+            <Star size={12} color="var(--color-accent)" style={{ fill: 'var(--color-accent)' }} /> {destination.rating || '4.8'}
+          </span>
         </div>
 
         <Link to={`/${destination.category}/${destination.slug}`} className={styles.titleLink}>

@@ -4,6 +4,7 @@ import Container from '../components/layout/Container';
 import DestinationCard from '../components/common/DestinationCard';
 import Button from '../components/common/Button';
 import { useWishlist } from '../context/WishlistContext';
+import { Compass, Sparkles, Heart } from '../components/common/Icons';
 import styles from './WishlistPage.module.css';
 
 export default function WishlistPage() {
@@ -37,11 +38,11 @@ export default function WishlistPage() {
 
             <div className={styles.actionButtons}>
               <Link to="/explore">
-                <Button variant="secondary" size="sm">Explore More Sites 🧭</Button>
+                <Button variant="secondary" size="sm" icon={<Compass size={14} />}>Explore More Sites</Button>
               </Link>
               {wishlistCount > 0 && (
                 <Link to="/planner">
-                  <Button variant="primary" size="sm">Turn Wishlist into Itinerary ✨</Button>
+                  <Button variant="primary" size="sm" icon={<Sparkles size={14} />}>Turn Wishlist into Itinerary</Button>
                 </Link>
               )}
             </div>
@@ -54,7 +55,9 @@ export default function WishlistPage() {
         <Container>
           {wishlistCount === 0 ? (
             <div className={styles.emptyState}>
-              <span className={styles.emptyIcon}>🤍</span>
+              <span className={styles.emptyIcon}>
+                <Heart size={44} />
+              </span>
               <h2 className={styles.emptyTitle}>Your Wishlist is Empty</h2>
               <p className={styles.emptyText}>
                 Browse our collection of 64+ authentic Maharashtra destinations and tap the heart icon on any card to save it for your next trip.

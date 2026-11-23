@@ -5,6 +5,18 @@ import Button from '../components/common/Button';
 import Badge from '../components/common/Badge';
 import Modal from '../components/common/Modal';
 import { useTrips } from '../context/TripContext';
+import {
+  Backpack,
+  MapPin,
+  Wallet,
+  Sparkles,
+  Compass,
+  Calendar,
+  Building,
+  Trash,
+  ChevronDown,
+  ChevronUp
+} from '../components/common/Icons';
 import styles from './TripsPage.module.css';
 
 export default function TripsPage() {
@@ -46,7 +58,9 @@ export default function TripsPage() {
         <Container>
           <div className={styles.metricsGrid}>
             <div className={styles.metricCard}>
-              <span className={styles.metricIcon}>🎒</span>
+              <span className={styles.metricIcon}>
+                <Backpack size={20} />
+              </span>
               <div>
                 <span className={styles.metricValue}>{trips.length}</span>
                 <span className={styles.metricLabel}>Planned Trips</span>
@@ -54,7 +68,9 @@ export default function TripsPage() {
             </div>
 
             <div className={styles.metricCard}>
-              <span className={styles.metricIcon}>📍</span>
+              <span className={styles.metricIcon}>
+                <MapPin size={20} />
+              </span>
               <div>
                 <span className={styles.metricValue}>{totalDestinations}</span>
                 <span className={styles.metricLabel}>Destinations Booked</span>
@@ -62,7 +78,9 @@ export default function TripsPage() {
             </div>
 
             <div className={styles.metricCard}>
-              <span className={styles.metricIcon}>💰</span>
+              <span className={styles.metricIcon}>
+                <Wallet size={20} />
+              </span>
               <div>
                 <span className={styles.metricValue}>₹{totalBudget.toLocaleString('en-IN')}</span>
                 <span className={styles.metricLabel}>Allocated Budget</span>
@@ -71,7 +89,7 @@ export default function TripsPage() {
 
             <div className={styles.actionCard}>
               <Link to="/planner">
-                <Button variant="primary">Generate New Circuit ✨</Button>
+                <Button variant="primary" icon={<Sparkles size={16} />}>Generate New Circuit</Button>
               </Link>
             </div>
           </div>
@@ -83,13 +101,15 @@ export default function TripsPage() {
         <Container>
           {trips.length === 0 ? (
             <div className={styles.emptyState}>
-              <span className={styles.emptyIcon}>🚩</span>
+              <span className={styles.emptyIcon}>
+                <Compass size={40} />
+              </span>
               <h2 className={styles.emptyTitle}>No Trips Planned Yet</h2>
               <p className={styles.emptyText}>
                 Create your first customized itinerary through the Sahyadris, Konkan coast, or ancient cave temples.
               </p>
               <Link to="/planner">
-                <Button variant="primary">Launch Smart Journey Planner ✨</Button>
+                <Button variant="primary" icon={<Sparkles size={16} />}>Launch Smart Journey Planner</Button>
               </Link>
             </div>
           ) : (
@@ -104,7 +124,8 @@ export default function TripsPage() {
                         <div className={styles.tagRow}>
                           <Badge variant="gold">{trip.circuit || 'Custom Circuit'}</Badge>
                           <span className={styles.dateBadge}>
-                            🗓️ {trip.startDate} to {trip.endDate} ({trip.durationDays} Days)
+                            <Calendar size={13} style={{ marginRight: 4, verticalAlign: 'middle' }} />
+                            {trip.startDate} to {trip.endDate} ({trip.durationDays} Days)
                           </span>
                           <span className={styles.statusBadge}>
                             {trip.status || 'Active'}
@@ -113,7 +134,10 @@ export default function TripsPage() {
                         <h2 className={styles.tripTitle}>{trip.name}</h2>
                         <div className={styles.destinationPills}>
                           {trip.destinations?.map((dest, i) => (
-                            <span key={i} className={styles.pill}>📍 {dest}</span>
+                            <span key={i} className={styles.pill}>
+                              <MapPin size={12} style={{ marginRight: 4 }} />
+                              {dest}
+                            </span>
                           ))}
                         </div>
                       </div>
@@ -128,7 +152,7 @@ export default function TripsPage() {
                           className={styles.toggleBtn}
                           aria-label="Toggle itinerary details"
                         >
-                          {isExpanded ? '▲ Hide' : '▼ Details'}
+                          {isExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
                         </button>
                       </div>
                     </div>
@@ -146,7 +170,8 @@ export default function TripsPage() {
                                 <p className={styles.dayHighlights}>{dayPlan.highlights}</p>
                                 {dayPlan.nightStay && (
                                   <div className={styles.nightStayTag}>
-                                    <span>🏨 Overnight: </span>
+                                    <Building size={14} style={{ marginRight: 4, verticalAlign: 'middle' }} />
+                                    <span>Overnight: </span>
                                     <strong>{dayPlan.nightStay}</strong>
                                   </div>
                                 )}
@@ -162,7 +187,8 @@ export default function TripsPage() {
                             className={styles.deleteBtn}
                             onClick={() => setTripToDelete(trip)}
                           >
-                            🗑️ Delete This Trip
+                            <Trash size={14} style={{ marginRight: 6 }} />
+                            Delete This Trip
                           </button>
                           <div className={styles.footerActions}>
                             <Link to="/budget">

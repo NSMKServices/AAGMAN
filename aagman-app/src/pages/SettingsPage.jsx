@@ -5,6 +5,17 @@ import Badge from '../components/common/Badge';
 import Modal from '../components/common/Modal';
 import { useLanguage } from '../context/LanguageContext';
 import { useTheme } from '../context/ThemeContext';
+import {
+  Globe,
+  Palette,
+  Moon,
+  Sun,
+  Layers,
+  RefreshCw,
+  User,
+  Check,
+  Castle
+} from '../components/common/Icons';
 import styles from './SettingsPage.module.css';
 
 export default function SettingsPage() {
@@ -63,7 +74,10 @@ export default function SettingsPage() {
             <div className={styles.column}>
               {/* Language Settings */}
               <div className={styles.settingsCard}>
-                <h2 className={styles.cardTitle}>🌐 Language & Localization</h2>
+                <h2 className={styles.cardTitle}>
+                  <Globe size={18} style={{ marginRight: 8, verticalAlign: 'middle' }} />
+                  Language & Localization
+                </h2>
                 <p className={styles.cardDesc}>
                   Select your preferred language for destinations, headings, and cultural narratives.
                 </p>
@@ -89,7 +103,10 @@ export default function SettingsPage() {
 
               {/* Theme Settings */}
               <div className={styles.settingsCard}>
-                <h2 className={styles.cardTitle}>🎨 Visual Theme & Atmosphere</h2>
+                <h2 className={styles.cardTitle}>
+                  <Palette size={18} style={{ marginRight: 8, verticalAlign: 'middle' }} />
+                  Visual Theme & Atmosphere
+                </h2>
                 <p className={styles.cardDesc}>
                   Switch between Warm Parchment (daylight exploration) and Sahyadri Night (dark theme).
                 </p>
@@ -102,15 +119,22 @@ export default function SettingsPage() {
                     </strong>
                   </div>
 
-                  <Button variant="secondary" onClick={toggleTheme}>
-                    {theme === 'dark' ? '☀️ Switch to Warm Parchment' : '🌙 Switch to Sahyadri Night'}
+                  <Button
+                    variant="secondary"
+                    onClick={toggleTheme}
+                    icon={theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
+                  >
+                    {theme === 'dark' ? 'Switch to Warm Parchment' : 'Switch to Sahyadri Night'}
                   </Button>
                 </div>
               </div>
 
               {/* Data & Storage Management */}
               <div className={styles.settingsCard}>
-                <h2 className={styles.cardTitle}>💾 Demo Storage & State Management</h2>
+                <h2 className={styles.cardTitle}>
+                  <Layers size={18} style={{ marginRight: 8, verticalAlign: 'middle' }} />
+                  Demo Storage & State Management
+                </h2>
                 <p className={styles.cardDesc}>
                   AAGMAN uses offline-resilient local storage for wishlist items, custom itineraries, and budget calculations.
                 </p>
@@ -123,8 +147,9 @@ export default function SettingsPage() {
                   <Button
                     variant="outline"
                     onClick={() => setShowResetModal(true)}
+                    icon={<RefreshCw size={14} />}
                   >
-                    🔄 Reset Demo Trips & Wishlist to Default
+                    Reset Demo Trips & Wishlist to Default
                   </Button>
                 </div>
               </div>
@@ -133,7 +158,10 @@ export default function SettingsPage() {
             {/* Traveler Profile Column */}
             <div className={styles.column}>
               <div className={styles.settingsCard}>
-                <h2 className={styles.cardTitle}>👤 Traveler Profile (Demo)</h2>
+                <h2 className={styles.cardTitle}>
+                  <User size={18} style={{ marginRight: 8, verticalAlign: 'middle' }} />
+                  Traveler Profile (Demo)
+                </h2>
                 <p className={styles.cardDesc}>
                   This profile information personalizes your top navigation avatar, budget estimates, and departure routes.
                 </p>
@@ -173,16 +201,17 @@ export default function SettingsPage() {
                       value={travelStyle}
                       onChange={(e) => setTravelStyle(e.target.value)}
                     >
-                      <option value="Heritage & Fort Trekker">🏰 Heritage & Fort Trekker</option>
-                      <option value="Spiritual Pilgrim">🛕 Sacred Pilgrim (Jyotirlinga & Ashtavinayak)</option>
-                      <option value="Konkan Beach Explorer">🏖️ Konkan Coastal & Seafood Enthusiast</option>
-                      <option value="Nature & Wildlife Trekker">🌿 Western Ghats Wildlife & Waterfalls</option>
+                      <option value="Heritage & Fort Trekker">Heritage & Fort Trekker</option>
+                      <option value="Spiritual Pilgrim">Sacred Pilgrim (Jyotirlinga & Ashtavinayak)</option>
+                      <option value="Konkan Beach Explorer">Konkan Coastal & Seafood Enthusiast</option>
+                      <option value="Nature & Wildlife Trekker">Western Ghats Wildlife & Waterfalls</option>
                     </select>
                   </div>
 
                   {savedStatus && (
                     <div className={styles.saveSuccess}>
-                      ✓ Traveler preferences saved successfully!
+                      <Check size={14} style={{ marginRight: 6 }} />
+                      Traveler preferences saved successfully!
                     </div>
                   )}
 
@@ -194,7 +223,10 @@ export default function SettingsPage() {
 
               {/* About Aagman */}
               <div className={styles.settingsCard}>
-                <h2 className={styles.cardTitle}>🚩 About AAGMAN Platform</h2>
+                <h2 className={styles.cardTitle}>
+                  <Castle size={18} style={{ marginRight: 8, verticalAlign: 'middle' }} />
+                  About AAGMAN Platform
+                </h2>
                 <div className={styles.aboutInfo}>
                   <div className={styles.infoRow}>
                     <span className={styles.infoLabel}>Version:</span>

@@ -2,12 +2,20 @@ import React, { useState, useMemo } from 'react';
 import Container from '../components/layout/Container';
 import SearchInput from '../components/common/SearchInput';
 import Button from '../components/common/Button';
+import {
+  Castle,
+  Landmark,
+  Building,
+  Car,
+  AlertCircle,
+  Trees
+} from '../components/common/Icons';
 import styles from './FaqPage.module.css';
 
 const FAQ_DATA = [
   {
     category: 'Sahyadri Trekking & Forts',
-    icon: '🏰',
+    Icon: Castle,
     items: [
       {
         q: 'Do I need prior permits to trek forts in Maharashtra?',
@@ -25,7 +33,7 @@ const FAQ_DATA = [
   },
   {
     category: 'Sacred Temples & Darshan Etiquette',
-    icon: '🛕',
+    Icon: Landmark,
     items: [
       {
         q: 'What is the dress code for visiting major Maharashtra temples?',
@@ -43,7 +51,7 @@ const FAQ_DATA = [
   },
   {
     category: 'Accommodation & MTDC Booking',
-    icon: '🏨',
+    Icon: Building,
     items: [
       {
         q: 'How do I book MTDC (Maharashtra Tourism Development Corporation) resorts?',
@@ -57,7 +65,7 @@ const FAQ_DATA = [
   },
   {
     category: 'Transportation & Mountain Ghat Driving',
-    icon: '🚗',
+    Icon: Car,
     items: [
       {
         q: 'What are the essential precautions for driving on Maharashtra ghat roads?',
@@ -137,7 +145,9 @@ export default function FaqPage() {
                 filteredCategories.map((cat, catIdx) => (
                   <div key={cat.category} className={styles.categorySection}>
                     <div className={styles.categoryHeader}>
-                      <span className={styles.categoryIcon}>{cat.icon}</span>
+                      <span className={styles.categoryIcon}>
+                        <cat.Icon size={20} />
+                      </span>
                       <h2 className={styles.categoryTitle}>{cat.category}</h2>
                     </div>
 
@@ -178,7 +188,10 @@ export default function FaqPage() {
             {/* Helpline & Quick Assistance Sidebar */}
             <div className={styles.helplineCol}>
               <div className={styles.helplineCard}>
-                <h3 className={styles.helplineHeading}>🚨 24x7 Traveler Helplines</h3>
+                <h3 className={styles.helplineHeading}>
+                  <AlertCircle size={16} style={{ marginRight: 6, verticalAlign: 'middle' }} />
+                  24x7 Traveler Helplines
+                </h3>
                 <div className={styles.helplineList}>
                   <div className={styles.helplineItem}>
                     <span className={styles.helplineName}>Maharashtra Tourism (MTDC)</span>
@@ -207,7 +220,10 @@ export default function FaqPage() {
               </div>
 
               <div className={styles.tipsCard}>
-                <h4 className={styles.tipsHeading}>🌿 Eco-Tourism Pledge</h4>
+                <h4 className={styles.tipsHeading}>
+                  <Trees size={16} style={{ marginRight: 6, verticalAlign: 'middle' }} />
+                  Eco-Tourism Pledge
+                </h4>
                 <p className={styles.tipsText}>
                   Always preserve the sanctity and heritage of our historical forts. Do not litter plastic bottles or deface ancient basalt stone walls. Carry your waste back down the mountain.
                 </p>

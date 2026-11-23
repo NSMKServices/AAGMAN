@@ -1,0 +1,280 @@
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(11, 27, 51, 0.7);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  overflow-y: auto;
+}
+
+.modalCard {
+  background: #FFFFFF;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 780px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 25px 50px -12px rgba(11, 27, 51, 0.25);
+  border: 1px solid #D6E4F0;
+  animation: modalEnter 0.2s ease-out;
+  overflow: hidden;
+}
+
+@keyframes modalEnter {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem;
+  background: #0B1B33;
+  color: #FFFFFF;
+  border-bottom: 1px solid #1D3B66;
+}
+
+.modalTitle {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.closeBtn {
+  background: none;
+  border: none;
+  color: #9BB5D6;
+  font-size: 1.25rem;
+  cursor: pointer;
+  padding: 0.25rem;
+  line-height: 1;
+  border-radius: 4px;
+}
+
+.closeBtn:hover {
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.form {
+  padding: 1.5rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.errorAlert {
+  background: #FEF2F2;
+  border: 1px solid #FCA5A5;
+  color: #B91C1C;
+  border-radius: 6px;
+  padding: 0.75rem 1rem;
+  font-size: 0.85rem;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+@media (max-width: 640px) {
+  .formGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #0F2744;
+}
+
+.input,
+.select,
+.textarea {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid #CBDCEE;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  color: #0F2744;
+  background: #FFFFFF;
+  outline: none;
+  font-family: inherit;
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus {
+  border-color: #1D68BD;
+  box-shadow: 0 0 0 2px rgba(29, 104, 189, 0.15);
+}
+
+.textarea {
+  resize: vertical;
+  line-height: 1.45;
+}
+
+.hint {
+  font-size: 0.75rem;
+  color: #64748B;
+}
+
+.youtubePreviewBox {
+  background: #F8FAFD;
+  border: 1px solid #CBDCEE;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.thumbWrap {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.thumbImage {
+  width: 140px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid #94A3B8;
+}
+
+.verifiedBadge {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #059669;
+}
+
+.testLink {
+  display: inline-block;
+  font-size: 0.8rem;
+  color: #1D68BD;
+  text-decoration: underline;
+  font-weight: 600;
+  margin-left: auto;
+}
+
+.emptyPreview {
+  font-size: 0.8rem;
+  color: #64748B;
+  text-align: center;
+  padding: 0.5rem;
+}
+
+.checkboxGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  background: #F8FAFD;
+  border-radius: 6px;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.825rem;
+  color: #1E293B;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.modalFooter {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  padding-top: 1rem;
+  border-top: 1px solid #EDF2F7;
+  margin-top: 0.5rem;
+}
+
+.btnCancel {
+  background: #F1F5F9;
+  border: 1px solid #CBD5E1;
+  color: #475569;
+  padding: 0.6rem 1.15rem;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.btnCancel:hover {
+  background: #E2E8F0;
+}
+
+.btnSubmit {
+  background: #1D68BD;
+  border: none;
+  color: #FFFFFF;
+  padding: 0.6rem 1.35rem;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(29, 104, 189, 0.25);
+}
+
+.btnSubmit:hover {
+  background: #154E8E;
+}
+
+.btnDelete {
+  background: #DC2626;
+  border: none;
+  color: #FFFFFF;
+  padding: 0.6rem 1.35rem;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.btnDelete:hover {
+  background: #B91C1C;
+}
+
+.confirmBox {
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.warningIcon {
+  width: 56px;
+  height: 56px;
+  background: #FEF2F2;
+  color: #DC2626;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+}

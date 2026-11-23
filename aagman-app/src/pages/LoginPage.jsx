@@ -1,24 +1,24 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Button from '../components/common/Button';
+import { useAuth } from '../context/AuthContext';
+import { Castle, Sparkles, Shield } from '../components/common/Icons';
 import styles from './Auth.module.css';
 
 export default function LoginPage() {
   const navigate = useNavigate();
+  const { login, demoLogin } = useAuth();
   const [email, setEmail] = useState('rohan.deshmukh@example.com');
   const [password, setPassword] = useState('••••••••');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    localStorage.setItem('aagman_traveler_name', 'Rohan Deshmukh');
-    localStorage.setItem('aagman_is_logged_in', 'true');
+    login(email, password);
     navigate('/dashboard');
   };
 
   const handleDemoLogin = () => {
-    localStorage.setItem('aagman_traveler_name', 'Rohan Deshmukh');
-    localStorage.setItem('aagman_home_city', 'Pune');
-    localStorage.setItem('aagman_is_logged_in', 'true');
+    demoLogin();
     navigate('/dashboard');
   };
 
@@ -26,7 +26,9 @@ export default function LoginPage() {
     <div className={styles.authPage}>
       <div className={styles.authCard}>
         <div className={styles.authHeader}>
-          <span className={styles.brandSymbol}>🔱</span>
+          <span className={styles.brandSymbol}>
+            <Castle size={32} color="var(--color-gold)" />
+          </span>
           <h1 className={styles.authTitle}>Sign In to AAGMAN</h1>
           <p className={styles.authSubtitle}>
             Access your saved Sahyadri itineraries, custom wishlist, and personalized travel recommendations.
@@ -70,8 +72,9 @@ export default function LoginPage() {
           variant="secondary"
           className={styles.demoBtn}
           onClick={handleDemoLogin}
+          icon={<Sparkles size={16} />}
         >
-          🚀 Instant Demo Access (Rohan Deshmukh)
+          Instant Demo Access (Rohan Deshmukh)
         </Button>
 
         <div className={styles.authFooter}>
@@ -81,8 +84,16 @@ export default function LoginPage() {
           </Link>
         </div>
 
+        <div style={{ marginTop: '0.75rem', textAlign: 'center', fontSize: '0.8rem', color: 'var(--color-text-muted)' }}>
+          Tourism Official or Content Manager?{' '}
+          <Link to="/admin/login" style={{ color: 'var(--color-maroon, #541D16)', fontWeight: 700 }}>
+            Official Admin Gateway →
+          </Link>
+        </div>
+
         <div className={styles.demoNotice}>
-          🔒 College Demo Mode: Instant offline authentication stored securely in client session.
+          <Shield size={14} style={{ marginRight: 6, verticalAlign: 'middle' }} />
+          College Demo Mode: Instant offline authentication stored securely in client session.
         </div>
       </div>
     </div>

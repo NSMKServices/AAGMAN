@@ -5,7 +5,26 @@ import Badge from '../components/common/Badge';
 import Button from '../components/common/Button';
 import DestinationCard from '../components/common/DestinationCard';
 import { DESTINATIONS } from '../data/destinations';
+import { getDestinationGallery } from '../data/imageRegistry';
+import { videoService } from '../services/videoService';
 import { useWishlist } from '../context/WishlistContext';
+import {
+  Compass,
+  MapPin,
+  Star,
+  Heart,
+  Sparkles,
+  Utensils,
+  Clock,
+  Ticket,
+  Sun,
+  Mountain,
+  Plane,
+  Train,
+  Car,
+  ExternalLink,
+  ArrowRight
+} from '../components/common/Icons';
 import styles from './DestinationDetailPage.module.css';
 
 export default function DestinationDetailPage() {
@@ -19,7 +38,9 @@ export default function DestinationDetailPage() {
   if (!destination) {
     return (
       <Container className={styles.notFoundWrapper}>
-        <span className={styles.largeIcon}>🏛️</span>
+        <span className={styles.largeIcon}>
+          <Compass size={48} />
+        </span>
         <h2 className={styles.notFoundTitle}>Destination Not Found</h2>
         <p className={styles.notFoundSub}>The requested destination could not be located in the Aagman catalog.</p>
         <Button to="/explore" variant="primary">Return to Destination Explorer</Button>
@@ -28,6 +49,7 @@ export default function DestinationDetailPage() {
   }
 
   const wishlisted = isWishlisted(destination.slug);
+  const galleryImages = getDestinationGallery(destination.id || destination.slug);
   const relatedDestinations = DESTINATIONS
     .filter(d => d.category === destination.category && d.slug !== destination.slug)
     .slice(0, 3);
@@ -56,8 +78,14 @@ export default function DestinationDetailPage() {
             <Badge variant={destination.category} size="lg">
               {destination.category.toUpperCase()}
             </Badge>
-            <span className={styles.districtBadge}>📍 {destination.district} District, {destination.region}</span>
-            <span className={styles.ratingBadge}>⭐ {destination.rating} ({destination.reviewsCount} reviews)</span>
+            <span className={styles.districtBadge}>
+              <MapPin size={14} style={{ marginRight: 4 }} />
+              {destination.district} District, {destination.region}
+            </span>
+            <span className={styles.ratingBadge}>
+              <Star size={14} style={{ marginRight: 4 }} fill="var(--color-gold)" color="var(--color-gold)" />
+              {destination.rating} ({destination.reviewsCount} reviews)
+            </span>
           </div>
 
           <h1 className={styles.heroTitle}>{destination.name}</h1>
@@ -69,12 +97,21 @@ export default function DestinationDetailPage() {
             <Button
               variant={wishlisted ? "secondary" : "primary"}
               onClick={() => toggleWishlist(destination.slug)}
-              icon={wishlisted ? "❤️" : "🤍"}
+              icon={
+                <Heart
+                  size={16}
+                  fill={wishlisted ? "currentColor" : "none"}
+                />
+              }
             >
               {wishlisted ? "Saved in Wishlist" : "Add to Wishlist"}
             </Button>
-            <Button to="/planner" variant="accent" icon="✨">
-              Include in AI Trip Plan
+            <Button
+              to="/planner"
+              variant="accent"
+              icon={<Sparkles size={16} />}
+            >
+              Include in Journey Plan
             </Button>
           </div>
         </Container>
@@ -108,10 +145,46 @@ export default function DestinationDetailPage() {
                 </div>
               )}
 
+              {/* Destination Photo Gallery (Standard Perspectives) */}
+              {galleryImages && galleryImages.length > 0 && (
+                <div className={styles.contentBlock}>
+                  <div className={styles.galleryHeaderRow}>
+                    <h3 className={styles.sectionSubheading}>Photographic Perspectives & Architecture</h3>
+                    <span className={styles.galleryFolderTag}>
+                      <code>{destination.assetsFolder || `/assets/${destination.category}/${destination.id}`}</code>
+                    </span>
+                  </div>
+                  <div className={styles.photoGalleryGrid}>
+                    {galleryImages.map((img, idx) => (
+                      <div key={idx} className={styles.galleryPhotoCard}>
+                        <div className={styles.galleryImgWrapper}>
+                          <img
+                            src={img.src}
+                            alt={`${destination.name} - ${img.label}`}
+                            className={styles.galleryImg}
+                            loading="lazy"
+                            onError={(e) => {
+                              if (img.fallback && e.currentTarget.src !== img.fallback) {
+                                e.currentTarget.onerror = null;
+                                e.currentTarget.src = img.fallback;
+                              }
+                            }}
+                          />
+                          <span className={styles.photoSlotBadge}>{img.slot}.jpg</span>
+                        </div>
+                        <span className={styles.galleryPhotoLabel}>{img.label}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               {/* Local Food & Cultural Delights */}
               {destination.localCuisine && (
                 <div className={styles.cuisineBox}>
-                  <span className={styles.cuisineIcon}>🍛</span>
+                  <span className={styles.cuisineIcon}>
+                    <Utensils size={24} />
+                  </span>
                   <div>
                     <h4 className={styles.cuisineTitle}>Local Maharashtrian Culinary Specialties</h4>
                     <p className={styles.cuisineText}>{destination.localCuisine}</p>
@@ -131,7 +204,7 @@ export default function DestinationDetailPage() {
                       rel="noopener noreferrer"
                       className={styles.mapsExternalLink}
                     >
-                      Open in Google Maps ↗
+                      Open in Google Maps <ExternalLink size={14} style={{ marginLeft: 4 }} />
                     </a>
                   </div>
                   <iframe
@@ -150,7 +223,9 @@ export default function DestinationDetailPage() {
                 <h3 className={styles.visitorCardTitle}>Essential Visitor Guidelines</h3>
 
                 <div className={styles.infoRow}>
-                  <span className={styles.infoIcon}>⏱️</span>
+                  <span className={styles.infoIcon}>
+                    <Clock size={16} />
+                  </span>
                   <div>
                     <span className={styles.infoLabel}>Timings</span>
                     <span className={styles.infoValue}>{destination.timings}</span>
@@ -158,7 +233,9 @@ export default function DestinationDetailPage() {
                 </div>
 
                 <div className={styles.infoRow}>
-                  <span className={styles.infoIcon}>🎟️</span>
+                  <span className={styles.infoIcon}>
+                    <Ticket size={16} />
+                  </span>
                   <div>
                     <span className={styles.infoLabel}>Entry Fee</span>
                     <span className={styles.infoValue}>{destination.entryFee}</span>
@@ -166,7 +243,9 @@ export default function DestinationDetailPage() {
                 </div>
 
                 <div className={styles.infoRow}>
-                  <span className={styles.infoIcon}>⛅</span>
+                  <span className={styles.infoIcon}>
+                    <Sun size={16} />
+                  </span>
                   <div>
                     <span className={styles.infoLabel}>Best Season</span>
                     <span className={styles.infoValue}>{destination.bestTime}</span>
@@ -175,7 +254,9 @@ export default function DestinationDetailPage() {
 
                 {destination.elevation && (
                   <div className={styles.infoRow}>
-                    <span className={styles.infoIcon}>⛰️</span>
+                    <span className={styles.infoIcon}>
+                      <Mountain size={16} />
+                    </span>
                     <div>
                       <span className={styles.infoLabel}>Elevation</span>
                       <span className={styles.infoValue}>{destination.elevation}</span>
@@ -185,7 +266,9 @@ export default function DestinationDetailPage() {
 
                 {destination.difficulty && (
                   <div className={styles.infoRow}>
-                    <span className={styles.infoIcon}>🥾</span>
+                    <span className={styles.infoIcon}>
+                      <Compass size={16} />
+                    </span>
                     <div>
                       <span className={styles.infoLabel}>Trek Difficulty</span>
                       <span className={styles.infoValue}>{destination.difficulty}</span>
@@ -196,18 +279,112 @@ export default function DestinationDetailPage() {
                 <div className={styles.travelHowTo}>
                   <h4 className={styles.howToTitle}>How to Reach</h4>
                   <div className={styles.howToItem}>
-                    <strong>✈️ By Air:</strong> {destination.howToReach.air}
+                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+                      <Plane size={14} />
+                      <strong>By Air:</strong>
+                    </span>{' '}
+                    {destination.howToReach.air}
                   </div>
                   <div className={styles.howToItem}>
-                    <strong>🚆 By Rail:</strong> {destination.howToReach.rail}
+                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+                      <Train size={14} />
+                      <strong>By Rail:</strong>
+                    </span>{' '}
+                    {destination.howToReach.rail}
                   </div>
                   <div className={styles.howToItem}>
-                    <strong>🚗 By Road:</strong> {destination.howToReach.road}
+                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+                      <Car size={14} />
+                      <strong>By Road:</strong>
+                    </span>{' '}
+                    {destination.howToReach.road}
                   </div>
                 </div>
               </div>
             </div>
           </div>
+
+          {/* Associated YouTube Video Documentaries */}
+          {(() => {
+            const associatedVideos = videoService.getVideosForDestination(destination.id, destination.name);
+            if (associatedVideos.length === 0) return null;
+
+            return (
+              <div style={{ marginTop: '2.5rem', marginBottom: '2.5rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem', flexWrap: 'wrap', gap: '0.5rem' }}>
+                  <div>
+                    <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.65rem', color: 'var(--color-primary)', margin: 0 }}>
+                      Visual Journeys & Documentaries
+                    </h3>
+                    <p style={{ fontSize: '0.875rem', color: 'var(--color-text-secondary)', margin: '0.25rem 0 0' }}>
+                      Authentic aerial explorations and cultural travelogues. Opens external YouTube page in a new tab.
+                    </p>
+                  </div>
+                  <Link to="/videos" style={{ color: 'var(--color-maroon, #541D16)', fontWeight: 700, fontSize: '0.85rem' }}>
+                    View All Videos →
+                  </Link>
+                </div>
+
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.25rem' }}>
+                  {associatedVideos.map(vid => (
+                    <div
+                      key={vid.id}
+                      style={{
+                        background: 'var(--color-surface)',
+                        border: '1px solid var(--color-border)',
+                        borderRadius: 'var(--radius-md)',
+                        overflow: 'hidden',
+                        boxShadow: 'var(--shadow-sm)'
+                      }}
+                    >
+                      <div style={{ position: 'relative', height: 160 }}>
+                        <img
+                          src={vid.thumbnail}
+                          alt={vid.title}
+                          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                        />
+                        <span style={{
+                          position: 'absolute', bottom: 8, right: 8,
+                          background: 'rgba(0,0,0,0.8)', color: '#fff',
+                          fontSize: '0.75rem', padding: '2px 6px', borderRadius: 4, fontWeight: 600
+                        }}>
+                          {vid.duration}
+                        </span>
+                      </div>
+                      <div style={{ padding: '1rem' }}>
+                        <h4 style={{ fontSize: '1rem', fontWeight: 700, margin: '0 0 0.4rem', color: 'var(--color-heading)' }}>
+                          {vid.title}
+                        </h4>
+                        <p style={{ fontSize: '0.8rem', color: 'var(--color-text-secondary)', margin: '0 0 1rem', lineHeight: 1.45 }}>
+                          {vid.summary || vid.description}
+                        </p>
+                        <a
+                          href={vid.youtubeUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: 6,
+                            background: 'var(--color-maroon, #541D16)',
+                            color: '#FFF9F0',
+                            padding: '0.5rem 1rem',
+                            borderRadius: 'var(--radius-sm)',
+                            fontSize: '0.8rem',
+                            fontWeight: 700,
+                            textDecoration: 'none'
+                          }}
+                        >
+                          <span>Watch on YouTube</span>
+                          <ExternalLink size={13} />
+                        </a>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            );
+          })()}
 
           {/* Related Destinations */}
           {relatedDestinations.length > 0 && (
@@ -215,7 +392,7 @@ export default function DestinationDetailPage() {
               <div className={styles.relatedHeader}>
                 <h3 className={styles.relatedTitle}>More in {destination.category.toUpperCase()}</h3>
                 <Link to={`/explore?category=${destination.category}`} className={styles.relatedLink}>
-                  View All {destination.category} →
+                  View All {destination.category} <ArrowRight size={14} style={{ marginLeft: 4 }} />
                 </Link>
               </div>
               <div className={styles.relatedGrid}>

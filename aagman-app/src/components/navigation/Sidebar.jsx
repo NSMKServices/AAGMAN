@@ -1,25 +1,43 @@
 import React from 'react';
 import { NavLink, Link } from 'react-router-dom';
+import {
+  Compass,
+  Backpack,
+  Heart,
+  Wallet,
+  Settings,
+  Sparkles,
+  Map,
+  Video,
+  HelpCircle,
+  Shield,
+  ArrowRight,
+  X
+} from '../common/Icons';
 import { useLanguage } from '../../context/LanguageContext';
 import { useWishlist } from '../../context/WishlistContext';
+import { useAuth } from '../../context/AuthContext';
 import styles from './Sidebar.module.css';
 
 export default function Sidebar({ isOpen, onClose }) {
   const { t } = useLanguage();
   const { wishlistCount } = useWishlist();
+  const { user } = useAuth();
 
-  const NAV_ITEMS = [
-    { to: "/", label: t('dashboard'), icon: "🏛️", exact: true },
-    { to: "/explore", label: t('exploreDestinations'), icon: "🧭" },
-    { to: "/heritage-culture", label: t('heritageCulture'), icon: "📜" },
-    { to: "/map", label: t('interactiveMap'), icon: "🗺️" },
-    { to: "/festivals", label: t('festivals'), icon: "🪔" },
-    { to: "/trips", label: t('myTrips'), icon: "🎒" },
-    { to: "/wishlist", label: t('wishlist'), icon: "❤️", badge: wishlistCount > 0 ? wishlistCount : null },
-    { to: "/budget", label: t('budgetPlanner'), icon: "💰" },
-    { to: "/planner", label: t('aiPlanner'), icon: "✨" },
-    { to: "/faq", label: t('faq'), icon: "❓" },
-    { to: "/settings", label: t('settings'), icon: "⚙️" },
+  const DASHBOARD_ITEMS = [
+    { to: "/dashboard", label: "Dashboard Overview", icon: Compass, exact: true },
+    { to: "/trips", label: t('myTrips'), icon: Backpack },
+    { to: "/wishlist", label: t('wishlist'), icon: Heart, badge: wishlistCount > 0 ? wishlistCount : null },
+    { to: "/budget", label: t('budgetPlanner'), icon: Wallet },
+    { to: "/settings", label: t('settings'), icon: Settings },
+  ];
+
+  const PUBLIC_SHORTCUTS = [
+    { to: "/explore", label: "Explore Destinations", icon: Compass },
+    { to: "/planner", label: "Smart Itinerary Planner", icon: Sparkles },
+    { to: "/map", label: "Interactive Route Atlas", icon: Map },
+    { to: "/videos", label: "Videos & Experiences", icon: Video },
+    { to: "/faq", label: "Travel FAQ & Helplines", icon: HelpCircle },
   ];
 
   return (
@@ -34,11 +52,11 @@ export default function Sidebar({ isOpen, onClose }) {
         <div className={styles.brandSection}>
           <Link to="/" className={styles.brandLink} onClick={onClose}>
             <div className={styles.logoBadge}>
-              <span className={styles.logoSymbol}>🔱</span>
+              <Shield size={22} color="var(--color-gold)" />
             </div>
             <div className={styles.brandInfo}>
               <span className={styles.brandTitle}>AAGMAN</span>
-              <span className={styles.brandSubtitle}>महाराष्ट्र पर्यटन</span>
+              <span className={styles.brandSubtitle}>TRAVELER PORTAL</span>
             </div>
           </Link>
           <button
@@ -47,36 +65,68 @@ export default function Sidebar({ isOpen, onClose }) {
             onClick={onClose}
             aria-label="Close menu"
           >
-            ✕
+            <X size={16} />
           </button>
+        </div>
+
+        {/* Back to Public Explorer */}
+        <div className={styles.returnSection}>
+          <Link to="/" className={styles.returnBtn} onClick={onClose}>
+            ← Back to Explore Maharashtra
+          </Link>
         </div>
 
         {/* Navigation Menu */}
         <nav className={styles.navMenu}>
-          <div className={styles.menuSectionTitle}>NAVIGATION</div>
-          {NAV_ITEMS.map((item) => (
-            <NavLink
-              key={item.to}
-              to={item.to}
-              end={item.exact}
-              className={({ isActive }) =>
-                `${styles.navItem} ${isActive ? styles.activeItem : ''}`
-              }
-              onClick={onClose}
-            >
-              <span className={styles.itemIcon}>{item.icon}</span>
-              <span className={styles.itemLabel}>{item.label}</span>
-              {item.badge && (
-                <span className={styles.itemBadge}>{item.badge}</span>
-              )}
-            </NavLink>
-          ))}
+          <div className={styles.menuSectionTitle}>MY EXPEDITIONS</div>
+          {DASHBOARD_ITEMS.map((item) => {
+            const IconComponent = item.icon;
+            return (
+              <NavLink
+                key={item.to}
+                to={item.to}
+                end={item.exact}
+                className={({ isActive }) =>
+                  `${styles.navItem} ${isActive ? styles.activeItem : ''}`
+                }
+                onClick={onClose}
+              >
+                <span className={styles.itemIcon}>
+                  <IconComponent size={18} />
+                </span>
+                <span className={styles.itemLabel}>{item.label}</span>
+                {item.badge && (
+                  <span className={styles.itemBadge}>{item.badge}</span>
+                )}
+              </NavLink>
+            );
+          })}
+
+          <div className={styles.menuSectionTitle}>TOURISM DISCOVERY</div>
+          {PUBLIC_SHORTCUTS.map((item) => {
+            const IconComponent = item.icon;
+            return (
+              <NavLink
+                key={item.to}
+                to={item.to}
+                className={({ isActive }) =>
+                  `${styles.navItem} ${isActive ? styles.activeItem : ''}`
+                }
+                onClick={onClose}
+              >
+                <span className={styles.itemIcon}>
+                  <IconComponent size={18} />
+                </span>
+                <span className={styles.itemLabel}>{item.label}</span>
+              </NavLink>
+            );
+          })}
         </nav>
 
         {/* Footer Cultural Callout */}
         <div className={styles.sidebarFooter}>
           <div className={styles.culturalCard}>
-            <span className={styles.fortEmblem}>🚩</span>
+            <Shield size={24} color="var(--color-accent)" />
             <div>
               <p className={styles.cardHeader}>जय शिवराय</p>
               <p className={styles.cardMotto}>Celebrating Maharashtra's Timeless Grandeur</p>

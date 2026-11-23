@@ -5,10 +5,11 @@
 }
 
 .pageHeader {
-  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
-  color: #FFFFFF;
+  background: linear-gradient(135deg, #21140F 0%, #302019 50%, #4B3023 100%);
+  color: #FFF9F0;
   padding: var(--space-2xl) 0 var(--space-xl);
   text-align: center;
+  border-bottom: 2px solid var(--color-gold-border, rgba(200, 157, 60, 0.28));
 }
 
 .eyebrow {
@@ -16,7 +17,7 @@
   font-size: var(--font-size-xs);
   font-weight: 800;
   letter-spacing: 0.12em;
-  color: var(--color-accent);
+  color: var(--color-gold);
   margin-bottom: 0.35rem;
   text-transform: uppercase;
 }
@@ -24,13 +25,13 @@
 .pageTitle {
   font-family: var(--font-display);
   font-size: clamp(1.85rem, 3.5vw, 2.75rem);
-  color: #FFF1DF;
+  color: #FFF9F0;
   margin: 0 0 0.5rem 0;
 }
 
 .pageSubtitle {
   font-size: var(--font-size-sm);
-  color: rgba(255, 241, 223, 0.9);
+  color: rgba(255, 249, 240, 0.88);
   max-width: 650px;
   margin: 0 auto 1.5rem auto;
   line-height: var(--line-height-relaxed);

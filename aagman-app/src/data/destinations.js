@@ -3,6 +3,7 @@
  * Comprehensive, verified information for Maharashtra Tourism & Heritage Platform
  * Categories: forts, temples, beaches, heritage
  */
+import { ALL_DESTINATION_IMAGE_REGISTRY } from './imageRegistry';
 
 export const DESTINATIONS = [
   // ==========================================
@@ -93,8 +94,8 @@ export const DESTINATIONS = [
     bestTime: "September to April",
     timings: "06:00 AM – 06:00 PM",
     entryFee: "Free",
-    heroImage: "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=1600&q=80",
-    thumbnail: "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=600&q=80",
+    heroImage: "https://images.unsplash.com/photo-1589308078059-be1415eab4c3?auto=format&fit=crop&w=1600&q=80",
+    thumbnail: "https://images.unsplash.com/photo-1589308078059-be1415eab4c3?auto=format&fit=crop&w=600&q=80",
     summary: "The historic fortress where Shivaji Maharaj outmaneuvered Bijapuri General Afzal Khan in 1659.",
     history: "Commissioned by Shivaji Maharaj and completed in 1656 by Prime Minister Moropant Trimbak Pingle, Pratapgad commanded the Par Pass. On 10 November 1659, the historic meeting took place at the foothills where Shivaji Maharaj defended Swarajya against Afzal Khan using the bagh nakh (tiger claws).",
     attractions: [
@@ -161,8 +162,8 @@ export const DESTINATIONS = [
     bestTime: "July to March",
     timings: "05:30 AM – 06:30 PM",
     entryFee: "₹25 (ASI fee)",
-    heroImage: "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1600&q=80",
-    thumbnail: "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=600&q=80",
+    heroImage: "https://images.unsplash.com/photo-1626014303757-6466299b39be?auto=format&fit=crop&w=1600&q=80",
+    thumbnail: "https://images.unsplash.com/photo-1626014303757-6466299b39be?auto=format&fit=crop&w=600&q=80",
     summary: "The sacred birthplace of Chhatrapati Shivaji Maharaj (born 19 February 1630) surrounded by ancient Buddhist caves.",
     history: "Shivneri was ruled by the Yadavas, Bahmanis, and Nizamshahis before Shahaji Raje Bhosale placed his pregnant wife Jijabai under its strong defensive walls. Chhatrapati Shivaji Maharaj was born here on 19 February 1630 and spent his early childhood learning statecraft from Rajmata Jijau.",
     attractions: [
@@ -298,8 +299,8 @@ export const DESTINATIONS = [
     bestTime: "October to May",
     timings: "08:00 AM – 05:30 PM",
     entryFee: "₹50 (Ferry: ₹90)",
-    heroImage: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80",
-    thumbnail: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80",
+    heroImage: "https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=1600&q=80",
+    thumbnail: "https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=600&q=80",
     summary: "The supreme naval bastion built by Chhatrapati Shivaji Maharaj in 1664 on Kurte Island, Malvan.",
     history: "Constructed with over 4,000 mounds of molten lead for the foundation stone, Sindhudurg has 3 km of defensive perimeter walls with 42 bastions. It houses the only known temple where Shivaji Maharaj is worshipped as a deity.",
     attractions: [
@@ -400,8 +401,8 @@ export const DESTINATIONS = [
     bestTime: "July to February",
     timings: "05:00 AM – 06:00 PM",
     entryFee: "Free",
-    heroImage: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1600&q=80",
-    thumbnail: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=600&q=80",
+    heroImage: "https://images.unsplash.com/photo-1516214104703-d870798883c5?auto=format&fit=crop&w=1600&q=80",
+    thumbnail: "https://images.unsplash.com/photo-1516214104703-d870798883c5?auto=format&fit=crop&w=600&q=80",
     summary: "The highest mountain peak in Maharashtra, offering spectacular sunrise cloud-sea panoramas.",
     history: "Named after Kalsu, a local tribal maiden revered by indigenous communities. A small temple honoring Kalsubai Mata stands at the supreme summit pinacle.",
     attractions: [
@@ -436,8 +437,8 @@ export const DESTINATIONS = [
     bestTime: "October to March (Also Shravan month)",
     timings: "05:30 AM – 09:00 PM",
     entryFee: "Free (VIP Darshan: ₹200)",
-    heroImage: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=1600&q=80",
-    thumbnail: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=600&q=80",
+    heroImage: "https://images.unsplash.com/photo-1600100397608-f010e42e4e7a?auto=format&fit=crop&w=1600&q=80",
+    thumbnail: "https://images.unsplash.com/photo-1600100397608-f010e42e4e7a?auto=format&fit=crop&w=600&q=80",
     summary: "One of the twelve sacred Jyotirlingas of Lord Shiva, featuring three faces embodying Brahma, Vishnu, and Maheshwar.",
     history: "Nestled at the foothills of the Brahmagiri mountain from which the sacred Godavari river originates, the current black stone temple was built by Peshwa Balaji Baji Rao (Nana Saheb) in the 18th century.",
     attractions: [
@@ -468,8 +469,8 @@ export const DESTINATIONS = [
     bestTime: "September to February",
     timings: "05:00 AM – 10:00 PM",
     entryFee: "Free",
-    heroImage: "https://images.unsplash.com/photo-1609137144813-7d9921338f24?auto=format&fit=crop&w=1600&q=80",
-    thumbnail: "https://images.unsplash.com/photo-1609137144813-7d9921338f24?auto=format&fit=crop&w=600&q=80",
+    heroImage: "https://images.unsplash.com/photo-1567157577867-05ccb1388e66?auto=format&fit=crop&w=1600&q=80",
+    thumbnail: "https://images.unsplash.com/photo-1567157577867-05ccb1388e66?auto=format&fit=crop&w=600&q=80",
     summary: "The foremost shrine of the 8 Ashtavinayak pilgrimage temples where Lord Ganesha rides a peacock.",
     history: "According to Ganesha Purana, Lord Ganesha slew the demon Sindhu here riding a peacock (Mayura). The Ashtavinayak pilgrimage traditionally begins and ends at Morgaon.",
     attractions: [
@@ -500,8 +501,8 @@ export const DESTINATIONS = [
     bestTime: "October to March",
     timings: "04:00 AM – 11:15 PM",
     entryFee: "Free (VIP passes online)",
-    heroImage: "https://images.unsplash.com/photo-1544644181-1484b3fdfc62?auto=format&fit=crop&w=1600&q=80",
-    thumbnail: "https://images.unsplash.com/photo-1544644181-1484b3fdfc62?auto=format&fit=crop&w=600&q=80",
+    heroImage: "https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1600&q=80",
+    thumbnail: "https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=600&q=80",
     summary: "The sacred samadhi shrine of Sri Sai Baba, a universal beacon of faith, patience, and communal harmony.",
     history: "Sai Baba arrived in Shirdi in the mid-19th century and lived in the dilapidated Dwarkamai mosque until his Mahasamadhi on 15 October 1918.",
     attractions: [
@@ -532,8 +533,8 @@ export const DESTINATIONS = [
     bestTime: "Ashadhi / Kartiki Ekadashi & Winter",
     timings: "04:00 AM – 11:00 PM",
     entryFee: "Free (Online E-pass available)",
-    heroImage: "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1600&q=80",
-    thumbnail: "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=600&q=80",
+    heroImage: "https://images.unsplash.com/photo-1609766418204-94aae0ecfddc?auto=format&fit=crop&w=1600&q=80",
+    thumbnail: "https://images.unsplash.com/photo-1609766418204-94aae0ecfddc?auto=format&fit=crop&w=600&q=80",
     summary: "The spiritual heart of Maharashtra and the focal pilgrimage of the centuries-old Warkari tradition on the Chandrabhaga river.",
     history: "Dedicated to Lord Vithoba (Vitthal) and his consort Rukmini, celebrated by the great saint poets Sant Dnyaneshwar, Tukaram, Namdev, and Eknath.",
     attractions: [
@@ -600,8 +601,8 @@ export const DESTINATIONS = [
     bestTime: "September to May",
     timings: "Open 24 Hours",
     entryFee: "Free",
-    heroImage: "https://images.unsplash.com/photo-1544644181-1484b3fdfc62?auto=format&fit=crop&w=1600&q=80",
-    thumbnail: "https://images.unsplash.com/photo-1544644181-1484b3fdfc62?auto=format&fit=crop&w=600&q=80",
+    heroImage: "https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?auto=format&fit=crop&w=1600&q=80",
+    thumbnail: "https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?auto=format&fit=crop&w=600&q=80",
     summary: "A sacred shoreline where a 400-year-old self-manifested (Swayambhu) Ganesha temple rests right on the golden sands.",
     history: "The temple is renowned for its deity carved naturally from white sand rock. Pilgrims traditionally circumambulate (pradakshina) the entire hill on which the temple is situated.",
     attractions: [
@@ -632,8 +633,8 @@ export const DESTINATIONS = [
     bestTime: "October to April",
     timings: "Open 24 Hours",
     entryFee: "Free (Scuba: ₹1,500 – ₹2,500)",
-    heroImage: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80",
-    thumbnail: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80",
+    heroImage: "https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=1600&q=80",
+    thumbnail: "https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=600&q=80",
     summary: "Crystal-clear turquoise waters famed as Maharashtra's premier scuba diving and coral snorkeling paradise.",
     history: "Situated at the confluence of the Karli river and the Arabian Sea, Tarkarli has maintained pure white sand banks and coral reefs, supported by MTDC's Indian Institute of Scuba Diving.",
     attractions: [
@@ -700,8 +701,8 @@ export const DESTINATIONS = [
     bestTime: "October to March",
     timings: "06:00 AM – 06:00 PM (Closed on Tuesdays)",
     entryFee: "₹40 (Indians), ₹600 (Foreigners)",
-    heroImage: "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1600&q=80",
-    thumbnail: "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=600&q=80",
+    heroImage: "https://images.unsplash.com/photo-1599839575945-a9e5af0c3fa5?auto=format&fit=crop&w=1600&q=80",
+    thumbnail: "https://images.unsplash.com/photo-1599839575945-a9e5af0c3fa5?auto=format&fit=crop&w=600&q=80",
     summary: "34 monumental rock-cut shrines spanning Buddhist, Hindu, and Jain traditions, crowned by the monolithic Kailasa Temple (Cave 16).",
     history: "Dating from the 6th to 10th centuries CE under Rashtrakuta and Yadava patronage. Kailasa Temple (Cave 16), carved top-down from a single volcanic basalt cliff, remains humanity's greatest rock-cut architectural feat.",
     attractions: [
@@ -732,8 +733,8 @@ export const DESTINATIONS = [
     bestTime: "November to March",
     timings: "09:00 AM – 05:30 PM (Closed on Mondays)",
     entryFee: "₹40 (Ferry return: ₹260)",
-    heroImage: "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1600&q=80",
-    thumbnail: "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=600&q=80",
+    heroImage: "https://images.unsplash.com/photo-1566837945700-30057527ade0?auto=format&fit=crop&w=1600&q=80",
+    thumbnail: "https://images.unsplash.com/photo-1566837945700-30057527ade0?auto=format&fit=crop&w=600&q=80",
     summary: "Island rock-cut temples dedicated to Lord Shiva, famous worldwide for the sublime 6-meter Trimurti sculpture.",
     history: "Known locally as Gharapuri, the caves were carved between the 5th and 8th centuries CE under the Konkan Mauryas and Kalachuris. The Portuguese named the island Elephanta after a colossal stone elephant found near the shore.",
     attractions: [
@@ -785,3 +786,12 @@ export const DESTINATIONS = [
     reviewsCount: 3900
   }
 ];
+
+// Enrich destinations with local asset paths while preserving all existing data
+DESTINATIONS.forEach(dest => {
+  const reg = ALL_DESTINATION_IMAGE_REGISTRY[dest.id];
+  if (reg) {
+    dest.localAssets = reg.slots;
+    dest.assetsFolder = reg.folder;
+  }
+});

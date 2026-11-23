@@ -87,7 +87,7 @@
 .input:focus, .select:focus {
   outline: none;
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 2px rgba(114, 45, 27, 0.15);
+  box-shadow: 0 0 0 2px rgba(21, 62, 117, 0.15);
 }
 
 .submitBtn {
@@ -130,7 +130,7 @@
 }
 
 .demoBtn:hover {
-  background: rgba(230, 162, 60, 0.1);
+  background: rgba(200, 157, 60, 0.1);
   border-color: var(--color-primary);
 }
 

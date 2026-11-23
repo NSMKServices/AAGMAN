@@ -26,68 +26,73 @@
 }
 
 .default {
-  background-color: var(--color-primary-light);
-  color: var(--color-primary);
+  background-color: var(--color-parchment);
+  color: var(--color-secondary);
   border: 1px solid var(--color-border);
 }
 
+/* Forts: Maratha Citadel Terracotta */
 .forts {
-  background-color: rgba(114, 45, 27, 0.12);
+  background-color: rgba(114, 45, 27, 0.10);
   color: #722D1B;
   border: 1px solid rgba(114, 45, 27, 0.25);
 }
 
 [data-theme="dark"] .forts {
-  background-color: rgba(230, 162, 60, 0.15);
-  color: #E6A23C;
-  border-color: rgba(230, 162, 60, 0.3);
+  background-color: rgba(114, 45, 27, 0.22);
+  color: #E8DCCB;
+  border-color: rgba(114, 45, 27, 0.38);
 }
 
+/* Temples: Restrained Temple Brass Gold */
 .temples {
-  background-color: rgba(230, 162, 60, 0.18);
-  color: #8A5405;
-  border: 1px solid rgba(230, 162, 60, 0.4);
+  background-color: rgba(200, 157, 60, 0.14);
+  color: #604331;
+  border: 1px solid rgba(200, 157, 60, 0.32);
 }
 
 [data-theme="dark"] .temples {
-  background-color: rgba(230, 162, 60, 0.18);
-  color: #F8B85A;
-  border-color: rgba(230, 162, 60, 0.35);
+  background-color: rgba(200, 157, 60, 0.16);
+  color: #D8C8B2;
+  border-color: rgba(200, 157, 60, 0.35);
 }
 
+/* Beaches: Coffee Brown & Linen */
 .beaches {
-  background-color: rgba(2, 136, 209, 0.12);
-  color: #0277BD;
-  border: 1px solid rgba(2, 136, 209, 0.3);
+  background-color: rgba(118, 86, 64, 0.12);
+  color: #604331;
+  border: 1px solid rgba(118, 86, 64, 0.26);
 }
 
 [data-theme="dark"] .beaches {
-  background-color: rgba(2, 136, 209, 0.2);
-  color: #4FC3F7;
-  border-color: rgba(2, 136, 209, 0.35);
+  background-color: rgba(200, 180, 154, 0.14);
+  color: #E8DCCB;
+  border-color: rgba(200, 180, 154, 0.30);
 }
 
+/* Heritage & Caves: Walnut & Aged Stone */
 .heritage {
-  background-color: rgba(196, 90, 50, 0.15);
-  color: #9C3D1A;
-  border: 1px solid rgba(196, 90, 50, 0.3);
+  background-color: rgba(96, 67, 49, 0.12);
+  color: #4B3023;
+  border: 1px solid rgba(96, 67, 49, 0.28);
 }
 
 [data-theme="dark"] .heritage {
-  background-color: rgba(196, 90, 50, 0.22);
-  color: #E8835E;
-  border-color: rgba(196, 90, 50, 0.35);
+  background-color: rgba(200, 180, 154, 0.16);
+  color: #D8C8B2;
+  border-color: rgba(200, 180, 154, 0.32);
 }
 
+/* Gold Accent Badge (Sparingly Used) */
 .gold {
-  background: linear-gradient(135deg, rgba(230, 162, 60, 0.25), rgba(196, 90, 50, 0.2));
-  color: #6D3D08;
-  border: 1px solid rgba(230, 162, 60, 0.5);
+  background: rgba(200, 157, 60, 0.14);
+  color: #604331;
+  border: 1px solid rgba(200, 157, 60, 0.35);
 }
 
 [data-theme="dark"] .gold {
-  color: #FCD59A;
-  border-color: rgba(230, 162, 60, 0.45);
+  color: #D8C8B2;
+  border-color: rgba(200, 157, 60, 0.35);
 }
 
 .icon {

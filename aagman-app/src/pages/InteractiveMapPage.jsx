@@ -4,13 +4,21 @@ import Container from '../components/layout/Container';
 import MaharashtraMap from '../components/dashboard/MaharashtraMap';
 import Button from '../components/common/Button';
 import Badge from '../components/common/Badge';
+import {
+  Umbrella,
+  Castle,
+  BookOpen,
+  Landmark,
+  Calendar,
+  Sparkles
+} from '../components/common/Icons';
 import styles from './InteractiveMapPage.module.css';
 
 const CIRCUITS = [
   {
     id: 'konkan-coastal',
     title: 'Konkan Coastal & Sea Forts Circuit',
-    icon: '🏖️',
+    Icon: Umbrella,
     distance: '540 km',
     duration: '5 Days / 4 Nights',
     bestTime: 'October to March',
@@ -20,7 +28,7 @@ const CIRCUITS = [
   {
     id: 'sahyadri-citadels',
     title: 'Sahyadri High Trekking Citadels',
-    icon: '🏰',
+    Icon: Castle,
     distance: '380 km',
     duration: '4 Days / 3 Nights',
     bestTime: 'June to February (Monsoon/Winter)',
@@ -30,7 +38,7 @@ const CIRCUITS = [
   {
     id: 'unesco-caves',
     title: 'UNESCO World Heritage Rock-Cut Trail',
-    icon: '📜',
+    Icon: BookOpen,
     distance: '420 km',
     duration: '3 Days / 2 Nights',
     bestTime: 'November to March',
@@ -40,7 +48,7 @@ const CIRCUITS = [
   {
     id: 'sacred-pilgrimage',
     title: 'Sacred Jyotirlinga & Devasthan Circuit',
-    icon: '🛕',
+    Icon: Landmark,
     distance: '620 km',
     duration: '6 Days / 5 Nights',
     bestTime: 'All Year Round',
@@ -95,7 +103,9 @@ export default function InteractiveMapPage() {
                 onClick={() => setSelectedCircuit(circuit)}
               >
                 <div className={styles.circuitHeader}>
-                  <span className={styles.circuitIcon}>{circuit.icon}</span>
+                  <span className={styles.circuitIcon}>
+                    <circuit.Icon size={22} />
+                  </span>
                   <div className={styles.circuitMeta}>
                     <span className={styles.durationBadge}>{circuit.duration}</span>
                     <span className={styles.distBadge}>{circuit.distance}</span>
@@ -117,9 +127,14 @@ export default function InteractiveMapPage() {
                 </div>
 
                 <div className={styles.circuitFooter}>
-                  <span className={styles.bestTime}>🗓️ Best: {circuit.bestTime}</span>
+                  <span className={styles.bestTime}>
+                    <Calendar size={13} style={{ marginRight: 4, verticalAlign: 'middle' }} />
+                    Best: {circuit.bestTime}
+                  </span>
                   <Link to="/planner">
-                    <Button variant="primary" size="sm">Plan This Route ✨</Button>
+                    <Button variant="primary" size="sm" icon={<Sparkles size={14} />}>
+                      Plan This Route
+                    </Button>
                   </Link>
                 </div>
               </div>

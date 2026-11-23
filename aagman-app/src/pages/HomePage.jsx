@@ -4,13 +4,38 @@ import Container from '../components/layout/Container';
 import Badge from '../components/common/Badge';
 import Button from '../components/common/Button';
 import Modal from '../components/common/Modal';
-import DestinationCard from '../components/common/DestinationCard';
+import SectionHeader from '../components/common/SectionHeader';
+import Destination3DGallery from '../components/home/Destination3DGallery';
 import MaharashtraMap from '../components/dashboard/MaharashtraMap';
+import {
+  Compass,
+  Castle,
+  Landmark,
+  Umbrella,
+  BookOpen,
+  Mountain,
+  Trees,
+  Sparkles,
+  MapPin,
+  Calendar,
+  Clock,
+  Route,
+  Wallet,
+  Play,
+  ExternalLink,
+  Shield,
+  Utensils,
+  Check,
+  ChevronRight,
+  ChevronLeft,
+  ArrowRight,
+  Info
+} from '../components/common/Icons';
 import { DESTINATIONS } from '../data/destinations';
 import { FESTIVALS } from '../data/festivals';
+import { CURATED_VIDEOS } from '../data/videos';
+import { getFestivalGallery } from '../data/imageRegistry';
 import { useLanguage } from '../context/LanguageContext';
-import { useWishlist } from '../context/WishlistContext';
-import { useTrips } from '../context/TripContext';
 import styles from './HomePage.module.css';
 
 const HERO_SLIDES = [
@@ -21,29 +46,151 @@ const HERO_SLIDES = [
     subtitle: "Ascend the sacred coronation citadel of the Maratha Empire nestled amidst the mist-shrouded Sahyadri peaks."
   },
   {
-    image: "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=1920&q=85",
+    image: "https://images.unsplash.com/photo-1599839575945-a9e5af0c3fa5?auto=format&fit=crop&w=1920&q=85",
     tag: "UNESCO WORLD HERITAGE",
-    title: "Timeless Buddhist Murals of Ajanta Caves",
-    subtitle: "Journey two millennia into the Waghur river gorge to witness the immortal paintings of Bodhisattva Padmapani."
+    title: "The Monolithic Wonder: Kailasa Temple & Ellora",
+    subtitle: "Stand in awe before the world's largest monolithic rock excavation, carved top-down from volcanic basalt in the 8th century."
   },
   {
-    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1920&q=85",
+    image: "https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=1920&q=85",
     tag: "PRISTINE KONKAN SHORELINE",
-    title: "Golden Sands & Sea Fortresses of Malvan",
-    subtitle: "Explore crystal turquoise waters, Sindhudurg naval fort, and serene sunset coconut groves."
+    title: "Sea Fortresses & Coral Reefs of Malvan",
+    subtitle: "Explore Sindhudurg island citadel, turquoise waters of Tarkarli, and golden coastal coconut groves."
+  },
+  {
+    image: "https://images.unsplash.com/photo-1516214104703-d870798883c5?auto=format&fit=crop&w=1920&q=85",
+    tag: "HIGHEST SUMMIT OF MAHARASHTRA",
+    title: "Kalsubai Peak: Crown of the Sahyadri Ranges",
+    subtitle: "Trek through panoramic cloudscapes to Maharashtra's highest altitude at 1,646 meters overlooking Bhandardara reservoir."
   }
+];
+
+const DISCOVERY_CATEGORIES = [
+  {
+    title: "Historic Forts",
+    marathi: "गड-किल्ले",
+    count: "350+ Sites",
+    description: "Impregnable Sahyadri hill citadels & coastal sea fortresses of the Marathas.",
+    path: "/forts",
+    icon: Castle,
+    tag: "Citadels"
+  },
+  {
+    title: "Sacred Temples",
+    marathi: "तीर्थक्षेत्रे",
+    count: "5 Jyotirlingas",
+    description: "Trimbakeshwar, Ashtavinayak, Pandharpur Vitthal & ancient sacred sanctums.",
+    path: "/temples",
+    icon: Landmark,
+    tag: "Pilgrimage"
+  },
+  {
+    title: "Konkan Beaches",
+    marathi: "सागरकिनारे",
+    count: "720 km Coast",
+    description: "Pristine white sand bays, coastal forts, scuba reefs & quiet fishing coves.",
+    path: "/beaches",
+    icon: Umbrella,
+    tag: "Coastal"
+  },
+  {
+    title: "UNESCO Heritage",
+    marathi: "जागतिक वारसा",
+    count: "5 World Sites",
+    description: "Ajanta Buddhist murals, Ellora monolithic Kailasa, and Elephanta rock art.",
+    path: "/heritage",
+    icon: BookOpen,
+    tag: "Monuments"
+  },
+  {
+    title: "Hill Stations",
+    marathi: "थंड हवेची ठिकाणे",
+    count: "Sahyadri Retreats",
+    description: "Mahabaleshwar, Matheran, Panchgani, Amboli & Chikhaldara plateau vistas.",
+    path: "/explore?category=hills",
+    icon: Mountain,
+    tag: "Highlands"
+  },
+  {
+    title: "Nature & Wildlife",
+    marathi: "वन्यजीव व निसर्ग",
+    count: "6 National Parks",
+    description: "Tadoba tiger reserve, Kaas flower valley, Koyna sanctuary & dense forests.",
+    path: "/explore?category=wildlife",
+    icon: Trees,
+    tag: "Wildlife"
+  },
+  {
+    title: "Festivals & Events",
+    marathi: "उत्सव व परंपरा",
+    count: "Year-Round",
+    description: "Ganeshotsav, Shiv Jayanti, Pandharpur Wari & Ellora classical arts festivals.",
+    path: "/festivals",
+    icon: Sparkles,
+    tag: "Culture"
+  },
+  {
+    title: "Cultural Traditions",
+    marathi: "संस्कृती व वारसा",
+    count: "Living Heritage",
+    description: "Warli tribal art, Paithani silk weaving, Powada ballads & culinary masteries.",
+    path: "/heritage-culture",
+    icon: Compass,
+    tag: "Tradition"
+  }
+];
+
+const SUGGESTED_CIRCUITS = [
+  {
+    id: "maratha-imperial",
+    name: "The Maratha Imperial Fort Circuit",
+    route: "Pune → Sinhagad → Rajgad → Raigad → Pratapgad",
+    duration: "4 Days / 3 Nights",
+    pace: "Active Trekking",
+    budget: "₹8,500 – ₹14,000",
+    highlights: ["Shivaji Maharaj coronation site", "Sunrise over Sahyadri cloud-sea", "Authentic village Pithla Bhakri"]
+  },
+  {
+    id: "konkan-coastal",
+    name: "The Golden Konkan Coastal Trail",
+    route: "Alibaug → Murud-Janjira → Ganpatipule → Tarkarli",
+    duration: "5 Days / 4 Nights",
+    pace: "Relaxed Coastal",
+    budget: "₹12,000 – ₹18,500",
+    highlights: ["Undefeated Murud island fort", "Snorkeling at Sindhudurg coral beds", "Sunset at Ganpatipule mandir"]
+  },
+  {
+    id: "caves-jyotirlinga",
+    name: "Sacred Jyotirlinga & UNESCO Cave Circuit",
+    route: "Nashik → Trimbakeshwar → Shirdi → Ellora → Ajanta",
+    duration: "4 Days / 3 Nights",
+    pace: "Cultural Exploration",
+    budget: "₹7,000 – ₹12,500",
+    highlights: ["Godavari holy source darshan", "Monolithic Kailasa rock temple", "Two millennia old Ajanta murals"]
+  }
+];
+
+// Curated diverse showcase representing forts, caves, beaches, and temples for 3D Gallery
+const FEATURED_SLUGS = [
+  'raigad-fort',
+  'kailasa-ellora',
+  'tarkarli-beach',
+  'sinhagad-fort',
+  'trimbakeshwar-temple',
+  'ajanta-caves',
+  'pratapgad-fort',
+  'ganpatipule-beach'
 ];
 
 export default function HomePage() {
   const { t } = useLanguage();
-  const { wishlistCount } = useWishlist();
-  const { upcomingTrip } = useTrips();
-
   const [heroIndex, setHeroIndex] = useState(0);
   const [selectedFestival, setSelectedFestival] = useState(null);
-  const [selectedItinerary, setSelectedItinerary] = useState(null);
+  const [selectedCircuit, setSelectedCircuit] = useState(null);
 
-  const featuredDestinations = DESTINATIONS.slice(0, 4);
+  const featuredDestinations = FEATURED_SLUGS
+    .map(slug => DESTINATIONS.find(d => d.slug === slug))
+    .filter(Boolean);
 
   const nextHeroSlide = () => {
     setHeroIndex((prev) => (prev + 1) % HERO_SLIDES.length);
@@ -56,9 +203,9 @@ export default function HomePage() {
   const currentHero = HERO_SLIDES[heroIndex];
 
   return (
-    <div className={styles.dashboardPage}>
+    <div className={styles.homepageRoot}>
       {/* ========================================================
-          SECTION 2.C: LARGE PANORAMIC HERO BANNER
+          SECTION A: LARGE EDITORIAL HERO BANNER
           ======================================================== */}
       <section className={styles.heroBanner}>
         <div className={styles.heroBackground}>
@@ -72,17 +219,20 @@ export default function HomePage() {
 
         <Container className={styles.heroContent}>
           <span className={styles.heroBadge}>
-            <span className={styles.flagIcon}>🚩</span> {currentHero.tag}
+            <Shield size={14} color="var(--color-accent)" />
+            <span>{currentHero.tag}</span>
           </span>
           <h1 className={styles.heroTitle}>{currentHero.title}</h1>
           <p className={styles.heroSubtitle}>{currentHero.subtitle}</p>
 
           <div className={styles.heroActions}>
-            <Button to="/explore" variant="accent" size="lg" icon="🧭">
-              {t('exploreBtn')}
+            <Button to="/explore" variant="primary" size="lg">
+              <span>Explore Maharashtra</span>
+              <ArrowRight size={16} />
             </Button>
-            <Button to="/planner" variant="secondary" size="lg" icon="✨">
-              {t('planTripBtn')}
+            <Button to="/planner" variant="accent" size="lg">
+              <span>Plan Your Journey</span>
+              <Sparkles size={16} />
             </Button>
           </div>
 
@@ -94,7 +244,7 @@ export default function HomePage() {
               onClick={prevHeroSlide}
               aria-label="Previous slide"
             >
-              ‹
+              <ChevronLeft size={18} />
             </button>
             <div className={styles.carouselDots}>
               {HERO_SLIDES.map((_, idx) => (
@@ -113,317 +263,351 @@ export default function HomePage() {
               onClick={nextHeroSlide}
               aria-label="Next slide"
             >
-              ›
+              <ChevronRight size={18} />
             </button>
           </div>
         </Container>
       </section>
 
       {/* ========================================================
-          SECTION 2.D: QUICK OVERVIEW CARDS (4 IN A ROW)
+          SECTION B: QUICK DISCOVERY SHORTCUTS (8 CATEGORIES)
           ======================================================== */}
-      <section className={styles.overviewSection}>
+      <section className={styles.discoverySection}>
         <Container>
-          <div className={styles.overviewGrid}>
-            {/* Card 1: My Wishlist */}
-            <Link to="/wishlist" className={styles.overviewCard}>
-              <div className={styles.cardHeader}>
-                <span className={styles.cardIconBox} style={{ backgroundColor: 'rgba(230, 162, 60, 0.15)', color: '#C45A32' }}>
-                  ❤️
-                </span>
-                <Badge variant="gold" size="sm">WISHLIST</Badge>
-              </div>
-              <div className={styles.cardStat}>{wishlistCount}</div>
-              <div className={styles.cardLabel}>{t('wishlistTitle')}</div>
-              <p className={styles.cardSubtext}>
-                {wishlistCount > 0 ? `${wishlistCount} ${t('itemsSaved')}` : "Start bookmarking your dream destinations."}
-              </p>
-              <span className={styles.cardLink}>View Saved Places →</span>
-            </Link>
+          <SectionHeader
+            eyebrow="QUICK DISCOVERY"
+            title="Explore Maharashtra"
+            description="From 350+ Maratha fortresses to sacred Jyotirlingas and untouched Konkan waters, choose your experience."
+          />
 
-            {/* Card 2: Upcoming Trip */}
-            <Link to="/trips" className={styles.overviewCard}>
-              <div className={styles.cardHeader}>
-                <span className={styles.cardIconBox} style={{ backgroundColor: 'rgba(114, 45, 27, 0.12)', color: '#722D1B' }}>
-                  🎒
-                </span>
-                <Badge variant="forts" size="sm">UPCOMING</Badge>
-              </div>
-              <div className={styles.cardHighlightTitle}>
-                {upcomingTrip ? upcomingTrip.name : t('noTripsYet')}
-              </div>
-              <div className={styles.cardLabel}>
-                {upcomingTrip ? `${upcomingTrip.durationDays} Days • ${upcomingTrip.circuit}` : t('upcomingTrip')}
-              </div>
-              <p className={styles.cardSubtext}>
-                {upcomingTrip ? `Departing: ${upcomingTrip.startDate}` : "Generate a smart AI itinerary now."}
-              </p>
-              <span className={styles.cardLink}>View Itinerary →</span>
-            </Link>
+          <div className={styles.discoveryGrid}>
+            {DISCOVERY_CATEGORIES.map((cat, idx) => {
+              const IconComp = cat.icon;
+              return (
+                <Link key={idx} to={cat.path} className={styles.discoveryCard}>
+                  <div className={styles.discHeader}>
+                    <div className={styles.discIconBox}>
+                      <IconComp size={22} color="var(--color-secondary)" />
+                    </div>
+                    <span className={styles.discCount}>{cat.count}</span>
+                  </div>
+                  <h3 className={styles.discTitle}>{cat.title}</h3>
+                  <span className={styles.discMarathi}>{cat.marathi}</span>
+                  <p className={styles.discDesc}>{cat.description}</p>
+                  <span className={styles.discAction}>
+                    <span>Explore</span>
+                    <ArrowRight size={13} />
+                  </span>
+                </Link>
+              );
+            })}
+          </div>
 
-            {/* Card 3: Trip Budget */}
-            <Link to="/budget" className={styles.overviewCard}>
-              <div className={styles.cardHeader}>
-                <span className={styles.cardIconBox} style={{ backgroundColor: 'rgba(46, 125, 50, 0.12)', color: '#2E7D32' }}>
-                  💰
-                </span>
-                <Badge variant="default" size="sm">BUDGET</Badge>
-              </div>
-              <div className={styles.cardStat}>
-                ₹{upcomingTrip ? upcomingTrip.allocatedBudget.toLocaleString('en-IN') : '14,000'}
-              </div>
-              <div className={styles.cardLabel}>{t('tripBudget')}</div>
-              <div className={styles.budgetProgress}>
-                <div
-                  className={styles.budgetProgressBar}
-                  style={{ width: upcomingTrip ? `${(upcomingTrip.estimatedSpent / upcomingTrip.allocatedBudget) * 100}%` : '35%' }}
-                />
-              </div>
-              <p className={styles.cardSubtext}>
-                Spent: ₹{upcomingTrip ? upcomingTrip.estimatedSpent.toLocaleString('en-IN') : '4,800'} estimated
-              </p>
-            </Link>
-
-            {/* Card 4: Travel Tips */}
-            <div className={styles.overviewCard}>
-              <div className={styles.cardHeader}>
-                <span className={styles.cardIconBox} style={{ backgroundColor: 'rgba(2, 136, 209, 0.12)', color: '#0288D1' }}>
-                  💡
-                </span>
-                <Badge variant="beaches" size="sm">ADVISORY</Badge>
-              </div>
-              <div className={styles.tipHighlight}>Peak Winter Season</div>
-              <div className={styles.cardLabel}>{t('travelTips')}</div>
-              <p className={styles.cardSubtext}>
-                Clear Sahyadri summit weather and calm Konkan tides for scuba diving at Tarkarli & Malvan.
-              </p>
-              <Link to="/faq" className={styles.cardLink}>Seasonal Travel Guide →</Link>
-            </div>
+          <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2.5rem' }}>
+            <Button to="/explore" variant="outline" size="md">
+              <span>View All 23 Destinations</span>
+              <ArrowRight size={14} />
+            </Button>
           </div>
         </Container>
       </section>
 
       {/* ========================================================
-          SECTION 2.E & 2.F: MAIN CONTENT GRID & MAHARASHTRA MAP
+          SECTION C: INTERACTIVE MAHARASHTRA MAP
           ======================================================== */}
-      <section className={styles.mainGridSection}>
+      <section className={styles.mapSectionWrapper}>
         <Container>
-          {/* 1. Explore Maharashtra Map */}
-          <div className={styles.sectionBlock}>
-            <MaharashtraMap />
-          </div>
+          <SectionHeader
+            eyebrow="GEOGRAPHICAL DIRECTORY"
+            title="Interactive Maharashtra Tourism Map"
+            description="Filter destinations across Western Maharashtra, Konkan, Marathwada, and Vidarbha with detailed location previews."
+          />
+          <MaharashtraMap />
+        </Container>
+      </section>
 
-          {/* Featured Destinations Showcase */}
-          <div className={styles.sectionBlock}>
-            <div className={styles.sectionHeaderRow}>
-              <div>
-                <span className={styles.subHeading}>CURATED HERITAGE WONDERS</span>
-                <h2 className={styles.sectionHeading}>Top Destinations in Maharashtra</h2>
-              </div>
-              <Button to="/explore" variant="outline" size="sm">
-                Explore All 64 Sites →
-              </Button>
-            </div>
+      {/* ========================================================
+          SECTION D: FEATURED HERITAGE DESTINATIONS
+          ======================================================== */}
+      <section className={styles.destinationsSection}>
+        <Container>
+          <SectionHeader
+            eyebrow="CURATED SHOWCASE"
+            title="Featured Destinations"
+            description="Experience Maharashtra's most celebrated historic fortresses, monolithic rock temples, and sun-kissed coastlines in interactive 3D."
+          />
 
-            <div className={styles.destinationGrid}>
-              {featuredDestinations.map((dest) => (
-                <DestinationCard key={dest.id} destination={dest} />
-              ))}
-            </div>
-          </div>
+          <Destination3DGallery destinations={featuredDestinations} />
+        </Container>
+      </section>
 
-          {/* Two-Column Layout: Festival Calendar & Your Itinerary */}
+      {/* ========================================================
+          SECTION E & F: FESTIVALS & TRAVEL CIRCUITS (TWO COLUMNS)
+          ======================================================== */}
+      <section className={styles.culturePlanningSection}>
+        <Container>
+          <SectionHeader
+            eyebrow="EXPEDITIONS & TRADITIONS"
+            title="Festivals & Cultural Celebrations"
+            description="Participate in living sacred yatras, harvest festivals, and explore curated route blueprints designed for every traveler."
+          />
           <div className={styles.twoColGrid}>
-            {/* 2. Festival Calendar */}
+            {/* Column 1: Festivals of Maharashtra */}
             <div className={styles.contentCard}>
               <div className={styles.cardHeaderRow}>
                 <div>
-                  <span className={styles.subHeading}>TRADITION & JOY</span>
-                  <h3 className={styles.blockTitle}>{t('festivalCalendarTitle')}</h3>
+                  <span className={styles.subHeading}>LIVING TRADITIONS</span>
+                  <h3 className={styles.blockTitle}>Cultural Festival Calendar</h3>
                 </div>
-                <Link to="/festivals" className={styles.headerLink}>View All →</Link>
+                <Link to="/festivals" className={styles.headerLink}>
+                  <span>All Festivals</span>
+                  <ArrowRight size={13} />
+                </Link>
               </div>
 
               <div className={styles.festivalList}>
-                {FESTIVALS.slice(0, 3).map((fest) => (
+                {FESTIVALS.slice(0, 4).map((fest) => (
                   <div key={fest.id} className={styles.festivalItem}>
                     <img src={fest.image} alt={fest.name} className={styles.festivalThumb} />
                     <div className={styles.festivalMeta}>
-                      <span className={styles.festivalDate}>📅 {fest.dates}</span>
+                      <div className={styles.festTimeRow}>
+                        <Calendar size={12} color="var(--color-secondary)" />
+                        <span className={styles.festivalDate}>{fest.dates}</span>
+                      </div>
                       <h4 className={styles.festivalName}>{fest.name}</h4>
                       <p className={styles.festivalMarathi}>{fest.marathiName}</p>
                       <p className={styles.festivalDesc}>{fest.description}</p>
-                      <button
-                        type="button"
-                        className={styles.knowMoreBtn}
-                        onClick={() => setSelectedFestival(fest)}
-                      >
-                        {t('knowMore')} ↗
-                      </button>
+                      <div className={styles.festActionRow}>
+                        <span className={styles.festLocation}>
+                          <MapPin size={12} color="var(--color-text-muted)" /> {fest.location.split('(')[0]}
+                        </span>
+                        <button
+                          type="button"
+                          className={styles.knowMoreBtn}
+                          onClick={() => setSelectedFestival(fest)}
+                        >
+                          View Details ↗
+                        </button>
+                      </div>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* 3. Your Itinerary */}
+            {/* Column 2: Suggested Travel Circuits */}
             <div className={styles.contentCard}>
               <div className={styles.cardHeaderRow}>
                 <div>
-                  <span className={styles.subHeading}>TRAVEL PLANNER</span>
-                  <h3 className={styles.blockTitle}>{t('yourItineraryTitle')}</h3>
+                  <span className={styles.subHeading}>EXPEDITION BLUEPRINTS</span>
+                  <h3 className={styles.blockTitle}>Recommended Travel Circuits</h3>
                 </div>
-                <Link to="/trips" className={styles.headerLink}>All Trips →</Link>
+                <Link to="/planner" className={styles.headerLink}>
+                  <span>Open Planner</span>
+                  <ArrowRight size={13} />
+                </Link>
               </div>
 
-              {upcomingTrip ? (
-                <div className={styles.itineraryCard}>
-                  <div className={styles.itineraryBadgeRow}>
-                    <Badge variant="forts" size="sm">{upcomingTrip.status}</Badge>
-                    <span className={styles.itineraryDuration}>⏱️ {upcomingTrip.durationDays} Days</span>
-                  </div>
+              <div className={styles.circuitsList}>
+                {SUGGESTED_CIRCUITS.map((circuit) => (
+                  <div key={circuit.id} className={styles.circuitCard}>
+                    <div className={styles.circuitTopRow}>
+                      <Badge variant="forts" size="sm">
+                        <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.3rem' }}>
+                          <Route size={12} /> {circuit.pace}
+                        </span>
+                      </Badge>
+                      <span className={styles.circuitDuration}>
+                        <Clock size={12} /> {circuit.duration}
+                      </span>
+                    </div>
 
-                  <h4 className={styles.itineraryTitle}>{upcomingTrip.name}</h4>
-                  <p className={styles.itineraryDates}>
-                    📅 {upcomingTrip.startDate} to {upcomingTrip.endDate}
-                  </p>
+                    <h4 className={styles.circuitName}>{circuit.name}</h4>
+                    <p className={styles.circuitRoute}>
+                      <strong>Route:</strong> {circuit.route}
+                    </p>
 
-                  <div className={styles.itineraryStops}>
-                    <span className={styles.stopsLabel}>KEY DESTINATIONS:</span>
-                    <ul className={styles.stopsList}>
-                      {upcomingTrip.destinations.map((dest, i) => (
+                    <ul className={styles.circuitHighlights}>
+                      {circuit.highlights.map((h, i) => (
                         <li key={i}>
-                          <span className={styles.stepNum}>{i + 1}</span> {dest}
+                          <Check size={12} color="var(--color-secondary)" />
+                          <span>{h}</span>
                         </li>
                       ))}
                     </ul>
-                  </div>
 
-                  <div className={styles.itineraryActions}>
-                    <button
-                      type="button"
-                      className={styles.viewPlanBtn}
-                      onClick={() => setSelectedItinerary(upcomingTrip)}
-                    >
-                      {t('viewPlan')} 📜
-                    </button>
-                    <Button to="/planner" variant="secondary" size="sm">
-                      Create New Plan ✨
-                    </Button>
+                    <div className={styles.circuitFooter}>
+                      <div className={styles.budgetGroup}>
+                        <span className={styles.budgetLabel}>Estimated Budget:</span>
+                        <strong className={styles.budgetValue}>{circuit.budget}</strong>
+                      </div>
+                      <Link to="/planner" className={styles.circuitBtn}>
+                        <span>Customize Plan</span>
+                        <ArrowRight size={12} />
+                      </Link>
+                    </div>
                   </div>
-                </div>
-              ) : (
-                <div className={styles.emptyStateBox}>
-                  <p>No trip planned yet.</p>
-                  <Button to="/planner" variant="primary" size="sm">Plan an Adventure</Button>
-                </div>
-              )}
+                ))}
+              </div>
 
-              {/* 5. Today's Tip */}
-              <div className={styles.tipBox}>
-                <div className={styles.tipIcon}>🚩</div>
-                <div className={styles.tipTextGroup}>
-                  <h4 className={styles.tipHeading}>{t('todaysTipTitle')}</h4>
-                  <p className={styles.tipBody}>
-                    "When ascending Sinhagad or Rajgad, start early morning by 06:00 AM to witness the Sahyadri sea-of-clouds phenomenon and enjoy piping hot Pithla Bhakri from village stalls."
+              {/* Cultural Decree Card */}
+              <div className={styles.decreeBox}>
+                <Shield size={24} color="var(--color-accent)" />
+                <div>
+                  <p className={styles.decreeText}>
+                    "गडकोट म्हणजेच राज्य... जसा ज्यास गड, त्याचे तसे राज्य."
                   </p>
+                  <span className={styles.decreeCitation}>
+                    — रामचंद्रपंत अमात्य (आज्ञापत्र, १६९८)
+                  </span>
                 </div>
               </div>
             </div>
           </div>
+        </Container>
+      </section>
 
-          {/* 4. Watch Maharashtra (Visual Showcase) */}
-          <div className={styles.sectionBlock}>
-            <div className={styles.sectionHeaderRow}>
-              <div>
-                <span className={styles.subHeading}>CINEMATIC EXPERIENCES</span>
-                <h2 className={styles.sectionHeading}>{t('watchMaharashtraTitle')}</h2>
-              </div>
-              <span className={styles.badgeHint}>360° Heritage Views</span>
-            </div>
+      {/* ========================================================
+          SECTION G: WATCH MAHARASHTRA (CURATED DESTINATION VIDEOS)
+          ======================================================== */}
+      <section className={styles.watchSection}>
+        <Container>
+          <SectionHeader
+            eyebrow="CINEMATIC JOURNEYS"
+            title="Watch Maharashtra: Curated Destination Videos"
+            description="Explore high-definition drone surveys and cultural documentaries. Click any card to watch directly on YouTube in an external browser tab."
+          />
 
-            <div className={styles.videoGrid}>
-              <div className={styles.videoCard}>
+          <div className={styles.videoGrid}>
+            {CURATED_VIDEOS.map((video) => (
+              <a
+                key={video.id}
+                href={video.youtubeUrl || video.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.videoCard}
+                title={`Watch ${video.title} on YouTube`}
+              >
                 <div className={styles.videoThumbWrapper}>
                   <img
-                    src="https://images.unsplash.com/photo-1627894483216-2138af692e32?auto=format&fit=crop&w=800&q=80"
-                    alt="Raigad Fort"
+                    src={video.thumbnail}
+                    alt={video.title}
                     className={styles.videoThumb}
+                    loading="lazy"
                   />
-                  <div className={styles.playIconOverlay}>▶</div>
-                  <span className={styles.videoDuration}>04:15</span>
+                  <div className={styles.playIconOverlay}>
+                    <Play size={18} color="#FFFFFF" style={{ fill: '#FFFFFF', marginLeft: '2px' }} />
+                  </div>
+                  <span className={styles.videoDuration}>{video.duration}</span>
+                  <span className={styles.ytBadge}>
+                    <span>Watch on YouTube</span>
+                    <ExternalLink size={12} />
+                  </span>
                 </div>
                 <div className={styles.videoInfo}>
-                  <h4 className={styles.videoTitle}>Raigad Fort: The Sovereign Throne of Swarajya</h4>
-                  <p className={styles.videoSub}>Panoramic aerial perspective of the Maha Darwaja, Rajbhavan and Sahyadri escarpments.</p>
+                  <span className={styles.videoCategory}>{video.destination || video.category}</span>
+                  <h4 className={styles.videoTitle}>{video.title}</h4>
+                  <p className={styles.videoSub}>{video.summary}</p>
                 </div>
-              </div>
-
-              <div className={styles.videoCard}>
-                <div className={styles.videoThumbWrapper}>
-                  <img
-                    src="https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=80"
-                    alt="Ajanta Caves"
-                    className={styles.videoThumb}
-                  />
-                  <div className={styles.playIconOverlay}>▶</div>
-                  <span className={styles.videoDuration}>05:30</span>
-                </div>
-                <div className={styles.videoInfo}>
-                  <h4 className={styles.videoTitle}>Ajanta & Ellora: The Monolithic Kailasa Feat</h4>
-                  <p className={styles.videoSub}>High-resolution walk through Cave 16 carved top-down from a single volcanic basalt cliff.</p>
-                </div>
-              </div>
-
-              <div className={styles.videoCard}>
-                <div className={styles.videoThumbWrapper}>
-                  <img
-                    src="https://images.unsplash.com/photo-1544644181-1484b3fdfc62?auto=format&fit=crop&w=800&q=80"
-                    alt="Sindhudurg Fort"
-                    className={styles.videoThumb}
-                  />
-                  <div className={styles.playIconOverlay}>▶</div>
-                  <span className={styles.videoDuration}>03:45</span>
-                </div>
-                <div className={styles.videoInfo}>
-                  <h4 className={styles.videoTitle}>Murud-Janjira & Sindhudurg: Sea Fortresses of the Arabian Sea</h4>
-                  <p className={styles.videoSub}>Historic naval strongholds standing undefeated against waves and sieges for four centuries.</p>
-                </div>
-              </div>
-            </div>
+              </a>
+            ))}
           </div>
 
-          {/* 6. Quick Links Section */}
-          <div className={styles.quickLinksBlock}>
-            <div className={styles.quickLinksGrid}>
-              <Link to="/faq" className={styles.quickLinkItem}>
-                <span className={styles.quickIcon}>❓</span>
-                <div>
-                  <h5 className={styles.quickTitle}>Traveler FAQ</h5>
-                  <p className={styles.quickSub}>Answers on trek permits, guides & timings</p>
-                </div>
-              </Link>
-              <Link to="/heritage-culture" className={styles.quickLinkItem}>
-                <span className={styles.quickIcon}>📜</span>
-                <div>
-                  <h5 className={styles.quickTitle}>Heritage Guide</h5>
-                  <p className={styles.quickSub}>History of the Maratha Empire and Saints</p>
-                </div>
-              </Link>
-              <Link to="/budget" className={styles.quickLinkItem}>
-                <span className={styles.quickIcon}>💰</span>
-                <div>
-                  <h5 className={styles.quickTitle}>Trip Cost Estimator</h5>
-                  <p className={styles.quickSub}>Calculate fuel, stay & food expenses</p>
-                </div>
-              </Link>
-              <Link to="/map" className={styles.quickLinkItem}>
-                <span className={styles.quickIcon}>🗺️</span>
-                <div>
-                  <h5 className={styles.quickTitle}>Geographic Atlas</h5>
-                  <p className={styles.quickSub}>Explore districts across 5 regions</p>
-                </div>
-              </Link>
+          <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2.5rem' }}>
+            <Button to="/videos" variant="outline" size="md">
+              <span>Explore All Destination Videos</span>
+              <ArrowRight size={14} />
+            </Button>
+          </div>
+        </Container>
+      </section>
+
+      {/* ========================================================
+          SECTION H: AUTHENTIC TRAVEL GUIDE & ESSENTIALS
+          ======================================================== */}
+      <section className={styles.guideSection}>
+        <Container>
+          <SectionHeader
+            eyebrow="TRAVEL WISDOM"
+            title="Plan Your Journey: Field Guide & Etiquette"
+            description="Essential seasonal timelines, mountain trekking sanctity, culinary traditions, and 24x7 state tourist helplines."
+          />
+
+          <div className={styles.guideGrid}>
+            {/* Guide Card 1: Best Season */}
+            <div className={styles.guideCard}>
+              <div className={styles.guideIconBox}>
+                <Calendar size={22} color="var(--color-secondary)" />
+              </div>
+              <h3 className={styles.guideCardTitle}>Best Seasons to Visit</h3>
+              <ul className={styles.guideList}>
+                <li>
+                  <strong>Monsoon (Jun – Sep):</strong> Sahyadri waterfalls, mist-draped ghats, and lush hill treks (Sinhagad, Rajgad, Malshej).
+                </li>
+                <li>
+                  <strong>Winter (Oct – Feb):</strong> Clear skies and cool weather ideal for fort expeditions and heritage cave exploration.
+                </li>
+                <li>
+                  <strong>Coastal (Nov – Apr):</strong> Calm seas for scuba diving at Tarkarli and quiet Konkan beach retreats.
+                </li>
+              </ul>
+            </div>
+
+            {/* Guide Card 2: Trekking & Fort Etiquette */}
+            <div className={styles.guideCard}>
+              <div className={styles.guideIconBox}>
+                <Shield size={22} color="var(--color-secondary)" />
+              </div>
+              <h3 className={styles.guideCardTitle}>Fort & Trekking Sanctity</h3>
+              <ul className={styles.guideList}>
+                <li>
+                  <strong>Sacred Ground:</strong> Maharashtra fortresses are sacred historical monuments. Respect memorial shrines and temples.
+                </li>
+                <li>
+                  <strong>Leave No Trace:</strong> Carry all plastic and waste back. Protect natural cisterns (Devtaki) from pollution.
+                </li>
+                <li>
+                  <strong>Local Guides:</strong> Hire certified village guides in base villages (Gunjawane, Velhe, Donje) to support rural livelihoods.
+                </li>
+              </ul>
+            </div>
+
+            {/* Guide Card 3: Maharashtrian Culinary Traditions */}
+            <div className={styles.guideCard}>
+              <div className={styles.guideIconBox}>
+                <Utensils size={22} color="var(--color-secondary)" />
+              </div>
+              <h3 className={styles.guideCardTitle}>Authentic Local Cuisine</h3>
+              <ul className={styles.guideList}>
+                <li>
+                  <strong>Ghat Cuisine:</strong> Steaming hot Pithla Bhakri with fiery Thecha (crushed green chillies) and fresh dahi.
+                </li>
+                <li>
+                  <strong>Konkan Coast:</strong> Fresh Surmai fish curry, Tisrya (clams), Rice Bhakri, and digestive Solkadhi.
+                </li>
+                <li>
+                  <strong>Festive Delights:</strong> Ukadiche Modak (steamed rice-coconut sweets) and puran poli with ghee.
+                </li>
+              </ul>
+            </div>
+
+            {/* Guide Card 4: Responsible Tourism & Safety */}
+            <div className={styles.guideCard}>
+              <div className={styles.guideIconBox}>
+                <Info size={22} color="var(--color-secondary)" />
+              </div>
+              <h3 className={styles.guideCardTitle}>Safety & Regulations</h3>
+              <ul className={styles.guideList}>
+                <li>
+                  <strong>Early Ascents:</strong> Start high-altitude fort treks by 06:00 AM to avoid midday heat in the Western Ghats.
+                </li>
+                <li>
+                  <strong>ASI Permits:</strong> Cave monuments at Ajanta, Ellora, and Elephanta close on specific weekdays (Tuesdays / Mondays).
+                </li>
+                <li>
+                  <strong>24/7 Helpline:</strong> MTDC Tourist Support: 1800-229-930 | Emergency Services: 112.
+                </li>
+              </ul>
             </div>
           </div>
         </Container>
@@ -437,7 +621,7 @@ export default function HomePage() {
           isOpen={Boolean(selectedFestival)}
           onClose={() => setSelectedFestival(null)}
           title={selectedFestival.name}
-          subtitle={`📍 ${selectedFestival.location} • 📅 ${selectedFestival.dates}`}
+          subtitle={`${selectedFestival.location} • ${selectedFestival.dates}`}
         >
           <img
             src={selectedFestival.image}
@@ -462,55 +646,41 @@ export default function HomePage() {
               <li key={i} style={{ marginBottom: '0.25rem', fontSize: '0.9rem' }}>{h}</li>
             ))}
           </ul>
-        </Modal>
-      )}
 
-      {/* ========================================================
-          MODAL: ITINERARY DETAILS
-          ======================================================== */}
-      {selectedItinerary && (
-        <Modal
-          isOpen={Boolean(selectedItinerary)}
-          onClose={() => setSelectedItinerary(null)}
-          title={selectedItinerary.name}
-          subtitle={`📅 ${selectedItinerary.startDate} to ${selectedItinerary.endDate} • ${selectedItinerary.circuit}`}
-        >
-          <div style={{ marginBottom: '1.5rem' }}>
-            <span style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)' }}>ESTIMATED TRIP BUDGET:</span>
-            <div style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--color-primary)' }}>
-              ₹{selectedItinerary.allocatedBudget.toLocaleString('en-IN')}
-            </div>
-          </div>
-
-          <h4 style={{ fontFamily: 'var(--font-serif)', color: 'var(--color-secondary)', marginBottom: '1rem' }}>
-            Day-by-Day Schedule:
-          </h4>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-            {selectedItinerary.itineraryDays?.map((d) => (
-              <div
-                key={d.day}
-                style={{
-                  background: 'var(--color-surface-elevated)',
-                  border: '1px solid var(--color-border)',
-                  borderRadius: 'var(--radius-md)',
-                  padding: '1rem'
-                }}
-              >
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.4rem' }}>
-                  <span style={{ background: 'var(--color-primary)', color: '#FFF', padding: '0.2rem 0.5rem', borderRadius: '4px', fontSize: '0.75rem', fontWeight: 700 }}>
-                    Day {d.day}
-                  </span>
-                  <strong style={{ color: 'var(--color-text)' }}>{d.title}</strong>
-                </div>
-                <p style={{ fontSize: '0.85rem', color: 'var(--color-text-secondary)', marginBottom: '0.5rem' }}>
-                  {d.highlights}
-                </p>
-                <span style={{ fontSize: '0.75rem', color: 'var(--color-secondary)', fontWeight: 600 }}>
-                  🏨 Night Stay: {d.nightStay}
-                </span>
+          {getFestivalGallery(selectedFestival.id).length > 0 && (
+            <div style={{ marginTop: '1.25rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+                <strong style={{ fontSize: '0.85rem', color: 'var(--color-primary)' }}>Celebration Gallery:</strong>
+                <code style={{ fontSize: '0.65rem', color: 'var(--color-secondary)' }}>/assets/festivals/{selectedFestival.id}/</code>
               </div>
-            ))}
-          </div>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.65rem' }}>
+                {getFestivalGallery(selectedFestival.id).map((img, i) => (
+                  <div key={i} style={{ borderRadius: 'var(--radius-xs)', overflow: 'hidden', border: '1px solid var(--color-border)', background: 'var(--color-surface-elevated)' }}>
+                    <div style={{ position: 'relative', width: '100%', height: '90px' }}>
+                      <img
+                        src={img.src}
+                        alt={img.label}
+                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                        loading="lazy"
+                        onError={(e) => {
+                          if (img.fallback && e.currentTarget.src !== img.fallback) {
+                            e.currentTarget.onerror = null;
+                            e.currentTarget.src = img.fallback;
+                          }
+                        }}
+                      />
+                      <span style={{ position: 'absolute', top: 3, right: 3, background: 'rgba(40, 20, 15, 0.85)', color: 'var(--color-accent)', fontSize: '0.55rem', padding: '1px 4px', borderRadius: '2px', fontFamily: 'monospace' }}>
+                        {img.slot}.jpg
+                      </span>
+                    </div>
+                    <span style={{ display: 'block', fontSize: '0.7rem', fontWeight: 600, padding: '0.25rem 0.4rem', color: 'var(--color-primary)' }}>
+                      {img.label}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </Modal>
       )}
     </div>

@@ -1,0 +1,28 @@
+.dashboardShell {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--color-background);
+  color: var(--color-text);
+  position: relative;
+}
+
+.mainWrapper {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  min-width: 0;
+  margin-left: var(--sidebar-width);
+  min-height: 100vh;
+  transition: margin-left var(--transition-normal);
+}
+
+.mainContent {
+  flex-grow: 1;
+  padding: 0;
+}
+
+@media (max-width: 1024px) {
+  .mainWrapper {
+    margin-left: 0;
+  }
+}

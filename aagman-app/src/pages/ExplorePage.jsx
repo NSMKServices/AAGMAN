@@ -5,6 +5,15 @@ import DestinationCard from '../components/common/DestinationCard';
 import SearchInput from '../components/common/SearchInput';
 import { DESTINATIONS } from '../data/destinations';
 import { useLanguage } from '../context/LanguageContext';
+import {
+  Compass,
+  Castle,
+  Landmark,
+  Umbrella,
+  BookOpen,
+  Search,
+  X
+} from '../components/common/Icons';
 import styles from './ExplorePage.module.css';
 
 export default function ExplorePage({ defaultCategory = 'all' }) {
@@ -18,11 +27,11 @@ export default function ExplorePage({ defaultCategory = 'all' }) {
   const [selectedRegion, setSelectedRegion] = useState('all');
 
   const categories = [
-    { id: 'all', label: 'All Destinations', icon: '🏛️' },
-    { id: 'forts', label: 'Historic Forts', icon: '🏰' },
-    { id: 'temples', label: 'Sacred Temples', icon: '🛕' },
-    { id: 'beaches', label: 'Konkan Beaches', icon: '🏖️' },
-    { id: 'heritage', label: 'UNESCO Caves', icon: '📜' }
+    { id: 'all', label: 'All Destinations', Icon: Compass },
+    { id: 'forts', label: 'Historic Forts', Icon: Castle },
+    { id: 'temples', label: 'Sacred Temples', Icon: Landmark },
+    { id: 'beaches', label: 'Konkan Beaches', Icon: Umbrella },
+    { id: 'heritage', label: 'UNESCO Caves', Icon: BookOpen }
   ];
 
   // Extract unique districts
@@ -72,7 +81,9 @@ export default function ExplorePage({ defaultCategory = 'all' }) {
                 className={`${styles.tabBtn} ${selectedCategory === cat.id ? styles.activeTab : ''}`}
                 onClick={() => handleCategoryChange(cat.id)}
               >
-                <span className={styles.tabIcon}>{cat.icon}</span>
+                <span className={styles.tabIcon}>
+                  <cat.Icon size={18} />
+                </span>
                 <span>{cat.label}</span>
               </button>
             ))}
@@ -143,7 +154,7 @@ export default function ExplorePage({ defaultCategory = 'all' }) {
                   handleCategoryChange('all');
                 }}
               >
-                Reset All Filters ✕
+                Reset All Filters <X size={14} style={{ marginLeft: 4 }} />
               </button>
             )}
           </div>
@@ -157,7 +168,9 @@ export default function ExplorePage({ defaultCategory = 'all' }) {
             </div>
           ) : (
             <div className={styles.emptyState}>
-              <span className={styles.emptyIcon}>🔍</span>
+              <span className={styles.emptyIcon}>
+                <Search size={36} />
+              </span>
               <h3 className={styles.emptyTitle}>No matching destinations found</h3>
               <p className={styles.emptySubtitle}>Try adjusting your search keywords or clearing district filters.</p>
               <button

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Search, X } from './Icons';
 import styles from './SearchInput.module.css';
 
 export default function SearchInput({
@@ -11,7 +12,9 @@ export default function SearchInput({
 }) {
   return (
     <div className={`${styles.searchWrapper} ${className}`}>
-      <span className={styles.searchIcon} aria-hidden="true">🔍</span>
+      <span className={styles.searchIcon} aria-hidden="true">
+        <Search size={16} />
+      </span>
       <input
         type="text"
         className={styles.searchInput}
@@ -27,7 +30,7 @@ export default function SearchInput({
           onClick={onClear || (() => onChange(''))}
           aria-label="Clear search query"
         >
-          ✕
+          <X size={14} />
         </button>
       )}
     </div>

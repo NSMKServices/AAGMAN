@@ -4,26 +4,28 @@
 }
 
 .heroBanner {
-  background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary) 60%, var(--color-secondary) 100%);
-  color: #fff;
+  background: linear-gradient(135deg, #21140F 0%, #302019 50%, #4B3023 100%);
+  color: #FFF9F0;
   padding: 3.5rem 0 2.5rem;
-  border-bottom: 3px solid var(--color-accent);
+  border-bottom: 2px solid var(--color-gold-border, rgba(200, 157, 60, 0.28));
   box-shadow: var(--shadow-md);
 }
 
 .heroContent {
-  max-width: 800px;
+  max-width: 820px;
+  margin-inline: auto;
+  text-align: center;
 }
 
 .heroBadge {
   display: inline-block;
   padding: 0.35rem 0.85rem;
-  background: rgba(230, 162, 60, 0.2);
-  border: 1px solid var(--color-accent);
+  background: rgba(200, 157, 60, 0.12);
+  border: 1px solid var(--color-gold-border, rgba(200, 157, 60, 0.35));
   border-radius: var(--radius-full);
   font-size: var(--font-size-sm);
   font-weight: 600;
-  color: var(--color-accent);
+  color: var(--color-gold);
   margin-bottom: 0.75rem;
   letter-spacing: 0.05em;
 }
@@ -31,7 +33,7 @@
 .heroTitle {
   font-family: var(--font-heading);
   font-size: 2.25rem;
-  color: #fff;
+  color: #FFF9F0;
   margin: 0 0 0.75rem;
   line-height: 1.2;
 }
@@ -213,8 +215,9 @@
 }
 
 .totalBlock {
-  background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary) 100%);
-  color: #fff;
+  background: linear-gradient(135deg, #21140F 0%, #302019 100%);
+  border: 1px solid var(--color-gold-border, rgba(200, 157, 60, 0.28));
+  color: #FFF9F0;
   padding: 1.25rem;
   border-radius: var(--radius-md);
   text-align: center;

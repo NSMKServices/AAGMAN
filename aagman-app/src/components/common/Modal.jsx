@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { X } from './Icons';
 import styles from './Modal.module.css';
 
 export default function Modal({
@@ -43,7 +44,7 @@ export default function Modal({
             onClick={onClose}
             aria-label="Close dialog"
           >
-            ✕
+            <X size={16} />
           </button>
         </div>
         <div className={styles.body}>{children}</div>

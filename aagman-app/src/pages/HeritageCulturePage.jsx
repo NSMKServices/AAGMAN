@@ -3,13 +3,23 @@ import { Link } from 'react-router-dom';
 import Container from '../components/layout/Container';
 import Badge from '../components/common/Badge';
 import Button from '../components/common/Button';
+import {
+  Castle,
+  Landmark,
+  Building,
+  Utensils,
+  Music,
+  Sparkles,
+  Award,
+  Compass
+} from '../components/common/Icons';
 import styles from './HeritageCulturePage.module.css';
 
 const HERITAGE_SECTIONS = [
   {
     id: 'maratha-swarajya',
     title: 'The Maratha Swarajya & Shivaji Maharaj',
-    icon: '🚩',
+    Icon: Castle,
     tag: 'Imperial History',
     badgeVariant: 'forts',
     heroImage: 'https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=1200&q=80',
@@ -27,7 +37,7 @@ His military doctrine—Ganimi Kava (guerilla warfare)—revolutionized warfare 
   {
     id: 'bhakti-saints',
     title: 'The Bhakti Movement & Sant Tradition',
-    icon: '🪔',
+    Icon: Landmark,
     tag: 'Spiritual Legacy',
     badgeVariant: 'gold',
     heroImage: 'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1200&q=80',
@@ -45,7 +55,7 @@ Every year during the month of Ashadh (June-July), more than 1.5 million pilgrim
   {
     id: 'art-architecture',
     title: 'Hemadpanthi, Peshwa Wadas & Warli Art',
-    icon: '🏛️',
+    Icon: Building,
     tag: 'Architecture & Craft',
     badgeVariant: 'heritage',
     heroImage: 'https://images.unsplash.com/photo-1600100397608-f010f4439066?auto=format&fit=crop&w=1200&q=80',
@@ -66,7 +76,7 @@ Every year during the month of Ashadh (June-July), more than 1.5 million pilgrim
   {
     id: 'culinary-traditions',
     title: 'Flavors of Maharashtra: Coastal to Plateau',
-    icon: '🍲',
+    Icon: Utensils,
     tag: 'Gastronomy',
     badgeVariant: 'beaches',
     heroImage: 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=1200&q=80',
@@ -116,7 +126,9 @@ export default function HeritageCulturePage() {
                 className={`${styles.tabBtn} ${activeTab === section.id ? styles.activeTab : ''}`}
                 onClick={() => setActiveTab(section.id)}
               >
-                <span className={styles.tabIcon}>{section.icon}</span>
+                <span className={styles.tabIcon}>
+                  <section.Icon size={18} />
+                </span>
                 <span className={styles.tabTitle}>{section.title.split('&')[0]}</span>
               </button>
             ))}
@@ -190,7 +202,9 @@ export default function HeritageCulturePage() {
 
           <div className={styles.pillarsGrid}>
             <div className={styles.pillarCard}>
-              <div className={styles.pillarIcon}>🥁</div>
+              <div className={styles.pillarIcon}>
+                <Music size={26} />
+              </div>
               <h3 className={styles.pillarTitle}>Powada Ballads</h3>
               <p className={styles.pillarText}>
                 Heroic martial ballads composed by Shahirs celebrating the exploits of Shivaji Maharaj and Tanaji Malusare with rhythmic Dholki and Daf accompaniment.
@@ -198,7 +212,9 @@ export default function HeritageCulturePage() {
             </div>
 
             <div className={styles.pillarCard}>
-              <div className={styles.pillarIcon}>💃</div>
+              <div className={styles.pillarIcon}>
+                <Sparkles size={26} />
+              </div>
               <h3 className={styles.pillarTitle}>Lavani & Tamasha</h3>
               <p className={styles.pillarText}>
                 Sensuous, energetic folk dance accompanied by the frantic beats of the Dholki and ghungroos, originating as royal court entertainment during the Peshwa era.
@@ -206,7 +222,9 @@ export default function HeritageCulturePage() {
             </div>
 
             <div className={styles.pillarCard}>
-              <div className={styles.pillarIcon}>🪗</div>
+              <div className={styles.pillarIcon}>
+                <Award size={26} />
+              </div>
               <h3 className={styles.pillarTitle}>Gondhal & Jagran</h3>
               <p className={styles.pillarText}>
                 Dramatic nocturnal thanksgiving rituals dedicated to Goddess Bhavani of Tuljapur and Lord Khandoba of Jejuri, performed with the Sambal and Tuntune instruments.
@@ -214,7 +232,9 @@ export default function HeritageCulturePage() {
             </div>
 
             <div className={styles.pillarCard}>
-              <div className={styles.pillarIcon}>🚶</div>
+              <div className={styles.pillarIcon}>
+                <Compass size={26} />
+              </div>
               <h3 className={styles.pillarTitle}>Varkari Wari</h3>
               <p className={styles.pillarText}>
                 The annual walking pilgrimage to Pandharpur spanning 250 kilometers, where pilgrims dance in rhythmic circles (Ringan) chanting divine abhangas.

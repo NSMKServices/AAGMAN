@@ -2,6 +2,7 @@
  * AAGMAN - Festivals & Cultural Events Dataset
  * Authentic celebrations across Maharashtra
  */
+import { FESTIVALS_IMAGE_REGISTRY } from './imageRegistry';
 
 export const FESTIVALS = [
   {
@@ -22,7 +23,7 @@ export const FESTIVALS = [
     dates: "19 February",
     location: "Shivneri Fort, Raigad Fort & Statewide",
     description: "The birth anniversary of the founder of the Maratha Empire, Chhatrapati Shivaji Maharaj. Commemorated with traditional torch processions (mashaal morcha), Powada folk ballads, traditional lezim dances, and state honors at his birthplace on Shivneri.",
-    image: "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=80",
+    image: "https://images.unsplash.com/photo-1576487248805-cf45f6bcc67f?auto=format&fit=crop&w=800&q=80",
     significance: "Honors the ideals of Swarajya, ethical governance, and the indomitable Maratha spirit.",
     highlights: ["Sunrise cradle ceremony at Shivneri Fort", "Traditional Powada recitals", "Fort illumination at Raigad and Sinhagad"]
   },
@@ -33,7 +34,7 @@ export const FESTIVALS = [
     dates: "June – July (Ashadha month)",
     location: "Alandi / Dehu to Pandharpur (250 km walking pilgrimage)",
     description: "An 800-year-old walking pilgrimage where over a million devout Warkaris accompany the sacred padukas (footprints) of Sant Dnyaneshwar and Sant Tukaram on foot over 21 days to the Vitthal Temple in Pandharpur, chanting 'Gyanba Tukaram'.",
-    image: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=800&q=80",
+    image: "https://images.unsplash.com/photo-1561361513-2d000a50f0dc?auto=format&fit=crop&w=800&q=80",
     significance: "A UNESCO-recognized intangible cultural heritage marvel of egalitarian bhakti, communal harmony, and spiritual discipline.",
     highlights: ["Bhajan rings (Ringan ceremonies)", "Palkhi processions through rural Maharashtra", "Dip in Chandrabhaga holy river"]
   },
@@ -55,7 +56,7 @@ export const FESTIVALS = [
     dates: "March – April (Chaitra Shukla Pratipada)",
     location: "Statewide (Grand Shobha Yatras in Girgaon, Thane, Dombivli, Pune)",
     description: "The traditional New Year day for the people of Maharashtra. Families hoist an auspicious silk-draped 'Gudhi' outside their homes and participate in morning cultural parades (Shobha Yatra) with traditional Nauvari sarees, saffron turbans (pheta), and Enfield rallies.",
-    image: "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=800&q=80",
+    image: "https://images.unsplash.com/photo-1608889825205-eebdb9fc5806?auto=format&fit=crop&w=800&q=80",
     significance: "Marks the victory of King Shalivahana and the beginning of the vibrant harvest season.",
     highlights: ["Shobha Yatra cultural road rallies", "Puran Poli and Shrikhand feasts", "Rangoli street decorations"]
   },
@@ -66,8 +67,17 @@ export const FESTIVALS = [
     dates: "January",
     location: "Banganga Water Tank, Walkeshwar, Mumbai",
     description: "A magical open-air classical music festival held on the ancient stone steps of the sacred 12th-century Banganga Tank, accompanied by soft oil lamps (diyas) floating on the water.",
-    image: "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=800&q=80",
+    image: "https://images.unsplash.com/photo-1514565131-fce0801e5785?auto=format&fit=crop&w=800&q=80",
     significance: "Revitalizes Mumbai's oldest living heritage precinct through sublime Hindustani classical ragas.",
     highlights: ["Floating diya lamps at dusk", "World-renowned santoor, sarod, and vocalists", "Ancient stone heritage atmosphere"]
   }
 ];
+
+// Enrich festivals with local asset paths while preserving all existing data
+FESTIVALS.forEach(fest => {
+  const reg = FESTIVALS_IMAGE_REGISTRY[fest.id];
+  if (reg) {
+    fest.localAssets = reg.slots;
+    fest.assetsFolder = reg.folder;
+  }
+});
