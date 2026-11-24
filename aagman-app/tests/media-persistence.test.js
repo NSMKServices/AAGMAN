@@ -1,0 +1,74 @@
+import { readFile } from 'node:fs/promises';
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { DESTINATIONS } from '../src/data/destinations.js';
+import { FESTIVALS } from '../src/data/festivals.js';
+import { extractYouTubeId, isValidYouTubeUrl, normalizeYouTubeUrl } from '../src/utils/youtubeValidator.js';
+
+test('YouTube validator accepts supported HTTPS YouTube URL forms', () => {
+  for (const url of [
+    'https://www.youtube.com/watch?v=abcdefghijk',
+    'https://youtu.be/abcdefghijk',
+    'https://m.youtube.com/watch?v=abcdefghijk',
+    'https://www.youtube.com/shorts/abcdefghijk',
+    'https://www.youtube.com/embed/abcdefghijk'
+  ]) {
+    assert.equal(isValidYouTubeUrl(url), true, url);
+    assert.equal(extractYouTubeId(url), 'abcdefghijk');
+    assert.equal(normalizeYouTubeUrl(url), 'https://www.youtube.com/watch?v=abcdefghijk');
+  }
+});
+
+test('YouTube validator rejects lookalike hosts, non-HTTPS and malformed URLs', () => {
+  for (const url of [
+    'https://youtube.com.evil.example/watch?v=abcdefghijk',
+    'https://evil.example/youtube.com/watch?v=abcdefghijk',
+    'http://www.youtube.com/watch?v=abcdefghijk',
+    'https://www.youtube.com/watch?v=short',
+    'https://www.youtube.com.evil.example/abcdefghijk',
+    'not a url'
+  ]) {
+    assert.equal(isValidYouTubeUrl(url), false, url);
+    assert.equal(extractYouTubeId(url), null);
+  }
+});
+
+test('catalogue migration seeds every destination and festival without overwriting existing records', async () => {
+  const migration = await readFile(
+    new URL('../supabase/migrations/20261125_content_catalogue_media_sync.sql', import.meta.url),
+    'utf8'
+  );
+  assert.match(migration, /on conflict \(slug\) do nothing/i);
+  for (const item of DESTINATIONS) {
+    assert.ok(migration.includes(`'${item.id}'`), `Missing destination slug ${item.id}`);
+    assert.ok(migration.includes(`'${item.name.replaceAll("'", "''")}'`), `Missing destination ${item.id}`);
+  }
+  for (const item of FESTIVALS) {
+    assert.ok(migration.includes(`'${item.id}'`), `Missing festival slug ${item.id}`);
+    assert.ok(migration.includes(`'${item.name.replaceAll("'", "''")}'`), `Missing festival ${item.id}`);
+  }
+});
+
+test('media uploads cannot report temporary object URLs as saved media', async () => {
+  const mediaManager = await readFile(
+    new URL('../src/components/admin/MediaManager.jsx', import.meta.url),
+    'utf8'
+  );
+  assert.doesNotMatch(mediaManager, /URL\.createObjectURL/);
+  assert.match(mediaManager, /\.upload\(filePath, file/);
+  assert.match(mediaManager, /upsert:\s*false/);
+  assert.match(mediaManager, /multiple/);
+  assert.match(mediaManager, /entitySlug/);
+  assert.match(mediaManager, /setUploadError/);
+});
+
+test('media schema uses a JSON gallery for both content types and stores video slug associations', async () => {
+  const migration = await readFile(
+    new URL('../supabase/migrations/20261125_content_catalogue_media_sync.sql', import.meta.url),
+    'utf8'
+  );
+  assert.match(migration, /alter column gallery type jsonb/i);
+  assert.match(migration, /add column if not exists gallery jsonb/i);
+  assert.match(migration, /add column if not exists destination_slug text/i);
+  assert.match(migration, /add column if not exists festival_slug text/i);
+});
