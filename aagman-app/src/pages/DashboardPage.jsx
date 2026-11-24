@@ -29,7 +29,7 @@ import { useWishlist } from '../context/WishlistContext';
 import { useTrips } from '../context/TripContext';
 import { useAuth } from '../context/AuthContext';
 import { useLanguage } from '../context/LanguageContext';
-import { DESTINATIONS } from '../data/destinations';
+import { contentService } from '../services/contentService';
 import styles from './DashboardPage.module.css';
 
 export default function DashboardPage() {
@@ -41,28 +41,23 @@ export default function DashboardPage() {
   const travelerName = user?.name || localStorage.getItem('aagman_traveler_name') || 'Rohan Deshmukh';
   const homeCity = localStorage.getItem('aagman_home_city') || 'Pune';
 
-  // Recently viewed destinations
+  // Recently viewed destinations are resolved from published admin-managed records.
   const [recentlyViewed, setRecentlyViewed] = useState([]);
 
   useEffect(() => {
-    try {
-      const stored = JSON.parse(localStorage.getItem('aagman_recently_viewed') || '[]');
-      if (stored && stored.length > 0) {
-        const matched = stored
-          .map(slug => DESTINATIONS.find(d => d.slug === slug))
+    const unsubscribe = contentService.subscribe(({ destinations: records }) => {
+      try {
+        const stored = JSON.parse(localStorage.getItem('aagman_recently_viewed') || '[]');
+        setRecentlyViewed(stored
+          .map(slug => records.find(item => item.slug === slug && item.status === 'published'))
           .filter(Boolean)
-          .slice(0, 3);
-        setRecentlyViewed(matched);
-      } else {
-        setRecentlyViewed([
-          DESTINATIONS.find(d => d.slug === 'raigad') || DESTINATIONS[0],
-          DESTINATIONS.find(d => d.slug === 'trimbakeshwar') || DESTINATIONS[1],
-          DESTINATIONS.find(d => d.slug === 'ganpatipule') || DESTINATIONS[2]
-        ]);
+          .slice(0, 3));
+      } catch {
+        setRecentlyViewed([]);
       }
-    } catch {
-      setRecentlyViewed(DESTINATIONS.slice(0, 3));
-    }
+    });
+    contentService.getAllDestinations();
+    return unsubscribe;
   }, []);
 
   return (
