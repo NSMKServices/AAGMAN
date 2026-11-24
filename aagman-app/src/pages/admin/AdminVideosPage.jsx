@@ -22,6 +22,12 @@ export default function AdminVideosPage() {
     const unsub = videoService.subscribe((list) => {
       setVideos(list);
     });
+
+    // Load persisted Supabase records as soon as the admin directory opens.
+    videoService.getAllVideos().catch((error) => {
+      console.error('Unable to load admin YouTube videos:', error);
+    });
+
     return () => unsub();
   }, []);
 

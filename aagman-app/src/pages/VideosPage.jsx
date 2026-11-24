@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Container from '../components/layout/Container';
 import Badge from '../components/common/Badge';
-import Button from '../components/common/Button';
 import {
   Castle,
   Landmark,
@@ -10,20 +9,40 @@ import {
   Play,
   ExternalLink,
   MapPin,
-  Clock,
-  Video
+  Clock
 } from '../components/common/Icons';
 import { CURATED_VIDEOS } from '../data/videos';
+import { videoService } from '../services/videoService';
 import { useLanguage } from '../context/LanguageContext';
 import styles from './VideosPage.module.css';
 
 export default function VideosPage() {
   const { language, t } = useLanguage();
   const [activeCategory, setActiveCategory] = useState('all');
+  const [videos, setVideos] = useState(() => CURATED_VIDEOS);
 
-  const filteredVideos = activeCategory === 'all'
-    ? CURATED_VIDEOS
-    : CURATED_VIDEOS.filter(v => v.category === activeCategory);
+  useEffect(() => {
+    let isMounted = true;
+
+    videoService.getAllVideos()
+      .then((records) => {
+        if (isMounted && Array.isArray(records)) {
+          setVideos(records.filter(video => video.isActive !== false));
+        }
+      })
+      .catch((error) => {
+        console.error('Unable to load managed YouTube videos:', error);
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const filteredVideos = (activeCategory === 'all'
+    ? videos
+    : videos.filter(v => v.category === activeCategory)
+  ).filter(video => video.isActive !== false);
 
   const getCategoryIcon = (cat) => {
     switch (cat) {
@@ -101,13 +120,13 @@ export default function VideosPage() {
                     <Play size={20} color="#FFFFFF" style={{ fill: '#FFFFFF', marginLeft: '2px' }} />
                   </div>
                   <span className={styles.duration}>
-                    <Clock size={11} /> {video.duration}
+                    <Clock size={11} /> {video.duration || 'Video'}
                   </span>
                   <div className={styles.categoryBadge}>
                     <Badge variant={video.category} size="sm">
                       <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.3rem' }}>
                         {getCategoryIcon(video.category)}
-                        {t(video.category, video.category.toUpperCase())}
+                        {t(video.category, (video.category || 'video').toUpperCase())}
                       </span>
                     </Badge>
                   </div>
@@ -116,13 +135,13 @@ export default function VideosPage() {
                 <div className={styles.cardContent}>
                   <div className={styles.metaRow}>
                     <span className={styles.location}>
-                      <MapPin size={12} color="var(--color-secondary)" /> {video.destination} ({video.district})
+                      <MapPin size={12} color="var(--color-secondary)" /> {video.destination || 'Maharashtra'}{video.district ? ` (${video.district})` : ''}
                     </span>
-                    <span className={styles.creator}>{video.creator}</span>
+                    <span className={styles.creator}>{video.creator || 'AAGMAN'}</span>
                   </div>
 
                   <h3 className={styles.videoTitle}>{video.title}</h3>
-                  <p className={styles.videoSummary}>{video.summary}</p>
+                  <p className={styles.videoSummary}>{video.summary || video.description || ''}</p>
 
                   <a
                     href={video.youtubeUrl}
