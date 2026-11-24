@@ -72,7 +72,12 @@ export default function FestivalsPage() {
           <div className={styles.festivalsGrid}>
             {filteredFestivals.map((festival) => {
               const displayName = getLocalizedName(festival, language);
-              const subName = language === 'en' ? festival.marathiName : festival.name;
+              const hasHindiName = Boolean(festival.nameHi || festival.hindiName);
+              const subName = language === 'mr'
+                ? festival.name
+                : language === 'hi'
+                  ? (hasHindiName ? festival.name : festival.marathiName)
+                  : festival.marathiName;
 
               return (
                 <div key={festival.id} className={styles.festivalCard}>
