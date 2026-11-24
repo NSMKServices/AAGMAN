@@ -136,6 +136,312 @@ export const FESTIVALS = [
     significanceHi: "यह आयोजन बाणगंगा क्षेत्र की सांस्कृतिक विरासत और हिंदुस्तानी शास्त्रीय संगीत को सामने लाता है।",
     highlightsMr: ["तलाव परिसरातील दीपप्रकाश","संतूर, सरोद आणि गायन","ऐतिहासिक दगडी घाटांचे वातावरण"],
     highlightsHi: ["तालाब के आसपास दीपों की रोशनी","संतूर, सरोद और गायन","ऐतिहासिक पत्थर की सीढ़ियों का वातावरण"],
+  },
+  {
+    id: "dahi-handi",
+    name: "Dahi Handi",
+    marathiName: "दहीहंडी",
+    nameHi: "दही हांडी",
+    dates: "August – September (Janmashtami)",
+    datesMr: "ऑगस्ट – सप्टेंबर (जन्माष्टमी)",
+    datesHi: "अगस्त – सितंबर (जन्माष्टमी)",
+    location: "Mumbai, Thane, Pune and other cities",
+    locationMr: "मुंबई, ठाणे, पुणे आणि इतर शहरे",
+    locationHi: "मुंबई, ठाणे, पुणे और अन्य शहर",
+    description: "Teams known as Govindas form human pyramids to reach and break a suspended pot of curd, celebrating the playful stories of Lord Krishna. The event is known for teamwork, music and lively neighbourhood gatherings.",
+    descriptionMr: "गोविंदा पथके मानवी मनोरे रचून उंच बांधलेली दह्याची हंडी फोडतात. श्रीकृष्णाच्या बाललीलांचे स्मरण करणाऱ्या या उत्सवात संघभावना, संगीत आणि परिसरातील सामुदायिक सहभाग दिसतो.",
+    descriptionHi: "गोविंदा दल मानव पिरामिड बनाकर ऊँचाई पर बाँधी दही की हांडी फोड़ते हैं। श्रीकृष्ण की बाल लीलाओं से जुड़ा यह उत्सव टीमवर्क, संगीत और सामुदायिक भागीदारी का प्रतीक है।",
+    significance: "The festival celebrates devotion to Krishna while highlighting coordination, perseverance and community spirit.",
+    significanceMr: "श्रीकृष्णावरील भक्ती व्यक्त करताना समन्वय, चिकाटी आणि सामुदायिक एकतेचे महत्त्व अधोरेखित करणारा उत्सव.",
+    significanceHi: "यह उत्सव कृष्ण भक्ति के साथ समन्वय, दृढ़ता और सामुदायिक एकता को दर्शाता है।",
+    highlights: [
+      "Govinda human-pyramid teams",
+      "Traditional dhol and music",
+      "Community celebrations and handi-breaking events"
+    ],
+    highlightsMr: [
+      "गोविंदा पथकांचे मानवी मनोरे",
+      "पारंपरिक ढोल आणि संगीत",
+      "सामुदायिक उत्सव आणि हंडी फोडण्याचे कार्यक्रम"
+    ],
+    highlightsHi: [
+      "गोविंदा दलों के मानव पिरामिड",
+      "पारंपरिक ढोल और संगीत",
+      "सामुदायिक आयोजन और हांडी फोड़ने के कार्यक्रम"
+    ],
+    image: "https://images.unsplash.com/photo-1598387993441-a364f854c3e1?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    id: "marbat-utsav",
+    name: "Marbat Utsav",
+    marathiName: "मारबत उत्सव",
+    nameHi: "मारबत उत्सव",
+    dates: "August – September (second day of Pola)",
+    datesMr: "ऑगस्ट – सप्टेंबर (पोळ्याच्या दुसऱ्या दिवशी)",
+    datesHi: "अगस्त – सितंबर (पोला के दूसरे दिन)",
+    location: "Nagpur, especially Itwari",
+    locationMr: "नागपूर, विशेषतः इतवारी परिसर",
+    locationHi: "नागपुर, विशेषकर इतवारी क्षेत्र",
+    description: "A distinctive Nagpur street festival in which large symbolic effigies are carried through the city in processions. The tradition combines community participation with social commentary and the symbolic removal of negativity.",
+    descriptionMr: "नागपूरमधील वैशिष्ट्यपूर्ण उत्सवात मोठ्या प्रतीकात्मक मारबत प्रतिमा मिरवणुकीतून नेल्या जातात. सामुदायिक सहभागासोबत सामाजिक प्रश्नांवरील भाष्य आणि नकारात्मकतेचे प्रतीकात्मक उच्चाटन हा या परंपरेचा भाग आहे.",
+    descriptionHi: "नागपुर का अनूठा उत्सव, जिसमें बड़ी प्रतीकात्मक मारबत प्रतिमाओं को जुलूस में शहर से ले जाया जाता है। इसमें सामुदायिक भागीदारी, सामाजिक संदेश और नकारात्मकता को दूर करने का प्रतीकात्मक भाव शामिल है।",
+    significance: "Marbat Utsav expresses public concerns through symbolic effigies and celebrates Nagpur's distinctive local tradition.",
+    significanceMr: "प्रतीकात्मक प्रतिमांमधून सामाजिक भावना व्यक्त करणारा आणि नागपूरची वैशिष्ट्यपूर्ण स्थानिक परंपरा जपणारा उत्सव.",
+    significanceHi: "यह उत्सव प्रतीकात्मक पुतलों के माध्यम से सामाजिक चिंताओं को व्यक्त करता है और नागपुर की विशिष्ट स्थानीय परंपरा को जीवित रखता है।",
+    highlights: [
+      "Kala Marbat and Pivli Marbat effigies",
+      "Processions through Nagpur streets",
+      "Traditional drumming and community participation"
+    ],
+    highlightsMr: [
+      "काळी मारबत आणि पिवळी मारबत प्रतिमा",
+      "नागपूरच्या रस्त्यांवरील मिरवणुका",
+      "पारंपरिक ढोलवादन आणि सामुदायिक सहभाग"
+    ],
+    highlightsHi: [
+      "काली मारबत और पीली मारबत प्रतिमाएँ",
+      "नागपुर की सड़कों पर जुलूस",
+      "पारंपरिक ढोल और सामुदायिक भागीदारी"
+    ],
+    image: "https://images.unsplash.com/photo-1576487248805-cf45f6bcc67f?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    id: "jyotiba-jatra",
+    name: "Jyotiba Jatra",
+    marathiName: "ज्योतिबा यात्रा",
+    nameHi: "ज्योतिबा यात्रा",
+    dates: "March – April (Chaitra Purnima)",
+    datesMr: "मार्च – एप्रिल (चैत्र पौर्णिमा)",
+    datesHi: "मार्च – अप्रैल (चैत्र पूर्णिमा)",
+    location: "Jyotiba Temple, Wadi Ratnagiri, Kolhapur",
+    locationMr: "ज्योतिबा मंदिर, वाडी रत्नागिरी, कोल्हापूर",
+    locationHi: "ज्योतिबा मंदिर, वाडी रत्नागिरी, कोल्हापुर",
+    description: "A major pilgrimage gathering at the hilltop Jyotiba Temple near Kolhapur. Devotees take part in processions, worship and the distinctive tradition of applying and tossing pink gulal.",
+    descriptionMr: "कोल्हापूरजवळील डोंगरावरील ज्योतिबा मंदिरात मोठी यात्रा भरते. भाविक मिरवणुका, पूजा आणि गुलाल उधळण्याच्या वैशिष्ट्यपूर्ण परंपरेत सहभागी होतात.",
+    descriptionHi: "कोल्हापुर के पास पहाड़ी पर स्थित ज्योतिबा मंदिर में बड़ी यात्रा आयोजित होती है। श्रद्धालु जुलूस, पूजा और गुलाल उड़ाने की विशिष्ट परंपरा में भाग लेते हैं।",
+    significance: "The Jatra honours Jyotiba and brings devotees together in a shared expression of faith and regional tradition.",
+    significanceMr: "ज्योतिबा देवतेप्रती श्रद्धा व्यक्त करणारी आणि सामूहिक भक्ती व प्रादेशिक परंपरा जपणारी यात्रा.",
+    significanceHi: "यह यात्रा ज्योतिबा के प्रति श्रद्धा और क्षेत्रीय परंपरा के सामूहिक उत्सव का अवसर है।",
+    highlights: [
+      "Chaitra Purnima pilgrimage",
+      "Palkhi processions and dhol-tasha",
+      "Pink gulal traditions"
+    ],
+    highlightsMr: [
+      "चैत्र पौर्णिमेची यात्रा",
+      "पालखी मिरवणुका आणि ढोल-ताशा",
+      "गुलाल उधळण्याची परंपरा"
+    ],
+    highlightsHi: [
+      "चैत्र पूर्णिमा की यात्रा",
+      "पालखी जुलूस और ढोल-ताशा",
+      "गुलाल उड़ाने की परंपरा"
+    ],
+    image: "https://images.unsplash.com/photo-1561361513-2d000a50f0dc?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    id: "shimga-holi",
+    name: "Kokanatil Shimga (Holi)",
+    marathiName: "कोकणातील शिमगा",
+    nameHi: "कोंकण का शिमगा (होली)",
+    dates: "February – March (Phalguna)",
+    datesMr: "फेब्रुवारी – मार्च (फाल्गुन)",
+    datesHi: "फरवरी – मार्च (फाल्गुन)",
+    location: "Konkan region, including Ratnagiri, Sindhudurg and Raigad",
+    locationMr: "रत्नागिरी, सिंधुदुर्ग आणि रायगडसह कोकण विभाग",
+    locationHi: "रत्नागिरी, सिंधुदुर्ग और रायगढ़ सहित कोंकण क्षेत्र",
+    description: "The Konkan form of Holi, known as Shimga, combines Holika bonfires with village processions, palkhi traditions, folk songs and dances. Rang Panchami colour celebrations follow in many communities.",
+    descriptionMr: "कोकणातील होळीला शिमगा म्हणतात. होळीच्या अग्निविधीसोबत गावातील मिरवणुका, पालखी परंपरा, लोकगीते आणि नृत्ये यांचा उत्सवात समावेश असतो. अनेक ठिकाणी त्यानंतर रंगपंचमी साजरी केली जाते.",
+    descriptionHi: "कोंकण में होली को शिमगा कहा जाता है। इसमें होलिका दहन के साथ गाँवों की शोभायात्राएँ, पालखी परंपराएँ, लोकगीत और नृत्य शामिल होते हैं। कई समुदायों में इसके बाद रंगपंचमी मनाई जाती है।",
+    significance: "Shimga welcomes the seasonal transition and brings village communities together through local ritual and folk culture.",
+    significanceMr: "ऋतुबदलाचे स्वागत करत स्थानिक विधी आणि लोकसंस्कृतीतून गावसमुदायांना एकत्र आणणारा उत्सव.",
+    significanceHi: "शिमगा ऋतु परिवर्तन का स्वागत करता है और स्थानीय रीति-रिवाजों तथा लोकसंस्कृति के माध्यम से समुदायों को जोड़ता है।",
+    highlights: [
+      "Holika bonfires",
+      "Village palkhi processions",
+      "Shimga folk songs, dance and Rang Panchami"
+    ],
+    highlightsMr: [
+      "होळीची अग्निपूजा",
+      "गावातील पालखी मिरवणुका",
+      "शिमगा लोकगीते, नृत्य आणि रंगपंचमी"
+    ],
+    highlightsHi: [
+      "होलिका दहन",
+      "गाँवों की पालखी शोभायात्राएँ",
+      "शिमगा लोकगीत, नृत्य और रंगपंचमी"
+    ],
+    image: "https://images.unsplash.com/photo-1608889825205-eebdb9fc5806?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    id: "gauri-aagman",
+    name: "Gauri Aagman",
+    marathiName: "गौरी आगमन",
+    nameHi: "गौरी आगमन",
+    dates: "August – September (during Ganesh Chaturthi)",
+    datesMr: "ऑगस्ट – सप्टेंबर (गणेशोत्सव काळात)",
+    datesHi: "अगस्त – सितंबर (गणेश चतुर्थी के दौरान)",
+    location: "Mumbai, Pune, Nashik and communities across Maharashtra",
+    locationMr: "मुंबई, पुणे, नाशिक आणि संपूर्ण महाराष्ट्रातील समुदाय",
+    locationHi: "मुंबई, पुणे, नाशिक और महाराष्ट्र के विभिन्न समुदाय",
+    description: "Families welcome Goddess Gauri, associated with Parvati, during the Ganesh festival. Homes and community spaces are decorated, special worship is performed and the idols are later taken for immersion.",
+    descriptionMr: "गणेशोत्सवात कुटुंबे पार्वतीचे रूप मानल्या जाणाऱ्या देवी गौरीचे स्वागत करतात. घरे आणि सार्वजनिक जागा सजवल्या जातात, विशेष पूजा केली जाते आणि नंतर मूर्तींचे विसर्जन होते.",
+    descriptionHi: "गणेशोत्सव के दौरान परिवार पार्वती के रूप से जुड़ी देवी गौरी का स्वागत करते हैं। घरों और सामुदायिक स्थलों को सजाया जाता है, विशेष पूजा होती है और बाद में मूर्तियों का विसर्जन किया जाता है।",
+    significance: "Gauri Aagman celebrates the goddess's arrival and is associated with prosperity, family well-being and community bonds.",
+    significanceMr: "देवीच्या आगमनाचा उत्सव असून समृद्धी, कुटुंबकल्याण आणि सामुदायिक नातेसंबंधांशी जोडलेला आहे.",
+    significanceHi: "गौरी आगमन देवी के स्वागत का उत्सव है, जो समृद्धि, परिवार के कल्याण और सामुदायिक संबंधों से जुड़ा है।",
+    highlights: [
+      "Welcoming Gauri idols, often in pairs",
+      "Flowers, rangoli and traditional offerings",
+      "Family worship and immersion processions"
+    ],
+    highlightsMr: [
+      "गौरी मूर्तींचे स्वागत, अनेकदा ज्येष्ठा-कनिष्ठा रूपात",
+      "फुले, रांगोळी आणि पारंपरिक नैवेद्य",
+      "कौटुंबिक पूजा आणि विसर्जन मिरवणुका"
+    ],
+    highlightsHi: [
+      "गौरी की मूर्तियों का स्वागत, प्रायः जोड़ी में",
+      "फूल, रंगोली और पारंपरिक भोग",
+      "पारिवारिक पूजा और विसर्जन जुलूस"
+    ],
+    image: "https://images.unsplash.com/photo-1598387993441-a364f854c3e1?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    id: "khandoba-jatra",
+    name: "Khandoba Jatra",
+    marathiName: "खंडोबा यात्रा",
+    nameHi: "खंडोबा यात्रा",
+    dates: "Somvati Amavasya (dates vary by lunar calendar)",
+    datesMr: "सोमवती अमावस्या (चांद्र दिनदर्शिकेनुसार तारीख बदलते)",
+    datesHi: "सोमवती अमावस्या (चंद्र पंचांग के अनुसार तिथि बदलती है)",
+    location: "Khandoba Temple, Jejuri, Pune district",
+    locationMr: "खंडोबा मंदिर, जेजुरी, पुणे जिल्हा",
+    locationHi: "खंडोबा मंदिर, जेजुरी, पुणे जिला",
+    description: "Devotees visit Jejuri's hilltop Khandoba Temple for worship and processions. Turmeric, known locally as bhandara, is central to the celebration and gives the temple precinct its golden appearance.",
+    descriptionMr: "भाविक जेजुरीच्या डोंगरावरील खंडोबा मंदिरात दर्शन आणि मिरवणुकांसाठी येतात. भंडारा म्हणून ओळखला जाणारा हळद हा उत्सवाचा महत्त्वाचा भाग असून मंदिर परिसर सोनेरी दिसतो.",
+    descriptionHi: "श्रद्धालु जेजुरी के पहाड़ी खंडोबा मंदिर में पूजा और जुलूस के लिए आते हैं। भंडारा कहलाने वाली हल्दी इस उत्सव का प्रमुख हिस्सा है और मंदिर परिसर को सुनहरा रंग देती है।",
+    significance: "The Jatra honours Khandoba and reflects the devotion of farming and warrior communities, with prayers for protection and well-being.",
+    significanceMr: "खंडोबा देवतेप्रती भक्ती व्यक्त करणारी आणि शेतकरी व योद्धा समुदायांच्या संरक्षण व कल्याणाच्या प्रार्थनांशी जोडलेली यात्रा.",
+    significanceHi: "यह यात्रा खंडोबा के प्रति भक्ति और किसान तथा योद्धा समुदायों की सुरक्षा एवं कल्याण की प्रार्थनाओं से जुड़ी है।",
+    highlights: [
+      "Pilgrimage up Jejuri hill",
+      "Bhandara turmeric traditions",
+      "Temple worship, music and processions"
+    ],
+    highlightsMr: [
+      "जेजुरी गडावरील यात्रा",
+      "भंडाऱ्याची हळद उधळण्याची परंपरा",
+      "मंदिरातील पूजा, संगीत आणि मिरवणुका"
+    ],
+    highlightsHi: [
+      "जेजुरी पहाड़ी की तीर्थयात्रा",
+      "भंडारा हल्दी की परंपरा",
+      "मंदिर पूजा, संगीत और जुलूस"
+    ],
+    image: "https://images.unsplash.com/photo-1576487248805-cf45f6bcc67f?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    id: "bail-pola",
+    name: "Bail Pola",
+    marathiName: "बैलपोळा",
+    nameHi: "बैल पोला",
+    dates: "August – September (Shravan Amavasya)",
+    datesMr: "ऑगस्ट – सप्टेंबर (श्रावण अमावस्या)",
+    datesHi: "अगस्त – सितंबर (श्रावण अमावस्या)",
+    location: "Rural Maharashtra, especially farming communities",
+    locationMr: "ग्रामीण महाराष्ट्र, विशेषतः शेतकरी समुदाय",
+    locationHi: "ग्रामीण महाराष्ट्र, विशेषकर किसान समुदाय",
+    description: "Farmers honour the bullocks that help cultivate their fields. Cattle are bathed, decorated with colourful ornaments and bells, rested from work and taken in ceremonial processions.",
+    descriptionMr: "शेतकरी शेतीकामात मदत करणाऱ्या बैलांचा सन्मान करतात. जनावरांना अंघोळ घालून रंगीबेरंगी सजावट आणि घंटांनी सजवले जाते, कामातून विश्रांती दिली जाते आणि मिरवणुकीत सहभागी केले जाते.",
+    descriptionHi: "किसान खेतों में काम करने वाले बैलों का सम्मान करते हैं। पशुओं को नहलाया और रंगीन सजावट तथा घंटियों से सजाया जाता है, उन्हें काम से छुट्टी दी जाती है और जुलूस में शामिल किया जाता है।",
+    significance: "Bail Pola recognises the contribution of working cattle to agriculture and the livelihood of farming families.",
+    significanceMr: "शेती आणि शेतकरी कुटुंबांच्या उपजीविकेत काम करणाऱ्या जनावरांच्या योगदानाची कृतज्ञतापूर्वक दखल घेणारा सण.",
+    significanceHi: "बैल पोला कृषि और किसान परिवारों की आजीविका में काम करने वाले पशुओं के योगदान के प्रति आभार व्यक्त करता है।",
+    highlights: [
+      "Decorated bullocks and cattle worship",
+      "Village processions with drums",
+      "Traditional family meals and community visits"
+    ],
+    highlightsMr: [
+      "सजवलेले बैल आणि पशुपूजा",
+      "ढोलांसह गावातील मिरवणुका",
+      "पारंपरिक कौटुंबिक भोजन आणि भेटीगाठी"
+    ],
+    highlightsHi: [
+      "सजे हुए बैल और पशु पूजा",
+      "ढोल के साथ गाँवों की शोभायात्राएँ",
+      "पारंपरिक पारिवारिक भोजन और सामुदायिक मुलाकातें"
+    ],
+    image: "https://images.unsplash.com/photo-1608889825205-eebdb9fc5806?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    id: "diwali",
+    name: "Diwali (Deepavali)",
+    marathiName: "दिवाळी",
+    nameHi: "दीवाली",
+    dates: "October – November (five-day festival)",
+    datesMr: "ऑक्टोबर – नोव्हेंबर (पाच दिवसांचा सण)",
+    datesHi: "अक्टूबर – नवंबर (पाँच दिवसीय पर्व)",
+    location: "Across Maharashtra",
+    locationMr: "संपूर्ण महाराष्ट्र",
+    locationHi: "पूरे महाराष्ट्र में",
+    description: "The five-day festival of lights brings families together for lamps, worship, festive food and visits. In Maharashtra, the days include Dhanatrayodashi, Narak Chaturdashi, Lakshmi Pujan, Padwa and Bhaubeej.",
+    descriptionMr: "पाच दिवसांचा दीपोत्सव कुटुंबांना दिवे, पूजा, फराळ आणि भेटीगाठींसाठी एकत्र आणतो. महाराष्ट्रात धनत्रयोदशी, नरक चतुर्दशी, लक्ष्मीपूजन, पाडवा आणि भाऊबीज हे दिवस महत्त्वाचे आहेत.",
+    descriptionHi: "पाँच दिनों का दीपोत्सव परिवारों को दीप जलाने, पूजा, पकवान और मेल-मिलाप के लिए एकत्र करता है। महाराष्ट्र में धनत्रयोदशी, नरक चतुर्दशी, लक्ष्मी पूजन, पाडवा और भाऊबीज प्रमुख दिन हैं।",
+    significance: "Diwali symbolises the triumph of light over darkness and good over evil, while strengthening family and community bonds.",
+    significanceMr: "अंधारावर प्रकाशाचा आणि वाईटावर चांगुलपणाचा विजय दर्शवणारा तसेच कौटुंबिक व सामुदायिक नाती दृढ करणारा सण.",
+    significanceHi: "दीवाली अंधकार पर प्रकाश और बुराई पर अच्छाई की विजय का प्रतीक है तथा पारिवारिक और सामुदायिक संबंधों को मजबूत करती है।",
+    highlights: [
+      "Dhanatrayodashi and Narak Chaturdashi",
+      "Lakshmi Pujan and rows of lamps",
+      "Padwa, Bhaubeej and traditional faraal"
+    ],
+    highlightsMr: [
+      "धनत्रयोदशी आणि नरक चतुर्दशी",
+      "लक्ष्मीपूजन आणि दिव्यांच्या रांगा",
+      "पाडवा, भाऊबीज आणि पारंपरिक फराळ"
+    ],
+    highlightsHi: [
+      "धनत्रयोदशी और नरक चतुर्दशी",
+      "लक्ष्मी पूजन और दीपों की कतारें",
+      "पाडवा, भाऊबीज और पारंपरिक फराल"
+    ],
+    image: "https://images.unsplash.com/photo-1608889825205-eebdb9fc5806?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    id: "maharashtra-day",
+    name: "Maharashtra Day",
+    marathiName: "महाराष्ट्र दिन",
+    nameHi: "महाराष्ट्र दिवस",
+    dates: "1 May",
+    datesMr: "१ मे",
+    datesHi: "1 मई",
+    location: "Across Maharashtra; major state ceremony in Mumbai",
+    locationMr: "संपूर्ण महाराष्ट्र; मुंबईत प्रमुख शासकीय सोहळा",
+    locationHi: "पूरे महाराष्ट्र में; मुंबई में प्रमुख राज्य समारोह",
+    description: "Maharashtra Day marks the formation of the state on 1 May 1960. Flag-hoisting, official ceremonies, cultural programmes and public events commemorate the state's history and the Samyukta Maharashtra movement.",
+    descriptionMr: "१ मे १९६० रोजी महाराष्ट्र राज्याची स्थापना झाल्याच्या स्मरणार्थ महाराष्ट्र दिन साजरा केला जातो. ध्वजारोहण, शासकीय समारंभ, सांस्कृतिक कार्यक्रम आणि संयुक्त महाराष्ट्र चळवळीचे स्मरण केले जाते.",
+    descriptionHi: "1 मई 1960 को महाराष्ट्र राज्य के गठन की स्मृति में महाराष्ट्र दिवस मनाया जाता है। ध्वजारोहण, सरकारी समारोह, सांस्कृतिक कार्यक्रम और संयुक्त महाराष्ट्र आंदोलन को याद किया जाता है।",
+    significance: "The day honours the formation of Maharashtra and the people whose efforts helped establish a Marathi-speaking state.",
+    significanceMr: "महाराष्ट्र राज्याच्या निर्मितीचा आणि मराठी भाषिक राज्यासाठी प्रयत्न करणाऱ्या जनतेच्या योगदानाचा गौरव करणारा दिवस.",
+    significanceHi: "यह दिन महाराष्ट्र राज्य के गठन और मराठी भाषी राज्य की स्थापना के लिए प्रयास करने वाले लोगों के योगदान का सम्मान करता है।",
+    highlights: [
+      "State flag-hoisting ceremonies",
+      "Cultural programmes and public gatherings",
+      "Remembrance of the Samyukta Maharashtra movement"
+    ],
+    highlightsMr: [
+      "राज्यस्तरीय ध्वजारोहण समारंभ",
+      "सांस्कृतिक कार्यक्रम आणि सार्वजनिक सभा",
+      "संयुक्त महाराष्ट्र चळवळीचे स्मरण"
+    ],
+    highlightsHi: [
+      "राज्य ध्वजारोहण समारोह",
+      "सांस्कृतिक कार्यक्रम और सार्वजनिक आयोजन",
+      "संयुक्त महाराष्ट्र आंदोलन का स्मरण"
+    ],
+    image: "https://images.unsplash.com/photo-1576487248805-cf45f6bcc67f?auto=format&fit=crop&w=800&q=80"
   }
 ];
 
