@@ -1,3 +1,4 @@
+import { readFile } from 'node:fs/promises';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { CURATED_VIDEOS } from '../src/data/videos.js';
@@ -28,5 +29,18 @@ test('every curated video has English, Marathi and Hindi display content', () =>
 test('curated video catalogue does not invent unverified durations', () => {
   for (const video of CURATED_VIDEOS) {
     assert.equal(video.duration, 'Video', `${video.id} should use a neutral duration until verified`);
+  }
+});
+
+test('database seed migration matches the curated video IDs and YouTube URLs', async () => {
+  const migration = await readFile(
+    new URL('../supabase/migrations/20261125_seed_curated_youtube_videos.sql', import.meta.url),
+    'utf8'
+  );
+
+  for (const video of CURATED_VIDEOS) {
+    assert.ok(migration.includes(`'${video.id}'`), `seed migration is missing ${video.id}`);
+    assert.ok(migration.includes(`'${video.youtubeId}'`), `seed migration is missing YouTube ID ${video.youtubeId}`);
+    assert.ok(migration.includes(`'${video.youtubeUrl}'`), `seed migration is missing URL for ${video.id}`);
   }
 });
