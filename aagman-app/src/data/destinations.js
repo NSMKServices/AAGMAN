@@ -1601,6 +1601,983 @@ export const DESTINATIONS = [
   "sourceUrl": "https://maharashtratourism.gov.in/sitemap/",
   "rating": 4.5,
   "reviewsCount": 0
+},
+  // Heritage, nature and wildlife destinations
+{
+  "id": "shaniwar-wada",
+  "slug": "shaniwar-wada",
+  "name": "Shaniwar Wada",
+  "marathiName": "शनिवार वाडा",
+  "nameHi": "शनिवार वाड़ा",
+  "category": "heritage",
+  "circuit": "Pune Heritage Circuit",
+  "district": "Pune",
+  "region": "Western Maharashtra",
+  "bestTime": "October to February",
+  "timings": "Check current local opening hours before visiting",
+  "entryFee": "Check current official entry and access charges",
+  "heroImage": "https://images.unsplash.com/photo-1599839575945-a9e5af0c3fa5?auto=format&fit=crop&w=1600&q=80",
+  "thumbnail": "https://images.unsplash.com/photo-1599839575945-a9e5af0c3fa5?auto=format&fit=crop&w=600&q=80",
+  "summary": "A landmark of Pune's Peshwa-era history, known for its fortified gates and palace remains.",
+  "summaryMr": "पुण्याच्या पेशवेकालीन इतिहासाचे प्रतीक; भक्कम प्रवेशद्वारे आणि राजवाड्याच्या अवशेषांसाठी प्रसिद्ध.",
+  "summaryHi": "पुणे के पेशवा कालीन इतिहास का प्रतीक, जो अपने किलेबंद द्वारों और महल के अवशेषों के लिए प्रसिद्ध है।",
+  "history": "Built in 1732 as the seat of the Peshwas, Shaniwar Wada became a major centre of Maratha political life.",
+  "historyMr": "१७३२ मध्ये पेशव्यांचे निवासस्थान म्हणून बांधलेला शनिवार वाडा मराठा राजकारणाचे महत्त्वाचे केंद्र बनला.",
+  "historyHi": "1732 में पेशवाओं के निवास के रूप में निर्मित शनिवार वाड़ा मराठा राजनीतिक जीवन का प्रमुख केंद्र बना।",
+  "attractions": [
+    "Delhi Darwaza",
+    "Fortified walls and palace foundations",
+    "Fountain and garden precinct"
+  ],
+  "attractionsMr": [
+    "दिल्ली दरवाजा",
+    "तटबंदी आणि राजवाड्याचे अवशेष",
+    "कारंजे आणि बाग परिसर"
+  ],
+  "attractionsHi": [
+    "दिल्ली दरवाजा",
+    "किले की दीवारें और महल की नींव",
+    "फव्वारा और उद्यान परिसर"
+  ],
+  "coordinates": {
+    "lat": 18.5196,
+    "lng": 73.8553,
+    "mapsUrl": "https://maps.google.com/?q=18.5196,73.8553"
+  },
+  "howToReach": {
+    "air": "Pune Airport; city transport to central Pune.",
+    "rail": "Pune Junction; local city transport.",
+    "road": "Located in central Pune near the old city."
+  },
+  "howToReachMr": {
+    "air": "पुणे विमानतळ; मध्य पुण्यापर्यंत शहर वाहतूक.",
+    "rail": "पुणे जंक्शन; स्थानिक शहर वाहतूक.",
+    "road": "जुन्या पुण्याजवळ मध्यवर्ती भागात."
+  },
+  "howToReachHi": {
+    "air": "पुणे हवाई अड्डा; मध्य पुणे तक शहर परिवहन.",
+    "rail": "पुणे जंक्शन; स्थानीय शहर परिवहन.",
+    "road": "पुराने शहर के पास मध्य पुणे में स्थित।"
+  },
+  "localCuisine": "Pune misal, bhakarwadi and traditional Maharashtrian snacks.",
+  "sourceUrl": "https://maharashtratourism.gov.in/districts/pune/",
+  "rating": 4.5,
+  "reviewsCount": 0
+},
+{
+  "id": "aga-khan-palace",
+  "slug": "aga-khan-palace",
+  "name": "Aga Khan Palace",
+  "marathiName": "आगाखान पॅलेस",
+  "nameHi": "आगा खान महल",
+  "category": "heritage",
+  "circuit": "Pune Freedom Movement Circuit",
+  "district": "Pune",
+  "region": "Western Maharashtra",
+  "bestTime": "October to February",
+  "timings": "Check current local opening hours before visiting",
+  "entryFee": "Check current official entry and access charges",
+  "heroImage": "https://images.unsplash.com/photo-1599839575945-a9e5af0c3fa5?auto=format&fit=crop&w=1600&q=80",
+  "thumbnail": "https://images.unsplash.com/photo-1599839575945-a9e5af0c3fa5?auto=format&fit=crop&w=600&q=80",
+  "summary": "A landmark palace and freedom-movement memorial set within landscaped grounds in Pune.",
+  "summaryMr": "पुण्यातील ऐतिहासिक राजवाडा आणि स्वातंत्र्यलढ्याशी संबंधित स्मारक; हिरव्यागार परिसरात वसलेले.",
+  "summaryHi": "पुणे का ऐतिहासिक महल और स्वतंत्रता आंदोलन से जुड़ा स्मारक, जो हरित परिसर में स्थित है।",
+  "history": "The palace was built in 1892. It is closely associated with the imprisonment of Mahatma Gandhi, Kasturba Gandhi and other leaders during the Quit India movement.",
+  "historyMr": "१८९२ मध्ये बांधलेला हा राजवाडा भारत छोडो आंदोलनाच्या काळात महात्मा गांधी, कस्तुरबा गांधी आणि इतर नेत्यांच्या नजरकैदेमुळे इतिहासात महत्त्वाचा ठरला.",
+  "historyHi": "1892 में निर्मित यह महल भारत छोड़ो आंदोलन के दौरान महात्मा गांधी, कस्तूरबा गांधी और अन्य नेताओं की नजरबंदी से जुड़ा है।",
+  "attractions": [
+    "Palace architecture and gardens",
+    "Gandhi memorial and museum displays",
+    "Memorial spaces associated with Kasturba Gandhi"
+  ],
+  "attractionsMr": [
+    "राजवाड्याची वास्तुरचना आणि बाग",
+    "गांधी स्मारक आणि संग्रहालयातील प्रदर्शने",
+    "कस्तुरबा गांधींशी संबंधित स्मृतिस्थळे"
+  ],
+  "attractionsHi": [
+    "महल की वास्तुकला और उद्यान",
+    "गांधी स्मारक और संग्रहालय की प्रदर्शनी",
+    "कस्तूरबा गांधी से जुड़े स्मृति स्थल"
+  ],
+  "coordinates": {
+    "lat": 18.5527,
+    "lng": 73.9015,
+    "mapsUrl": "https://maps.google.com/?q=18.5527,73.9015"
+  },
+  "howToReach": {
+    "air": "Pune Airport; local transport.",
+    "rail": "Pune Junction; local transport.",
+    "road": "Located at Yerawada in Pune."
+  },
+  "howToReachMr": {
+    "air": "पुणे विमानतळ; स्थानिक वाहतूक.",
+    "rail": "पुणे जंक्शन; स्थानिक वाहतूक.",
+    "road": "पुण्यातील येरवडा येथे."
+  },
+  "howToReachHi": {
+    "air": "पुणे हवाई अड्डा; स्थानीय परिवहन.",
+    "rail": "पुणे जंक्शन; स्थानीय परिवहन.",
+    "road": "पुणे के येरवडा क्षेत्र में स्थित।"
+  },
+  "localCuisine": "Pune's traditional snacks and local cuisine.",
+  "sourceUrl": "https://maharashtratourism.gov.in/districts/pune/",
+  "rating": 4.5,
+  "reviewsCount": 0
+},
+{
+  "id": "bibi-ka-maqbara",
+  "slug": "bibi-ka-maqbara",
+  "name": "Bibi Ka Maqbara",
+  "marathiName": "बीबी का मकबरा",
+  "nameHi": "बीबी का मकबरा",
+  "category": "heritage",
+  "circuit": "Chhatrapati Sambhajinagar Heritage Circuit",
+  "district": "Chhatrapati Sambhajinagar",
+  "region": "Marathwada",
+  "bestTime": "October to March",
+  "timings": "Check current local opening hours before visiting",
+  "entryFee": "Check current official entry and access charges",
+  "heroImage": "https://images.unsplash.com/photo-1599839575945-a9e5af0c3fa5?auto=format&fit=crop&w=1600&q=80",
+  "thumbnail": "https://images.unsplash.com/photo-1599839575945-a9e5af0c3fa5?auto=format&fit=crop&w=600&q=80",
+  "summary": "A Mughal-era mausoleum known for its domed profile, gardens and architectural detailing.",
+  "summaryMr": "घुमट, बागा आणि स्थापत्य तपशीलांसाठी प्रसिद्ध मुघलकालीन मकबरा.",
+  "summaryHi": "गुंबद, उद्यानों और स्थापत्य विवरण के लिए प्रसिद्ध मुगलकालीन मकबरा।",
+  "history": "Commissioned in the late 17th century by Prince Azam Shah in memory of his mother Dilras Banu Begum, the monument is often compared with the Taj Mahal.",
+  "historyMr": "१७व्या शतकाच्या उत्तरार्धात राजपुत्र आझम शाह यांनी आई दिलरस बानू बेगम यांच्या स्मरणार्थ हे स्मारक बांधले.",
+  "historyHi": "17वीं शताब्दी के उत्तरार्ध में राजकुमार आज़म शाह ने अपनी माता दिलरस बानो बेगम की स्मृति में यह स्मारक बनवाया।",
+  "attractions": [
+    "Central mausoleum and dome",
+    "Charbagh-style garden layout",
+    "Ornamental arches and minarets"
+  ],
+  "attractionsMr": [
+    "मुख्य मकबरा आणि घुमट",
+    "चारबाग पद्धतीची बाग",
+    "नक्षीदार कमानी आणि मिनार"
+  ],
+  "attractionsHi": [
+    "मुख्य मकबरा और गुंबद",
+    "चारबाग शैली का उद्यान",
+    "अलंकरणयुक्त मेहराब और मीनार"
+  ],
+  "coordinates": {
+    "lat": 19.9009,
+    "lng": 75.3205,
+    "mapsUrl": "https://maps.google.com/?q=19.9009,75.3205"
+  },
+  "howToReach": {
+    "air": "Chhatrapati Sambhajinagar Airport.",
+    "rail": "Chhatrapati Sambhajinagar railway station.",
+    "road": "Located within Chhatrapati Sambhajinagar city."
+  },
+  "howToReachMr": {
+    "air": "छत्रपती संभाजीनगर विमानतळ.",
+    "rail": "छत्रपती संभाजीनगर रेल्वे स्थानक.",
+    "road": "छत्रपती संभाजीनगर शहरात."
+  },
+  "howToReachHi": {
+    "air": "छत्रपति संभाजीनगर हवाई अड्डा.",
+    "rail": "छत्रपति संभाजीनगर रेलवे स्टेशन.",
+    "road": "छत्रपति संभाजीनगर शहर के भीतर स्थित।"
+  },
+  "localCuisine": "Marathwada thali, naan qalia and local sweets.",
+  "sourceUrl": "https://maharashtratourism.gov.in/sitemap/",
+  "rating": 4.5,
+  "reviewsCount": 0
+},
+{
+  "id": "kanheri-caves",
+  "slug": "kanheri-caves",
+  "name": "Kanheri Caves",
+  "marathiName": "कान्हेरी लेणी",
+  "nameHi": "कान्हेरी गुफाएँ",
+  "category": "heritage",
+  "circuit": "Mumbai Buddhist Heritage Circuit",
+  "district": "Mumbai Suburban",
+  "region": "Konkan",
+  "bestTime": "November to February",
+  "timings": "Check current local opening hours before visiting",
+  "entryFee": "Check current official entry and access charges",
+  "heroImage": "https://images.unsplash.com/photo-1599839575945-a9e5af0c3fa5?auto=format&fit=crop&w=1600&q=80",
+  "thumbnail": "https://images.unsplash.com/photo-1599839575945-a9e5af0c3fa5?auto=format&fit=crop&w=600&q=80",
+  "summary": "A large group of Buddhist rock-cut caves set inside Sanjay Gandhi National Park.",
+  "summaryMr": "संजय गांधी राष्ट्रीय उद्यानातील बौद्ध शैलकृत लेण्यांचा मोठा समूह.",
+  "summaryHi": "संजय गांधी राष्ट्रीय उद्यान के भीतर स्थित बौद्ध शैलकृत गुफाओं का बड़ा समूह।",
+  "history": "The caves developed over many centuries as a Buddhist monastic and learning centre, with inscriptions, stupas, prayer halls and water systems.",
+  "historyMr": "अनेक शतकांत विकसित झालेल्या या बौद्ध केंद्रात शिलालेख, स्तूप, प्रार्थनागृहे आणि पाण्याची व्यवस्था दिसते.",
+  "historyHi": "कई शताब्दियों में विकसित इस बौद्ध केंद्र में शिलालेख, स्तूप, प्रार्थना कक्ष और जल व्यवस्था मिलती है।",
+  "attractions": [
+    "Rock-cut chaityas and viharas",
+    "Buddha sculptures and inscriptions",
+    "Stone steps and rainwater cisterns"
+  ],
+  "attractionsMr": [
+    "शैलकृत चैत्य आणि विहार",
+    "बुद्धमूर्ती आणि शिलालेख",
+    "दगडी पायऱ्या आणि पावसाच्या पाण्याची टाकी"
+  ],
+  "attractionsHi": [
+    "शैलकृत चैत्य और विहार",
+    "बुद्ध प्रतिमाएँ और शिलालेख",
+    "पत्थर की सीढ़ियाँ और वर्षाजल कुंड"
+  ],
+  "coordinates": {
+    "lat": 19.2047,
+    "lng": 72.9067,
+    "mapsUrl": "https://maps.google.com/?q=19.2047,72.9067"
+  },
+  "howToReach": {
+    "air": "Mumbai airport; onward city transport.",
+    "rail": "Borivali railway station; park access by local transport.",
+    "road": "Enter through Sanjay Gandhi National Park; follow park ticketing and access rules."
+  },
+  "howToReachMr": {
+    "air": "मुंबई विमानतळ; पुढे शहर वाहतूक.",
+    "rail": "बोरिवली रेल्वे स्थानक; उद्यानापर्यंत स्थानिक वाहतूक.",
+    "road": "संजय गांधी राष्ट्रीय उद्यानातून प्रवेश; उद्यानाचे तिकीट व नियम पाळा."
+  },
+  "howToReachHi": {
+    "air": "मुंबई हवाई अड्डा; आगे शहर परिवहन.",
+    "rail": "बोरीवली रेलवे स्टेशन; पार्क तक स्थानीय परिवहन.",
+    "road": "संजय गांधी राष्ट्रीय उद्यान से प्रवेश करें और पार्क के नियमों का पालन करें।"
+  },
+  "localCuisine": "Mumbai snacks and food available around Borivali.",
+  "sourceUrl": "https://maharashtratourism.gov.in/sitemap/",
+  "rating": 4.5,
+  "reviewsCount": 0
+},
+{
+  "id": "karla-caves",
+  "slug": "karla-caves",
+  "name": "Karla Caves",
+  "marathiName": "कार्ला लेणी",
+  "nameHi": "कार्ला गुफाएँ",
+  "category": "heritage",
+  "circuit": "Lonavala Buddhist Heritage Circuit",
+  "district": "Pune",
+  "region": "Western Maharashtra",
+  "bestTime": "October to February",
+  "timings": "Check current local opening hours before visiting",
+  "entryFee": "Check current official entry and access charges",
+  "heroImage": "https://images.unsplash.com/photo-1599839575945-a9e5af0c3fa5?auto=format&fit=crop&w=1600&q=80",
+  "thumbnail": "https://images.unsplash.com/photo-1599839575945-a9e5af0c3fa5?auto=format&fit=crop&w=600&q=80",
+  "summary": "An ancient Buddhist rock-cut cave complex near Lonavala, especially known for its grand chaitya hall.",
+  "summaryMr": "लोणावळ्याजवळील प्राचीन बौद्ध शैलकृत लेणी; भव्य चैत्यगृहासाठी प्रसिद्ध.",
+  "summaryHi": "लोणावला के पास प्राचीन बौद्ध शैलकृत गुफाएँ, जो विशाल चैत्यगृह के लिए प्रसिद्ध हैं।",
+  "history": "The caves were developed over several centuries and served Buddhist monastic communities along historic trade routes.",
+  "historyMr": "ऐतिहासिक व्यापारी मार्गांवरील बौद्ध संघांसाठी ही लेणी अनेक शतकांत विकसित झाली.",
+  "historyHi": "ऐतिहासिक व्यापार मार्गों पर बौद्ध संघों के लिए इन गुफाओं का विकास कई शताब्दियों में हुआ।",
+  "attractions": [
+    "Grand chaitya hall and carved pillars",
+    "Rock-cut prayer spaces",
+    "Nearby Ekvira Devi temple"
+  ],
+  "attractionsMr": [
+    "भव्य चैत्यगृह आणि कोरीव स्तंभ",
+    "शैलकृत प्रार्थनास्थळे",
+    "जवळील एकवीरा देवी मंदिर"
+  ],
+  "attractionsHi": [
+    "विशाल चैत्यगृह और नक्काशीदार स्तंभ",
+    "शैलकृत प्रार्थना स्थल",
+    "पास का एकवीरा देवी मंदिर"
+  ],
+  "coordinates": {
+    "lat": 18.7833,
+    "lng": 73.4725,
+    "mapsUrl": "https://maps.google.com/?q=18.7833,73.4725"
+  },
+  "howToReach": {
+    "air": "Pune Airport; onward road journey.",
+    "rail": "Malavli railway station; local road transport.",
+    "road": "Located near the Mumbai–Pune route, close to Lonavala."
+  },
+  "howToReachMr": {
+    "air": "पुणे विमानतळ; पुढे रस्त्याने.",
+    "rail": "मळवली रेल्वे स्थानक; स्थानिक रस्ते वाहतूक.",
+    "road": "मुंबई–पुणे मार्गाजवळ, लोणावळ्याच्या परिसरात."
+  },
+  "howToReachHi": {
+    "air": "पुणे हवाई अड्डा; आगे सड़क मार्ग.",
+    "rail": "मालवली रेलवे स्टेशन; स्थानीय सड़क परिवहन.",
+    "road": "मुंबई–पुणे मार्ग के पास, लोणावला के निकट।"
+  },
+  "localCuisine": "Lonavala chikki and local Maharashtrian snacks.",
+  "sourceUrl": "https://maharashtratourism.gov.in/sitemap/",
+  "rating": 4.5,
+  "reviewsCount": 0
+},
+{
+  "id": "mahabaleshwar",
+  "slug": "mahabaleshwar",
+  "name": "Mahabaleshwar",
+  "marathiName": "महाबळेश्वर",
+  "nameHi": "महाबलेश्वर",
+  "category": "nature",
+  "circuit": "Sahyadri Hill Station Circuit",
+  "district": "Satara",
+  "region": "Western Maharashtra",
+  "bestTime": "October to June",
+  "timings": "Check current local opening hours before visiting",
+  "entryFee": "Check current official entry and access charges",
+  "heroImage": "https://images.unsplash.com/photo-1516214104703-d870798883c5?auto=format&fit=crop&w=1600&q=80",
+  "thumbnail": "https://images.unsplash.com/photo-1516214104703-d870798883c5?auto=format&fit=crop&w=600&q=80",
+  "summary": "A popular hill station known for forested hills, viewpoints, lakes and strawberry farms.",
+  "summaryMr": "जंगली डोंगर, दृश्यबिंदू, तलाव आणि स्ट्रॉबेरी शेतीसाठी प्रसिद्ध गिरिस्थान.",
+  "summaryHi": "वनाच्छादित पहाड़ियों, दृश्य स्थलों, झीलों और स्ट्रॉबेरी खेतों के लिए प्रसिद्ध पर्वतीय स्थल।",
+  "history": "Mahabaleshwar developed as a hill retreat in the Sahyadris and is known for its cool climate and surrounding plateau landscape.",
+  "historyMr": "सह्याद्रीतील थंड हवेचे ठिकाण म्हणून महाबळेश्वर विकसित झाले. पठारे आणि निसर्गरम्य परिसरासाठी ते प्रसिद्ध आहे.",
+  "historyHi": "महाबलेश्वर सह्याद्रि का पर्वतीय विश्राम स्थल है, जो सुहावने मौसम और पठारी प्राकृतिक दृश्यों के लिए जाना जाता है।",
+  "attractions": [
+    "Venna Lake",
+    "Arthur's Seat and other viewpoints",
+    "Strawberry farms and local markets"
+  ],
+  "attractionsMr": [
+    "वेण्णा तलाव",
+    "आर्थर सीट आणि इतर दृश्यबिंदू",
+    "स्ट्रॉबेरी शेती आणि स्थानिक बाजार"
+  ],
+  "attractionsHi": [
+    "वेन्ना झील",
+    "आर्थर सीट और अन्य दृश्य स्थल",
+    "स्ट्रॉबेरी खेत और स्थानीय बाजार"
+  ],
+  "coordinates": {
+    "lat": 17.9237,
+    "lng": 73.6586,
+    "mapsUrl": "https://maps.google.com/?q=17.9237,73.6586"
+  },
+  "howToReach": {
+    "air": "Pune Airport; onward road travel.",
+    "rail": "Wathar railway station or Pune; onward road travel.",
+    "road": "Connected by road from Pune, Satara and Wai."
+  },
+  "howToReachMr": {
+    "air": "पुणे विमानतळ; पुढे रस्त्याने.",
+    "rail": "वाठार रेल्वे स्थानक किंवा पुणे; पुढे रस्त्याने.",
+    "road": "पुणे, सातारा आणि वाई येथून रस्त्याने जोडलेले."
+  },
+  "howToReachHi": {
+    "air": "पुणे हवाई अड्डा; आगे सड़क मार्ग.",
+    "rail": "वाठार रेलवे स्टेशन या पुणे; आगे सड़क मार्ग.",
+    "road": "पुणे, सातारा और वाई से सड़क मार्ग द्वारा जुड़ा है।"
+  },
+  "localCuisine": "Fresh strawberries, corn patties and Maharashtrian thali.",
+  "sourceUrl": "https://maharashtratourism.gov.in/monsoon-tourism/",
+  "rating": 4.5,
+  "reviewsCount": 0
+},
+{
+  "id": "matheran",
+  "slug": "matheran",
+  "name": "Matheran",
+  "marathiName": "माथेरान",
+  "nameHi": "माथेरान",
+  "category": "nature",
+  "circuit": "Raigad Hill Station Circuit",
+  "district": "Raigad",
+  "region": "Konkan",
+  "bestTime": "October to May",
+  "timings": "Check current local opening hours before visiting",
+  "entryFee": "Check current official entry and access charges",
+  "heroImage": "https://images.unsplash.com/photo-1516214104703-d870798883c5?auto=format&fit=crop&w=1600&q=80",
+  "thumbnail": "https://images.unsplash.com/photo-1516214104703-d870798883c5?auto=format&fit=crop&w=600&q=80",
+  "summary": "A low-emission hill station known for forest trails, viewpoints and its heritage toy train.",
+  "summaryMr": "वनमार्ग, दृश्यबिंदू आणि ऐतिहासिक टॉय ट्रेनसाठी प्रसिद्ध वाहनमुक्त गिरिस्थान.",
+  "summaryHi": "वन पगडंडियों, दृश्य स्थलों और विरासत टॉय ट्रेन के लिए प्रसिद्ध वाहन-मुक्त पर्वतीय स्थल।",
+  "history": "Matheran is a hill station in the Western Ghats where motor vehicles are restricted in the town area, preserving its walking trails and quiet setting.",
+  "historyMr": "माथेरान हे सह्याद्रीतील गिरिस्थान असून शहराच्या मुख्य भागात मोटारवाहनांना बंदी आहे. त्यामुळे पायी मार्ग आणि शांत वातावरण टिकून आहे.",
+  "historyHi": "माथेरान सह्याद्रि का पर्वतीय स्थल है जहाँ नगर क्षेत्र में मोटर वाहनों पर प्रतिबंध है, जिससे पैदल मार्ग और शांत वातावरण बना रहता है।",
+  "attractions": [
+    "Panorama Point",
+    "Charlotte Lake",
+    "Heritage Matheran toy train and walking paths"
+  ],
+  "attractionsMr": [
+    "पॅनोरमा पॉइंट",
+    "चार्लोट तलाव",
+    "ऐतिहासिक माथेरान टॉय ट्रेन आणि पायी मार्ग"
+  ],
+  "attractionsHi": [
+    "पैनोरमा पॉइंट",
+    "चार्लोट झील",
+    "विरासत माथेरान टॉय ट्रेन और पैदल मार्ग"
+  ],
+  "coordinates": {
+    "lat": 18.9894,
+    "lng": 73.271,
+    "mapsUrl": "https://maps.google.com/?q=18.9894,73.271"
+  },
+  "howToReach": {
+    "air": "Mumbai or Pune airport; onward road and rail journey.",
+    "rail": "Neral railway station; toy train service subject to operations.",
+    "road": "Reach Dasturi Naka; vehicles are restricted beyond the designated point."
+  },
+  "howToReachMr": {
+    "air": "मुंबई किंवा पुणे विमानतळ; पुढे रस्ते व रेल्वेने.",
+    "rail": "नेरळ रेल्वे स्थानक; टॉय ट्रेन सेवा उपलब्धतेनुसार.",
+    "road": "दस्तुरी नाक्यापर्यंत जा; पुढे निर्धारित भागात वाहनांना बंदी आहे."
+  },
+  "howToReachHi": {
+    "air": "मुंबई या पुणे हवाई अड्डा; आगे सड़क और रेल मार्ग.",
+    "rail": "नेरल रेलवे स्टेशन; टॉय ट्रेन सेवा संचालन पर निर्भर.",
+    "road": "दस्तुरी नाका तक पहुँचें; आगे निर्धारित क्षेत्र में वाहन प्रतिबंधित हैं।"
+  },
+  "localCuisine": "Matheran chikki and local snacks.",
+  "sourceUrl": "https://maharashtratourism.gov.in/sitemap/",
+  "rating": 4.5,
+  "reviewsCount": 0
+},
+{
+  "id": "panchgani",
+  "slug": "panchgani",
+  "name": "Panchgani",
+  "marathiName": "पाचगणी",
+  "nameHi": "पंचगनी",
+  "category": "nature",
+  "circuit": "Sahyadri Hill Station Circuit",
+  "district": "Satara",
+  "region": "Western Maharashtra",
+  "bestTime": "October to May",
+  "timings": "Check current local opening hours before visiting",
+  "entryFee": "Check current official entry and access charges",
+  "heroImage": "https://images.unsplash.com/photo-1516214104703-d870798883c5?auto=format&fit=crop&w=1600&q=80",
+  "thumbnail": "https://images.unsplash.com/photo-1516214104703-d870798883c5?auto=format&fit=crop&w=600&q=80",
+  "summary": "A hill station known for Table Land, valley views and a pleasant climate.",
+  "summaryMr": "टेबल लँड, दरींची दृश्ये आणि आल्हाददायक हवामानासाठी प्रसिद्ध गिरिस्थान.",
+  "summaryHi": "टेबल लैंड, घाटी के दृश्यों और सुहावने मौसम के लिए प्रसिद्ध पर्वतीय स्थल।",
+  "history": "Panchgani sits among five hills in the Sahyadris and developed as a hill retreat during the colonial period.",
+  "historyMr": "सह्याद्रीतील पाच टेकड्यांच्या परिसरात वसलेले पाचगणी वसाहतकालीन काळात थंड हवेचे ठिकाण म्हणून विकसित झाले.",
+  "historyHi": "सह्याद्रि की पाँच पहाड़ियों के बीच स्थित पंचगनी औपनिवेशिक काल में पर्वतीय विश्राम स्थल के रूप में विकसित हुआ।",
+  "attractions": [
+    "Table Land plateau",
+    "Sydney Point and Parsi Point",
+    "Mapro Garden and strawberry farms"
+  ],
+  "attractionsMr": [
+    "टेबल लँड पठार",
+    "सिडनी पॉइंट आणि पारसी पॉइंट",
+    "मॅप्रो गार्डन आणि स्ट्रॉबेरी शेती"
+  ],
+  "attractionsHi": [
+    "टेबल लैंड पठार",
+    "सिडनी पॉइंट और पारसी पॉइंट",
+    "मैप्रो गार्डन और स्ट्रॉबेरी खेत"
+  ],
+  "coordinates": {
+    "lat": 17.9235,
+    "lng": 73.8008,
+    "mapsUrl": "https://maps.google.com/?q=17.9235,73.8008"
+  },
+  "howToReach": {
+    "air": "Pune Airport; onward road travel.",
+    "rail": "Wathar railway station; onward road travel.",
+    "road": "Located near Mahabaleshwar and connected by road from Wai and Satara."
+  },
+  "howToReachMr": {
+    "air": "पुणे विमानतळ; पुढे रस्त्याने.",
+    "rail": "वाठार रेल्वे स्थानक; पुढे रस्त्याने.",
+    "road": "महाबळेश्वरजवळ; वाई आणि साताऱ्याहून रस्त्याने जोडलेले."
+  },
+  "howToReachHi": {
+    "air": "पुणे हवाई अड्डा; आगे सड़क मार्ग.",
+    "rail": "वाठार रेलवे स्टेशन; आगे सड़क मार्ग.",
+    "road": "महाबलेश्वर के पास; वाई और सातारा से सड़क मार्ग द्वारा जुड़ा है।"
+  },
+  "localCuisine": "Strawberries, cream, corn and local Maharashtrian food.",
+  "sourceUrl": "https://maharashtratourism.gov.in/monsoon-tourism/",
+  "rating": 4.5,
+  "reviewsCount": 0
+},
+{
+  "id": "chikhaldara",
+  "slug": "chikhaldara",
+  "name": "Chikhaldara",
+  "marathiName": "चिखलदरा",
+  "nameHi": "चिखलदरा",
+  "category": "nature",
+  "circuit": "Vidarbha Hill Station Circuit",
+  "district": "Amravati",
+  "region": "Vidarbha",
+  "bestTime": "October to February",
+  "timings": "Check current local opening hours before visiting",
+  "entryFee": "Check current official entry and access charges",
+  "heroImage": "https://images.unsplash.com/photo-1516214104703-d870798883c5?auto=format&fit=crop&w=1600&q=80",
+  "thumbnail": "https://images.unsplash.com/photo-1516214104703-d870798883c5?auto=format&fit=crop&w=600&q=80",
+  "summary": "A hill station in Vidarbha surrounded by forests and viewpoints in the Satpura range.",
+  "summaryMr": "सातपुडा पर्वतरांगांतील जंगल आणि दृश्यबिंदूंनी वेढलेले विदर्भातील गिरिस्थान.",
+  "summaryHi": "सतपुड़ा पर्वतमाला के जंगलों और दृश्य स्थलों से घिरा विदर्भ का पर्वतीय स्थल।",
+  "history": "Chikhaldara is associated with local Mahabharata legends and lies close to the Melghat forest landscape.",
+  "historyMr": "चिखलदरा स्थानिक महाभारतकालीन आख्यायिकांशी जोडलेले असून मेळघाटच्या वनप्रदेशाजवळ आहे.",
+  "historyHi": "चिखलदरा स्थानीय महाभारत कथाओं से जुड़ा है और मेलघाट के वन क्षेत्र के पास स्थित है।",
+  "attractions": [
+    "Bhimkund and scenic viewpoints",
+    "Gawilgad Fort",
+    "Melghat forest landscape"
+  ],
+  "attractionsMr": [
+    "भीमकुंड आणि निसर्गदृश्य बिंदू",
+    "गाविलगड किल्ला",
+    "मेळघाटचा वनप्रदेश"
+  ],
+  "attractionsHi": [
+    "भीमकुंड और प्राकृतिक दृश्य स्थल",
+    "गाविलगढ़ किला",
+    "मेलघाट का वन क्षेत्र"
+  ],
+  "coordinates": {
+    "lat": 21.4062,
+    "lng": 77.3336,
+    "mapsUrl": "https://maps.google.com/?q=21.4062,77.3336"
+  },
+  "howToReach": {
+    "air": "Akola or Nagpur airport; onward road travel.",
+    "rail": "Amravati or Badnera railway station; onward road travel.",
+    "road": "Connected by road from Amravati and Achalpur."
+  },
+  "howToReachMr": {
+    "air": "अकोला किंवा नागपूर विमानतळ; पुढे रस्त्याने.",
+    "rail": "अमरावती किंवा बडनेरा रेल्वे स्थानक; पुढे रस्त्याने.",
+    "road": "अमरावती आणि अचलपूर येथून रस्त्याने जोडलेले."
+  },
+  "howToReachHi": {
+    "air": "अकोला या नागपुर हवाई अड्डा; आगे सड़क मार्ग.",
+    "rail": "अमरावती या बडनेरा रेलवे स्टेशन; आगे सड़क मार्ग.",
+    "road": "अमरावती और अचलपुर से सड़क मार्ग द्वारा जुड़ा है।"
+  },
+  "localCuisine": "Varhadi cuisine and local seasonal produce.",
+  "sourceUrl": "https://maharashtratourism.gov.in/nature/chikhaldara/",
+  "rating": 4.5,
+  "reviewsCount": 0
+},
+{
+  "id": "lonar-crater",
+  "slug": "lonar-crater",
+  "name": "Lonar Crater Lake",
+  "marathiName": "लोणार सरोवर",
+  "nameHi": "लोणार क्रेटर झील",
+  "category": "nature",
+  "circuit": "Buldhana Natural Heritage Circuit",
+  "district": "Buldhana",
+  "region": "Vidarbha",
+  "bestTime": "October to February",
+  "timings": "Check current local opening hours before visiting",
+  "entryFee": "Check current official entry and access charges",
+  "heroImage": "https://images.unsplash.com/photo-1516214104703-d870798883c5?auto=format&fit=crop&w=1600&q=80",
+  "thumbnail": "https://images.unsplash.com/photo-1516214104703-d870798883c5?auto=format&fit=crop&w=600&q=80",
+  "summary": "A rare meteorite-impact crater lake surrounded by a distinctive geological and ecological landscape.",
+  "summaryMr": "उल्कापातामुळे निर्माण झालेले दुर्मिळ विवर सरोवर; वैशिष्ट्यपूर्ण भूवैज्ञानिक आणि पर्यावरणीय परिसराने वेढलेले.",
+  "summaryHi": "उल्कापिंड के प्रभाव से बना दुर्लभ क्रेटर झील, जिसके आसपास विशिष्ट भूवैज्ञानिक और पारिस्थितिक क्षेत्र है।",
+  "history": "Lonar's crater was formed by a meteorite impact and is known for its saline and alkaline lake environment.",
+  "historyMr": "उल्कापातामुळे लोणार विवराची निर्मिती झाली. खारट आणि क्षारीय पाण्याचे सरोवर हे त्याचे वैशिष्ट्य आहे.",
+  "historyHi": "लोणार क्रेटर का निर्माण उल्कापिंड के प्रभाव से हुआ। इसकी खारी और क्षारीय झील विशेषता है।",
+  "attractions": [
+    "Crater rim viewpoints",
+    "Lonar lake and surrounding ecology",
+    "Daitya Sudan Temple"
+  ],
+  "attractionsMr": [
+    "विवराच्या कड्यावरील दृश्यबिंदू",
+    "लोणार सरोवर आणि परिसरातील जैवविविधता",
+    "दैत्यसूदन मंदिर"
+  ],
+  "attractionsHi": [
+    "क्रेटर किनारे के दृश्य स्थल",
+    "लोणार झील और आसपास की पारिस्थितिकी",
+    "दैत्यसूदन मंदिर"
+  ],
+  "coordinates": {
+    "lat": 19.975,
+    "lng": 76.508,
+    "mapsUrl": "https://maps.google.com/?q=19.975,76.508"
+  },
+  "howToReach": {
+    "air": "Chhatrapati Sambhajinagar or Aurangabad airport; onward road travel.",
+    "rail": "Malkapur railway station; onward road travel.",
+    "road": "Reach Lonar town in Buldhana district by road."
+  },
+  "howToReachMr": {
+    "air": "छत्रपती संभाजीनगर विमानतळ; पुढे रस्त्याने.",
+    "rail": "मलकापूर रेल्वे स्थानक; पुढे रस्त्याने.",
+    "road": "बुलढाणा जिल्ह्यातील लोणार शहरात रस्त्याने पोहोचा."
+  },
+  "howToReachHi": {
+    "air": "छत्रपति संभाजीनगर हवाई अड्डा; आगे सड़क मार्ग.",
+    "rail": "मलकापुर रेलवे स्टेशन; आगे सड़क मार्ग.",
+    "road": "बुलढाणा जिले के लोणार नगर तक सड़क मार्ग से पहुँचें।"
+  },
+  "localCuisine": "Varhadi food and local Maharashtrian meals.",
+  "sourceUrl": "https://maharashtratourism.gov.in/sitemap/",
+  "rating": 4.5,
+  "reviewsCount": 0
+},
+{
+  "id": "thoseghar-waterfall",
+  "slug": "thoseghar",
+  "name": "Thoseghar Waterfall",
+  "marathiName": "ठोसेघर धबधबा",
+  "nameHi": "ठोसेघर जलप्रपात",
+  "category": "nature",
+  "circuit": "Satara Nature Circuit",
+  "district": "Satara",
+  "region": "Western Maharashtra",
+  "bestTime": "July to October for water flow; October to February for clearer walks",
+  "timings": "Check current local opening hours before visiting",
+  "entryFee": "Check current official entry and access charges",
+  "heroImage": "https://images.unsplash.com/photo-1516214104703-d870798883c5?auto=format&fit=crop&w=1600&q=80",
+  "thumbnail": "https://images.unsplash.com/photo-1516214104703-d870798883c5?auto=format&fit=crop&w=600&q=80",
+  "summary": "A series of seasonal waterfalls set amid the Western Ghats near Satara.",
+  "summaryMr": "साताऱ्याजवळील सह्याद्रीच्या निसर्गरम्य परिसरातील हंगामी धबधब्यांची मालिका.",
+  "summaryHi": "सतारा के पास पश्चिमी घाट के प्राकृतिक क्षेत्र में स्थित मौसमी झरनों की श्रृंखला।",
+  "history": "The waterfalls are most prominent during the monsoon and form part of the region's scenic plateau and valley landscape.",
+  "historyMr": "पावसाळ्यात धबधबे अधिक प्रवाही असतात. पठारे आणि दऱ्यांच्या निसर्गरम्य परिसराचा हा भाग आहे.",
+  "historyHi": "मानसून में झरनों का प्रवाह अधिक होता है। यह पठारों और घाटियों के सुंदर प्राकृतिक क्षेत्र का हिस्सा है।",
+  "attractions": [
+    "Main waterfall viewpoints",
+    "Seasonal cascades during monsoon",
+    "Nearby Kaas plateau and Satara landscapes"
+  ],
+  "attractionsMr": [
+    "मुख्य धबधबा दृश्यबिंदू",
+    "पावसाळ्यातील धबधबे",
+    "जवळील कास पठार आणि सातारा परिसर"
+  ],
+  "attractionsHi": [
+    "मुख्य झरना दृश्य स्थल",
+    "मानसून के मौसमी झरने",
+    "पास का कास पठार और सतारा क्षेत्र"
+  ],
+  "coordinates": {
+    "lat": 17.5998,
+    "lng": 73.891,
+    "mapsUrl": "https://maps.google.com/?q=17.5998,73.891"
+  },
+  "howToReach": {
+    "air": "Pune Airport; onward road journey.",
+    "rail": "Satara railway station; onward road journey.",
+    "road": "About 20 km from Satara; use marked viewpoints and follow safety barriers."
+  },
+  "howToReachMr": {
+    "air": "पुणे विमानतळ; पुढे रस्त्याने.",
+    "rail": "सातारा रेल्वे स्थानक; पुढे रस्त्याने.",
+    "road": "साताऱ्यापासून सुमारे २० किमी; निर्धारित दृश्यबिंदू वापरा आणि सुरक्षा कठडे पाळा."
+  },
+  "howToReachHi": {
+    "air": "पुणे हवाई अड्डा; आगे सड़क मार्ग.",
+    "rail": "सातारा रेलवे स्टेशन; आगे सड़क मार्ग.",
+    "road": "सातारा से लगभग 20 किमी; निर्धारित दृश्य स्थलों और सुरक्षा अवरोधों का पालन करें।"
+  },
+  "localCuisine": "Satara kanda bhaji, pithla-bhakri and local snacks.",
+  "sourceUrl": "https://maharashtratourism.gov.in/sitemap/",
+  "rating": 4.5,
+  "reviewsCount": 0
+},
+{
+  "id": "kaas-plateau",
+  "slug": "kaas-plateau",
+  "name": "Kaas Plateau",
+  "marathiName": "कास पठार",
+  "nameHi": "कास पठार",
+  "category": "nature",
+  "circuit": "Satara Natural Heritage Circuit",
+  "district": "Satara",
+  "region": "Western Maharashtra",
+  "bestTime": "Late August to October; access may be regulated",
+  "timings": "Check current local opening hours before visiting",
+  "entryFee": "Check current official entry and access charges",
+  "heroImage": "https://images.unsplash.com/photo-1516214104703-d870798883c5?auto=format&fit=crop&w=1600&q=80",
+  "thumbnail": "https://images.unsplash.com/photo-1516214104703-d870798883c5?auto=format&fit=crop&w=600&q=80",
+  "summary": "A high-altitude plateau famous for seasonal wildflowers and biodiversity during the post-monsoon period.",
+  "summaryMr": "पावसाळ्यानंतरच्या काळात उमलणाऱ्या रानफुलांसाठी आणि जैवविविधतेसाठी प्रसिद्ध उंच पठार.",
+  "summaryHi": "मानसून के बाद खिलने वाले जंगली फूलों और जैव विविधता के लिए प्रसिद्ध ऊँचा पठार।",
+  "history": "Kaas is part of the Western Ghats landscape and is recognised for its seasonal flowering ecosystem and conservation importance.",
+  "historyMr": "कास हे सह्याद्रीच्या पश्चिम घाट परिसराचा भाग असून हंगामी फुलोरा आणि संवर्धन महत्त्वासाठी ओळखले जाते.",
+  "historyHi": "कास पश्चिमी घाट का हिस्सा है और अपने मौसमी पुष्पन तथा संरक्षण महत्व के लिए जाना जाता है।",
+  "attractions": [
+    "Seasonal wildflower carpets",
+    "Plateau viewpoints",
+    "Nearby Kaas Lake and Thoseghar region"
+  ],
+  "attractionsMr": [
+    "हंगामी रानफुलांचे गालिचे",
+    "पठारावरील दृश्यबिंदू",
+    "जवळील कास तलाव आणि ठोसेघर परिसर"
+  ],
+  "attractionsHi": [
+    "मौसमी जंगली फूलों की चादर",
+    "पठार के दृश्य स्थल",
+    "पास की कास झील और ठोसेघर क्षेत्र"
+  ],
+  "coordinates": {
+    "lat": 17.7177,
+    "lng": 73.8225,
+    "mapsUrl": "https://maps.google.com/?q=17.7177,73.8225"
+  },
+  "howToReach": {
+    "air": "Pune Airport; onward road travel.",
+    "rail": "Satara railway station; onward road travel.",
+    "road": "Reach via Satara; check seasonal entry permits and visitor limits."
+  },
+  "howToReachMr": {
+    "air": "पुणे विमानतळ; पुढे रस्त्याने.",
+    "rail": "सातारा रेल्वे स्थानक; पुढे रस्त्याने.",
+    "road": "साताऱ्यामार्गे पोहोचा; हंगामी प्रवेश परवानगी आणि मर्यादा तपासा."
+  },
+  "howToReachHi": {
+    "air": "पुणे हवाई अड्डा; आगे सड़क मार्ग.",
+    "rail": "सातारा रेलवे स्टेशन; आगे सड़क मार्ग.",
+    "road": "सातारा होकर पहुँचें; मौसमी प्रवेश अनुमति और आगंतुक सीमा जाँचें।"
+  },
+  "localCuisine": "Satara local thali, kanda bhaji and seasonal produce.",
+  "sourceUrl": "https://maharashtratourism.gov.in/sitemap/",
+  "rating": 4.5,
+  "reviewsCount": 0
+},
+{
+  "id": "tadoba-andhari-tiger-reserve",
+  "slug": "tadoba",
+  "name": "Tadoba-Andhari Tiger Reserve",
+  "marathiName": "ताडोबा-अंधारी व्याघ्र प्रकल्प",
+  "nameHi": "ताडोबा-अंधारी बाघ अभयारण्य",
+  "category": "wildlife",
+  "circuit": "Vidarbha Wildlife Circuit",
+  "district": "Chandrapur",
+  "region": "Vidarbha",
+  "bestTime": "October to June; safari zones and timings vary",
+  "timings": "Check current local opening hours before visiting",
+  "entryFee": "Check current official entry and access charges",
+  "heroImage": "https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=1600&q=80",
+  "thumbnail": "https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=600&q=80",
+  "summary": "A major tiger reserve in Chandrapur district, known for forest safaris and diverse wildlife.",
+  "summaryMr": "चंद्रपूर जिल्ह्यातील महत्त्वाचा व्याघ्र प्रकल्प; जंगल सफारी आणि विविध वन्यजीवांसाठी प्रसिद्ध.",
+  "summaryHi": "चंद्रपुर जिले का प्रमुख बाघ अभयारण्य, जो जंगल सफारी और विविध वन्यजीवों के लिए प्रसिद्ध है।",
+  "history": "Tadoba-Andhari protects dry deciduous forest habitats and supports tigers, leopards, deer and many bird species.",
+  "historyMr": "ताडोबा-अंधारीमध्ये पानझडी वनक्षेत्र असून वाघ, बिबटे, हरीण आणि अनेक पक्षी आढळतात.",
+  "historyHi": "ताडोबा-अंधारी में शुष्क पर्णपाती वन हैं, जहाँ बाघ, तेंदुए, हिरण और अनेक पक्षी पाए जाते हैं।",
+  "attractions": [
+    "Guided jeep safaris in designated zones",
+    "Tadoba Lake and forest habitats",
+    "Wildlife and birdwatching"
+  ],
+  "attractionsMr": [
+    "निर्धारित क्षेत्रांतील मार्गदर्शित जीप सफारी",
+    "ताडोबा तलाव आणि वन अधिवास",
+    "वन्यजीव निरीक्षण आणि पक्षीनिरीक्षण"
+  ],
+  "attractionsHi": [
+    "निर्धारित क्षेत्रों में मार्गदर्शित जीप सफारी",
+    "ताडोबा झील और वन आवास",
+    "वन्यजीव और पक्षी अवलोकन"
+  ],
+  "coordinates": {
+    "lat": 20.2489,
+    "lng": 79.3623,
+    "mapsUrl": "https://maps.google.com/?q=20.2489,79.3623"
+  },
+  "howToReach": {
+    "air": "Nagpur Airport; onward road transfer.",
+    "rail": "Chandrapur or Nagpur railway station; onward road transfer.",
+    "road": "Use official reserve gates and pre-book safari permits."
+  },
+  "howToReachMr": {
+    "air": "नागपूर विमानतळ; पुढे रस्त्याने.",
+    "rail": "चंद्रपूर किंवा नागपूर रेल्वे स्थानक; पुढे रस्त्याने.",
+    "road": "अधिकृत प्रवेशद्वार वापरा आणि सफारी परवानगी आगाऊ घ्या."
+  },
+  "howToReachHi": {
+    "air": "नागपुर हवाई अड्डा; आगे सड़क मार्ग.",
+    "rail": "चंद्रपुर या नागपुर रेलवे स्टेशन; आगे सड़क मार्ग.",
+    "road": "आधिकारिक प्रवेश द्वार का उपयोग करें और सफारी अनुमति पहले बुक करें।"
+  },
+  "localCuisine": "Chandrapur and Varhadi regional cuisine.",
+  "sourceUrl": "https://maharashtratourism.gov.in/wildlife-tourism/",
+  "rating": 4.5,
+  "reviewsCount": 0
+},
+{
+  "id": "sanjay-gandhi-national-park",
+  "slug": "sanjay-gandhi-national-park",
+  "name": "Sanjay Gandhi National Park",
+  "marathiName": "संजय गांधी राष्ट्रीय उद्यान",
+  "nameHi": "संजय गांधी राष्ट्रीय उद्यान",
+  "category": "wildlife",
+  "circuit": "Mumbai Nature Circuit",
+  "district": "Mumbai Suburban",
+  "region": "Konkan",
+  "bestTime": "November to February; park operates year-round with closures",
+  "timings": "Check current local opening hours before visiting",
+  "entryFee": "Check current official entry and access charges",
+  "heroImage": "https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=1600&q=80",
+  "thumbnail": "https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=600&q=80",
+  "summary": "A large protected green space within Mumbai, with forest trails, lakes, wildlife and Kanheri Caves.",
+  "summaryMr": "मुंबईतील मोठे संरक्षित हरित क्षेत्र; वनमार्ग, तलाव, वन्यजीव आणि कान्हेरी लेण्यांसाठी प्रसिद्ध.",
+  "summaryHi": "मुंबई के भीतर बड़ा संरक्षित हरित क्षेत्र, जो वन पगडंडियों, झीलों, वन्यजीवों और कान्हेरी गुफाओं के लिए जाना जाता है।",
+  "history": "The park protects an important forest landscape within the metropolitan region and includes the historic Kanheri Caves.",
+  "historyMr": "महानगर क्षेत्रातील महत्त्वाच्या वनप्रदेशाचे संरक्षण करणारे उद्यान; येथे ऐतिहासिक कान्हेरी लेणीही आहेत.",
+  "historyHi": "यह उद्यान महानगरीय क्षेत्र के महत्वपूर्ण वन क्षेत्र की रक्षा करता है और इसमें ऐतिहासिक कान्हेरी गुफाएँ भी हैं।",
+  "attractions": [
+    "Kanheri Caves",
+    "Forest trails and nature interpretation",
+    "Lakes and designated safari activities"
+  ],
+  "attractionsMr": [
+    "कान्हेरी लेणी",
+    "वनमार्ग आणि निसर्ग माहिती केंद्र",
+    "तलाव आणि निर्धारित सफारी उपक्रम"
+  ],
+  "attractionsHi": [
+    "कान्हेरी गुफाएँ",
+    "वन पगडंडियाँ और प्रकृति व्याख्या",
+    "झीलें और निर्धारित सफारी गतिविधियाँ"
+  ],
+  "coordinates": {
+    "lat": 19.2147,
+    "lng": 72.9106,
+    "mapsUrl": "https://maps.google.com/?q=19.2147,72.9106"
+  },
+  "howToReach": {
+    "air": "Mumbai airport; local city transport.",
+    "rail": "Borivali railway station; park entrance is nearby.",
+    "road": "Access through Borivali; follow park entry and activity rules."
+  },
+  "howToReachMr": {
+    "air": "मुंबई विमानतळ; स्थानिक शहर वाहतूक.",
+    "rail": "बोरिवली रेल्वे स्थानक; उद्यान प्रवेशद्वार जवळ.",
+    "road": "बोरिवलीमार्गे प्रवेश; उद्यानाचे नियम पाळा."
+  },
+  "howToReachHi": {
+    "air": "मुंबई हवाई अड्डा; स्थानीय शहर परिवहन.",
+    "rail": "बोरीवली रेलवे स्टेशन; पार्क प्रवेश द्वार पास में है।",
+    "road": "बोरीवली से प्रवेश करें और पार्क के नियमों का पालन करें।"
+  },
+  "localCuisine": "Mumbai street food and snacks around Borivali.",
+  "sourceUrl": "https://maharashtratourism.gov.in/wildlife-tourism/",
+  "rating": 4.5,
+  "reviewsCount": 0
+},
+{
+  "id": "radhanagari-wildlife-sanctuary",
+  "slug": "radhanagari",
+  "name": "Radhanagari Wildlife Sanctuary",
+  "marathiName": "राधानगरी वन्यजीव अभयारण्य",
+  "nameHi": "राधानगरी वन्यजीव अभयारण्य",
+  "category": "wildlife",
+  "circuit": "Kolhapur Wildlife Circuit",
+  "district": "Kolhapur",
+  "region": "Western Maharashtra",
+  "bestTime": "October to May",
+  "timings": "Check current local opening hours before visiting",
+  "entryFee": "Check current official entry and access charges",
+  "heroImage": "https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=1600&q=80",
+  "thumbnail": "https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=600&q=80",
+  "summary": "A Western Ghats sanctuary known for forest biodiversity and the Indian gaur.",
+  "summaryMr": "पश्चिम घाटातील वन्यजीव अभयारण्य; जंगलातील जैवविविधता आणि गव्यांसाठी प्रसिद्ध.",
+  "summaryHi": "पश्चिमी घाट का अभयारण्य, जो वन जैव विविधता और भारतीय गौर के लिए प्रसिद्ध है।",
+  "history": "Established in 1958, the sanctuary protects forest habitats in the Western Ghats and is associated with gaur conservation.",
+  "historyMr": "१९५८ मध्ये स्थापन झालेले हे अभयारण्य पश्चिम घाटातील वन अधिवासांचे आणि गव्यांच्या संवर्धनाचे संरक्षण करते.",
+  "historyHi": "1958 में स्थापित यह अभयारण्य पश्चिमी घाट के वन आवासों और भारतीय गौर के संरक्षण से जुड़ा है।",
+  "attractions": [
+    "Forest landscapes and nature trails",
+    "Indian gaur habitat",
+    "Birdwatching and biodiversity"
+  ],
+  "attractionsMr": [
+    "वनप्रदेश आणि निसर्गमार्ग",
+    "गव्यांचा अधिवास",
+    "पक्षीनिरीक्षण आणि जैवविविधता"
+  ],
+  "attractionsHi": [
+    "वन क्षेत्र और प्रकृति पगडंडियाँ",
+    "भारतीय गौर का आवास",
+    "पक्षी अवलोकन और जैव विविधता"
+  ],
+  "coordinates": {
+    "lat": 16.4026,
+    "lng": 73.9954,
+    "mapsUrl": "https://maps.google.com/?q=16.4026,73.9954"
+  },
+  "howToReach": {
+    "air": "Kolhapur Airport; onward road journey.",
+    "rail": "Kolhapur railway station; onward road journey.",
+    "road": "Access through Radhanagari and surrounding villages; check forest access rules."
+  },
+  "howToReachMr": {
+    "air": "कोल्हापूर विमानतळ; पुढे रस्त्याने.",
+    "rail": "कोल्हापूर रेल्वे स्थानक; पुढे रस्त्याने.",
+    "road": "राधानगरी आणि आसपासच्या गावांमार्गे; वनविभागाचे नियम तपासा."
+  },
+  "howToReachHi": {
+    "air": "कोल्हापुर हवाई अड्डा; आगे सड़क मार्ग.",
+    "rail": "कोल्हापुर रेलवे स्टेशन; आगे सड़क मार्ग.",
+    "road": "राधानगरी और आसपास के गाँवों से पहुँचें; वन विभाग के नियम जाँचें।"
+  },
+  "localCuisine": "Kolhapuri cuisine and local village meals.",
+  "sourceUrl": "https://maharashtratourism.gov.in/wildlife-tourism/",
+  "rating": 4.5,
+  "reviewsCount": 0
+},
+{
+  "id": "nagzira-wildlife-sanctuary",
+  "slug": "nagzira",
+  "name": "Nagzira Wildlife Sanctuary",
+  "marathiName": "नागझिरा वन्यजीव अभयारण्य",
+  "nameHi": "नागझिरा वन्यजीव अभयारण्य",
+  "category": "wildlife",
+  "circuit": "Vidarbha Wildlife Circuit",
+  "district": "Gondia",
+  "region": "Vidarbha",
+  "bestTime": "October to June; confirm safari availability",
+  "timings": "Check current local opening hours before visiting",
+  "entryFee": "Check current official entry and access charges",
+  "heroImage": "https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=1600&q=80",
+  "thumbnail": "https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=600&q=80",
+  "summary": "A forest sanctuary in eastern Maharashtra known for wildlife, birdlife and a scenic lake.",
+  "summaryMr": "पूर्व महाराष्ट्रातील वन्यजीव अभयारण्य; वन्यजीव, पक्षी आणि निसर्गरम्य तलावासाठी प्रसिद्ध.",
+  "summaryHi": "पूर्वी महाराष्ट्र का वन्यजीव अभयारण्य, जो वन्यजीव, पक्षियों और सुंदर झील के लिए जाना जाता है।",
+  "history": "Nagzira protects a mix of forest and lake habitats and forms part of the wider Nagzira-Navegaon conservation landscape.",
+  "historyMr": "नागझिरा वन आणि तलाव अधिवासांचे संरक्षण करते आणि नागझिरा-नवेगाव संवर्धन क्षेत्राचा भाग आहे.",
+  "historyHi": "नागझिरा वन और झील के आवासों की रक्षा करता है और व्यापक नागझिरा-नवेगाँव संरक्षण क्षेत्र का हिस्सा है।",
+  "attractions": [
+    "Nagzira Lake",
+    "Forest safari routes where permitted",
+    "Birdwatching and nature observation"
+  ],
+  "attractionsMr": [
+    "नागझिरा तलाव",
+    "परवानगी असलेले जंगल सफारी मार्ग",
+    "पक्षीनिरीक्षण आणि निसर्ग निरीक्षण"
+  ],
+  "attractionsHi": [
+    "नागझिरा झील",
+    "अनुमति वाले जंगल सफारी मार्ग",
+    "पक्षी अवलोकन और प्रकृति निरीक्षण"
+  ],
+  "coordinates": {
+    "lat": 21.293,
+    "lng": 80.153,
+    "mapsUrl": "https://maps.google.com/?q=21.293,80.153"
+  },
+  "howToReach": {
+    "air": "Nagpur airport; onward road journey.",
+    "rail": "Gondia railway station; onward road journey.",
+    "road": "Reach via Gondia or Bhandara and use designated reserve access."
+  },
+  "howToReachMr": {
+    "air": "नागपूर विमानतळ; पुढे रस्त्याने.",
+    "rail": "गोंदिया रेल्वे स्थानक; पुढे रस्त्याने.",
+    "road": "गोंदिया किंवा भंडारा मार्गे जाऊन निर्धारित प्रवेशद्वार वापरा."
+  },
+  "howToReachHi": {
+    "air": "नागपुर हवाई अड्डा; आगे सड़क मार्ग.",
+    "rail": "गोंदिया रेलवे स्टेशन; आगे सड़क मार्ग.",
+    "road": "गोंदिया या भंडारा से पहुँचें और निर्धारित प्रवेश द्वार का उपयोग करें।"
+  },
+  "localCuisine": "Varhadi cuisine and local rice-based dishes.",
+  "sourceUrl": "https://maharashtratourism.gov.in/wildlife-tourism/",
+  "rating": 4.5,
+  "reviewsCount": 0
 }
 ];
 
