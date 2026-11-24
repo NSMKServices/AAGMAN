@@ -301,10 +301,11 @@ export default function HomePage() {
 
   const featuredCategoryOrder = ['temples', 'forts', 'heritage', 'beaches'];
   const featuredDestinations = destinations
-    .filter(item => item.status === 'published' && item.featuredOrder)
+    .filter(item => item.status === 'published' && item.featuredOrder && featuredCategoryOrder.includes(item.category))
     .sort((a, b) => {
-      const categoryDifference = featuredCategoryOrder.indexOf(a.category) - featuredCategoryOrder.indexOf(b.category);
-      return (categoryDifference < 0 ? 99 : categoryDifference) || Number(a.featuredOrder) - Number(b.featuredOrder);
+      const aCategoryOrder = featuredCategoryOrder.indexOf(a.category);
+      const bCategoryOrder = featuredCategoryOrder.indexOf(b.category);
+      return aCategoryOrder - bCategoryOrder || Number(a.featuredOrder) - Number(b.featuredOrder);
     });
   const featuredFestivals = festivals
     .filter(item => item.status === 'published' && item.featuredOrder)
@@ -455,7 +456,11 @@ export default function HomePage() {
             description={t('featuredSub', 'Experience Maharashtra\'s most celebrated historic fortresses, monolithic rock temples, and sun-kissed coastlines in interactive 3D.')}
           />
 
-          <Destination3DGallery destinations={featuredDestinations} />
+          {featuredDestinations.length > 0 ? (
+            <Destination3DGallery destinations={featuredDestinations} />
+          ) : (
+            <p className={styles.festivalDesc}>No destinations have been featured yet. Add places in the admin dashboard and assign a homepage position.</p>
+          )}
         </Container>
       </section>
 
