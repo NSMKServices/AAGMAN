@@ -370,7 +370,7 @@ export default function BudgetPlannerPage() {
                     variant="primary"
                     size="lg"
                     onClick={handleSaveTrip}
-                    className={styles.saveTripBtn}
+                    className={styles.saveBtn}
                     icon={<Backpack size={16} />}
                   >
                     {saveSuccess ? t('saved', 'Saved!') : t('saveItinerary', 'Save to My Trips')}
