@@ -576,7 +576,7 @@ export const TRANSLATIONS = {
     natureTitle: "पर्वतीय स्थल और प्राकृतिक आश्चर्य",
     natureSubtitle: "महाराष्ट्र के हिल स्टेशन, पठार, झीलें और झरने देखें।",
     wildlifeTitle: "वन्यजीव अभयारण्य और उद्यान",
-    wildlifeSubtitle: "महाराष्ट्र के संरक्षित वन, बाघ अभयारण्य और पक्षी आवास खोजें।
+    wildlifeSubtitle: "महाराष्ट्र के संरक्षित वन, बाघ अभयारण्य और पक्षी आवास खोजें।",
     allDestinations: "सभी पर्यटन स्थल",
     festivals: "त्योहार एवं उत्सव",
     itineraries: "यात्रा परिपथ (सर्किट्स)",
