@@ -690,8 +690,8 @@ export const DESTINATIONS = [
     bestTime: "October to March",
     timings: "09:00 AM – 05:00 PM (Closed on Mondays)",
     entryFee: "₹40 (Indians), ₹600 (Foreigners)",
-    heroImage: "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=1600&q=80",
-    thumbnail: "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=600&q=80",
+    heroImage: "https://upload.wikimedia.org/wikipedia/commons/9/9c/The_Ajanta_Caves_--_At_a_glance.JPG",
+    thumbnail: "https://upload.wikimedia.org/wikipedia/commons/9/9c/The_Ajanta_Caves_--_At_a_glance.JPG",
     summary: "30 rock-cut Buddhist cave monuments dating from the 2nd century BCE to the 6th century CE, famed for supreme classical wall murals.",
     history: "Carved into the sheer crescent gorge above the Waghur River, Ajanta's paintings depict Jataka tales, Bodhisattvas Padmapani and Vajrapani, and represent the pinnacle of ancient Indian artistic genius. Rediscovered by British officer John Smith in 1819.",
     attractions: [
