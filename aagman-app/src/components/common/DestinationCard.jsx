@@ -34,11 +34,12 @@ export default function DestinationCard({ destination }) {
   };
 
   const displayName = getLocalizedName(destination, language);
-  const subtitleName = language === 'en'
-    ? destination.marathiName
-    : language === 'mr'
-      ? destination.name
-      : destination.name;
+  const hasHindiName = Boolean(destination.nameHi || destination.hindiName);
+  const subtitleName = language === 'mr'
+    ? destination.name
+    : language === 'hi'
+      ? (hasHindiName ? destination.name : destination.marathiName)
+      : destination.marathiName;
 
   return (
     <div className={styles.card}>
