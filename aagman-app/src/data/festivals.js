@@ -2,7 +2,7 @@
  * AAGMAN - Festivals & Cultural Events Dataset
  * Authentic celebrations across Maharashtra
  */
-import { FESTIVALS_IMAGE_REGISTRY } from './imageRegistry';
+import { FESTIVALS_IMAGE_REGISTRY } from './imageRegistry.js';
 
 export const FESTIVALS = [
   {
