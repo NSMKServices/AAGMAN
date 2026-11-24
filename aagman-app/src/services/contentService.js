@@ -13,6 +13,12 @@ import { supabase, isSupabaseConfigured } from '../lib/supabase';
 const DESTINATIONS_STORAGE_KEY = 'aagman_content_destinations';
 const FESTIVALS_STORAGE_KEY = 'aagman_content_festivals';
 
+const isUuid = value => typeof value === 'string' && /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value);
+const makeUuid = () => globalThis.crypto?.randomUUID?.() || 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, ch => {
+  const random = Math.random() * 16 | 0;
+  return (ch === 'x' ? random : (random & 0x3 | 0x8)).toString(16);
+});
+
 function initDestinations() {
   try {
     const raw = localStorage.getItem(DESTINATIONS_STORAGE_KEY);
@@ -91,31 +97,47 @@ export const contentService = {
           .select('*')
           .order('name', { ascending: true });
 
-        if (!error && data && data.length > 0) {
-          destinationsCache = data.map(row => ({
-            id: row.id,
-            slug: row.slug || row.id,
-            name: row.name,
-            marathiName: row.marathi_name,
-            category: row.category,
-            district: row.district,
-            region: row.region,
-            circuit: row.circuit,
-            description: row.description,
-            heroImage: row.hero_image || row.image,
-            image: row.hero_image || row.image,
-            gallery: row.gallery || [],
-            highlights: row.highlights || [],
-            bestTimeToVisit: row.best_time_to_visit,
-            entryFee: row.entry_fee,
+        if (error) throw new Error(`Database destinations query failed: ${error.message}`);
+        const bySlug = new Map((data || []).map(row => [row.slug, row]));
+        const staticSlugs = new Set(DESTINATIONS.map(item => item.slug || item.id));
+        destinationsCache = DESTINATIONS.map(item => {
+          const row = bySlug.get(item.slug || item.id);
+          if (!row) return item;
+          return {
+            ...item,
+            id: row.slug || item.id,
+            slug: row.slug || item.slug || item.id,
+            dbId: row.id,
+            name: row.name || item.name,
+            marathiName: row.marathi_name || item.marathiName,
+            category: row.category || item.category,
+            district: row.district || item.district,
+            region: row.region || item.region,
+            circuit: row.circuit || item.circuit,
+            description: row.description || item.description || item.summary,
+            heroImage: row.hero_image || row.image_url || item.heroImage || item.image,
+            image: row.hero_image || row.image_url || item.image,
+            gallery: row.gallery || item.gallery || [],
+            highlights: row.highlights || item.highlights || [],
+            bestTimeToVisit: row.best_time_to_visit || item.bestTimeToVisit || item.bestTime,
+            entryFee: row.entry_fee || item.entryFee,
             status: row.status || 'published',
             updatedAt: row.updated_at,
             lastEditedBy: row.last_edited_by || 'Editor'
-          }));
-          saveLocalDestinations(destinationsCache);
-          notifyContentListeners();
-          return destinationsCache;
-        }
+          };
+        }).concat((data || []).filter(row => !staticSlugs.has(row.slug)).map(row => ({
+          id: row.slug || row.id, slug: row.slug || row.id, dbId: row.id, name: row.name,
+          marathiName: row.marathi_name, category: row.category, district: row.district,
+          region: row.region, circuit: row.circuit, description: row.description,
+          heroImage: row.hero_image || row.image_url, image: row.hero_image || row.image_url,
+          gallery: row.gallery || [], highlights: row.highlights || [],
+          bestTimeToVisit: row.best_time_to_visit, entryFee: row.entry_fee,
+          status: row.status || 'published', updatedAt: row.updated_at,
+          lastEditedBy: row.last_edited_by || 'Editor'
+        })));
+        saveLocalDestinations(destinationsCache);
+        notifyContentListeners();
+        return destinationsCache;
       } catch (err) {
         console.warn('Supabase destinations fetch notice, using active store:', err);
       }
@@ -152,8 +174,10 @@ export const contentService = {
       ? destData.slug.toLowerCase().trim().replace(/[^a-z0-9-]+/g, '-')
       : destData.name.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-');
 
-    const id = destData.id || generatedSlug;
-    const isNew = !destData.id || !destinationsCache.some(d => d.id === destData.id);
+    const id = generatedSlug;
+    const existingRecord = destinationsCache.find(d => d.id === destData.id || d.slug === generatedSlug);
+    const dbId = destData.dbId || existingRecord?.dbId || (isUuid(destData.id) ? destData.id : null) || makeUuid();
+    const isNew = !existingRecord;
 
     const now = new Date().toISOString();
     const editorName = adminProfile?.full_name || 'Administrator';
@@ -161,6 +185,7 @@ export const contentService = {
     const cleanRecord = {
       ...destData,
       id,
+      dbId,
       slug: generatedSlug,
       name: destData.name.trim(),
       marathiName: destData.marathiName || '',
@@ -184,7 +209,7 @@ export const contentService = {
     if (isSupabaseConfigured) {
       try {
         const payload = {
-          id: cleanRecord.id,
+          id: cleanRecord.dbId,
           slug: cleanRecord.slug,
           name: cleanRecord.name,
           marathi_name: cleanRecord.marathiName,
@@ -203,7 +228,7 @@ export const contentService = {
           updated_at: now
         };
 
-        const { error } = await supabase.from('destinations').upsert(payload);
+        const { error } = await supabase.from('destinations').upsert(payload, { onConflict: 'id' });
         if (error) {
           throw new Error(`Database synchronization failed: ${error.message}. Transaction cancelled to preserve data consistency.`);
         }
@@ -253,7 +278,7 @@ export const contentService = {
 
     if (isSupabaseConfigured) {
       try {
-        const { error } = await supabase.from('destinations').delete().eq('id', id);
+        const { error } = await supabase.from('destinations').delete().eq('id', target?.dbId || id);
         if (error) {
           throw new Error(`Database delete failed: ${error.message}.`);
         }
@@ -293,27 +318,42 @@ export const contentService = {
           .select('*')
           .order('name', { ascending: true });
 
-        if (!error && data && data.length > 0) {
-          festivalsCache = data.map(row => ({
-            id: row.id,
-            name: row.name,
-            marathiName: row.marathi_name,
-            dates: row.dates,
-            location: row.location,
-            district: row.district,
-            description: row.description,
-            image: row.image,
-            gallery: row.gallery || [],
-            significance: row.significance,
-            highlights: row.highlights || [],
+        if (error) throw new Error(`Database festivals query failed: ${error.message}`);
+        const bySlug = new Map((data || []).map(row => [row.slug, row]));
+        const staticSlugs = new Set(FESTIVALS.map(item => item.slug || item.id));
+        festivalsCache = FESTIVALS.map(item => {
+          const row = bySlug.get(item.slug || item.id);
+          if (!row) return item;
+          return {
+            ...item,
+            id: row.slug || item.id,
+            slug: row.slug || item.slug || item.id,
+            dbId: row.id,
+            name: row.name || item.name,
+            marathiName: row.marathi_name || item.marathiName,
+            dates: row.dates || item.dates,
+            location: row.location || item.location,
+            district: row.district || item.district,
+            description: row.description || item.description,
+            image: row.image || item.image,
+            gallery: row.gallery || item.gallery || [],
+            significance: row.significance || item.significance,
+            highlights: row.highlights?.length ? row.highlights : (item.highlights || []),
             status: row.status || 'published',
             updatedAt: row.updated_at,
             lastEditedBy: row.last_edited_by || 'Editor'
-          }));
-          saveLocalFestivals(festivalsCache);
-          notifyContentListeners();
-          return festivalsCache;
-        }
+          };
+        }).concat((data || []).filter(row => !staticSlugs.has(row.slug)).map(row => ({
+          id: row.slug || row.id, slug: row.slug || row.id, dbId: row.id, name: row.name,
+          marathiName: row.marathi_name, dates: row.dates, location: row.location,
+          district: row.district, description: row.description, image: row.image,
+          gallery: row.gallery || [], significance: row.significance,
+          highlights: row.highlights || [], status: row.status || 'published',
+          updatedAt: row.updated_at, lastEditedBy: row.last_edited_by || 'Editor'
+        })));
+        saveLocalFestivals(festivalsCache);
+        notifyContentListeners();
+        return festivalsCache;
       } catch (err) {
         console.warn('Supabase festivals fetch notice, using active store:', err);
       }
@@ -332,8 +372,11 @@ export const contentService = {
       targetStatus = 'under_review';
     }
 
-    const id = festData.id || festData.name.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-');
-    const isNew = !festData.id || !festivalsCache.some(f => f.id === festData.id);
+    const generatedSlug = festData.slug || festData.id || festData.name.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-');
+    const id = generatedSlug;
+    const existingRecord = festivalsCache.find(f => f.id === festData.id || f.slug === generatedSlug);
+    const dbId = festData.dbId || existingRecord?.dbId || (isUuid(festData.id) ? festData.id : null) || makeUuid();
+    const isNew = !existingRecord;
 
     const now = new Date().toISOString();
     const editorName = adminProfile?.full_name || 'Administrator';
@@ -341,6 +384,8 @@ export const contentService = {
     const cleanRecord = {
       ...festData,
       id,
+      dbId,
+      slug: generatedSlug,
       name: festData.name.trim(),
       marathiName: festData.marathiName || '',
       dates: festData.dates || '',
@@ -359,7 +404,8 @@ export const contentService = {
     if (isSupabaseConfigured) {
       try {
         const payload = {
-          id: cleanRecord.id,
+          id: cleanRecord.dbId,
+          slug: cleanRecord.slug,
           name: cleanRecord.name,
           marathi_name: cleanRecord.marathiName,
           dates: cleanRecord.dates,
@@ -375,7 +421,7 @@ export const contentService = {
           updated_at: now
         };
 
-        const { error } = await supabase.from('festivals').upsert(payload);
+        const { error } = await supabase.from('festivals').upsert(payload, { onConflict: 'id' });
         if (error) {
           throw new Error(`Database synchronization failed: ${error.message}. Transaction cancelled to preserve data consistency.`);
         }
@@ -423,7 +469,7 @@ export const contentService = {
 
     if (isSupabaseConfigured) {
       try {
-        const { error } = await supabase.from('festivals').delete().eq('id', id);
+        const { error } = await supabase.from('festivals').delete().eq('id', target?.dbId || id);
         if (error) {
           throw new Error(`Database delete failed: ${error.message}.`);
         }
