@@ -369,9 +369,6 @@ export const videoService = {
           }
         }
 
-        if (error) {
-          throw new Error(`Database video delete failed: ${error.message}.`);
-        }
       } catch (err) {
         console.error('Supabase video delete error:', err);
         throw err;
