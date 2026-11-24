@@ -121,7 +121,7 @@ export default function VideosPage() {
                     <Play size={20} color="#FFFFFF" style={{ fill: '#FFFFFF', marginLeft: '2px' }} />
                   </div>
                   <span className={styles.duration}>
-                    <Clock size={11} /> {video.duration || 'Video'}
+                    <Clock size={11} /> {localizedVideo(video, 'duration') || video.duration || 'Video'}
                   </span>
                   <div className={styles.categoryBadge}>
                     <Badge variant={video.category} size="sm">
@@ -136,7 +136,7 @@ export default function VideosPage() {
                 <div className={styles.cardContent}>
                   <div className={styles.metaRow}>
                     <span className={styles.location}>
-                      <MapPin size={12} color="var(--color-secondary)" /> {localizedVideo(video, 'destination') || t('brandSubtitle', 'Maharashtra')}{video.district ? ` (${video.district})` : ''}
+                      <MapPin size={12} color="var(--color-secondary)" /> {localizedVideo(video, 'destination') || t('brandSubtitle', 'Maharashtra')}{localizedVideo(video, 'district') ? ` (${localizedVideo(video, 'district')})` : ''}
                     </span>
                     <span className={styles.creator}>{video.creator || 'AAGMAN'}</span>
                   </div>

@@ -17,17 +17,21 @@ const isUuid = value => typeof value === 'string' &&
   /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value);
 
 function loadStoredVideos() {
+  // Production uses Supabase exclusively; local demo/test builds retain the
+  // reviewed six-video catalogue until an administrator adds local records.
+  if (isSupabaseConfigured) return [];
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (raw) {
-      return JSON.parse(raw);
+      const stored = JSON.parse(raw);
+      if (Array.isArray(stored)) return stored;
     }
   } catch (e) {
     console.warn('Failed loading stored videos:', e);
   }
-  return CURATED_VIDEOS.map(v => ({
-    ...v,
-    youtubeId: extractYouTubeId(v.youtubeUrl),
+  return CURATED_VIDEOS.map(video => ({
+    ...video,
+    youtubeId: video.youtubeId || extractYouTubeId(video.youtubeUrl),
     isActive: true,
     isFeatured: true,
     updatedAt: new Date().toISOString()
@@ -65,31 +69,33 @@ export const videoService = {
           .select('*')
           .order('created_at', { ascending: false });
 
-        if (!error && data && data.length > 0) {
-          videoCache = data.map(row => ({
-            id: row.id,
-            title: row.title,
-            youtubeUrl: row.youtube_url,
-            youtubeId: row.youtube_id,
-            description: row.description || row.summary,
-            thumbnail: row.thumbnail_url || getYouTubeThumbnail(row.youtube_id),
-            destination: row.destination_name || row.destination_id,
-            destinationId: row.destination_id,
-            festivalId: row.festival_id,
-            category: row.category || 'heritage',
-            district: row.district || 'Maharashtra',
-            duration: row.duration || 'Video',
-            creator: row.creator || 'AAGMAN Heritage Series',
-            isActive: row.is_active ?? true,
-            isFeatured: row.is_featured ?? false,
-            updatedAt: row.updated_at
-          }));
-          saveStoredVideos(videoCache);
-          notifyListeners();
-          return videoCache;
-        }
+        if (error) throw new Error(`Database videos query failed: ${error.message}`);
+        videoCache = (data || []).map(row => ({
+          id: row.id,
+          title: row.title,
+          youtubeUrl: row.youtube_url,
+          youtubeId: row.youtube_id,
+          description: row.description || '',
+          thumbnail: row.thumbnail_url || getYouTubeThumbnail(row.youtube_id),
+          destination: row.destination_name || row.destination_slug || row.destination_id || '',
+          destinationId: row.destination_slug || row.destination_id,
+          festivalId: row.festival_slug || row.festival_id,
+          destinationDbId: row.destination_id,
+          festivalDbId: row.festival_id,
+          category: row.category || 'heritage',
+          district: row.district || 'Maharashtra',
+          duration: row.duration || 'Video',
+          creator: row.creator || 'AAGMAN Heritage Series',
+          isActive: row.is_active ?? true,
+          isFeatured: row.is_featured ?? false,
+          updatedAt: row.updated_at
+        }));
+        saveStoredVideos(videoCache);
+        notifyListeners();
+        return videoCache;
       } catch (err) {
-        console.warn('Supabase videos query notice, using local cache:', err);
+        console.error('Supabase videos query failed:', err);
+        throw err;
       }
     }
     return videoCache;
@@ -140,6 +146,16 @@ export const videoService = {
       throw new Error('A video record with this exact YouTube URL/ID already exists in the catalog.');
     }
 
+    if (isSupabaseConfigured) {
+      const { data: duplicate, error: duplicateError } = await supabase
+        .from('videos')
+        .select('id')
+        .eq('youtube_id', youtubeId)
+        .maybeSingle();
+      if (duplicateError) throw new Error(`Could not verify duplicate YouTube video: ${duplicateError.message}`);
+      if (duplicate) throw new Error('A video record with this exact YouTube URL/ID already exists in the database.');
+    }
+
     const newVideo = {
       id: `vid-${Date.now()}`,
       title: title.trim(),
@@ -148,8 +164,10 @@ export const videoService = {
       thumbnail: input.thumbnail || getYouTubeThumbnail(youtubeId, 'hqdefault'),
       description: (description || '').trim(),
       destination: destinationName || destinationId || '',
-      destinationId: isUuid(destinationId) ? destinationId : null,
-      festivalId: isUuid(festivalId) ? festivalId : null,
+      destinationId: destinationId || null,
+      destinationDbId: isUuid(destinationId) ? destinationId : null,
+      festivalId: festivalId || null,
+      festivalDbId: isUuid(festivalId) ? festivalId : null,
       category: category || 'heritage',
       district: district || 'Maharashtra',
       duration: duration || 'Video',
@@ -165,14 +183,17 @@ export const videoService = {
         const { data, error } = await supabase
           .from('videos')
           .insert({
+            id: newVideo.id,
             title: newVideo.title,
             youtube_url: newVideo.youtubeUrl,
             youtube_id: newVideo.youtubeId,
             description: newVideo.description,
             thumbnail_url: newVideo.thumbnail,
-            destination_id: newVideo.destinationId,
+            destination_id: newVideo.destinationDbId || null,
+            destination_slug: newVideo.destinationId || null,
             destination_name: newVideo.destination,
-            festival_id: newVideo.festivalId,
+            festival_id: newVideo.festivalDbId || null,
+            festival_slug: newVideo.festivalId || null,
             category: newVideo.category,
             district: newVideo.district,
             duration: newVideo.duration,
@@ -238,6 +259,17 @@ export const videoService = {
       }
     }
 
+    if (isSupabaseConfigured && youtubeId !== existing.youtubeId) {
+      const { data: duplicate, error: duplicateError } = await supabase
+        .from('videos')
+        .select('id')
+        .eq('youtube_id', youtubeId)
+        .neq('id', id)
+        .maybeSingle();
+      if (duplicateError) throw new Error(`Could not verify duplicate YouTube video: ${duplicateError.message}`);
+      if (duplicate) throw new Error('Another video record already uses this YouTube URL/ID.');
+    }
+
     const updated = {
       ...existing,
       ...updates,
@@ -252,22 +284,26 @@ export const videoService = {
       try {
         const { error } = await supabase
           .from('videos')
-          .update({
+          .upsert({
+            id,
             title: updated.title,
             youtube_url: updated.youtubeUrl,
             youtube_id: updated.youtubeId,
             description: updated.description,
             thumbnail_url: updated.thumbnail,
-            destination_id: isUuid(updated.destinationId) ? updated.destinationId : null,
+            destination_id: updated.destinationDbId || (isUuid(updated.destinationId) ? updated.destinationId : null),
+            destination_slug: isUuid(updated.destinationId) ? null : (updated.destinationId || null),
             destination_name: updated.destination,
-            festival_id: isUuid(updated.festivalId) ? updated.festivalId : null,
+            festival_id: updated.festivalDbId || (isUuid(updated.festivalId) ? updated.festivalId : null),
+            festival_slug: isUuid(updated.festivalId) ? null : (updated.festivalId || null),
             category: updated.category,
             district: updated.district,
+            duration: updated.duration || 'Video',
+            creator: updated.creator || 'AAGMAN Official Contributor',
             is_featured: updated.isFeatured,
             is_active: updated.isActive,
             updated_at: new Date().toISOString()
-          })
-          .eq('id', id);
+          }, { onConflict: 'id' });
 
         if (error) {
           throw new Error(`Database video update failed: ${error.message}.`);

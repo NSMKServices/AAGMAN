@@ -79,6 +79,6 @@ test('admin portal remains in the footer and is not added to public navigation',
   await page.goto('/');
   const footerAdminLink = page.locator('footer').getByRole('link', { name: 'Admin Portal' });
   await expect(footerAdminLink).toBeVisible();
-  await expect(footerAdminLink).toHaveAttribute('href', '/admin');
+  await expect(footerAdminLink).toHaveAttribute('href', '/admin/login');
   await expect(page.locator('header').getByRole('link', { name: 'Admin Portal' })).toHaveCount(0);
 });

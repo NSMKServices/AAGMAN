@@ -167,6 +167,8 @@ export default function AdminDestinationModal({ isOpen, onClose, onSave, destina
                 <option value="temples">Sacred Temples & Shrines</option>
                 <option value="beaches">Konkan Coast & Beaches</option>
                 <option value="heritage">UNESCO Caves & Monuments</option>
+                <option value="nature">Hill Stations & Natural Wonders</option>
+                <option value="wildlife">Wildlife Sanctuaries & Parks</option>
               </select>
             </div>
 
@@ -269,6 +271,8 @@ export default function AdminDestinationModal({ isOpen, onClose, onSave, destina
 
           {/* Media & Photographs Section */}
           <MediaManager
+            entityType="destinations"
+            entitySlug={slug || name}
             coverImage={heroImage}
             onCoverImageChange={setHeroImage}
             gallery={gallery}

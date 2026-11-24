@@ -76,23 +76,72 @@ export function AdminAuthProvider({ children }) {
     }
   }, []);
 
-  // Initialize and restore session on mount
+  // Initialize and restore session on mount.
+  // Resolve getSession() before registering the listener, and keep the listener
+  // synchronous: Supabase warns that awaiting client calls inside this callback
+  // can block the auth lock and stall subsequent requests.
   useEffect(() => {
     let isMounted = true;
+    let authListener = null;
+    let profileRequestId = 0;
+
+    const handleAuthStateChange = (event, newSession) => {
+      if (!isMounted) return;
+
+      if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED' || event === 'USER_UPDATED') {
+        setSession(newSession);
+        setUser(newSession?.user || null);
+
+        const requestId = ++profileRequestId;
+        if (newSession?.user) {
+          // Defer database access until the synchronous auth callback has returned.
+          setTimeout(() => {
+            fetchAdminProfile(newSession.user.id, newSession.user.email)
+              .then(profile => {
+                if (!isMounted || requestId !== profileRequestId) return;
+                setAdminProfile(profile);
+                if (!profile) {
+                  setAuthError('This account does not have an active administrator profile.');
+                } else {
+                  setAuthError(null);
+                }
+              })
+              .catch(err => {
+                if (!isMounted || requestId !== profileRequestId) return;
+                setAuthError(err.message);
+                setAdminProfile(null);
+              });
+          }, 0);
+        } else {
+          setAdminProfile(null);
+        }
+      } else if (event === 'SIGNED_OUT') {
+        profileRequestId += 1;
+        setSession(null);
+        setUser(null);
+        setAdminProfile(null);
+        setAuthError(null);
+        try {
+          localStorage.removeItem('aagman_demo_admin_profile');
+        } catch (err) {
+          // Ignore unavailable browser storage during sign-out.
+        }
+      }
+    };
 
     async function initAuth() {
       setLoading(true);
       setAuthError(null);
 
-      // In production mode, demo admin sessions are strictly purged and rejected (fail-closed)
+      // In production mode, demo admin sessions are strictly purged and rejected.
       if (isProduction) {
         try {
           localStorage.removeItem('aagman_demo_admin_profile');
-        } catch (e) {
-          // ignore
+        } catch (err) {
+          // Ignore unavailable browser storage.
         }
       } else {
-        // Development-only demo admin session restoration (only when Supabase unconfigured)
+        // Development-only demo session restoration when Supabase is not configured.
         try {
           const storedDemoAdmin = localStorage.getItem('aagman_demo_admin_profile');
           if (storedDemoAdmin && !isSupabaseConfigured) {
@@ -105,12 +154,11 @@ export function AdminAuthProvider({ children }) {
               return;
             }
           }
-        } catch (e) {
-          console.warn('Error reading demo admin session:', e);
+        } catch (err) {
+          console.warn('Error reading demo admin session:', err);
         }
       }
 
-      // Check Supabase session
       if (isSupabaseConfigured) {
         try {
           const { data: { session: initialSession }, error: sessionError } = await supabase.auth.getSession();
@@ -118,18 +166,24 @@ export function AdminAuthProvider({ children }) {
             console.warn('Supabase getSession error:', sessionError.message);
           }
 
-          if (initialSession?.user && isMounted) {
+          if (!isMounted) return;
+
+          if (initialSession?.user) {
             setSession(initialSession);
             setUser(initialSession.user);
+          }
 
+          // Register only after getSession() has completed initialization.
+          const { data: { subscription } } = supabase.auth.onAuthStateChange(handleAuthStateChange);
+          authListener = subscription;
+
+          if (initialSession?.user) {
             try {
               const profile = await fetchAdminProfile(initialSession.user.id, initialSession.user.email);
               if (isMounted) {
-                if (profile) {
-                  setAdminProfile(profile);
-                } else {
-                  // User exists in auth but has no admin profile -> not authorized for admin
-                  setAdminProfile(null);
+                setAdminProfile(profile);
+                if (!profile) {
+                  setAuthError('This account does not have an active administrator profile.');
                 }
               }
             } catch (profileErr) {
@@ -141,6 +195,7 @@ export function AdminAuthProvider({ children }) {
           }
         } catch (err) {
           console.warn('Supabase session initialization exception:', err);
+          if (isMounted) setAuthError(formatAuthError(err));
         }
       }
 
@@ -151,40 +206,9 @@ export function AdminAuthProvider({ children }) {
 
     initAuth();
 
-    // Setup single subscription listener for auth state changes
-    let authListener = null;
-    if (isSupabaseConfigured) {
-      const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, newSession) => {
-        if (!isMounted) return;
-
-        if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED' || event === 'USER_UPDATED') {
-          setSession(newSession);
-          setUser(newSession?.user || null);
-
-          if (newSession?.user) {
-            try {
-              const profile = await fetchAdminProfile(newSession.user.id, newSession.user.email);
-              if (isMounted) setAdminProfile(profile);
-            } catch (err) {
-              if (isMounted) {
-                setAuthError(err.message);
-                setAdminProfile(null);
-              }
-            }
-          }
-        } else if (event === 'SIGNED_OUT') {
-          setSession(null);
-          setUser(null);
-          setAdminProfile(null);
-          setAuthError(null);
-          localStorage.removeItem('aagman_demo_admin_profile');
-        }
-      });
-      authListener = subscription;
-    }
-
     return () => {
       isMounted = false;
+      profileRequestId += 1;
       if (authListener) {
         authListener.unsubscribe();
       }

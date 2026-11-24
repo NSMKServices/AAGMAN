@@ -210,6 +210,8 @@ export default function AdminFestivalModal({ isOpen, onClose, onSave, festivalTo
 
           {/* Media & Photographs Section */}
           <MediaManager
+            entityType="festivals"
+            entitySlug={festivalToEdit?.slug || festivalToEdit?.id || name}
             coverImage={image}
             onCoverImageChange={setImage}
             gallery={gallery}

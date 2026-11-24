@@ -39,7 +39,22 @@ for (const scenario of responsiveCases) {
       await page.goto(scenario.route, { waitUntil: 'domcontentloaded' });
       const dimensions = await page.evaluate(() => ({
         viewport: window.innerWidth,
-        document: document.documentElement.scrollWidth
+        document: document.documentElement.scrollWidth,
+        offenders: [...document.querySelectorAll('body *')]
+          .map(element => {
+            const rect = element.getBoundingClientRect();
+            return {
+              tag: element.tagName,
+              className: typeof element.className === 'string' ? element.className : '',
+              text: (element.textContent || '').trim().slice(0, 60),
+              left: Math.round(rect.left),
+              right: Math.round(rect.right),
+              width: Math.round(rect.width)
+            };
+          })
+          .filter(element => element.right > window.innerWidth + 1)
+          .sort((a, b) => b.right - a.right)
+          .slice(0, 12)
       }));
       expect(
         dimensions.document,
@@ -52,4 +67,30 @@ for (const scenario of responsiveCases) {
 test('unknown paths show the application 404 page', async ({ page }) => {
   await page.goto('/this-route-does-not-exist', { waitUntil: 'domcontentloaded' });
   await expect(page.getByText('Page Not Found')).toBeVisible();
+});
+
+
+test('footer Admin Portal opens the dedicated sign-in page', async ({ page }) => {
+  await page.goto('/', { waitUntil: 'domcontentloaded' });
+  const adminLink = page.locator('footer a[href="/admin/login"]');
+  await expect(adminLink).toBeVisible();
+  await adminLink.click();
+  await expect(page).toHaveURL(/\/admin\/login$/);
+  await expect(page.getByRole('heading', { name: 'Administrator Sign In' })).toBeVisible();
+  await expect(page.getByLabel('Official Email Address')).toBeVisible();
+  await expect(page.getByRole('textbox', { name: 'Password' })).toBeVisible();
+  await expect(page.getByLabel('Remember session')).toHaveCount(0);
+});
+
+test('video cards open matching original YouTube pages in a new tab', async ({ page }) => {
+  await page.goto('/videos', { waitUntil: 'domcontentloaded' });
+  const watchLinks = page.locator('a[href^="https://www.youtube.com/watch?v="]');
+  await expect(watchLinks).toHaveCount(6);
+
+  for (let index = 0; index < await watchLinks.count(); index += 1) {
+    const link = watchLinks.nth(index);
+    await expect(link).toHaveAttribute('target', '_blank');
+    await expect(link).toHaveAttribute('rel', /noopener/);
+    await expect(link).toHaveAttribute('href', /^https:\/\/www\.youtube\.com\/watch\?v=/);
+  }
 });
