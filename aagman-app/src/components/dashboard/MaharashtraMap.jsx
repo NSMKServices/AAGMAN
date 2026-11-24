@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Badge from '../common/Badge';
 import {
@@ -16,7 +16,7 @@ import {
   Layers
 } from '../common/Icons';
 import { useLanguage } from '../../context/LanguageContext';
-import { DESTINATIONS } from '../../data/destinations';
+import { contentService } from '../../services/contentService';
 import {
   MAHARASHTRA_DISTRICTS,
   MAHARASHTRA_DIVISIONS,
@@ -33,10 +33,20 @@ export default function MaharashtraMap() {
   const [activeDivision, setActiveDivision] = useState('all');
   const [selectedDistrictId, setSelectedDistrictId] = useState(null);
   const [hoveredDistrict, setHoveredDistrict] = useState(null);
-  const [selectedPinId, setSelectedPinId] = useState('raigad');
+  const [selectedPinId, setSelectedPinId] = useState(null);
+  const [destinations, setDestinations] = useState([]);
+
+  useEffect(() => {
+    const unsubscribe = contentService.subscribe(({ destinations: records }) => setDestinations(records));
+    contentService.getAllDestinations();
+    return unsubscribe;
+  }, []);
+
+  const visibleSlugs = new Set(destinations.filter(item => item.status === 'published').map(item => item.slug));
+  const publishedDestinations = destinations.filter(item => item.status === 'published');
 
   // Filter destination pins by category and optional division
-  const filteredPins = PROJECTED_DESTINATIONS.filter(pin => {
+  const filteredPins = PROJECTED_DESTINATIONS.filter(pin => visibleSlugs.has(pin.slug)).filter(pin => {
     const matchesCategory = activeCategory === 'all' || pin.category === activeCategory;
     if (!matchesCategory) return false;
 
@@ -46,8 +56,8 @@ export default function MaharashtraMap() {
   });
 
   // Selected destination data
-  const activePin = PROJECTED_DESTINATIONS.find(p => p.id === selectedPinId) || PROJECTED_DESTINATIONS[0];
-  const matchedDestination = DESTINATIONS.find(d => d.slug === activePin?.slug) || DESTINATIONS[0];
+  const activePin = filteredPins.find(p => p.id === selectedPinId) || filteredPins[0] || null;
+  const matchedDestination = publishedDestinations.find(d => d.slug === activePin?.slug) || null;
 
   // Selected district data
   const selectedDistrict = MAHARASHTRA_DISTRICTS.find(d => d.id === selectedDistrictId);
@@ -58,7 +68,7 @@ export default function MaharashtraMap() {
         const distName = selectedDistrict?.name?.toLowerCase() || '';
         const distMarathi = selectedDistrict?.marathiName || '';
         return (
-          d.district.toLowerCase().includes(distName) ||
+          (d.district || '').toLowerCase().includes(distName) ||
           (d.marathiName && d.marathiName.includes(distMarathi)) ||
           selectedDistrict.destinations.includes(d.slug)
         );
@@ -85,7 +95,7 @@ export default function MaharashtraMap() {
     } else {
       setSelectedDistrictId(district.id);
       // If district has destinations, highlight the first one
-      const foundDest = PROJECTED_DESTINATIONS.find(p => district.destinations.includes(p.slug));
+      const foundDest = filteredPins.find(p => district.destinations.includes(p.slug));
       if (foundDest) {
         setSelectedPinId(foundDest.id);
       }
@@ -130,7 +140,7 @@ export default function MaharashtraMap() {
             className={`${styles.filterBtn} ${activeCategory === 'all' ? styles.activeFilter : ''}`}
             onClick={() => setActiveCategory('all')}
           >
-            {t('allSites', 'All Sites')} ({PROJECTED_DESTINATIONS.length})
+            {t('allSites', 'All Sites')} ({publishedDestinations.length})
           </button>
           <button
             type="button"
@@ -453,6 +463,9 @@ export default function MaharashtraMap() {
           )}
 
           {/* Active Destination Card */}
+          {!matchedDestination && !selectedDistrict && (
+            <p className={styles.noDestText}>No published destinations yet. Add and publish places in the admin dashboard to populate this map.</p>
+          )}
           {matchedDestination && (
             <div className={styles.destinationCard}>
               <div className={styles.cardMedia}>
