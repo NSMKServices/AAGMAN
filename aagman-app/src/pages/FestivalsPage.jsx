@@ -10,6 +10,7 @@ import { videoService } from '../services/videoService';
 import { useLanguage } from '../context/LanguageContext';
 import { Calendar, MapPin, Check, Sparkles, ExternalLink } from '../components/common/Icons';
 import styles from './FestivalsPage.module.css';
+import { getLocalizedName, getLocalizedValue } from '../utils/localizedContent';
 
 export default function FestivalsPage() {
   const { language, t } = useLanguage();
@@ -70,8 +71,13 @@ export default function FestivalsPage() {
 
           <div className={styles.festivalsGrid}>
             {filteredFestivals.map((festival) => {
-              const displayName = language === 'mr' ? festival.marathiName || festival.name : festival.name;
-              const subName = language === 'mr' ? festival.name : festival.marathiName;
+              const displayName = getLocalizedName(festival, language);
+              const hasHindiName = Boolean(festival.nameHi || festival.hindiName);
+              const subName = language === 'mr'
+                ? festival.name
+                : language === 'hi'
+                  ? (hasHindiName ? festival.name : festival.marathiName)
+                  : festival.marathiName;
 
               return (
                 <div key={festival.id} className={styles.festivalCard}>
@@ -85,7 +91,7 @@ export default function FestivalsPage() {
                     <div className={styles.cardDates}>
                       <span>
                         <Calendar size={12} style={{ marginRight: 4, verticalAlign: 'middle' }} />
-                        {festival.dates}
+                        {getLocalizedValue(festival, 'dates', language)}
                       </span>
                     </div>
                   </div>
@@ -100,9 +106,9 @@ export default function FestivalsPage() {
 
                     <p className={styles.locationTag}>
                       <MapPin size={12} style={{ marginRight: 4, verticalAlign: 'middle' }} />
-                      {festival.location}
+                      {getLocalizedValue(festival, 'location', language)}
                     </p>
-                    <p className={styles.description}>{festival.description}</p>
+                    <p className={styles.description}>{getLocalizedValue(festival, 'description', language)}</p>
 
                     <div className={styles.highlightsContainer}>
                       <span className={styles.highlightsTitle}>{t('culturalHighlights', 'Cultural Highlights')}:</span>
@@ -110,7 +116,7 @@ export default function FestivalsPage() {
                         {festival.highlights.map((h, i) => (
                           <span key={i} className={styles.chip}>
                             <Check size={12} style={{ marginRight: 4 }} />
-                            {h}
+                            {getLocalizedValue(festival, 'highlights', language)[i] ?? h}
                           </span>
                         ))}
                       </div>
@@ -139,7 +145,7 @@ export default function FestivalsPage() {
         <Modal
           isOpen={!!selectedFestival}
           onClose={() => setSelectedFestival(null)}
-          title={language === 'mr' ? selectedFestival.marathiName || selectedFestival.name : selectedFestival.name}
+          title={getLocalizedName(selectedFestival, language)}
         >
           <div className={styles.modalContent}>
             <div className={styles.modalHero}>
@@ -150,7 +156,7 @@ export default function FestivalsPage() {
               />
               <div className={styles.modalHeroBadge}>
                 <Badge variant="gold">
-                  {selectedFestival.dates}
+                  {getLocalizedValue(selectedFestival, 'dates', language)}
                 </Badge>
               </div>
             </div>
@@ -159,17 +165,17 @@ export default function FestivalsPage() {
               <div className={styles.modalMetaRow}>
                 <span className={styles.modalLocation}>
                   <MapPin size={14} style={{ marginRight: 4, verticalAlign: 'middle', color: 'var(--color-primary)' }} />
-                  {selectedFestival.location}
+                  {getLocalizedValue(selectedFestival, 'location', language)}
                 </span>
                 <span className={styles.modalDuration}>
                   <Calendar size={14} style={{ marginRight: 4, verticalAlign: 'middle', color: 'var(--color-secondary)' }} />
-                  {selectedFestival.dates}
+                  {getLocalizedValue(selectedFestival, 'dates', language)}
                 </span>
               </div>
 
               <div className={styles.modalSection}>
                 <h4 className={styles.modalSectionTitle}>{t('historicalSignificance', 'Cultural Significance & Legend')}</h4>
-                <p className={styles.modalText}>{selectedFestival.significance || selectedFestival.description}</p>
+                <p className={styles.modalText}>{getLocalizedValue(selectedFestival, 'significance', language) || getLocalizedValue(selectedFestival, 'description', language)}</p>
               </div>
 
               <div className={styles.modalSection}>
@@ -178,7 +184,7 @@ export default function FestivalsPage() {
                   {selectedFestival.highlights.map((h, i) => (
                     <div key={i} className={styles.modalHighlightCard}>
                       <span className={styles.modalHighlightNum}>{i + 1}</span>
-                      <p className={styles.modalHighlightText}>{h}</p>
+                      <p className={styles.modalHighlightText}>{getLocalizedValue(selectedFestival, 'highlights', language)[i] ?? h}</p>
                     </div>
                   ))}
                 </div>
@@ -188,7 +194,7 @@ export default function FestivalsPage() {
                 <div className={styles.modalSection}>
                   <h4 className={styles.modalSectionTitle}>{t('culinaryTraditions', 'Culinary Specialties')}</h4>
                   <div className={styles.modalFoodBox}>
-                    <p>{selectedFestival.foodSpecialties}</p>
+                    <p>{getLocalizedValue(selectedFestival, 'foodSpecialties', language)}</p>
                   </div>
                 </div>
               )}

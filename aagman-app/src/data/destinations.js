@@ -1,19 +1,21 @@
 /**
  * AAGMAN - Canonical Destinations Dataset
  * Comprehensive, verified information for Maharashtra Tourism & Heritage Platform
- * Categories: forts, temples, beaches, heritage
+ * Categories: forts, temples, beaches, heritage, nature, wildlife
  */
-import { ALL_DESTINATION_IMAGE_REGISTRY } from './imageRegistry';
+import { ALL_DESTINATION_IMAGE_REGISTRY } from './imageRegistry.js';
+import { DESTINATION_TRANSLATIONS } from './destinationTranslations.js';
 
 export const DESTINATIONS = [
   // ==========================================
-  // FORTS & SAHYADRI TREKKING (17 DESTINATIONS)
+  // FORTS & SAHYADRI TREKKING (12 DESTINATIONS)
   // ==========================================
   {
     id: "raigad-fort",
     slug: "raigad",
     name: "Raigad Fort",
     marathiName: "किल्ले रायगड",
+    nameHi: "रायगढ़ किला",
     category: "forts",
     circuit: "Maratha Imperial Circuit",
     district: "Raigad",
@@ -50,6 +52,7 @@ export const DESTINATIONS = [
     slug: "sinhagad",
     name: "Sinhagad Fort",
     marathiName: "सिंहगड किल्ला",
+    nameHi: "सिंहगढ़ किला",
     category: "forts",
     circuit: "Pune Heritage Circuit",
     district: "Pune",
@@ -85,6 +88,7 @@ export const DESTINATIONS = [
     slug: "pratapgad",
     name: "Pratapgad Fort",
     marathiName: "प्रतापगड किल्ला",
+    nameHi: "प्रतापगढ़ किला",
     category: "forts",
     circuit: "Satara Hill Circuit",
     district: "Satara",
@@ -119,6 +123,7 @@ export const DESTINATIONS = [
     slug: "murud-janjira",
     name: "Murud-Janjira Sea Fortress",
     marathiName: "मुरुड जंजिरा जलदुर्ग",
+    nameHi: "मुरुड-जंजीरा समुद्री किला",
     category: "forts",
     circuit: "Konkan Marine Forts",
     district: "Raigad",
@@ -153,6 +158,7 @@ export const DESTINATIONS = [
     slug: "shivneri",
     name: "Shivneri Fort",
     marathiName: "किल्ले शिवनेरी",
+    nameHi: "शिवनेरी किला",
     category: "forts",
     circuit: "Junnar Heritage Circuit",
     district: "Pune",
@@ -188,6 +194,7 @@ export const DESTINATIONS = [
     slug: "rajgad",
     name: "Rajgad Fort",
     marathiName: "किल्ले राजगड",
+    nameHi: "राजगढ़ किला",
     category: "forts",
     circuit: "Pune Heritage Circuit",
     district: "Pune",
@@ -222,6 +229,7 @@ export const DESTINATIONS = [
     slug: "torna",
     name: "Torna Fort (Prachandagad)",
     marathiName: "किल्ले तोरणा (प्रचंडगड)",
+    nameHi: "तोरणा किला (प्रचंडगढ़)",
     category: "forts",
     circuit: "Pune Heritage Circuit",
     district: "Pune",
@@ -256,6 +264,7 @@ export const DESTINATIONS = [
     slug: "harishchandragad",
     name: "Harishchandragad",
     marathiName: "हरिश्चंद्रगड",
+    nameHi: "हरिश्चंद्रगढ़",
     category: "forts",
     circuit: "Malshej Trekking Circuit",
     district: "Ahmednagar",
@@ -290,6 +299,7 @@ export const DESTINATIONS = [
     slug: "sindhudurg",
     name: "Sindhudurg Fort",
     marathiName: "सिंधुदुर्ग किल्ला",
+    nameHi: "सिंधुदुर्ग किला",
     category: "forts",
     circuit: "Malvan Coastal Circuit",
     district: "Sindhudurg",
@@ -324,6 +334,7 @@ export const DESTINATIONS = [
     slug: "panhala",
     name: "Panhala Fort",
     marathiName: "पन्हाळा किल्ला",
+    nameHi: "पन्हाला किला",
     category: "forts",
     circuit: "Kolhapur Royal Circuit",
     district: "Kolhapur",
@@ -358,6 +369,7 @@ export const DESTINATIONS = [
     slug: "lohagad-visapur",
     name: "Lohagad & Visapur Twin Forts",
     marathiName: "लोहगड आणि विसापूर किल्ले",
+    nameHi: "लोहगढ़ और विसापुर किले",
     category: "forts",
     circuit: "Lonavala Hill Circuit",
     district: "Pune",
@@ -392,6 +404,7 @@ export const DESTINATIONS = [
     slug: "kalsubai",
     name: "Kalsubai Peak",
     marathiName: "कळसूबाई शिखर",
+    nameHi: "कलसूबाई शिखर",
     category: "forts",
     circuit: "Sahyadri Summits",
     district: "Ahmednagar",
@@ -423,13 +436,14 @@ export const DESTINATIONS = [
   },
 
   // ==========================================
-  // TEMPLES & PILGRIMAGES (SAMPLE 8 SHOWN, REST IN DATASET)
+  // TEMPLES & PILGRIMAGES (9 DESTINATIONS)
   // ==========================================
   {
     id: "trimbakeshwar",
     slug: "trimbakeshwar",
     name: "Trimbakeshwar Jyotirlinga",
     marathiName: "श्री त्र्यंबकेश्वर ज्योतिर्लिंग",
+    nameHi: "त्र्यंबकेश्वर मंदिर",
     category: "temples",
     circuit: "Jyotirlinga & Godavari Circuit",
     district: "Nashik",
@@ -462,6 +476,7 @@ export const DESTINATIONS = [
     slug: "mayureshwar",
     name: "Mayureshwar (Morgaon) — Ashtavinayak",
     marathiName: "मयूरेश्वर (मोरगाव) — अष्टविनायक",
+    nameHi: "मोरगांव मयूरेश्वर मंदिर",
     category: "temples",
     circuit: "Ashtavinayak Circuit",
     district: "Pune",
@@ -494,6 +509,7 @@ export const DESTINATIONS = [
     slug: "shirdi",
     name: "Shirdi Sai Baba Temple",
     marathiName: "शिर्डी साईबाबा मंदिर",
+    nameHi: "शिरडी साईं बाबा मंदिर",
     category: "temples",
     circuit: "Spiritual Shrines",
     district: "Ahmednagar",
@@ -526,6 +542,7 @@ export const DESTINATIONS = [
     slug: "pandharpur",
     name: "Pandharpur Vitthal Rukmini Mandir",
     marathiName: "पंढरपूर विठ्ठल रुक्मिणी मंदिर",
+    nameHi: "पंढरपुर विठ्ठल मंदिर",
     category: "temples",
     circuit: "Warkari Bhakti Circuit",
     district: "Solapur",
@@ -555,13 +572,14 @@ export const DESTINATIONS = [
   },
 
   // ==========================================
-  // BEACHES (SAMPLE 4 SHOWN, REST IN DATASET)
+  // BEACHES (5 DESTINATIONS)
   // ==========================================
   {
     id: "kashid-beach",
     slug: "kashid",
     name: "Kashid Beach",
     marathiName: "काशीद समुद्रकिनारा",
+    nameHi: "काशीद समुद्र तट",
     category: "beaches",
     circuit: "North Konkan Coast",
     district: "Raigad",
@@ -594,6 +612,7 @@ export const DESTINATIONS = [
     slug: "ganpatipule",
     name: "Ganpatipule Beach",
     marathiName: "गणपतीपुळे समुद्रकिनारा",
+    nameHi: "गणपतिपुले समुद्र तट",
     category: "beaches",
     circuit: "Ratnagiri Coastal Circuit",
     district: "Ratnagiri",
@@ -626,6 +645,7 @@ export const DESTINATIONS = [
     slug: "tarkarli",
     name: "Tarkarli & Devbagh Beach",
     marathiName: "तारकर्ली आणि देवबाग समुद्रकिनारा",
+    nameHi: "तारकर्ली समुद्र तट",
     category: "beaches",
     circuit: "Malvan Marine Circuit",
     district: "Sindhudurg",
@@ -655,13 +675,14 @@ export const DESTINATIONS = [
   },
 
   // ==========================================
-  // HERITAGE & UNESCO CAVES (4 SHOWN)
+  // HERITAGE & UNESCO CAVES (7 DESTINATIONS)
   // ==========================================
   {
     id: "ajanta-caves",
     slug: "ajanta-caves",
     name: "Ajanta Caves (UNESCO World Heritage)",
     marathiName: "अजिंठा लेणी (युनेस्को जागतिक वारसा)",
+    nameHi: "अजंता गुफाएँ (विश्व धरोहर)",
     category: "heritage",
     circuit: "UNESCO Heritage Circuit",
     district: "Chhatrapati Sambhajinagar",
@@ -694,6 +715,7 @@ export const DESTINATIONS = [
     slug: "ellora-caves",
     name: "Ellora Caves & Kailasa Temple (UNESCO)",
     marathiName: "वेरूळ लेणी आणि कैलास मंदिर",
+    nameHi: "एलोरा गुफाएँ और कैलाश मंदिर",
     category: "heritage",
     circuit: "UNESCO Heritage Circuit",
     district: "Chhatrapati Sambhajinagar",
@@ -726,6 +748,7 @@ export const DESTINATIONS = [
     slug: "elephanta-caves",
     name: "Elephanta Caves (UNESCO World Heritage)",
     marathiName: "घरापुरी (एलिफंटा) लेणी",
+    nameHi: "एलीफेंटा गुफाएँ (विश्व धरोहर)",
     category: "heritage",
     circuit: "Mumbai Maritime Heritage",
     district: "Mumbai / Raigad",
@@ -758,6 +781,7 @@ export const DESTINATIONS = [
     slug: "csmt-station",
     name: "Chhatrapati Shivaji Maharaj Terminus (CSMT)",
     marathiName: "छत्रपती शिवाजी महाराज टर्मिनस",
+    nameHi: "छत्रपति शिवाजी महाराज टर्मिनस",
     category: "heritage",
     circuit: "Victorian Gothic Mumbai",
     district: "Mumbai",
@@ -784,11 +808,1125 @@ export const DESTINATIONS = [
     localCuisine: "Iconic Mumbai Pav Bhaji, Bun Maska at heritage Irani cafes, Falooda.",
     rating: 4.9,
     reviewsCount: 3900
-  }
+  },
+  // Additional destinations across forts, temples and the Konkan coast
+
+
+
+
+{
+  "id": "siddhivinayak-temple-mumbai",
+  "slug": "siddhivinayak-temple-mumbai",
+  "name": "Siddhivinayak Temple",
+  "marathiName": "श्री सिद्धिविनायक मंदिर",
+  "nameHi": "श्री सिद्धिविनायक मंदिर",
+  "category": "temples",
+  "circuit": "Mumbai Spiritual Circuit",
+  "district": "Mumbai City",
+  "region": "Konkan",
+  "bestTime": "Throughout the year",
+  "timings": "Check current local opening hours before visiting",
+  "entryFee": "Check current official entry and access charges",
+  "heroImage": "https://images.unsplash.com/photo-1600100397608-f010e42e4e7a?auto=format&fit=crop&w=1600&q=80",
+  "thumbnail": "https://images.unsplash.com/photo-1600100397608-f010e42e4e7a?auto=format&fit=crop&w=600&q=80",
+  "summary": "One of Mumbai's best-known Ganesh temples and an important place of worship for devotees.",
+  "summaryMr": "मुंबईतील प्रसिद्ध गणेश मंदिर आणि भाविकांचे महत्त्वाचे श्रद्धास्थान.",
+  "summaryHi": "मुंबई का प्रसिद्ध गणेश मंदिर और श्रद्धालुओं का महत्वपूर्ण पूजा स्थल।",
+  "history": "The temple at Prabhadevi is dedicated to Lord Ganesha and attracts devotees throughout the year, especially on Tuesdays and during Ganesh festivities.",
+  "historyMr": "प्रभादेवी येथील हे मंदिर भगवान गणेशाला समर्पित असून वर्षभर भाविक येथे येतात; मंगळवार आणि गणेशोत्सवात विशेष गर्दी असते.",
+  "historyHi": "प्रभादेवी स्थित यह मंदिर भगवान गणेश को समर्पित है। यहाँ वर्ष भर श्रद्धालु आते हैं, विशेषकर मंगलवार और गणेश उत्सव के दौरान।",
+  "attractions": [
+    "Main Ganesh shrine",
+    "Temple architecture and devotional atmosphere",
+    "Nearby Prabhadevi neighbourhood"
+  ],
+  "attractionsMr": [
+    "मुख्य गणेश मंदिर",
+    "मंदिराची वास्तुरचना आणि भक्तिमय वातावरण",
+    "जवळचा प्रभादेवी परिसर"
+  ],
+  "attractionsHi": [
+    "मुख्य गणेश मंदिर",
+    "मंदिर की वास्तुकला और भक्तिमय वातावरण",
+    "पास का प्रभादेवी क्षेत्र"
+  ],
+  "coordinates": {
+    "lat": 19.0169,
+    "lng": 72.8305,
+    "mapsUrl": "https://maps.google.com/?q=19.0169,72.8305"
+  },
+  "howToReach": {
+    "air": "Chhatrapati Shivaji Maharaj International Airport; city transport.",
+    "rail": "Prabhadevi station and nearby Mumbai suburban rail connections.",
+    "road": "Located in Prabhadevi, Mumbai; use local traffic and parking guidance."
+  },
+  "howToReachMr": {
+    "air": "छत्रपती शिवाजी महाराज आंतरराष्ट्रीय विमानतळ; शहरातील वाहतूक.",
+    "rail": "प्रभादेवी स्थानक आणि मुंबई उपनगरी रेल्वे.",
+    "road": "मुंबईतील प्रभादेवी येथे; स्थानिक वाहतूक व पार्किंग सूचना तपासा."
+  },
+  "howToReachHi": {
+    "air": "छत्रपति शिवाजी महाराज अंतरराष्ट्रीय हवाई अड्डा; शहर परिवहन.",
+    "rail": "प्रभादेवी स्टेशन और मुंबई उपनगरीय रेल संपर्क.",
+    "road": "मुंबई के प्रभादेवी में स्थित; स्थानीय यातायात और पार्किंग निर्देश देखें।"
+  },
+  "localCuisine": "Mumbai street food and traditional Maharashtrian snacks.",
+  "sourceUrl": "https://maharashtratourism.gov.in/sitemap/",
+  "rating": 4.5,
+  "reviewsCount": 0
+},
+{
+  "id": "bhimashankar-temple",
+  "slug": "bhimashankar",
+  "name": "Bhimashankar Temple",
+  "marathiName": "भीमाशंकर मंदिर",
+  "nameHi": "भीमाशंकर मंदिर",
+  "category": "temples",
+  "circuit": "Jyotirlinga Pilgrimage Circuit",
+  "district": "Pune",
+  "region": "Western Maharashtra",
+  "bestTime": "October to February",
+  "timings": "Check current local opening hours before visiting",
+  "entryFee": "Check current official entry and access charges",
+  "heroImage": "https://images.unsplash.com/photo-1600100397608-f010e42e4e7a?auto=format&fit=crop&w=1600&q=80",
+  "thumbnail": "https://images.unsplash.com/photo-1600100397608-f010e42e4e7a?auto=format&fit=crop&w=600&q=80",
+  "summary": "A major Shiva pilgrimage site set amid the forested Sahyadri hills.",
+  "summaryMr": "सह्याद्रीच्या वनराईत वसलेले भगवान शिवाचे महत्त्वाचे ज्योतिर्लिंग तीर्थक्षेत्र.",
+  "summaryHi": "सह्याद्रि के वनाच्छादित पहाड़ों में स्थित भगवान शिव का प्रमुख ज्योतिर्लिंग तीर्थस्थल।",
+  "history": "Bhimashankar is traditionally counted among the twelve Jyotirlingas and is closely associated with the surrounding wildlife sanctuary.",
+  "historyMr": "भीमाशंकर हे पारंपरिक बारा ज्योतिर्लिंगांपैकी एक मानले जाते. परिसरातील वन्यजीव अभयारण्यामुळेही हे ठिकाण प्रसिद्ध आहे.",
+  "historyHi": "भीमाशंकर को परंपरागत रूप से बारह ज्योतिर्लिंगों में गिना जाता है। आसपास का वन्यजीव अभयारण्य भी इस क्षेत्र की विशेषता है।",
+  "attractions": [
+    "Bhimashankar Jyotirlinga shrine",
+    "Ancient temple architecture",
+    "Forest trails and viewpoints nearby"
+  ],
+  "attractionsMr": [
+    "भीमाशंकर ज्योतिर्लिंग मंदिर",
+    "प्राचीन मंदिर वास्तुरचना",
+    "जवळील वनमार्ग आणि दृश्यबिंदू"
+  ],
+  "attractionsHi": [
+    "भीमाशंकर ज्योतिर्लिंग मंदिर",
+    "प्राचीन मंदिर वास्तुकला",
+    "पास के वन मार्ग और दृश्य स्थल"
+  ],
+  "coordinates": {
+    "lat": 19.0727,
+    "lng": 73.5353,
+    "mapsUrl": "https://maps.google.com/?q=19.0727,73.5353"
+  },
+  "howToReach": {
+    "air": "Pune Airport; onward road journey.",
+    "rail": "Pune railway station; onward road journey.",
+    "road": "Reach via the hill roads from Pune or nearby towns; check monsoon road conditions."
+  },
+  "howToReachMr": {
+    "air": "पुणे विमानतळ; पुढे रस्त्याने.",
+    "rail": "पुणे रेल्वे स्थानक; पुढे रस्त्याने.",
+    "road": "पुणे किंवा जवळच्या शहरांतून घाटरस्त्याने जा; पावसाळ्यातील रस्त्यांची स्थिती तपासा."
+  },
+  "howToReachHi": {
+    "air": "पुणे हवाई अड्डा; आगे सड़क मार्ग.",
+    "rail": "पुणे रेलवे स्टेशन; आगे सड़क मार्ग.",
+    "road": "पुणे या आसपास के शहरों से पहाड़ी सड़क मार्ग लें; मानसून में सड़क की स्थिति जाँचें।"
+  },
+  "localCuisine": "Local Maharashtrian vegetarian meals and prasad.",
+  "sourceUrl": "https://maharashtratourism.gov.in/sitemap/",
+  "rating": 4.5,
+  "reviewsCount": 0
+},
+{
+  "id": "grishneshwar-temple",
+  "slug": "grishneshwar",
+  "name": "Grishneshwar Jyotirlinga Temple",
+  "marathiName": "घृष्णेश्वर ज्योतिर्लिंग मंदिर",
+  "nameHi": "घृष्णेश्वर ज्योतिर्लिंग मंदिर",
+  "category": "temples",
+  "circuit": "Chhatrapati Sambhajinagar Heritage Circuit",
+  "district": "Chhatrapati Sambhajinagar",
+  "region": "Marathwada",
+  "bestTime": "October to March",
+  "timings": "Check current local opening hours before visiting",
+  "entryFee": "Check current official entry and access charges",
+  "heroImage": "https://images.unsplash.com/photo-1600100397608-f010e42e4e7a?auto=format&fit=crop&w=1600&q=80",
+  "thumbnail": "https://images.unsplash.com/photo-1600100397608-f010e42e4e7a?auto=format&fit=crop&w=600&q=80",
+  "summary": "A revered Shiva temple near the Ellora Caves and one of the twelve Jyotirlinga shrines.",
+  "summaryMr": "एलोरा लेण्यांजवळील भगवान शिवाचे प्रसिद्ध मंदिर; बारा ज्योतिर्लिंगांपैकी एक.",
+  "summaryHi": "एलोरा गुफाओं के पास स्थित भगवान शिव का प्रसिद्ध मंदिर और बारह ज्योतिर्लिंगों में से एक।",
+  "history": "The temple is part of the Ellora heritage landscape and is an important pilgrimage stop for devotees of Lord Shiva.",
+  "historyMr": "हे मंदिर एलोरा वारसा परिसराचा भाग असून भगवान शिवाच्या भक्तांसाठी महत्त्वाचे तीर्थस्थान आहे.",
+  "historyHi": "यह मंदिर एलोरा विरासत क्षेत्र का हिस्सा है और भगवान शिव के भक्तों के लिए महत्वपूर्ण तीर्थस्थल है।",
+  "attractions": [
+    "Jyotirlinga sanctum",
+    "Traditional stone temple architecture",
+    "Proximity to Ellora Caves"
+  ],
+  "attractionsMr": [
+    "ज्योतिर्लिंग गर्भगृह",
+    "पारंपरिक दगडी मंदिर वास्तुरचना",
+    "एलोरा लेण्यांजवळील स्थान"
+  ],
+  "attractionsHi": [
+    "ज्योतिर्लिंग गर्भगृह",
+    "पारंपरिक पत्थर की मंदिर वास्तुकला",
+    "एलोरा गुफाओं के निकट"
+  ],
+  "coordinates": {
+    "lat": 20.0241,
+    "lng": 75.1792,
+    "mapsUrl": "https://maps.google.com/?q=20.0241,75.1792"
+  },
+  "howToReach": {
+    "air": "Chhatrapati Sambhajinagar Airport; onward road travel.",
+    "rail": "Chhatrapati Sambhajinagar railway station; onward road travel.",
+    "road": "Located near Ellora, around 30 km from Chhatrapati Sambhajinagar."
+  },
+  "howToReachMr": {
+    "air": "छत्रपती संभाजीनगर विमानतळ; पुढे रस्त्याने.",
+    "rail": "छत्रपती संभाजीनगर रेल्वे स्थानक; पुढे रस्त्याने.",
+    "road": "एलोरा जवळ; छत्रपती संभाजीनगरपासून सुमारे ३० किमी."
+  },
+  "howToReachHi": {
+    "air": "छत्रपति संभाजीनगर हवाई अड्डा; आगे सड़क मार्ग.",
+    "rail": "छत्रपति संभाजीनगर रेलवे स्टेशन; आगे सड़क मार्ग.",
+    "road": "एलोरा के पास; छत्रपति संभाजीनगर से लगभग 30 किमी।"
+  },
+  "localCuisine": "Marathwada vegetarian thali and local snacks.",
+  "sourceUrl": "https://maharashtratourism.gov.in/sitemap/",
+  "rating": 4.5,
+  "reviewsCount": 0
+},
+{
+  "id": "mahalaxmi-temple-kolhapur",
+  "slug": "mahalaxmi-temple",
+  "name": "Shree Mahalaxmi Ambabai Temple",
+  "marathiName": "श्री महालक्ष्मी अंबाबाई मंदिर",
+  "nameHi": "श्री महालक्ष्मी अंबाबाई मंदिर",
+  "category": "temples",
+  "circuit": "Kolhapur Spiritual Circuit",
+  "district": "Kolhapur",
+  "region": "Western Maharashtra",
+  "bestTime": "October to March",
+  "timings": "Check current local opening hours before visiting",
+  "entryFee": "Check current official entry and access charges",
+  "heroImage": "https://images.unsplash.com/photo-1600100397608-f010e42e4e7a?auto=format&fit=crop&w=1600&q=80",
+  "thumbnail": "https://images.unsplash.com/photo-1600100397608-f010e42e4e7a?auto=format&fit=crop&w=600&q=80",
+  "summary": "A major Shakti pilgrimage temple in Kolhapur, revered as the shrine of Goddess Ambabai.",
+  "summaryMr": "कोल्हापुरातील देवी अंबाबाईचे प्रमुख शक्तिपीठ आणि महत्त्वाचे तीर्थक्षेत्र.",
+  "summaryHi": "कोल्हापुर में देवी अंबाबाई का प्रमुख शक्तिपीठ और महत्वपूर्ण तीर्थस्थल।",
+  "history": "The temple is an important centre of worship and local heritage, with festivals and rituals drawing devotees through the year.",
+  "historyMr": "हे मंदिर उपासना आणि स्थानिक वारशाचे महत्त्वाचे केंद्र आहे. वर्षभर उत्सव आणि विधींसाठी भाविक येथे येतात.",
+  "historyHi": "यह मंदिर पूजा और स्थानीय विरासत का महत्वपूर्ण केंद्र है। वर्ष भर उत्सवों और अनुष्ठानों में श्रद्धालु भाग लेते हैं।",
+  "attractions": [
+    "Ambabai shrine",
+    "Temple courtyard and stone architecture",
+    "Kirnotsav sun-ray tradition"
+  ],
+  "attractionsMr": [
+    "अंबाबाई देवीचे मंदिर",
+    "मंदिर प्रांगण आणि दगडी वास्तुरचना",
+    "किरणोत्सवाची सूर्यकिरण परंपरा"
+  ],
+  "attractionsHi": [
+    "अंबाबाई देवी का मंदिर",
+    "मंदिर प्रांगण और पत्थर की वास्तुकला",
+    "किरणोत्सव की सूर्यकिरण परंपरा"
+  ],
+  "coordinates": {
+    "lat": 16.7008,
+    "lng": 74.2333,
+    "mapsUrl": "https://maps.google.com/?q=16.7008,74.2333"
+  },
+  "howToReach": {
+    "air": "Kolhapur Airport; limited routes, or Pune/Belgaum airports.",
+    "rail": "Kolhapur railway station.",
+    "road": "Located in central Kolhapur with city bus, taxi and auto access."
+  },
+  "howToReachMr": {
+    "air": "कोल्हापूर विमानतळ; पर्यायी पुणे किंवा बेळगाव विमानतळ.",
+    "rail": "कोल्हापूर रेल्वे स्थानक.",
+    "road": "कोल्हापूर शहराच्या मध्यभागी; बस, टॅक्सी आणि रिक्षाने पोहोचता येते."
+  },
+  "howToReachHi": {
+    "air": "कोल्हापुर हवाई अड्डा; विकल्प के रूप में पुणे या बेलगावी.",
+    "rail": "कोल्हापुर रेलवे स्टेशन.",
+    "road": "कोल्हापुर शहर के मध्य में; बस, टैक्सी और ऑटो उपलब्ध।"
+  },
+  "localCuisine": "Kolhapuri misal, tambda rassa and pandhra rassa.",
+  "sourceUrl": "https://maharashtratourism.gov.in/sitemap/",
+  "rating": 4.5,
+  "reviewsCount": 0
+},
+{
+  "id": "tulja-bhavani-temple",
+  "slug": "tuljapur",
+  "name": "Tulja Bhavani Temple",
+  "marathiName": "तुळजाभवानी मंदिर",
+  "nameHi": "तुलजा भवानी मंदिर",
+  "category": "temples",
+  "circuit": "Marathwada Pilgrimage Circuit",
+  "district": "Dharashiv",
+  "region": "Marathwada",
+  "bestTime": "October to February",
+  "timings": "Check current local opening hours before visiting",
+  "entryFee": "Check current official entry and access charges",
+  "heroImage": "https://images.unsplash.com/photo-1600100397608-f010e42e4e7a?auto=format&fit=crop&w=1600&q=80",
+  "thumbnail": "https://images.unsplash.com/photo-1600100397608-f010e42e4e7a?auto=format&fit=crop&w=600&q=80",
+  "summary": "A major pilgrimage temple dedicated to Goddess Bhavani at Tuljapur.",
+  "summaryMr": "तुळजापूर येथील देवी भवानीला समर्पित महत्त्वाचे तीर्थक्षेत्र.",
+  "summaryHi": "तुलजापुर में देवी भवानी को समर्पित प्रमुख तीर्थस्थल।",
+  "history": "The temple is a significant Shakti shrine and is closely associated with the religious and cultural history of the region.",
+  "historyMr": "हे मंदिर महत्त्वाचे शक्तिपीठ असून परिसराच्या धार्मिक आणि सांस्कृतिक इतिहासाशी जोडलेले आहे.",
+  "historyHi": "यह मंदिर प्रमुख शक्तिपीठ है और क्षेत्र के धार्मिक तथा सांस्कृतिक इतिहास से जुड़ा है।",
+  "attractions": [
+    "Main Bhavani shrine",
+    "Temple precinct and traditional rituals",
+    "Pilgrim market streets"
+  ],
+  "attractionsMr": [
+    "मुख्य भवानी मंदिर",
+    "मंदिर परिसर आणि पारंपरिक विधी",
+    "यात्रेकरूंचा बाजार परिसर"
+  ],
+  "attractionsHi": [
+    "मुख्य भवानी मंदिर",
+    "मंदिर परिसर और पारंपरिक अनुष्ठान",
+    "तीर्थयात्रियों का बाजार क्षेत्र"
+  ],
+  "coordinates": {
+    "lat": 18.0115,
+    "lng": 76.0708,
+    "mapsUrl": "https://maps.google.com/?q=18.0115,76.0708"
+  },
+  "howToReach": {
+    "air": "Solapur Airport or Pune Airport; onward road travel.",
+    "rail": "Solapur railway station; onward road travel.",
+    "road": "Tuljapur is connected by road with Solapur and Dharashiv."
+  },
+  "howToReachMr": {
+    "air": "सोलापूर किंवा पुणे विमानतळ; पुढे रस्त्याने.",
+    "rail": "सोलापूर रेल्वे स्थानक; पुढे रस्त्याने.",
+    "road": "तुळजापूर सोलापूर आणि धाराशिवशी रस्त्याने जोडलेले आहे."
+  },
+  "howToReachHi": {
+    "air": "सोलापुर या पुणे हवाई अड्डा; आगे सड़क मार्ग.",
+    "rail": "सोलापुर रेलवे स्टेशन; आगे सड़क मार्ग.",
+    "road": "तुलजापुर सड़क मार्ग से सोलापुर और धाराशिव से जुड़ा है।"
+  },
+  "localCuisine": "Marathwada bhakri, pithla and local vegetarian dishes.",
+  "sourceUrl": "https://maharashtratourism.gov.in/sitemap/",
+  "rating": 4.5,
+  "reviewsCount": 0
+},
+{
+  "id": "diveagar-beach",
+  "slug": "diveagar",
+  "name": "Diveagar Beach",
+  "marathiName": "दिवेआगर समुद्रकिनारा",
+  "nameHi": "दिवेआगर समुद्र तट",
+  "category": "beaches",
+  "circuit": "Konkan Coastal Circuit",
+  "district": "Raigad",
+  "region": "Konkan",
+  "bestTime": "October to March",
+  "timings": "Check current local opening hours before visiting",
+  "entryFee": "Check current official entry and access charges",
+  "heroImage": "https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?auto=format&fit=crop&w=1600&q=80",
+  "thumbnail": "https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?auto=format&fit=crop&w=600&q=80",
+  "summary": "A quiet Konkan beach known for its broad shoreline, coastal greenery and relaxed village setting.",
+  "summaryMr": "विस्तीर्ण किनारा, नारळी-पोफळीची झाडे आणि शांत गावपरिसरासाठी ओळखला जाणारा कोकणातील समुद्रकिनारा.",
+  "summaryHi": "चौड़े तट, तटीय हरियाली और शांत गाँव के वातावरण के लिए प्रसिद्ध कोंकण का समुद्र तट।",
+  "history": "Diveagar is a coastal village in Raigad district where beach visits can be combined with nearby temples and other Konkan stops.",
+  "historyMr": "दिवेआगर हे रायगड जिल्ह्यातील किनारी गाव असून जवळील मंदिरे आणि कोकणातील इतर ठिकाणांसह भेट देता येते.",
+  "historyHi": "दिवेआगर रायगढ़ जिले का तटीय गाँव है। यहाँ समुद्र तट के साथ आसपास के मंदिरों और कोंकण के अन्य स्थलों की यात्रा की जा सकती है।",
+  "attractions": [
+    "Long sandy shoreline",
+    "Fishing village atmosphere",
+    "Nearby Suvarna Ganesh Temple"
+  ],
+  "attractionsMr": [
+    "लांब वाळूचा किनारा",
+    "मच्छीमार गावाचे वातावरण",
+    "जवळील सुवर्ण गणेश मंदिर"
+  ],
+  "attractionsHi": [
+    "लंबा रेतीला तट",
+    "मछुआरा गाँव का वातावरण",
+    "पास का सुवर्ण गणेश मंदिर"
+  ],
+  "coordinates": {
+    "lat": 18.173,
+    "lng": 72.991,
+    "mapsUrl": "https://maps.google.com/?q=18.173,72.991"
+  },
+  "howToReach": {
+    "air": "Mumbai or Pune airport; onward road journey.",
+    "rail": "Mangaon railway station; onward road journey.",
+    "road": "Reach via Mangaon and the coastal road network."
+  },
+  "howToReachMr": {
+    "air": "मुंबई किंवा पुणे विमानतळ; पुढे रस्त्याने.",
+    "rail": "माणगाव रेल्वे स्थानक; पुढे रस्त्याने.",
+    "road": "माणगाव आणि किनारी रस्त्यांमार्गे पोहोचा."
+  },
+  "howToReachHi": {
+    "air": "मुंबई या पुणे हवाई अड्डा; आगे सड़क मार्ग.",
+    "rail": "माणगाँव रेलवे स्टेशन; आगे सड़क मार्ग.",
+    "road": "माणगाँव और तटीय सड़क मार्ग से पहुँचें।"
+  },
+  "localCuisine": "Fresh seafood, solkadhi and Konkani vegetarian meals.",
+  "sourceUrl": "https://maharashtratourism.gov.in/sitemap/",
+  "rating": 4.5,
+  "reviewsCount": 0
+},
+{
+  "id": "harihareshwar-beach",
+  "slug": "harihareshwar",
+  "name": "Harihareshwar Beach",
+  "marathiName": "हरिहरेश्वर समुद्रकिनारा",
+  "nameHi": "हरिहरेश्वर समुद्र तट",
+  "category": "beaches",
+  "circuit": "Konkan Coastal Circuit",
+  "district": "Raigad",
+  "region": "Konkan",
+  "bestTime": "October to March",
+  "timings": "Check current local opening hours before visiting",
+  "entryFee": "Check current official entry and access charges",
+  "heroImage": "https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?auto=format&fit=crop&w=1600&q=80",
+  "thumbnail": "https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?auto=format&fit=crop&w=600&q=80",
+  "summary": "A coastal destination known for its beach, surrounding hills and the nearby Harihareshwar temple.",
+  "summaryMr": "समुद्रकिनारा, सभोवतालच्या टेकड्या आणि जवळील हरिहरेश्वर मंदिरासाठी प्रसिद्ध किनारी ठिकाण.",
+  "summaryHi": "समुद्र तट, आसपास की पहाड़ियों और पास के हरिहरेश्वर मंदिर के लिए प्रसिद्ध तटीय स्थल।",
+  "history": "Harihareshwar is a traditional pilgrimage and coastal destination in Raigad district, often visited with nearby Shrivardhan and Diveagar.",
+  "historyMr": "हरिहरेश्वर हे रायगड जिल्ह्यातील पारंपरिक तीर्थक्षेत्र आणि किनारी पर्यटनस्थळ आहे. श्रीवर्धन व दिवेआगरसोबत येथे भेट दिली जाते.",
+  "historyHi": "हरिहरेश्वर रायगढ़ जिले का पारंपरिक तीर्थ और तटीय पर्यटन स्थल है। इसे अक्सर श्रीवर्धन और दिवेआगर के साथ देखा जाता है।",
+  "attractions": [
+    "Harihareshwar Beach",
+    "Temple and pradakshina route",
+    "Coastal viewpoints and hills"
+  ],
+  "attractionsMr": [
+    "हरिहरेश्वर समुद्रकिनारा",
+    "मंदिर आणि प्रदक्षिणा मार्ग",
+    "किनारी दृश्यबिंदू आणि टेकड्या"
+  ],
+  "attractionsHi": [
+    "हरिहरेश्वर समुद्र तट",
+    "मंदिर और प्रदक्षिणा मार्ग",
+    "तटीय दृश्य स्थल और पहाड़ियाँ"
+  ],
+  "coordinates": {
+    "lat": 17.9932,
+    "lng": 73.0169,
+    "mapsUrl": "https://maps.google.com/?q=17.9932,73.0169"
+  },
+  "howToReach": {
+    "air": "Mumbai or Pune airport; onward road journey.",
+    "rail": "Mangaon railway station; onward road journey.",
+    "road": "Accessible by road from Shrivardhan and Mangaon."
+  },
+  "howToReachMr": {
+    "air": "मुंबई किंवा पुणे विमानतळ; पुढे रस्त्याने.",
+    "rail": "माणगाव रेल्वे स्थानक; पुढे रस्त्याने.",
+    "road": "श्रीवर्धन आणि माणगावमार्गे रस्त्याने पोहोचता येते."
+  },
+  "howToReachHi": {
+    "air": "मुंबई या पुणे हवाई अड्डा; आगे सड़क मार्ग.",
+    "rail": "माणगाँव रेलवे स्टेशन; आगे सड़क मार्ग.",
+    "road": "श्रीवर्धन और माणगाँव से सड़क मार्ग द्वारा पहुँचें।"
+  },
+  "localCuisine": "Konkani fish curry, rice and solkadhi.",
+  "sourceUrl": "https://maharashtratourism.gov.in/sitemap/",
+  "rating": 4.5,
+  "reviewsCount": 0
+},
+
+
+  // Heritage, nature and wildlife destinations
+{
+  "id": "shaniwar-wada",
+  "slug": "shaniwar-wada",
+  "name": "Shaniwar Wada",
+  "marathiName": "शनिवार वाडा",
+  "nameHi": "शनिवार वाड़ा",
+  "category": "heritage",
+  "circuit": "Pune Heritage Circuit",
+  "district": "Pune",
+  "region": "Western Maharashtra",
+  "bestTime": "October to February",
+  "timings": "Check current local opening hours before visiting",
+  "entryFee": "Check current official entry and access charges",
+  "heroImage": "https://images.unsplash.com/photo-1599839575945-a9e5af0c3fa5?auto=format&fit=crop&w=1600&q=80",
+  "thumbnail": "https://images.unsplash.com/photo-1599839575945-a9e5af0c3fa5?auto=format&fit=crop&w=600&q=80",
+  "summary": "A landmark of Pune's Peshwa-era history, known for its fortified gates and palace remains.",
+  "summaryMr": "पुण्याच्या पेशवेकालीन इतिहासाचे प्रतीक; भक्कम प्रवेशद्वारे आणि राजवाड्याच्या अवशेषांसाठी प्रसिद्ध.",
+  "summaryHi": "पुणे के पेशवा कालीन इतिहास का प्रतीक, जो अपने किलेबंद द्वारों और महल के अवशेषों के लिए प्रसिद्ध है।",
+  "history": "Built in 1732 as the seat of the Peshwas, Shaniwar Wada became a major centre of Maratha political life.",
+  "historyMr": "१७३२ मध्ये पेशव्यांचे निवासस्थान म्हणून बांधलेला शनिवार वाडा मराठा राजकारणाचे महत्त्वाचे केंद्र बनला.",
+  "historyHi": "1732 में पेशवाओं के निवास के रूप में निर्मित शनिवार वाड़ा मराठा राजनीतिक जीवन का प्रमुख केंद्र बना।",
+  "attractions": [
+    "Delhi Darwaza",
+    "Fortified walls and palace foundations",
+    "Fountain and garden precinct"
+  ],
+  "attractionsMr": [
+    "दिल्ली दरवाजा",
+    "तटबंदी आणि राजवाड्याचे अवशेष",
+    "कारंजे आणि बाग परिसर"
+  ],
+  "attractionsHi": [
+    "दिल्ली दरवाजा",
+    "किले की दीवारें और महल की नींव",
+    "फव्वारा और उद्यान परिसर"
+  ],
+  "coordinates": {
+    "lat": 18.5196,
+    "lng": 73.8553,
+    "mapsUrl": "https://maps.google.com/?q=18.5196,73.8553"
+  },
+  "howToReach": {
+    "air": "Pune Airport; city transport to central Pune.",
+    "rail": "Pune Junction; local city transport.",
+    "road": "Located in central Pune near the old city."
+  },
+  "howToReachMr": {
+    "air": "पुणे विमानतळ; मध्य पुण्यापर्यंत शहर वाहतूक.",
+    "rail": "पुणे जंक्शन; स्थानिक शहर वाहतूक.",
+    "road": "जुन्या पुण्याजवळ मध्यवर्ती भागात."
+  },
+  "howToReachHi": {
+    "air": "पुणे हवाई अड्डा; मध्य पुणे तक शहर परिवहन.",
+    "rail": "पुणे जंक्शन; स्थानीय शहर परिवहन.",
+    "road": "पुराने शहर के पास मध्य पुणे में स्थित।"
+  },
+  "localCuisine": "Pune misal, bhakarwadi and traditional Maharashtrian snacks.",
+  "sourceUrl": "https://maharashtratourism.gov.in/districts/pune/",
+  "rating": 4.5,
+  "reviewsCount": 0
+},
+{
+  "id": "aga-khan-palace",
+  "slug": "aga-khan-palace",
+  "name": "Aga Khan Palace",
+  "marathiName": "आगाखान पॅलेस",
+  "nameHi": "आगा खान महल",
+  "category": "heritage",
+  "circuit": "Pune Freedom Movement Circuit",
+  "district": "Pune",
+  "region": "Western Maharashtra",
+  "bestTime": "October to February",
+  "timings": "Check current local opening hours before visiting",
+  "entryFee": "Check current official entry and access charges",
+  "heroImage": "https://images.unsplash.com/photo-1599839575945-a9e5af0c3fa5?auto=format&fit=crop&w=1600&q=80",
+  "thumbnail": "https://images.unsplash.com/photo-1599839575945-a9e5af0c3fa5?auto=format&fit=crop&w=600&q=80",
+  "summary": "A landmark palace and freedom-movement memorial set within landscaped grounds in Pune.",
+  "summaryMr": "पुण्यातील ऐतिहासिक राजवाडा आणि स्वातंत्र्यलढ्याशी संबंधित स्मारक; हिरव्यागार परिसरात वसलेले.",
+  "summaryHi": "पुणे का ऐतिहासिक महल और स्वतंत्रता आंदोलन से जुड़ा स्मारक, जो हरित परिसर में स्थित है।",
+  "history": "The palace was built in 1892. It is closely associated with the imprisonment of Mahatma Gandhi, Kasturba Gandhi and other leaders during the Quit India movement.",
+  "historyMr": "१८९२ मध्ये बांधलेला हा राजवाडा भारत छोडो आंदोलनाच्या काळात महात्मा गांधी, कस्तुरबा गांधी आणि इतर नेत्यांच्या नजरकैदेमुळे इतिहासात महत्त्वाचा ठरला.",
+  "historyHi": "1892 में निर्मित यह महल भारत छोड़ो आंदोलन के दौरान महात्मा गांधी, कस्तूरबा गांधी और अन्य नेताओं की नजरबंदी से जुड़ा है।",
+  "attractions": [
+    "Palace architecture and gardens",
+    "Gandhi memorial and museum displays",
+    "Memorial spaces associated with Kasturba Gandhi"
+  ],
+  "attractionsMr": [
+    "राजवाड्याची वास्तुरचना आणि बाग",
+    "गांधी स्मारक आणि संग्रहालयातील प्रदर्शने",
+    "कस्तुरबा गांधींशी संबंधित स्मृतिस्थळे"
+  ],
+  "attractionsHi": [
+    "महल की वास्तुकला और उद्यान",
+    "गांधी स्मारक और संग्रहालय की प्रदर्शनी",
+    "कस्तूरबा गांधी से जुड़े स्मृति स्थल"
+  ],
+  "coordinates": {
+    "lat": 18.5527,
+    "lng": 73.9015,
+    "mapsUrl": "https://maps.google.com/?q=18.5527,73.9015"
+  },
+  "howToReach": {
+    "air": "Pune Airport; local transport.",
+    "rail": "Pune Junction; local transport.",
+    "road": "Located at Yerawada in Pune."
+  },
+  "howToReachMr": {
+    "air": "पुणे विमानतळ; स्थानिक वाहतूक.",
+    "rail": "पुणे जंक्शन; स्थानिक वाहतूक.",
+    "road": "पुण्यातील येरवडा येथे."
+  },
+  "howToReachHi": {
+    "air": "पुणे हवाई अड्डा; स्थानीय परिवहन.",
+    "rail": "पुणे जंक्शन; स्थानीय परिवहन.",
+    "road": "पुणे के येरवडा क्षेत्र में स्थित।"
+  },
+  "localCuisine": "Pune's traditional snacks and local cuisine.",
+  "sourceUrl": "https://maharashtratourism.gov.in/districts/pune/",
+  "rating": 4.5,
+  "reviewsCount": 0
+},
+{
+  "id": "bibi-ka-maqbara",
+  "slug": "bibi-ka-maqbara",
+  "name": "Bibi Ka Maqbara",
+  "marathiName": "बीबी का मकबरा",
+  "nameHi": "बीबी का मकबरा",
+  "category": "heritage",
+  "circuit": "Chhatrapati Sambhajinagar Heritage Circuit",
+  "district": "Chhatrapati Sambhajinagar",
+  "region": "Marathwada",
+  "bestTime": "October to March",
+  "timings": "Check current local opening hours before visiting",
+  "entryFee": "Check current official entry and access charges",
+  "heroImage": "https://images.unsplash.com/photo-1599839575945-a9e5af0c3fa5?auto=format&fit=crop&w=1600&q=80",
+  "thumbnail": "https://images.unsplash.com/photo-1599839575945-a9e5af0c3fa5?auto=format&fit=crop&w=600&q=80",
+  "summary": "A Mughal-era mausoleum known for its domed profile, gardens and architectural detailing.",
+  "summaryMr": "घुमट, बागा आणि स्थापत्य तपशीलांसाठी प्रसिद्ध मुघलकालीन मकबरा.",
+  "summaryHi": "गुंबद, उद्यानों और स्थापत्य विवरण के लिए प्रसिद्ध मुगलकालीन मकबरा।",
+  "history": "Commissioned in the late 17th century by Prince Azam Shah in memory of his mother Dilras Banu Begum, the monument is often compared with the Taj Mahal.",
+  "historyMr": "१७व्या शतकाच्या उत्तरार्धात राजपुत्र आझम शाह यांनी आई दिलरस बानू बेगम यांच्या स्मरणार्थ हे स्मारक बांधले.",
+  "historyHi": "17वीं शताब्दी के उत्तरार्ध में राजकुमार आज़म शाह ने अपनी माता दिलरस बानो बेगम की स्मृति में यह स्मारक बनवाया।",
+  "attractions": [
+    "Central mausoleum and dome",
+    "Charbagh-style garden layout",
+    "Ornamental arches and minarets"
+  ],
+  "attractionsMr": [
+    "मुख्य मकबरा आणि घुमट",
+    "चारबाग पद्धतीची बाग",
+    "नक्षीदार कमानी आणि मिनार"
+  ],
+  "attractionsHi": [
+    "मुख्य मकबरा और गुंबद",
+    "चारबाग शैली का उद्यान",
+    "अलंकरणयुक्त मेहराब और मीनार"
+  ],
+  "coordinates": {
+    "lat": 19.9009,
+    "lng": 75.3205,
+    "mapsUrl": "https://maps.google.com/?q=19.9009,75.3205"
+  },
+  "howToReach": {
+    "air": "Chhatrapati Sambhajinagar Airport.",
+    "rail": "Chhatrapati Sambhajinagar railway station.",
+    "road": "Located within Chhatrapati Sambhajinagar city."
+  },
+  "howToReachMr": {
+    "air": "छत्रपती संभाजीनगर विमानतळ.",
+    "rail": "छत्रपती संभाजीनगर रेल्वे स्थानक.",
+    "road": "छत्रपती संभाजीनगर शहरात."
+  },
+  "howToReachHi": {
+    "air": "छत्रपति संभाजीनगर हवाई अड्डा.",
+    "rail": "छत्रपति संभाजीनगर रेलवे स्टेशन.",
+    "road": "छत्रपति संभाजीनगर शहर के भीतर स्थित।"
+  },
+  "localCuisine": "Marathwada thali, naan qalia and local sweets.",
+  "sourceUrl": "https://maharashtratourism.gov.in/sitemap/",
+  "rating": 4.5,
+  "reviewsCount": 0
+},
+
+
+{
+  "id": "mahabaleshwar",
+  "slug": "mahabaleshwar",
+  "name": "Mahabaleshwar",
+  "marathiName": "महाबळेश्वर",
+  "nameHi": "महाबलेश्वर",
+  "category": "nature",
+  "circuit": "Sahyadri Hill Station Circuit",
+  "district": "Satara",
+  "region": "Western Maharashtra",
+  "bestTime": "October to June",
+  "timings": "Check current local opening hours before visiting",
+  "entryFee": "Check current official entry and access charges",
+  "heroImage": "https://images.unsplash.com/photo-1516214104703-d870798883c5?auto=format&fit=crop&w=1600&q=80",
+  "thumbnail": "https://images.unsplash.com/photo-1516214104703-d870798883c5?auto=format&fit=crop&w=600&q=80",
+  "summary": "A popular hill station known for forested hills, viewpoints, lakes and strawberry farms.",
+  "summaryMr": "जंगली डोंगर, दृश्यबिंदू, तलाव आणि स्ट्रॉबेरी शेतीसाठी प्रसिद्ध गिरिस्थान.",
+  "summaryHi": "वनाच्छादित पहाड़ियों, दृश्य स्थलों, झीलों और स्ट्रॉबेरी खेतों के लिए प्रसिद्ध पर्वतीय स्थल।",
+  "history": "Mahabaleshwar developed as a hill retreat in the Sahyadris and is known for its cool climate and surrounding plateau landscape.",
+  "historyMr": "सह्याद्रीतील थंड हवेचे ठिकाण म्हणून महाबळेश्वर विकसित झाले. पठारे आणि निसर्गरम्य परिसरासाठी ते प्रसिद्ध आहे.",
+  "historyHi": "महाबलेश्वर सह्याद्रि का पर्वतीय विश्राम स्थल है, जो सुहावने मौसम और पठारी प्राकृतिक दृश्यों के लिए जाना जाता है।",
+  "attractions": [
+    "Venna Lake",
+    "Arthur's Seat and other viewpoints",
+    "Strawberry farms and local markets"
+  ],
+  "attractionsMr": [
+    "वेण्णा तलाव",
+    "आर्थर सीट आणि इतर दृश्यबिंदू",
+    "स्ट्रॉबेरी शेती आणि स्थानिक बाजार"
+  ],
+  "attractionsHi": [
+    "वेन्ना झील",
+    "आर्थर सीट और अन्य दृश्य स्थल",
+    "स्ट्रॉबेरी खेत और स्थानीय बाजार"
+  ],
+  "coordinates": {
+    "lat": 17.9237,
+    "lng": 73.6586,
+    "mapsUrl": "https://maps.google.com/?q=17.9237,73.6586"
+  },
+  "howToReach": {
+    "air": "Pune Airport; onward road travel.",
+    "rail": "Wathar railway station or Pune; onward road travel.",
+    "road": "Connected by road from Pune, Satara and Wai."
+  },
+  "howToReachMr": {
+    "air": "पुणे विमानतळ; पुढे रस्त्याने.",
+    "rail": "वाठार रेल्वे स्थानक किंवा पुणे; पुढे रस्त्याने.",
+    "road": "पुणे, सातारा आणि वाई येथून रस्त्याने जोडलेले."
+  },
+  "howToReachHi": {
+    "air": "पुणे हवाई अड्डा; आगे सड़क मार्ग.",
+    "rail": "वाठार रेलवे स्टेशन या पुणे; आगे सड़क मार्ग.",
+    "road": "पुणे, सातारा और वाई से सड़क मार्ग द्वारा जुड़ा है।"
+  },
+  "localCuisine": "Fresh strawberries, corn patties and Maharashtrian thali.",
+  "sourceUrl": "https://maharashtratourism.gov.in/monsoon-tourism/",
+  "rating": 4.5,
+  "reviewsCount": 0
+},
+{
+  "id": "matheran",
+  "slug": "matheran",
+  "name": "Matheran",
+  "marathiName": "माथेरान",
+  "nameHi": "माथेरान",
+  "category": "nature",
+  "circuit": "Raigad Hill Station Circuit",
+  "district": "Raigad",
+  "region": "Konkan",
+  "bestTime": "October to May",
+  "timings": "Check current local opening hours before visiting",
+  "entryFee": "Check current official entry and access charges",
+  "heroImage": "https://images.unsplash.com/photo-1516214104703-d870798883c5?auto=format&fit=crop&w=1600&q=80",
+  "thumbnail": "https://images.unsplash.com/photo-1516214104703-d870798883c5?auto=format&fit=crop&w=600&q=80",
+  "summary": "A low-emission hill station known for forest trails, viewpoints and its heritage toy train.",
+  "summaryMr": "वनमार्ग, दृश्यबिंदू आणि ऐतिहासिक टॉय ट्रेनसाठी प्रसिद्ध वाहनमुक्त गिरिस्थान.",
+  "summaryHi": "वन पगडंडियों, दृश्य स्थलों और विरासत टॉय ट्रेन के लिए प्रसिद्ध वाहन-मुक्त पर्वतीय स्थल।",
+  "history": "Matheran is a hill station in the Western Ghats where motor vehicles are restricted in the town area, preserving its walking trails and quiet setting.",
+  "historyMr": "माथेरान हे सह्याद्रीतील गिरिस्थान असून शहराच्या मुख्य भागात मोटारवाहनांना बंदी आहे. त्यामुळे पायी मार्ग आणि शांत वातावरण टिकून आहे.",
+  "historyHi": "माथेरान सह्याद्रि का पर्वतीय स्थल है जहाँ नगर क्षेत्र में मोटर वाहनों पर प्रतिबंध है, जिससे पैदल मार्ग और शांत वातावरण बना रहता है।",
+  "attractions": [
+    "Panorama Point",
+    "Charlotte Lake",
+    "Heritage Matheran toy train and walking paths"
+  ],
+  "attractionsMr": [
+    "पॅनोरमा पॉइंट",
+    "चार्लोट तलाव",
+    "ऐतिहासिक माथेरान टॉय ट्रेन आणि पायी मार्ग"
+  ],
+  "attractionsHi": [
+    "पैनोरमा पॉइंट",
+    "चार्लोट झील",
+    "विरासत माथेरान टॉय ट्रेन और पैदल मार्ग"
+  ],
+  "coordinates": {
+    "lat": 18.9894,
+    "lng": 73.271,
+    "mapsUrl": "https://maps.google.com/?q=18.9894,73.271"
+  },
+  "howToReach": {
+    "air": "Mumbai or Pune airport; onward road and rail journey.",
+    "rail": "Neral railway station; toy train service subject to operations.",
+    "road": "Reach Dasturi Naka; vehicles are restricted beyond the designated point."
+  },
+  "howToReachMr": {
+    "air": "मुंबई किंवा पुणे विमानतळ; पुढे रस्ते व रेल्वेने.",
+    "rail": "नेरळ रेल्वे स्थानक; टॉय ट्रेन सेवा उपलब्धतेनुसार.",
+    "road": "दस्तुरी नाक्यापर्यंत जा; पुढे निर्धारित भागात वाहनांना बंदी आहे."
+  },
+  "howToReachHi": {
+    "air": "मुंबई या पुणे हवाई अड्डा; आगे सड़क और रेल मार्ग.",
+    "rail": "नेरल रेलवे स्टेशन; टॉय ट्रेन सेवा संचालन पर निर्भर.",
+    "road": "दस्तुरी नाका तक पहुँचें; आगे निर्धारित क्षेत्र में वाहन प्रतिबंधित हैं।"
+  },
+  "localCuisine": "Matheran chikki and local snacks.",
+  "sourceUrl": "https://maharashtratourism.gov.in/sitemap/",
+  "rating": 4.5,
+  "reviewsCount": 0
+},
+
+
+{
+  "id": "lonar-crater",
+  "slug": "lonar-crater",
+  "name": "Lonar Crater Lake",
+  "marathiName": "लोणार सरोवर",
+  "nameHi": "लोणार क्रेटर झील",
+  "category": "nature",
+  "circuit": "Buldhana Natural Heritage Circuit",
+  "district": "Buldhana",
+  "region": "Vidarbha",
+  "bestTime": "October to February",
+  "timings": "Check current local opening hours before visiting",
+  "entryFee": "Check current official entry and access charges",
+  "heroImage": "https://images.unsplash.com/photo-1516214104703-d870798883c5?auto=format&fit=crop&w=1600&q=80",
+  "thumbnail": "https://images.unsplash.com/photo-1516214104703-d870798883c5?auto=format&fit=crop&w=600&q=80",
+  "summary": "A rare meteorite-impact crater lake surrounded by a distinctive geological and ecological landscape.",
+  "summaryMr": "उल्कापातामुळे निर्माण झालेले दुर्मिळ विवर सरोवर; वैशिष्ट्यपूर्ण भूवैज्ञानिक आणि पर्यावरणीय परिसराने वेढलेले.",
+  "summaryHi": "उल्कापिंड के प्रभाव से बना दुर्लभ क्रेटर झील, जिसके आसपास विशिष्ट भूवैज्ञानिक और पारिस्थितिक क्षेत्र है।",
+  "history": "Lonar's crater was formed by a meteorite impact and is known for its saline and alkaline lake environment.",
+  "historyMr": "उल्कापातामुळे लोणार विवराची निर्मिती झाली. खारट आणि क्षारीय पाण्याचे सरोवर हे त्याचे वैशिष्ट्य आहे.",
+  "historyHi": "लोणार क्रेटर का निर्माण उल्कापिंड के प्रभाव से हुआ। इसकी खारी और क्षारीय झील विशेषता है।",
+  "attractions": [
+    "Crater rim viewpoints",
+    "Lonar lake and surrounding ecology",
+    "Daitya Sudan Temple"
+  ],
+  "attractionsMr": [
+    "विवराच्या कड्यावरील दृश्यबिंदू",
+    "लोणार सरोवर आणि परिसरातील जैवविविधता",
+    "दैत्यसूदन मंदिर"
+  ],
+  "attractionsHi": [
+    "क्रेटर किनारे के दृश्य स्थल",
+    "लोणार झील और आसपास की पारिस्थितिकी",
+    "दैत्यसूदन मंदिर"
+  ],
+  "coordinates": {
+    "lat": 19.975,
+    "lng": 76.508,
+    "mapsUrl": "https://maps.google.com/?q=19.975,76.508"
+  },
+  "howToReach": {
+    "air": "Chhatrapati Sambhajinagar or Aurangabad airport; onward road travel.",
+    "rail": "Malkapur railway station; onward road travel.",
+    "road": "Reach Lonar town in Buldhana district by road."
+  },
+  "howToReachMr": {
+    "air": "छत्रपती संभाजीनगर विमानतळ; पुढे रस्त्याने.",
+    "rail": "मलकापूर रेल्वे स्थानक; पुढे रस्त्याने.",
+    "road": "बुलढाणा जिल्ह्यातील लोणार शहरात रस्त्याने पोहोचा."
+  },
+  "howToReachHi": {
+    "air": "छत्रपति संभाजीनगर हवाई अड्डा; आगे सड़क मार्ग.",
+    "rail": "मलकापुर रेलवे स्टेशन; आगे सड़क मार्ग.",
+    "road": "बुलढाणा जिले के लोणार नगर तक सड़क मार्ग से पहुँचें।"
+  },
+  "localCuisine": "Varhadi food and local Maharashtrian meals.",
+  "sourceUrl": "https://maharashtratourism.gov.in/sitemap/",
+  "rating": 4.5,
+  "reviewsCount": 0
+},
+
+{
+  "id": "kaas-plateau",
+  "slug": "kaas-plateau",
+  "name": "Kaas Plateau",
+  "marathiName": "कास पठार",
+  "nameHi": "कास पठार",
+  "category": "nature",
+  "circuit": "Satara Natural Heritage Circuit",
+  "district": "Satara",
+  "region": "Western Maharashtra",
+  "bestTime": "Late August to October; access may be regulated",
+  "timings": "Check current local opening hours before visiting",
+  "entryFee": "Check current official entry and access charges",
+  "heroImage": "https://images.unsplash.com/photo-1516214104703-d870798883c5?auto=format&fit=crop&w=1600&q=80",
+  "thumbnail": "https://images.unsplash.com/photo-1516214104703-d870798883c5?auto=format&fit=crop&w=600&q=80",
+  "summary": "A high-altitude plateau famous for seasonal wildflowers and biodiversity during the post-monsoon period.",
+  "summaryMr": "पावसाळ्यानंतरच्या काळात उमलणाऱ्या रानफुलांसाठी आणि जैवविविधतेसाठी प्रसिद्ध उंच पठार.",
+  "summaryHi": "मानसून के बाद खिलने वाले जंगली फूलों और जैव विविधता के लिए प्रसिद्ध ऊँचा पठार।",
+  "history": "Kaas is part of the Western Ghats landscape and is recognised for its seasonal flowering ecosystem and conservation importance.",
+  "historyMr": "कास हे सह्याद्रीच्या पश्चिम घाट परिसराचा भाग असून हंगामी फुलोरा आणि संवर्धन महत्त्वासाठी ओळखले जाते.",
+  "historyHi": "कास पश्चिमी घाट का हिस्सा है और अपने मौसमी पुष्पन तथा संरक्षण महत्व के लिए जाना जाता है।",
+  "attractions": [
+    "Seasonal wildflower carpets",
+    "Plateau viewpoints",
+    "Nearby Kaas Lake and Thoseghar region"
+  ],
+  "attractionsMr": [
+    "हंगामी रानफुलांचे गालिचे",
+    "पठारावरील दृश्यबिंदू",
+    "जवळील कास तलाव आणि ठोसेघर परिसर"
+  ],
+  "attractionsHi": [
+    "मौसमी जंगली फूलों की चादर",
+    "पठार के दृश्य स्थल",
+    "पास की कास झील और ठोसेघर क्षेत्र"
+  ],
+  "coordinates": {
+    "lat": 17.7177,
+    "lng": 73.8225,
+    "mapsUrl": "https://maps.google.com/?q=17.7177,73.8225"
+  },
+  "howToReach": {
+    "air": "Pune Airport; onward road travel.",
+    "rail": "Satara railway station; onward road travel.",
+    "road": "Reach via Satara; check seasonal entry permits and visitor limits."
+  },
+  "howToReachMr": {
+    "air": "पुणे विमानतळ; पुढे रस्त्याने.",
+    "rail": "सातारा रेल्वे स्थानक; पुढे रस्त्याने.",
+    "road": "साताऱ्यामार्गे पोहोचा; हंगामी प्रवेश परवानगी आणि मर्यादा तपासा."
+  },
+  "howToReachHi": {
+    "air": "पुणे हवाई अड्डा; आगे सड़क मार्ग.",
+    "rail": "सातारा रेलवे स्टेशन; आगे सड़क मार्ग.",
+    "road": "सातारा होकर पहुँचें; मौसमी प्रवेश अनुमति और आगंतुक सीमा जाँचें।"
+  },
+  "localCuisine": "Satara local thali, kanda bhaji and seasonal produce.",
+  "sourceUrl": "https://maharashtratourism.gov.in/sitemap/",
+  "rating": 4.5,
+  "reviewsCount": 0
+},
+{
+  "id": "tadoba-andhari-tiger-reserve",
+  "slug": "tadoba",
+  "name": "Tadoba-Andhari Tiger Reserve",
+  "marathiName": "ताडोबा-अंधारी व्याघ्र प्रकल्प",
+  "nameHi": "ताडोबा-अंधारी बाघ अभयारण्य",
+  "category": "wildlife",
+  "circuit": "Vidarbha Wildlife Circuit",
+  "district": "Chandrapur",
+  "region": "Vidarbha",
+  "bestTime": "October to June; safari zones and timings vary",
+  "timings": "Check current local opening hours before visiting",
+  "entryFee": "Check current official entry and access charges",
+  "heroImage": "https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=1600&q=80",
+  "thumbnail": "https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=600&q=80",
+  "summary": "A major tiger reserve in Chandrapur district, known for forest safaris and diverse wildlife.",
+  "summaryMr": "चंद्रपूर जिल्ह्यातील महत्त्वाचा व्याघ्र प्रकल्प; जंगल सफारी आणि विविध वन्यजीवांसाठी प्रसिद्ध.",
+  "summaryHi": "चंद्रपुर जिले का प्रमुख बाघ अभयारण्य, जो जंगल सफारी और विविध वन्यजीवों के लिए प्रसिद्ध है।",
+  "history": "Tadoba-Andhari protects dry deciduous forest habitats and supports tigers, leopards, deer and many bird species.",
+  "historyMr": "ताडोबा-अंधारीमध्ये पानझडी वनक्षेत्र असून वाघ, बिबटे, हरीण आणि अनेक पक्षी आढळतात.",
+  "historyHi": "ताडोबा-अंधारी में शुष्क पर्णपाती वन हैं, जहाँ बाघ, तेंदुए, हिरण और अनेक पक्षी पाए जाते हैं।",
+  "attractions": [
+    "Guided jeep safaris in designated zones",
+    "Tadoba Lake and forest habitats",
+    "Wildlife and birdwatching"
+  ],
+  "attractionsMr": [
+    "निर्धारित क्षेत्रांतील मार्गदर्शित जीप सफारी",
+    "ताडोबा तलाव आणि वन अधिवास",
+    "वन्यजीव निरीक्षण आणि पक्षीनिरीक्षण"
+  ],
+  "attractionsHi": [
+    "निर्धारित क्षेत्रों में मार्गदर्शित जीप सफारी",
+    "ताडोबा झील और वन आवास",
+    "वन्यजीव और पक्षी अवलोकन"
+  ],
+  "coordinates": {
+    "lat": 20.2489,
+    "lng": 79.3623,
+    "mapsUrl": "https://maps.google.com/?q=20.2489,79.3623"
+  },
+  "howToReach": {
+    "air": "Nagpur Airport; onward road transfer.",
+    "rail": "Chandrapur or Nagpur railway station; onward road transfer.",
+    "road": "Use official reserve gates and pre-book safari permits."
+  },
+  "howToReachMr": {
+    "air": "नागपूर विमानतळ; पुढे रस्त्याने.",
+    "rail": "चंद्रपूर किंवा नागपूर रेल्वे स्थानक; पुढे रस्त्याने.",
+    "road": "अधिकृत प्रवेशद्वार वापरा आणि सफारी परवानगी आगाऊ घ्या."
+  },
+  "howToReachHi": {
+    "air": "नागपुर हवाई अड्डा; आगे सड़क मार्ग.",
+    "rail": "चंद्रपुर या नागपुर रेलवे स्टेशन; आगे सड़क मार्ग.",
+    "road": "आधिकारिक प्रवेश द्वार का उपयोग करें और सफारी अनुमति पहले बुक करें।"
+  },
+  "localCuisine": "Chandrapur and Varhadi regional cuisine.",
+  "sourceUrl": "https://maharashtratourism.gov.in/wildlife-tourism/",
+  "rating": 4.5,
+  "reviewsCount": 0
+},
+{
+  "id": "sanjay-gandhi-national-park",
+  "slug": "sanjay-gandhi-national-park",
+  "name": "Sanjay Gandhi National Park",
+  "marathiName": "संजय गांधी राष्ट्रीय उद्यान",
+  "nameHi": "संजय गांधी राष्ट्रीय उद्यान",
+  "category": "wildlife",
+  "circuit": "Mumbai Nature Circuit",
+  "district": "Mumbai Suburban",
+  "region": "Konkan",
+  "bestTime": "November to February; park operates year-round with closures",
+  "timings": "Check current local opening hours before visiting",
+  "entryFee": "Check current official entry and access charges",
+  "heroImage": "https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=1600&q=80",
+  "thumbnail": "https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=600&q=80",
+  "summary": "A large protected green space within Mumbai, with forest trails, lakes, wildlife and Kanheri Caves.",
+  "summaryMr": "मुंबईतील मोठे संरक्षित हरित क्षेत्र; वनमार्ग, तलाव, वन्यजीव आणि कान्हेरी लेण्यांसाठी प्रसिद्ध.",
+  "summaryHi": "मुंबई के भीतर बड़ा संरक्षित हरित क्षेत्र, जो वन पगडंडियों, झीलों, वन्यजीवों और कान्हेरी गुफाओं के लिए जाना जाता है।",
+  "history": "The park protects an important forest landscape within the metropolitan region and includes the historic Kanheri Caves.",
+  "historyMr": "महानगर क्षेत्रातील महत्त्वाच्या वनप्रदेशाचे संरक्षण करणारे उद्यान; येथे ऐतिहासिक कान्हेरी लेणीही आहेत.",
+  "historyHi": "यह उद्यान महानगरीय क्षेत्र के महत्वपूर्ण वन क्षेत्र की रक्षा करता है और इसमें ऐतिहासिक कान्हेरी गुफाएँ भी हैं।",
+  "attractions": [
+    "Kanheri Caves",
+    "Forest trails and nature interpretation",
+    "Lakes and designated safari activities"
+  ],
+  "attractionsMr": [
+    "कान्हेरी लेणी",
+    "वनमार्ग आणि निसर्ग माहिती केंद्र",
+    "तलाव आणि निर्धारित सफारी उपक्रम"
+  ],
+  "attractionsHi": [
+    "कान्हेरी गुफाएँ",
+    "वन पगडंडियाँ और प्रकृति व्याख्या",
+    "झीलें और निर्धारित सफारी गतिविधियाँ"
+  ],
+  "coordinates": {
+    "lat": 19.2147,
+    "lng": 72.9106,
+    "mapsUrl": "https://maps.google.com/?q=19.2147,72.9106"
+  },
+  "howToReach": {
+    "air": "Mumbai airport; local city transport.",
+    "rail": "Borivali railway station; park entrance is nearby.",
+    "road": "Access through Borivali; follow park entry and activity rules."
+  },
+  "howToReachMr": {
+    "air": "मुंबई विमानतळ; स्थानिक शहर वाहतूक.",
+    "rail": "बोरिवली रेल्वे स्थानक; उद्यान प्रवेशद्वार जवळ.",
+    "road": "बोरिवलीमार्गे प्रवेश; उद्यानाचे नियम पाळा."
+  },
+  "howToReachHi": {
+    "air": "मुंबई हवाई अड्डा; स्थानीय शहर परिवहन.",
+    "rail": "बोरीवली रेलवे स्टेशन; पार्क प्रवेश द्वार पास में है।",
+    "road": "बोरीवली से प्रवेश करें और पार्क के नियमों का पालन करें।"
+  },
+  "localCuisine": "Mumbai street food and snacks around Borivali.",
+  "sourceUrl": "https://maharashtratourism.gov.in/wildlife-tourism/",
+  "rating": 4.5,
+  "reviewsCount": 0
+},
+{
+  "id": "radhanagari-wildlife-sanctuary",
+  "slug": "radhanagari",
+  "name": "Radhanagari Wildlife Sanctuary",
+  "marathiName": "राधानगरी वन्यजीव अभयारण्य",
+  "nameHi": "राधानगरी वन्यजीव अभयारण्य",
+  "category": "wildlife",
+  "circuit": "Kolhapur Wildlife Circuit",
+  "district": "Kolhapur",
+  "region": "Western Maharashtra",
+  "bestTime": "October to May",
+  "timings": "Check current local opening hours before visiting",
+  "entryFee": "Check current official entry and access charges",
+  "heroImage": "https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=1600&q=80",
+  "thumbnail": "https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=600&q=80",
+  "summary": "A Western Ghats sanctuary known for forest biodiversity and the Indian gaur.",
+  "summaryMr": "पश्चिम घाटातील वन्यजीव अभयारण्य; जंगलातील जैवविविधता आणि गव्यांसाठी प्रसिद्ध.",
+  "summaryHi": "पश्चिमी घाट का अभयारण्य, जो वन जैव विविधता और भारतीय गौर के लिए प्रसिद्ध है।",
+  "history": "Established in 1958, the sanctuary protects forest habitats in the Western Ghats and is associated with gaur conservation.",
+  "historyMr": "१९५८ मध्ये स्थापन झालेले हे अभयारण्य पश्चिम घाटातील वन अधिवासांचे आणि गव्यांच्या संवर्धनाचे संरक्षण करते.",
+  "historyHi": "1958 में स्थापित यह अभयारण्य पश्चिमी घाट के वन आवासों और भारतीय गौर के संरक्षण से जुड़ा है।",
+  "attractions": [
+    "Forest landscapes and nature trails",
+    "Indian gaur habitat",
+    "Birdwatching and biodiversity"
+  ],
+  "attractionsMr": [
+    "वनप्रदेश आणि निसर्गमार्ग",
+    "गव्यांचा अधिवास",
+    "पक्षीनिरीक्षण आणि जैवविविधता"
+  ],
+  "attractionsHi": [
+    "वन क्षेत्र और प्रकृति पगडंडियाँ",
+    "भारतीय गौर का आवास",
+    "पक्षी अवलोकन और जैव विविधता"
+  ],
+  "coordinates": {
+    "lat": 16.4026,
+    "lng": 73.9954,
+    "mapsUrl": "https://maps.google.com/?q=16.4026,73.9954"
+  },
+  "howToReach": {
+    "air": "Kolhapur Airport; onward road journey.",
+    "rail": "Kolhapur railway station; onward road journey.",
+    "road": "Access through Radhanagari and surrounding villages; check forest access rules."
+  },
+  "howToReachMr": {
+    "air": "कोल्हापूर विमानतळ; पुढे रस्त्याने.",
+    "rail": "कोल्हापूर रेल्वे स्थानक; पुढे रस्त्याने.",
+    "road": "राधानगरी आणि आसपासच्या गावांमार्गे; वनविभागाचे नियम तपासा."
+  },
+  "howToReachHi": {
+    "air": "कोल्हापुर हवाई अड्डा; आगे सड़क मार्ग.",
+    "rail": "कोल्हापुर रेलवे स्टेशन; आगे सड़क मार्ग.",
+    "road": "राधानगरी और आसपास के गाँवों से पहुँचें; वन विभाग के नियम जाँचें।"
+  },
+  "localCuisine": "Kolhapuri cuisine and local village meals.",
+  "sourceUrl": "https://maharashtratourism.gov.in/wildlife-tourism/",
+  "rating": 4.5,
+  "reviewsCount": 0
+},
+{
+  "id": "nagzira-wildlife-sanctuary",
+  "slug": "nagzira",
+  "name": "Nagzira Wildlife Sanctuary",
+  "marathiName": "नागझिरा वन्यजीव अभयारण्य",
+  "nameHi": "नागझिरा वन्यजीव अभयारण्य",
+  "category": "wildlife",
+  "circuit": "Vidarbha Wildlife Circuit",
+  "district": "Gondia",
+  "region": "Vidarbha",
+  "bestTime": "October to June; confirm safari availability",
+  "timings": "Check current local opening hours before visiting",
+  "entryFee": "Check current official entry and access charges",
+  "heroImage": "https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=1600&q=80",
+  "thumbnail": "https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=600&q=80",
+  "summary": "A forest sanctuary in eastern Maharashtra known for wildlife, birdlife and a scenic lake.",
+  "summaryMr": "पूर्व महाराष्ट्रातील वन्यजीव अभयारण्य; वन्यजीव, पक्षी आणि निसर्गरम्य तलावासाठी प्रसिद्ध.",
+  "summaryHi": "पूर्वी महाराष्ट्र का वन्यजीव अभयारण्य, जो वन्यजीव, पक्षियों और सुंदर झील के लिए जाना जाता है।",
+  "history": "Nagzira protects a mix of forest and lake habitats and forms part of the wider Nagzira-Navegaon conservation landscape.",
+  "historyMr": "नागझिरा वन आणि तलाव अधिवासांचे संरक्षण करते आणि नागझिरा-नवेगाव संवर्धन क्षेत्राचा भाग आहे.",
+  "historyHi": "नागझिरा वन और झील के आवासों की रक्षा करता है और व्यापक नागझिरा-नवेगाँव संरक्षण क्षेत्र का हिस्सा है।",
+  "attractions": [
+    "Nagzira Lake",
+    "Forest safari routes where permitted",
+    "Birdwatching and nature observation"
+  ],
+  "attractionsMr": [
+    "नागझिरा तलाव",
+    "परवानगी असलेले जंगल सफारी मार्ग",
+    "पक्षीनिरीक्षण आणि निसर्ग निरीक्षण"
+  ],
+  "attractionsHi": [
+    "नागझिरा झील",
+    "अनुमति वाले जंगल सफारी मार्ग",
+    "पक्षी अवलोकन और प्रकृति निरीक्षण"
+  ],
+  "coordinates": {
+    "lat": 21.293,
+    "lng": 80.153,
+    "mapsUrl": "https://maps.google.com/?q=21.293,80.153"
+  },
+  "howToReach": {
+    "air": "Nagpur airport; onward road journey.",
+    "rail": "Gondia railway station; onward road journey.",
+    "road": "Reach via Gondia or Bhandara and use designated reserve access."
+  },
+  "howToReachMr": {
+    "air": "नागपूर विमानतळ; पुढे रस्त्याने.",
+    "rail": "गोंदिया रेल्वे स्थानक; पुढे रस्त्याने.",
+    "road": "गोंदिया किंवा भंडारा मार्गे जाऊन निर्धारित प्रवेशद्वार वापरा."
+  },
+  "howToReachHi": {
+    "air": "नागपुर हवाई अड्डा; आगे सड़क मार्ग.",
+    "rail": "गोंदिया रेलवे स्टेशन; आगे सड़क मार्ग.",
+    "road": "गोंदिया या भंडारा से पहुँचें और निर्धारित प्रवेश द्वार का उपयोग करें।"
+  },
+  "localCuisine": "Varhadi cuisine and local rice-based dishes.",
+  "sourceUrl": "https://maharashtratourism.gov.in/wildlife-tourism/",
+  "rating": 4.5,
+  "reviewsCount": 0
+}
 ];
 
 // Enrich destinations with local asset paths while preserving all existing data
 DESTINATIONS.forEach(dest => {
+  const translations = DESTINATION_TRANSLATIONS[dest.id];
+  if (translations) Object.assign(dest, translations);
+
   const reg = ALL_DESTINATION_IMAGE_REGISTRY[dest.id];
   if (reg) {
     dest.localAssets = reg.slots;

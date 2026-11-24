@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Badge from './Badge';
-import { Castle, Landmark, Umbrella, BookOpen, Heart, MapPin, Star } from './Icons';
+import { Castle, Landmark, Umbrella, BookOpen, Mountain, Trees, Heart, MapPin, Star } from './Icons';
 import { useWishlist } from '../../context/WishlistContext';
 import { useLanguage } from '../../context/LanguageContext';
 import styles from './DestinationCard.module.css';
+import { getLocalizedName, getLocalizedValue } from '../../utils/localizedContent';
 
 export default function DestinationCard({ destination }) {
   const { isWishlisted, toggleWishlist } = useWishlist();
@@ -27,18 +28,22 @@ export default function DestinationCard({ destination }) {
         return <Umbrella size={13} />;
       case 'heritage':
         return <BookOpen size={13} />;
+      case 'nature':
+        return <Mountain size={13} />;
+      case 'wildlife':
+        return <Trees size={13} />;
       default:
         return null;
     }
   };
 
-  const displayName = language === 'mr'
-    ? (destination.marathiName || destination.name)
-    : destination.name;
-
+  const displayName = getLocalizedName(destination, language);
+  const hasHindiName = Boolean(destination.nameHi || destination.hindiName);
   const subtitleName = language === 'mr'
     ? destination.name
-    : destination.marathiName;
+    : language === 'hi'
+      ? (hasHindiName ? destination.name : destination.marathiName)
+      : destination.marathiName;
 
   return (
     <div className={styles.card}>
@@ -96,7 +101,7 @@ export default function DestinationCard({ destination }) {
           <p className={styles.marathiName}>{subtitleName}</p>
         )}
 
-        <p className={styles.summary}>{destination.summary}</p>
+        <p className={styles.summary}>{getLocalizedValue(destination, 'summary', language)}</p>
 
         <div className={styles.footerRow}>
           <span className={styles.tag}>

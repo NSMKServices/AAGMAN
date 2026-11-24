@@ -6,6 +6,8 @@ import {
   Landmark,
   Umbrella,
   BookOpen,
+  Mountain,
+  Trees,
   Compass,
   Sparkles,
   Map,
@@ -66,6 +68,16 @@ export default function Footer() {
               <li>
                 <Link to="/heritage" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.45rem' }}>
                   <BookOpen size={16} /> {t('heritage', 'UNESCO Caves & Heritage')}
+                </Link>
+              </li>
+              <li>
+                <Link to="/explore?category=nature" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.45rem' }}>
+                  <Mountain size={16} /> {t('nature', 'Nature & Hill Stations')}
+                </Link>
+              </li>
+              <li>
+                <Link to="/explore?category=wildlife" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.45rem' }}>
+                  <Trees size={16} /> {t('wildlife', 'Wildlife & Sanctuaries')}
                 </Link>
               </li>
               <li>

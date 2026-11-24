@@ -27,6 +27,7 @@ import {
   ArrowRight
 } from '../components/common/Icons';
 import styles from './DestinationDetailPage.module.css';
+import { getLocalizedName, getLocalizedValue } from '../utils/localizedContent';
 
 export default function DestinationDetailPage() {
   const { category, slug } = useParams();
@@ -83,13 +84,14 @@ export default function DestinationDetailPage() {
     .filter(d => d.category === destination.category && d.slug !== destination.slug)
     .slice(0, 3);
 
-  const displayName = language === 'mr'
-    ? (destination.marathiName || destination.name)
-    : destination.name;
-
+  const displayName = getLocalizedName(destination, language);
+  const howToReach = getLocalizedValue(destination, 'howToReach', language);
+  const hasHindiName = Boolean(destination.nameHi || destination.hindiName);
   const subtitleName = language === 'mr'
     ? destination.name
-    : destination.marathiName;
+    : language === 'hi'
+      ? (hasHindiName ? destination.name : destination.marathiName)
+      : destination.marathiName;
 
   return (
     <div className={styles.detailPage}>
@@ -172,8 +174,8 @@ export default function DestinationDetailPage() {
               <div className={styles.contentBlock}>
                 <h2 className={styles.sectionHeading}>{t('historicalSignificance', 'Historical Chronicle & Significance')}</h2>
                 <div className={styles.heritageDivider} />
-                <p className={styles.narrativeText}>{destination.history}</p>
-                <p className={styles.narrativeText}>{destination.summary}</p>
+                <p className={styles.narrativeText}>{getLocalizedValue(destination, 'history', language)}</p>
+                <p className={styles.narrativeText}>{getLocalizedValue(destination, 'summary', language)}</p>
               </div>
 
               {/* Major Attractions */}
@@ -184,7 +186,7 @@ export default function DestinationDetailPage() {
                     {destination.attractions.map((att, idx) => (
                       <div key={idx} className={styles.attractionItem}>
                         <span className={styles.attractionNum}>{idx + 1}</span>
-                        <span className={styles.attractionText}>{att}</span>
+                        <span className={styles.attractionText}>{getLocalizedValue(destination, 'attractions', language)[idx] ?? att}</span>
                       </div>
                     ))}
                   </div>
@@ -260,7 +262,7 @@ export default function DestinationDetailPage() {
                     <span className={styles.metaIcon}><Clock size={16} /></span>
                     <div>
                       <strong className={styles.metaItemLabel}>{t('timingsAccess', 'Timings & Access')}:</strong>
-                      <p className={styles.metaItemVal}>{destination.timings || 'Sunrise to Sunset'}</p>
+                      <p className={styles.metaItemVal}>{getLocalizedValue(destination, 'timings', language) || 'Sunrise to Sunset'}</p>
                     </div>
                   </div>
 
@@ -268,7 +270,7 @@ export default function DestinationDetailPage() {
                     <span className={styles.metaIcon}><Ticket size={16} /></span>
                     <div>
                       <strong className={styles.metaItemLabel}>{t('entryTariffs', 'Entry Tariffs')}:</strong>
-                      <p className={styles.metaItemVal}>{destination.entryFee || 'Free Entry / Archaeological Survey of India'}</p>
+                      <p className={styles.metaItemVal}>{getLocalizedValue(destination, 'entryFee', language) || 'Free Entry / Archaeological Survey of India'}</p>
                     </div>
                   </div>
 
@@ -276,7 +278,7 @@ export default function DestinationDetailPage() {
                     <span className={styles.metaIcon}><Sun size={16} /></span>
                     <div>
                       <strong className={styles.metaItemLabel}>{t('idealSeason', 'Ideal Season')}:</strong>
-                      <p className={styles.metaItemVal}>{destination.bestTime}</p>
+                      <p className={styles.metaItemVal}>{getLocalizedValue(destination, 'bestTime', language)}</p>
                     </div>
                   </div>
 
@@ -307,30 +309,30 @@ export default function DestinationDetailPage() {
                 <div className={styles.metaCard}>
                   <h3 className={styles.metaCardTitle}>{t('howToReach', 'How to Reach & Transit Guidance')}</h3>
                   <div className={styles.reachList}>
-                    {destination.howToReach.air && (
+                    {howToReach.air && (
                       <div className={styles.reachItem}>
                         <Plane size={15} color="var(--color-primary)" />
                         <div>
                           <strong>{t('byAir', 'By Air')}:</strong>
-                          <p>{destination.howToReach.air}</p>
+                          <p>{howToReach.air}</p>
                         </div>
                       </div>
                     )}
-                    {destination.howToReach.rail && (
+                    {howToReach.rail && (
                       <div className={styles.reachItem}>
                         <Train size={15} color="var(--color-primary)" />
                         <div>
                           <strong>{t('byRail', 'By Rail')}:</strong>
-                          <p>{destination.howToReach.rail}</p>
+                          <p>{howToReach.rail}</p>
                         </div>
                       </div>
                     )}
-                    {destination.howToReach.road && (
+                    {howToReach.road && (
                       <div className={styles.reachItem}>
                         <Car size={15} color="var(--color-primary)" />
                         <div>
                           <strong>{t('byRoad', 'By Road')}:</strong>
-                          <p>{destination.howToReach.road}</p>
+                          <p>{howToReach.road}</p>
                         </div>
                       </div>
                     )}
