@@ -244,3 +244,8 @@ create policy "Content managers can update destination media"
   on storage.objects for update to authenticated
   using (bucket_id = 'destination-media' and private.has_admin_role('content_manager'))
   with check (bucket_id = 'destination-media' and private.has_admin_role('content_manager'));
+
+-- All policies now use private-schema helpers; remove their exposed public RPC grants.
+revoke all on function public.is_admin() from public, anon, authenticated;
+revoke all on function public.is_super_admin() from public, anon, authenticated;
+revoke all on function public.has_admin_role(text) from public, anon, authenticated;
