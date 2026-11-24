@@ -150,6 +150,14 @@ export const contentService = {
       lastEditedBy: editorName
     };
 
+    if (cleanRecord.featuredOrder && destinationsCache.some(item =>
+      item.id !== cleanRecord.id &&
+      item.category === cleanRecord.category &&
+      Number(item.featuredOrder) === cleanRecord.featuredOrder
+    )) {
+      throw new Error(`Homepage position ${cleanRecord.featuredOrder} is already assigned in the ${cleanRecord.category} category. Choose another position or remove the existing highlight first.`);
+    }
+
     // 1. Supabase Persistence (with strict error propagation)
     if (isSupabaseConfigured) {
       try {
@@ -319,6 +327,12 @@ export const contentService = {
       updatedAt: now,
       lastEditedBy: editorName
     };
+
+    if (cleanRecord.featuredOrder && festivalsCache.some(item =>
+      item.id !== cleanRecord.id && Number(item.featuredOrder) === cleanRecord.featuredOrder
+    )) {
+      throw new Error(`Festival highlight position ${cleanRecord.featuredOrder} is already assigned. Choose another position or remove the existing highlight first.`);
+    }
 
     if (isSupabaseConfigured) {
       try {
