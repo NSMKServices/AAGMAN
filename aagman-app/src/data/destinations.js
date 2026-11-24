@@ -4,7 +4,7 @@
  * Categories: forts, temples, beaches, heritage, nature, wildlife
  */
 import { ALL_DESTINATION_IMAGE_REGISTRY } from './imageRegistry.js';
-import { DESTINATION_TRANSLATIONS } from './destinationTranslations';
+import { DESTINATION_TRANSLATIONS } from './destinationTranslations.js';
 
 export const DESTINATIONS = [
   // ==========================================
