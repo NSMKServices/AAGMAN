@@ -76,7 +76,14 @@ export default function FestivalsPage() {
             </span>
           </div>
 
-          <div className={styles.festivalsGrid}>
+          {filteredFestivals.length === 0 ? (
+            <p style={{ textAlign: 'center', padding: '2rem 1rem', color: 'var(--color-text-muted)' }}>
+              {festivals.length === 0
+                ? 'No festivals published yet. Add and publish festivals in the admin dashboard to display them here.'
+                : 'No festivals match your search.'}
+            </p>
+          ) : (
+            <div className={styles.festivalsGrid}>
             {filteredFestivals.map((festival) => {
               const displayName = getLocalizedName(festival, language);
               const hasHindiName = Boolean(festival.nameHi || festival.hindiName);
@@ -143,7 +150,8 @@ export default function FestivalsPage() {
                 </div>
               );
             })}
-          </div>
+            </div>
+          )}
         </Container>
       </section>
 
