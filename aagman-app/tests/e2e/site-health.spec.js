@@ -62,6 +62,9 @@ test('footer Admin Portal opens the dedicated sign-in page', async ({ page }) =>
   await adminLink.click();
   await expect(page).toHaveURL(/\/admin\/login$/);
   await expect(page.getByRole('heading', { name: 'Administrator Sign In' })).toBeVisible();
+  await expect(page.getByLabel('Official Email Address')).toBeVisible();
+  await expect(page.getByLabel('Password')).toBeVisible();
+  await expect(page.getByLabel('Remember session')).toHaveCount(0);
 });
 
 test('video cards open matching original YouTube pages in a new tab', async ({ page }) => {
