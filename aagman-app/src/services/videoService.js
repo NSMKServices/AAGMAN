@@ -3,7 +3,6 @@
  * Manages video records, association with destinations & festivals, and validation.
  * Operates against Supabase when available with strict error checks and audit logging.
  */
-import { CURATED_VIDEOS } from '../data/videos';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
 import { extractYouTubeId, isValidYouTubeUrl, getYouTubeThumbnail, normalizeYouTubeUrl } from '../utils/youtubeValidator';
 import { auditService } from './auditService';
@@ -17,18 +16,7 @@ const isUuid = value => typeof value === 'string' &&
   /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value);
 
 function loadStoredVideos() {
-  const curated = CURATED_VIDEOS.map(v => ({
-    ...v,
-    youtubeId: v.youtubeId || extractYouTubeId(v.youtubeUrl),
-    isActive: true,
-    isFeatured: true,
-    updatedAt: new Date().toISOString()
-  }));
-
-  // In production, Supabase is the source of truth. Ignore old browser-local
-  // caches so corrected links and admin changes cannot be hidden by stale data.
-  if (isSupabaseConfigured) return curated;
-
+  if (isSupabaseConfigured) return [];
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (raw) {
@@ -38,7 +26,7 @@ function loadStoredVideos() {
   } catch (e) {
     console.warn('Failed loading stored videos:', e);
   }
-  return curated;
+  return [];
 }
 
 function saveStoredVideos(videos) {
@@ -72,31 +60,33 @@ export const videoService = {
           .select('*')
           .order('created_at', { ascending: false });
 
-        if (!error && data && data.length > 0) {
-          videoCache = data.map(row => ({
-            id: row.id,
-            title: row.title,
-            youtubeUrl: row.youtube_url,
-            youtubeId: row.youtube_id,
-            description: row.description || row.summary,
-            thumbnail: row.thumbnail_url || getYouTubeThumbnail(row.youtube_id),
-            destination: row.destination_name || row.destination_id,
-            destinationId: row.destination_id,
-            festivalId: row.festival_id,
-            category: row.category || 'heritage',
-            district: row.district || 'Maharashtra',
-            duration: row.duration || 'Video',
-            creator: row.creator || 'AAGMAN Heritage Series',
-            isActive: row.is_active ?? true,
-            isFeatured: row.is_featured ?? false,
-            updatedAt: row.updated_at
-          }));
-          saveStoredVideos(videoCache);
-          notifyListeners();
-          return videoCache;
-        }
+        if (error) throw new Error(`Database videos query failed: ${error.message}`);
+        videoCache = (data || []).map(row => ({
+          id: row.id,
+          title: row.title,
+          youtubeUrl: row.youtube_url,
+          youtubeId: row.youtube_id,
+          description: row.description || '',
+          thumbnail: row.thumbnail_url || getYouTubeThumbnail(row.youtube_id),
+          destination: row.destination_name || row.destination_slug || row.destination_id || '',
+          destinationId: row.destination_slug || row.destination_id,
+          festivalId: row.festival_slug || row.festival_id,
+          destinationDbId: row.destination_id,
+          festivalDbId: row.festival_id,
+          category: row.category || 'heritage',
+          district: row.district || 'Maharashtra',
+          duration: row.duration || 'Video',
+          creator: row.creator || 'AAGMAN Heritage Series',
+          isActive: row.is_active ?? true,
+          isFeatured: row.is_featured ?? false,
+          updatedAt: row.updated_at
+        }));
+        saveStoredVideos(videoCache);
+        notifyListeners();
+        return videoCache;
       } catch (err) {
-        console.warn('Supabase videos query notice, using local cache:', err);
+        console.error('Supabase videos query failed:', err);
+        throw err;
       }
     }
     return videoCache;
@@ -178,9 +168,11 @@ export const videoService = {
             youtube_id: newVideo.youtubeId,
             description: newVideo.description,
             thumbnail_url: newVideo.thumbnail,
-            destination_id: newVideo.destinationId,
+            destination_id: newVideo.destinationDbId || null,
+            destination_slug: newVideo.destinationId || null,
             destination_name: newVideo.destination,
-            festival_id: newVideo.festivalId,
+            festival_id: newVideo.festivalDbId || null,
+            festival_slug: newVideo.festivalId || null,
             category: newVideo.category,
             district: newVideo.district,
             duration: newVideo.duration,
@@ -267,9 +259,11 @@ export const videoService = {
             youtube_id: updated.youtubeId,
             description: updated.description,
             thumbnail_url: updated.thumbnail,
-            destination_id: isUuid(updated.destinationId) ? updated.destinationId : null,
+            destination_id: updated.destinationDbId || (isUuid(updated.destinationId) ? updated.destinationId : null),
+            destination_slug: isUuid(updated.destinationId) ? null : (updated.destinationId || null),
             destination_name: updated.destination,
-            festival_id: isUuid(updated.festivalId) ? updated.festivalId : null,
+            festival_id: updated.festivalDbId || (isUuid(updated.festivalId) ? updated.festivalId : null),
+            festival_slug: isUuid(updated.festivalId) ? null : (updated.festivalId || null),
             category: updated.category,
             district: updated.district,
             duration: updated.duration || 'Video',
