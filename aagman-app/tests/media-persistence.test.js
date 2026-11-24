@@ -72,3 +72,46 @@ test('media schema uses a JSON gallery for both content types and stores video s
   assert.match(migration, /add column if not exists destination_slug text/i);
   assert.match(migration, /add column if not exists festival_slug text/i);
 });
+
+test('content service keeps public slugs separate from database UUIDs', async () => {
+  const service = await readFile(
+    new URL('../src/services/contentService.js', import.meta.url),
+    'utf8'
+  );
+  assert.match(service, /dbId:\s*row\.id/);
+  assert.match(service, /id:\s*row\.slug/);
+  assert.match(service, /id:\s*cleanRecord\.dbId/);
+  assert.match(service, /onConflict:\s*'id'/);
+});
+
+test('video service uses the database as production source of truth and preserves offline catalogue', async () => {
+  const service = await readFile(
+    new URL('../src/services/videoService.js', import.meta.url),
+    'utf8'
+  );
+  assert.match(service, /if \(isSupabaseConfigured\) return \[\]/);
+  assert.match(service, /return CURATED_VIDEOS\.map/);
+  assert.match(service, /destination_slug:/);
+  assert.match(service, /festival_slug:/);
+  assert.match(service, /Database videos query failed/);
+});
+
+test('admin function grants preserve RLS checks while removing public RPC access', async () => {
+  const migration = await readFile(
+    new URL('../supabase/migrations/20261127_admin_function_privileges.sql', import.meta.url),
+    'utf8'
+  );
+  assert.match(migration, /revoke all on function public\.handle_new_user\(\) from public, anon, authenticated/i);
+  assert.match(migration, /grant execute on function public\.is_admin\(\) to anon, authenticated/i);
+  assert.match(migration, /grant execute on function public\.has_admin_role\(text\) to authenticated/i);
+  assert.match(migration, /set search_path = ''/i);
+});
+
+test('RLS optimization keeps auth ownership checks in scalar subqueries', async () => {
+  const migration = await readFile(
+    new URL('../supabase/migrations/20261128_rls_policy_performance.sql', import.meta.url),
+    'utf8'
+  );
+  assert.match(migration, /\(select auth\.uid\(\)\)/i);
+  assert.match(migration, /Admins can update permitted admin profiles/i);
+});
