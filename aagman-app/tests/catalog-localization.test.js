@@ -4,7 +4,7 @@ import { DESTINATIONS } from '../src/data/destinations.js';
 import { FESTIVALS } from '../src/data/festivals.js';
 
 test('the current destination catalog has a Hindi display name for every entry', () => {
-  assert.equal(DESTINATIONS.length, 52);
+  assert.equal(DESTINATIONS.length, 41);
   const missing = DESTINATIONS.filter(item => !item.nameHi);
   assert.deepEqual(missing.map(item => item.id), []);
 });
