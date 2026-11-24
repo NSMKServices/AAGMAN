@@ -102,6 +102,7 @@ test('admin function grants preserve RLS checks while removing public RPC access
     'utf8'
   );
   assert.match(migration, /revoke all on function public\.handle_new_user\(\) from public, anon, authenticated/i);
+  assert.match(migration, /revoke all on function private\.has_admin_role\(text\) from public, anon, authenticated/i);
   assert.match(migration, /grant execute on function private\.is_admin\(\) to anon, authenticated/i);
   assert.match(migration, /grant execute on function private\.has_admin_role\(text\) to authenticated/i);
   assert.match(migration, /revoke all on function public\.is_admin\(\) from public, anon, authenticated/i);
