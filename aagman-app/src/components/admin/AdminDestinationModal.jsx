@@ -269,6 +269,8 @@ export default function AdminDestinationModal({ isOpen, onClose, onSave, destina
 
           {/* Media & Photographs Section */}
           <MediaManager
+            entityType="destinations"
+            entitySlug={slug || name}
             coverImage={heroImage}
             onCoverImageChange={setHeroImage}
             gallery={gallery}
