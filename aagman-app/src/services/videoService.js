@@ -10,6 +10,12 @@ import { auditService } from './auditService';
 
 const STORAGE_KEY = 'aagman_custom_videos';
 
+// The database stores destination_id and festival_id as UUIDs. The built-in
+// catalogue uses readable slug IDs, so only real UUID values may be persisted
+// in those foreign-key columns. Names remain available for display/matching.
+const isUuid = value => typeof value === 'string' &&
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value);
+
 function loadStoredVideos() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
@@ -142,8 +148,8 @@ export const videoService = {
       thumbnail: input.thumbnail || getYouTubeThumbnail(youtubeId, 'hqdefault'),
       description: (description || '').trim(),
       destination: destinationName || destinationId || '',
-      destinationId: destinationId || null,
-      festivalId: festivalId || null,
+      destinationId: isUuid(destinationId) ? destinationId : null,
+      festivalId: isUuid(festivalId) ? festivalId : null,
       category: category || 'heritage',
       district: district || 'Maharashtra',
       duration: duration || 'Video',
@@ -251,9 +257,9 @@ export const videoService = {
             youtube_id: updated.youtubeId,
             description: updated.description,
             thumbnail_url: updated.thumbnail,
-            destination_id: updated.destinationId,
+            destination_id: isUuid(updated.destinationId) ? updated.destinationId : null,
             destination_name: updated.destination,
-            festival_id: updated.festivalId,
+            festival_id: isUuid(updated.festivalId) ? updated.festivalId : null,
             category: updated.category,
             district: updated.district,
             is_featured: updated.isFeatured,
