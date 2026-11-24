@@ -83,9 +83,6 @@ grant execute on function private.has_admin_role(text) to authenticated;
 -- Remove client RPC access to the legacy public helpers and trigger-only function.
 revoke all on function public.handle_new_user() from public, anon, authenticated;
 revoke all on function public.get_my_admin_profile() from public, anon, authenticated;
-revoke all on function public.is_admin() from public, anon, authenticated;
-revoke all on function public.is_super_admin() from public, anon, authenticated;
-revoke all on function public.has_admin_role(text) from public, anon, authenticated;
 
 -- Keep the verified covering index and remove only its duplicate.
 drop index if exists public.idx_trips_user_id;
