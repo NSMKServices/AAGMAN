@@ -651,7 +651,6 @@ export const TRANSLATIONS = {
     westernMhRegion: "पश्चिमी महाराष्ट्र",
     khandeshRegion: "खानदेश (उत्तरी महाराष्ट्र)",
     marathwadaRegion: "मराठवाड़ा",
-    vidarbhaRegion: "विदर्भ",
     selectedDistrict: "चयनित जिला",
     districtName: "जिला",
     divisionName: "प्रभाग",
