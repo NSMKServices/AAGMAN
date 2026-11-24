@@ -231,9 +231,9 @@ export default function ExplorePage({ defaultCategory = 'all' }) {
           ) : (
             <div className={styles.noResultsBox}>
               <Compass size={40} className={styles.noResultsIcon} />
-              <h3 className={styles.noResultsTitle}>{t('noDestinationsFound', 'No destinations found matching your criteria.')}</h3>
+              <h3 className={styles.noResultsTitle}>{destinations.length === 0 ? 'No destinations published yet.' : t('noDestinationsFound', 'No destinations found matching your criteria.')}</h3>
               <p className={styles.noResultsSub}>
-                {t('mapSub', 'Try clearing your search query or selecting a different district filter.')}
+                {destinations.length === 0 ? 'Add and publish destinations in the admin dashboard to display them here.' : t('mapSub', 'Try clearing your search query or selecting a different district filter.')}
               </p>
               <button
                 type="button"
