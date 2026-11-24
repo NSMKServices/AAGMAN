@@ -35,7 +35,7 @@ test('YouTube validator rejects lookalike hosts, non-HTTPS and malformed URLs', 
 
 test('catalogue migration seeds every destination and festival without overwriting existing records', async () => {
   const migration = await readFile(
-    new URL('../supabase/migrations/20261126_content_catalogue_media_sync.sql', import.meta.url),
+    new URL('../supabase/migrations/20261126120000_content_catalogue_media_sync.sql', import.meta.url),
     'utf8'
   );
   assert.match(migration, /on conflict \(slug\) do nothing/i);
@@ -64,7 +64,7 @@ test('media uploads cannot report temporary object URLs as saved media', async (
 
 test('media schema uses a JSON gallery for both content types and stores video slug associations', async () => {
   const migration = await readFile(
-    new URL('../supabase/migrations/20261126_content_catalogue_media_sync.sql', import.meta.url),
+    new URL('../supabase/migrations/20261126120000_content_catalogue_media_sync.sql', import.meta.url),
     'utf8'
   );
   assert.match(migration, /alter column gallery type jsonb/i);
@@ -98,7 +98,7 @@ test('video service uses the database as production source of truth and preserve
 
 test('admin function grants preserve RLS checks while removing public RPC access', async () => {
   const migration = await readFile(
-    new URL('../supabase/migrations/20261127_admin_function_privileges.sql', import.meta.url),
+    new URL('../supabase/migrations/20261127120000_admin_function_privileges.sql', import.meta.url),
     'utf8'
   );
   assert.match(migration, /revoke all on function public\.handle_new_user\(\) from public, anon, authenticated/i);
@@ -112,7 +112,7 @@ test('admin function grants preserve RLS checks while removing public RPC access
 
 test('RLS optimization keeps auth ownership checks in scalar subqueries', async () => {
   const migration = await readFile(
-    new URL('../supabase/migrations/20261128_rls_policy_performance.sql', import.meta.url),
+    new URL('../supabase/migrations/20261128120000_rls_policy_performance.sql', import.meta.url),
     'utf8'
   );
   assert.match(migration, /\(select auth\.uid\(\)\)/i);
