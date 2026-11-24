@@ -17,21 +17,29 @@ const isUuid = value => typeof value === 'string' &&
   /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value);
 
 function loadStoredVideos() {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) {
-      return JSON.parse(raw);
-    }
-  } catch (e) {
-    console.warn('Failed loading stored videos:', e);
-  }
-  return CURATED_VIDEOS.map(v => ({
+  const curated = CURATED_VIDEOS.map(v => ({
     ...v,
-    youtubeId: extractYouTubeId(v.youtubeUrl),
+    youtubeId: v.youtubeId || extractYouTubeId(v.youtubeUrl),
     isActive: true,
     isFeatured: true,
     updatedAt: new Date().toISOString()
   }));
+
+  // In production, the database is the source of truth. Do not let an old
+  // browser-local cache hide newly corrected curated videos or admin updates.
+  if (isSupabaseConfigured) return curated;
+
+  // Local storage is only an offline/development fallback when Supabase is absent.
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) {
+      const stored = JSON.parse(raw);
+      if (Array.isArray(stored)) return stored;
+    }
+  } catch (e) {
+    console.warn('Failed loading stored videos:', e);
+  }
+  return curated;
 }
 
 function saveStoredVideos(videos) {
@@ -252,7 +260,8 @@ export const videoService = {
       try {
         const { error } = await supabase
           .from('videos')
-          .update({
+          .upsert({
+            id,
             title: updated.title,
             youtube_url: updated.youtubeUrl,
             youtube_id: updated.youtubeId,
@@ -263,11 +272,12 @@ export const videoService = {
             festival_id: isUuid(updated.festivalId) ? updated.festivalId : null,
             category: updated.category,
             district: updated.district,
+            duration: updated.duration || 'Video',
+            creator: updated.creator || 'AAGMAN Official Contributor',
             is_featured: updated.isFeatured,
             is_active: updated.isActive,
             updated_at: new Date().toISOString()
-          })
-          .eq('id', id);
+          }, { onConflict: 'id' });
 
         if (error) {
           throw new Error(`Database video update failed: ${error.message}.`);
