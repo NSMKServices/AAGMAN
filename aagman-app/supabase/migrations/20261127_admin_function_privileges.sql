@@ -76,6 +76,10 @@ begin
 end;
 $$;
 
+revoke all on function private.is_admin() from public, anon, authenticated;
+revoke all on function private.is_super_admin() from public, anon, authenticated;
+revoke all on function private.has_admin_role(text) from public, anon, authenticated;
+
 grant execute on function private.is_admin() to anon, authenticated;
 grant execute on function private.is_super_admin() to authenticated;
 grant execute on function private.has_admin_role(text) to authenticated;
