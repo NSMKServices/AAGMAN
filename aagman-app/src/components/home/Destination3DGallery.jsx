@@ -12,6 +12,8 @@ import {
   Sparkles
 } from '../common/Icons';
 import { useWishlist } from '../../context/WishlistContext';
+import { useLanguage } from '../../context/LanguageContext';
+import { getLocalizedValue } from '../../utils/localizedContent';
 import styles from './Destination3DGallery.module.css';
 
 /**
@@ -30,6 +32,7 @@ export default function Destination3DGallery({ destinations = [] }) {
   const [touchDelta, setTouchDelta] = useState(0);
 
   const { isWishlisted, toggleWishlist } = useWishlist();
+  const { language, t, getDistrictName } = useLanguage();
   const navigate = useNavigate();
   const galleryRef = useRef(null);
 
@@ -98,6 +101,10 @@ export default function Destination3DGallery({ destinations = [] }) {
   }
 
   const activeDest = destinations[activeIndex] || destinations[0];
+  const localizedName = getLocalizedValue(activeDest, 'name', language);
+  const localizedSummary = getLocalizedValue(activeDest, 'summary', language);
+  const localizedAttractions = getLocalizedValue(activeDest, 'attractions', language);
+  const localizedCategory = t(activeDest.category, activeDest.category);
   const isSaved = isWishlisted(activeDest.slug);
 
   // Compute signed cyclical difference
@@ -153,13 +160,13 @@ export default function Destination3DGallery({ destinations = [] }) {
                 }}
                 role="button"
                 tabIndex={isForeground ? 0 : -1}
-                aria-label={`View ${dest.name}`}
+                aria-label={`View ${getLocalizedValue(dest, 'name', language)}`}
                 aria-current={isForeground ? 'true' : undefined}
               >
                 <div className={styles.imageFrame}>
                   <img
                     src={dest.heroImage || dest.thumbnail}
-                    alt={dest.name}
+                    alt={getLocalizedValue(dest, 'name', language)}
                     className={styles.cardImage}
                     loading={Math.abs(offset) <= 1 ? 'eager' : 'lazy'}
                     onError={(e) => {
@@ -175,7 +182,7 @@ export default function Destination3DGallery({ destinations = [] }) {
                   {/* Top Badges */}
                   <div className={styles.topBadges}>
                     <Badge variant={dest.category} size="sm">
-                      {dest.category.toUpperCase()}
+                      {t(dest.category, dest.category).toUpperCase()}
                     </Badge>
                     {dest.rating && (
                       <div className={styles.ratingBadge}>
@@ -189,9 +196,9 @@ export default function Destination3DGallery({ destinations = [] }) {
                   <div className={styles.vignetteCaption}>
                     <span className={styles.vignetteLocation}>
                       <MapPin size={12} />
-                      {dest.district} District
+                      {getDistrictName(dest.district.toLowerCase().replace(/\\s+/g, '-')) || dest.district} {t('district', 'District')}
                     </span>
-                    <h4 className={styles.vignetteTitle}>{dest.name}</h4>
+                    <h4 className={styles.vignetteTitle}>{getLocalizedValue(dest, 'name', language)}</h4>
                   </div>
                 </div>
               </div>
@@ -207,7 +214,7 @@ export default function Destination3DGallery({ destinations = [] }) {
           className={styles.navBtn}
           onClick={prevSlide}
           aria-label="Previous destination"
-          title="Previous destination (Left Arrow)"
+          title={t('previousDestination', 'Previous destination (Left Arrow)')}
         >
           <ChevronLeft size={20} />
         </button>
@@ -232,7 +239,7 @@ export default function Destination3DGallery({ destinations = [] }) {
           className={styles.navBtn}
           onClick={nextSlide}
           aria-label="Next destination"
-          title="Next destination (Right Arrow)"
+          title={t('nextDestination', 'Next destination (Right Arrow)')}
         >
           <ChevronRight size={20} />
         </button>
@@ -244,10 +251,10 @@ export default function Destination3DGallery({ destinations = [] }) {
           <div className={styles.metaLeft}>
             <span className={styles.districtChip}>
               <MapPin size={13} />
-              {activeDest.district} District, {activeDest.region}
+              {getDistrictName(activeDest.district.toLowerCase().replace(/\\s+/g, '-')) || activeDest.district} {t('district', 'District')}, {activeDest.region}
             </span>
             <Badge variant={activeDest.category} size="md">
-              {activeDest.category.toUpperCase()}
+              {localizedCategory.toUpperCase()}
             </Badge>
           </div>
 
@@ -263,20 +270,20 @@ export default function Destination3DGallery({ destinations = [] }) {
         </div>
 
         <div className={styles.titleGroup}>
-          <h3 className={styles.destName}>{activeDest.name}</h3>
+          <h3 className={styles.destName}>{localizedName}</h3>
           {activeDest.marathiName && (
-            <span className={styles.destMarathi}>{activeDest.marathiName}</span>
+            <span className={styles.destMarathi}>{language === 'hi' ? activeDest.nameHi || activeDest.marathiName : activeDest.marathiName}</span>
           )}
         </div>
 
-        <p className={styles.destSummary}>{activeDest.summary}</p>
+        <p className={styles.destSummary}>{localizedSummary}</p>
 
         {/* Highlights Row */}
         {activeDest.attractions && activeDest.attractions.length > 0 && (
           <div className={styles.attractionsRow}>
-            <span className={styles.attractionsLabel}>Notable Features:</span>
+            <span className={styles.attractionsLabel}>{t('notableFeatures', 'Notable Features:')}</span>
             <div className={styles.attractionPills}>
-              {activeDest.attractions.slice(0, 3).map((item, idx) => (
+              {(localizedAttractions || []).slice(0, 3).map((item, idx) => (
                 <span key={idx} className={styles.attractionPill}>
                   {item}
                 </span>
@@ -293,7 +300,7 @@ export default function Destination3DGallery({ destinations = [] }) {
             icon={<ArrowRight size={14} />}
             className={styles.exploreBtn}
           >
-            Explore Destination
+            {t('exploreDestination', 'Explore Destination')}
           </Button>
 
           <Button
@@ -308,7 +315,7 @@ export default function Destination3DGallery({ destinations = [] }) {
               />
             }
           >
-            {isSaved ? 'Saved in Wishlist' : 'Add to Wishlist'}
+            {isSaved ? t('removeFromWishlist', 'Saved in Wishlist') : t('addToWishlist', 'Add to Wishlist')}
           </Button>
 
           <Button
@@ -317,7 +324,7 @@ export default function Destination3DGallery({ destinations = [] }) {
             size="md"
             icon={<Sparkles size={14} />}
           >
-            Plan Journey Here
+            {t('planTripBtn', 'Plan Journey Here')}
           </Button>
         </div>
       </div>
