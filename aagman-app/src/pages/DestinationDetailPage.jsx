@@ -85,9 +85,12 @@ export default function DestinationDetailPage() {
     .slice(0, 3);
 
   const displayName = getLocalizedName(destination, language);
-  const subtitleName = language === 'en'
-    ? destination.marathiName
-    : destination.name;
+  const hasHindiName = Boolean(destination.nameHi || destination.hindiName);
+  const subtitleName = language === 'mr'
+    ? destination.name
+    : language === 'hi'
+      ? (hasHindiName ? destination.name : destination.marathiName)
+      : destination.marathiName;
 
   return (
     <div className={styles.detailPage}>
