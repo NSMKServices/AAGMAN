@@ -17,7 +17,11 @@ export function WishlistProvider({ children }) {
   });
 
   useEffect(() => {
-    const unsubscribe = contentService.subscribe(({ destinations: records }) => setDestinations(records));
+    const unsubscribe = contentService.subscribe(({ destinations: records }) => {
+      setDestinations(records);
+      const publishedSlugs = new Set(records.filter(item => item.status === 'published').map(item => item.slug));
+      setWishlistSlugs(current => current.filter(slug => publishedSlugs.has(slug)));
+    });
     contentService.getAllDestinations();
     return unsubscribe;
   }, []);
