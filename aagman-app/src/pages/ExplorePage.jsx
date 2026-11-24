@@ -184,6 +184,7 @@ export default function ExplorePage({ defaultCategory = 'all' }) {
                   <option value="Western Maharashtra">{t('westernMhRegion', 'Western Maharashtra')}</option>
                   <option value="Marathwada">{t('marathwadaRegion', 'Marathwada')}</option>
                   <option value="North Maharashtra">{t('khandeshRegion', 'North Maharashtra')}</option>
+                  <option value="Vidarbha">{t('vidarbhaRegion', 'Vidarbha')}</option>
                 </select>
               </div>
             </div>
