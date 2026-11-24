@@ -20,6 +20,7 @@ export default function VideosPage() {
   const { language, t } = useLanguage();
   const [activeCategory, setActiveCategory] = useState('all');
   const [videos, setVideos] = useState(() => CURATED_VIDEOS);
+  const localizedVideo = (video, field) => video[`${field}${language === 'mr' ? 'Mr' : language === 'hi' ? 'Hi' : ''}`] || video[field] || '';
 
   useEffect(() => {
     let isMounted = true;
@@ -112,7 +113,7 @@ export default function VideosPage() {
                 <div className={styles.thumbnailWrapper}>
                   <img
                     src={video.thumbnail}
-                    alt={video.title}
+                    alt={localizedVideo(video, 'title')}
                     className={styles.thumbnail}
                     loading="lazy"
                   />
@@ -135,13 +136,13 @@ export default function VideosPage() {
                 <div className={styles.cardContent}>
                   <div className={styles.metaRow}>
                     <span className={styles.location}>
-                      <MapPin size={12} color="var(--color-secondary)" /> {video.destination || 'Maharashtra'}{video.district ? ` (${video.district})` : ''}
+                      <MapPin size={12} color="var(--color-secondary)" /> {localizedVideo(video, 'destination') || t('brandSubtitle', 'Maharashtra')}{video.district ? ` (${video.district})` : ''}
                     </span>
                     <span className={styles.creator}>{video.creator || 'AAGMAN'}</span>
                   </div>
 
-                  <h3 className={styles.videoTitle}>{video.title}</h3>
-                  <p className={styles.videoSummary}>{video.summary || video.description || ''}</p>
+                  <h3 className={styles.videoTitle}>{localizedVideo(video, 'title')}</h3>
+                  <p className={styles.videoSummary}>{localizedVideo(video, 'summary') || video.description || ''}</p>
 
                   <a
                     href={video.youtubeUrl}
