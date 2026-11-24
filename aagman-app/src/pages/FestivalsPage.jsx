@@ -10,6 +10,7 @@ import { videoService } from '../services/videoService';
 import { useLanguage } from '../context/LanguageContext';
 import { Calendar, MapPin, Check, Sparkles, ExternalLink } from '../components/common/Icons';
 import styles from './FestivalsPage.module.css';
+import { getLocalizedName, getLocalizedValue } from '../utils/localizedContent';
 
 export default function FestivalsPage() {
   const { language, t } = useLanguage();
@@ -70,8 +71,8 @@ export default function FestivalsPage() {
 
           <div className={styles.festivalsGrid}>
             {filteredFestivals.map((festival) => {
-              const displayName = language === 'mr' ? festival.marathiName || festival.name : festival.name;
-              const subName = language === 'mr' ? festival.name : festival.marathiName;
+              const displayName = getLocalizedName(festival, language);
+              const subName = language === 'en' ? festival.marathiName : festival.name;
 
               return (
                 <div key={festival.id} className={styles.festivalCard}>
@@ -102,7 +103,7 @@ export default function FestivalsPage() {
                       <MapPin size={12} style={{ marginRight: 4, verticalAlign: 'middle' }} />
                       {festival.location}
                     </p>
-                    <p className={styles.description}>{festival.description}</p>
+                    <p className={styles.description}>{getLocalizedValue(festival, 'description', language)}</p>
 
                     <div className={styles.highlightsContainer}>
                       <span className={styles.highlightsTitle}>{t('culturalHighlights', 'Cultural Highlights')}:</span>
@@ -139,7 +140,7 @@ export default function FestivalsPage() {
         <Modal
           isOpen={!!selectedFestival}
           onClose={() => setSelectedFestival(null)}
-          title={language === 'mr' ? selectedFestival.marathiName || selectedFestival.name : selectedFestival.name}
+          title={getLocalizedName(selectedFestival, language)}
         >
           <div className={styles.modalContent}>
             <div className={styles.modalHero}>
@@ -178,7 +179,7 @@ export default function FestivalsPage() {
                   {selectedFestival.highlights.map((h, i) => (
                     <div key={i} className={styles.modalHighlightCard}>
                       <span className={styles.modalHighlightNum}>{i + 1}</span>
-                      <p className={styles.modalHighlightText}>{h}</p>
+                      <p className={styles.modalHighlightText}>{getLocalizedValue(festival, 'highlights', language)[i] ?? h}</p>
                     </div>
                   ))}
                 </div>
