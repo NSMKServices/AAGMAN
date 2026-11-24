@@ -14,7 +14,13 @@ export const CURATED_VIDEOS = [
     creator: 'Maharashtra Tourism Documentary',
     thumbnail: 'https://images.unsplash.com/photo-1627894483216-2138af692e32?auto=format&fit=crop&w=800&q=80',
     youtubeUrl: 'https://www.youtube.com/watch?v=0hXjM7rG5U4',
-    summary: 'A breathtaking drone journey across Maha Darwaja, Rajbhavan, and the sacred samadhi of Chhatrapati Shivaji Maharaj.'
+    summary: 'A breathtaking drone journey across Maha Darwaja, Rajbhavan, and the sacred samadhi of Chhatrapati Shivaji Maharaj.',
+    titleMr: 'रायगडचा स्वराज्य सिंहासन: रायगड किल्ल्याची हवाई सफर',
+    titleHi: 'स्वराज्य का सिंहासन: रायगढ़ किले की हवाई यात्रा',
+    destinationMr: 'रायगड किल्ला',
+    destinationHi: 'रायगढ़ किला',
+    summaryMr: 'महादरवाजा, राजभवन आणि छत्रपती शिवाजी महाराजांच्या पवित्र समाधीचे थक्क करणारे ड्रोन दर्शन.',
+    summaryHi: 'महादरवाजा, राजभवन और छत्रपति शिवाजी महाराज की पवित्र समाधि की अद्भुत ड्रोन यात्रा।'
   },
   {
     id: 'vid-ajanta',
@@ -26,7 +32,13 @@ export const CURATED_VIDEOS = [
     creator: 'Archaeological Heritage Series',
     thumbnail: 'https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=80',
     youtubeUrl: 'https://www.youtube.com/watch?v=kYJvY2OQ2Z0',
-    summary: 'Detailed visual exploration of Caves 1, 2, and 26 depicting the life and sublime teachings of the Buddha.'
+    summary: 'Detailed visual exploration of Caves 1, 2, and 26 depicting the life and sublime teachings of the Buddha.',
+    titleMr: 'अजिंठ्याची अमर भित्तिचित्रे: वाघूर दरीतील २,००० वर्षांचा वारसा',
+    titleHi: 'अजंता के अमर भित्तिचित्र: वाघुर घाटी में 2,000 वर्षों की विरासत',
+    destinationMr: 'अजिंठा लेणी',
+    destinationHi: 'अजंता गुफाएँ',
+    summaryMr: 'गुहा क्रमांक १, २ आणि २६ मधील बुद्धांचे जीवन व शिकवण दर्शविणाऱ्या चित्रांचे सविस्तर दर्शन.',
+    summaryHi: 'गुफा 1, 2 और 26 में बुद्ध के जीवन तथा उपदेशों को दर्शाने वाले चित्रों की विस्तृत झलक।'
   },
   {
     id: 'vid-tarkarli',
@@ -38,7 +50,13 @@ export const CURATED_VIDEOS = [
     creator: 'Konkan Explorer',
     thumbnail: 'https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=800&q=80',
     youtubeUrl: 'https://www.youtube.com/watch?v=y7w_P4X1p9c',
-    summary: 'Discover crystal-clear scuba diving waters, coral sanctuaries, and the naval walls of Sindhudurg Fort.'
+    summary: 'Discover crystal-clear scuba diving waters, coral sanctuaries, and the naval walls of Sindhudurg Fort.',
+    titleMr: 'निळेशार समुद्र आणि सागरी दुर्ग: मालवण व तारकर्ली किनारपट्टी',
+    titleHi: 'नीला समुद्र और समुद्री दुर्ग: मालवण एवं तारकरली तट',
+    destinationMr: 'तारकर्ली समुद्रकिनारा आणि सिंधुदुर्ग',
+    destinationHi: 'तारकरली समुद्र तट और सिंधुदुर्ग',
+    summaryMr: 'स्वच्छ पाण्यातील स्कूबा डायव्हिंग, प्रवाळांचे अधिवास आणि सिंधुदुर्ग किल्ल्याच्या सागरी तटबंदीचा अनुभव घ्या.',
+    summaryHi: 'स्वच्छ जल में स्कूबा डाइविंग, प्रवाल क्षेत्रों और सिंधुदुर्ग किले की समुद्री दीवारों को जानें।'
   },
   {
     id: 'vid-ellora',
@@ -50,7 +68,13 @@ export const CURATED_VIDEOS = [
     creator: 'World Heritage Documentaries',
     thumbnail: 'https://images.unsplash.com/photo-1599839575945-a9e5af0c3fa5?auto=format&fit=crop&w=800&q=80',
     youtubeUrl: 'https://www.youtube.com/watch?v=0hXjM7rG5U4',
-    summary: 'Comprehensive documentary uncovering how 200,000 tons of basalt rock were excavated top-down to sculpt Cave 16.'
+    summary: 'Comprehensive documentary uncovering how 200,000 tons of basalt rock were excavated top-down to sculpt Cave 16.',
+    titleMr: 'कैलास मंदिर: एकाश्म शिल्पकलेचा अद्भुत चमत्कार',
+    titleHi: 'कैलास मंदिर: एकाश्म शैलकला का अद्भुत चमत्कार',
+    destinationMr: 'वेरूळ लेणी',
+    destinationHi: 'एलोरा गुफाएँ',
+    summaryMr: 'गुहा क्रमांक १६ साकारण्यासाठी सुमारे दोन लाख टन बेसॉल्ट खडक वरून खाली कोरण्याच्या अद्भुत प्रक्रियेचा मागोवा.',
+    summaryHi: 'गुफा 16 को बनाने के लिए लगभग दो लाख टन बेसाल्ट चट्टान को ऊपर से नीचे तराशने की अद्भुत प्रक्रिया।'
   },
   {
     id: 'vid-trimbak',
@@ -62,7 +86,13 @@ export const CURATED_VIDEOS = [
     creator: 'Sacred Yatra Chronicles',
     thumbnail: 'https://images.unsplash.com/photo-1600100397608-f010e42e4e7a?auto=format&fit=crop&w=800&q=80',
     youtubeUrl: 'https://www.youtube.com/watch?v=k9nL3_2u1Yg',
-    summary: 'Spiritual journey through the Brahmagiri hills, Kushavarta Kund, and the three-faced lingam of the sacred shrine.'
+    summary: 'Spiritual journey through the Brahmagiri hills, Kushavarta Kund, and the three-faced lingam of the sacred shrine.',
+    titleMr: 'गोदावरीचे पवित्र उगमस्थान: श्री त्र्यंबकेश्वर ज्योतिर्लिंग',
+    titleHi: 'गोदावरी का पवित्र उद्गम: श्री त्र्यंबकेश्वर ज्योतिर्लिंग',
+    destinationMr: 'त्र्यंबकेश्वर मंदिर',
+    destinationHi: 'त्र्यंबकेश्वर मंदिर',
+    summaryMr: 'ब्रह्मगिरी पर्वत, कुशावर्त कुंड आणि पवित्र मंदिरातील त्रिमुखी लिंगाचे आध्यात्मिक दर्शन.',
+    summaryHi: 'ब्रह्मगिरि पहाड़ियों, कुशावर्त कुंड और पवित्र मंदिर के त्रिमुखी लिंग का आध्यात्मिक दर्शन।'
   },
   {
     id: 'vid-sinhagad',
@@ -74,6 +104,12 @@ export const CURATED_VIDEOS = [
     creator: 'Sahyadri Fort Chronicles',
     thumbnail: 'https://images.unsplash.com/photo-1609137144813-7d9921338f24?auto=format&fit=crop&w=800&q=80',
     youtubeUrl: 'https://www.youtube.com/watch?v=kYJvY2OQ2Z0',
-    summary: 'The dramatic clifftop bastion where Subedar Tanaji Malusare scaled vertical precipices in 1670.'
+    summary: 'The dramatic clifftop bastion where Subedar Tanaji Malusare scaled vertical precipices in 1670.',
+    titleMr: 'तानाजी मालुसरेंचा सिंहगड: सिंहगडाच्या लढाईचा इतिहास',
+    titleHi: 'तानाजी मालुसरे का सिंहगढ़: सिंहगढ़ युद्ध का इतिहास',
+    destinationMr: 'सिंहगड किल्ला',
+    destinationHi: 'सिंहगढ़ किला',
+    summaryMr: 'इ.स. १६७० मध्ये सुभेदार तानाजी मालुसरे यांनी सर केलेल्या उभ्या कड्यांवरील या ऐतिहासिक दुर्गाची कहाणी.',
+    summaryHi: '1670 में सूबेदार तानाजी मालुसरे द्वारा चढ़ाई गई खड़ी चट्टानों वाले इस ऐतिहासिक दुर्ग की कहानी।'
   }
 ];
