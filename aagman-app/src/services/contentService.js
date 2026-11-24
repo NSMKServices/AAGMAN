@@ -4,8 +4,6 @@
  * Connects to Supabase when live credentials exist and maintains local fallback synchronization.
  * Integrates comprehensive audit logging and robust error propagation.
  */
-import { DESTINATIONS } from '../data/destinations';
-import { FESTIVALS } from '../data/festivals';
 import { videoService } from './videoService';
 import { auditService } from './auditService';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
@@ -19,46 +17,20 @@ const makeUuid = () => globalThis.crypto?.randomUUID?.() || 'xxxxxxxx-xxxx-4xxx-
   return (ch === 'x' ? random : (random & 0x3 | 0x8)).toString(16);
 });
 
-function initDestinations() {
+function loadLocalContent(key) {
   try {
-    const raw = localStorage.getItem(DESTINATIONS_STORAGE_KEY);
-    if (raw) return JSON.parse(raw);
+    const raw = localStorage.getItem(key);
+    if (!raw) return [];
+    const records = JSON.parse(raw);
+    return Array.isArray(records) ? records.filter(item => item.lastEditedBy !== 'System Import') : [];
   } catch (e) {
-    console.warn('Failed loading stored destinations:', e);
+    console.warn('Failed loading stored content:', e);
+    return [];
   }
-  return DESTINATIONS.map((d, index) => ({
-    ...d,
-    description: d.description || d.summary || '',
-    heroImage: d.heroImage || d.image || '',
-    status: 'published',
-    gallery: d.gallery || [],
-    highlights: d.highlights || [],
-    videoIds: [],
-    updatedAt: new Date(Date.now() - (index * 86400000 * 3)).toISOString(),
-    lastEditedBy: 'System Import'
-  }));
 }
 
-function initFestivals() {
-  try {
-    const raw = localStorage.getItem(FESTIVALS_STORAGE_KEY);
-    if (raw) return JSON.parse(raw);
-  } catch (e) {
-    console.warn('Failed loading stored festivals:', e);
-  }
-  return FESTIVALS.map((f, index) => ({
-    ...f,
-    status: 'published',
-    gallery: f.gallery || [],
-    highlights: f.highlights || [],
-    videoIds: [],
-    updatedAt: new Date(Date.now() - (index * 86400000 * 5)).toISOString(),
-    lastEditedBy: 'System Import'
-  }));
-}
-
-let destinationsCache = initDestinations();
-let festivalsCache = initFestivals();
+let destinationsCache = loadLocalContent(DESTINATIONS_STORAGE_KEY);
+let festivalsCache = loadLocalContent(FESTIVALS_STORAGE_KEY);
 const contentListeners = new Set();
 
 function saveLocalDestinations(data) {
@@ -94,49 +66,20 @@ export const contentService = {
   async getAllDestinations() {
     if (isSupabaseConfigured) {
       try {
-        const { data, error } = await supabase
-          .from('destinations')
-          .select('*')
-          .order('name', { ascending: true });
-
+        const { data, error } = await supabase.from('destinations').select('*').order('name', { ascending: true });
         if (error) throw new Error(`Database destinations query failed: ${error.message}`);
-        const bySlug = new Map((data || []).map(row => [row.slug, row]));
-        const staticSlugs = new Set(DESTINATIONS.map(item => item.slug || item.id));
-        destinationsCache = DESTINATIONS.map(item => {
-          const row = bySlug.get(item.slug || item.id);
-          if (!row) return { ...item, description: item.description || item.summary || '', heroImage: item.heroImage || item.image || '' };
-          return {
-            ...item,
-            id: row.slug || item.id,
-            slug: row.slug || item.slug || item.id,
-            dbId: row.id,
-            name: row.name || item.name,
-            marathiName: row.marathi_name || item.marathiName,
-            category: row.category || item.category,
-            district: row.district || item.district,
-            region: row.region || item.region,
-            circuit: row.circuit || item.circuit,
-            description: row.description || item.description || item.summary,
-            heroImage: row.hero_image || row.image_url || item.heroImage || item.image,
-            image: row.hero_image || row.image_url || item.image,
-            gallery: row.gallery || item.gallery || [],
-            highlights: row.highlights || item.highlights || [],
-            bestTimeToVisit: row.best_time_to_visit || item.bestTimeToVisit || item.bestTime,
-            entryFee: row.entry_fee || item.entryFee,
-            status: row.status || 'published',
-            updatedAt: row.updated_at,
-            lastEditedBy: row.last_edited_by || 'Editor'
-          };
-        }).concat((data || []).filter(row => !staticSlugs.has(row.slug)).map(row => ({
-          id: row.slug || row.id, slug: row.slug || row.id, dbId: row.id, name: row.name,
-          marathiName: row.marathi_name, category: row.category, district: row.district,
-          region: row.region, circuit: row.circuit, description: row.description,
-          heroImage: row.hero_image || row.image_url, image: row.hero_image || row.image_url,
-          gallery: row.gallery || [], highlights: row.highlights || [],
-          bestTimeToVisit: row.best_time_to_visit, entryFee: row.entry_fee,
-          status: row.status || 'published', updatedAt: row.updated_at,
-          lastEditedBy: row.last_edited_by || 'Editor'
-        })));
+        destinationsCache = (data || []).map(row => ({
+          id: row.slug || row.id, slug: row.slug || row.id, dbId: row.id,
+          name: row.name || '', marathiName: row.marathi_name || '', category: row.category || '',
+          district: row.district || '', region: row.region || '', circuit: row.circuit || '',
+          description: row.description || '', summary: row.description || '',
+          heroImage: row.hero_image || row.image_url || '', image: row.hero_image || row.image_url || '',
+          thumbnail: row.hero_image || row.image_url || '', gallery: row.gallery || [], highlights: row.highlights || [],
+          attractions: row.highlights || [], bestTimeToVisit: row.best_time_to_visit || '',
+          bestTime: row.best_time_to_visit || '', entryFee: row.entry_fee || '',
+          featuredOrder: row.featured_order ?? null, status: row.status || 'draft',
+          updatedAt: row.updated_at, lastEditedBy: row.last_edited_by || 'Editor'
+        }));
         saveLocalDestinations(destinationsCache);
         notifyContentListeners();
         return destinationsCache;
@@ -203,9 +146,25 @@ export const contentService = {
       bestTimeToVisit: destData.bestTimeToVisit || '',
       entryFee: destData.entryFee || 'Free entry',
       status: targetStatus,
+      featuredOrder: destData.featuredOrder ? Number(destData.featuredOrder) : null,
       updatedAt: now,
       lastEditedBy: editorName
     };
+
+    if (cleanRecord.featuredOrder && (!Number.isInteger(cleanRecord.featuredOrder) || cleanRecord.featuredOrder < 1 || cleanRecord.featuredOrder > 5)) {
+      throw new Error('Homepage highlight position must be between 1 and 5.');
+    }
+    if (cleanRecord.featuredOrder && !['temples', 'forts', 'heritage', 'beaches'].includes(cleanRecord.category)) {
+      throw new Error('Homepage highlights are available only for temples, forts, heritage sites and beaches.');
+    }
+
+    if (cleanRecord.featuredOrder && destinationsCache.some(item =>
+      item.id !== cleanRecord.id &&
+      item.category === cleanRecord.category &&
+      Number(item.featuredOrder) === cleanRecord.featuredOrder
+    )) {
+      throw new Error(`Homepage position ${cleanRecord.featuredOrder} is already assigned in the ${cleanRecord.category} category. Choose another position or remove the existing highlight first.`);
+    }
 
     // 1. Supabase Persistence (with strict error propagation)
     if (isSupabaseConfigured) {
@@ -226,6 +185,7 @@ export const contentService = {
           best_time_to_visit: cleanRecord.bestTimeToVisit,
           entry_fee: cleanRecord.entryFee,
           status: cleanRecord.status,
+          featured_order: cleanRecord.featuredOrder,
           last_edited_by: cleanRecord.lastEditedBy,
           updated_at: now
         };
@@ -315,44 +275,16 @@ export const contentService = {
   async getAllFestivals() {
     if (isSupabaseConfigured) {
       try {
-        const { data, error } = await supabase
-          .from('festivals')
-          .select('*')
-          .order('name', { ascending: true });
-
+        const { data, error } = await supabase.from('festivals').select('*').order('name', { ascending: true });
         if (error) throw new Error(`Database festivals query failed: ${error.message}`);
-        const bySlug = new Map((data || []).map(row => [row.slug, row]));
-        const staticSlugs = new Set(FESTIVALS.map(item => item.slug || item.id));
-        festivalsCache = FESTIVALS.map(item => {
-          const row = bySlug.get(item.slug || item.id);
-          if (!row) return item;
-          return {
-            ...item,
-            id: row.slug || item.id,
-            slug: row.slug || item.slug || item.id,
-            dbId: row.id,
-            name: row.name || item.name,
-            marathiName: row.marathi_name || item.marathiName,
-            dates: row.dates || item.dates,
-            location: row.location || item.location,
-            district: row.district || item.district,
-            description: row.description || item.description,
-            image: row.image || item.image,
-            gallery: row.gallery || item.gallery || [],
-            significance: row.significance || item.significance,
-            highlights: row.highlights?.length ? row.highlights : (item.highlights || []),
-            status: row.status || 'published',
-            updatedAt: row.updated_at,
-            lastEditedBy: row.last_edited_by || 'Editor'
-          };
-        }).concat((data || []).filter(row => !staticSlugs.has(row.slug)).map(row => ({
-          id: row.slug || row.id, slug: row.slug || row.id, dbId: row.id, name: row.name,
-          marathiName: row.marathi_name, dates: row.dates, location: row.location,
-          district: row.district, description: row.description, image: row.image,
-          gallery: row.gallery || [], significance: row.significance,
-          highlights: row.highlights || [], status: row.status || 'published',
-          updatedAt: row.updated_at, lastEditedBy: row.last_edited_by || 'Editor'
-        })));
+        festivalsCache = (data || []).map(row => ({
+          id: row.slug || row.id, slug: row.slug || row.id, dbId: row.id,
+          name: row.name || '', marathiName: row.marathi_name || '', dates: row.dates || '',
+          location: row.location || '', district: row.district || '', description: row.description || '',
+          image: row.image || '', gallery: row.gallery || [], significance: row.significance || '',
+          highlights: row.highlights || [], featuredOrder: row.featured_order ?? null,
+          status: row.status || 'draft', updatedAt: row.updated_at, lastEditedBy: row.last_edited_by || 'Editor'
+        }));
         saveLocalFestivals(festivalsCache);
         notifyContentListeners();
         return festivalsCache;
@@ -399,9 +331,20 @@ export const contentService = {
       significance: festData.significance || '',
       highlights: Array.isArray(festData.highlights) ? festData.highlights : [],
       status: targetStatus,
+      featuredOrder: festData.featuredOrder ? Number(festData.featuredOrder) : null,
       updatedAt: now,
       lastEditedBy: editorName
     };
+
+    if (cleanRecord.featuredOrder && (!Number.isInteger(cleanRecord.featuredOrder) || cleanRecord.featuredOrder < 1 || cleanRecord.featuredOrder > 5)) {
+      throw new Error('Festival highlight position must be between 1 and 5.');
+    }
+
+    if (cleanRecord.featuredOrder && festivalsCache.some(item =>
+      item.id !== cleanRecord.id && Number(item.featuredOrder) === cleanRecord.featuredOrder
+    )) {
+      throw new Error(`Festival highlight position ${cleanRecord.featuredOrder} is already assigned. Choose another position or remove the existing highlight first.`);
+    }
 
     if (isSupabaseConfigured) {
       try {
@@ -419,6 +362,7 @@ export const contentService = {
           significance: cleanRecord.significance,
           highlights: cleanRecord.highlights,
           status: cleanRecord.status,
+          featured_order: cleanRecord.featuredOrder,
           last_edited_by: cleanRecord.lastEditedBy,
           updated_at: now
         };

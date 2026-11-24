@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Container from '../components/layout/Container';
 import Badge from '../components/common/Badge';
@@ -31,45 +31,29 @@ import {
   ArrowRight,
   Info
 } from '../components/common/Icons';
-import { DESTINATIONS } from '../data/destinations';
-import { FESTIVALS } from '../data/festivals';
 import { CURATED_VIDEOS } from '../data/videos';
-import { getFestivalGallery } from '../data/imageRegistry';
 import { useLanguage } from '../context/LanguageContext';
+import { contentService } from '../services/contentService';
 import styles from './HomePage.module.css';
 
 const HERO_SLIDES = [
   {
-    image: "https://images.unsplash.com/photo-1627894483216-2138af692e32?auto=format&fit=crop&w=1920&q=85",
-    tag: "CAPITAL OF SWARAJYA",
-    title: "Chhatrapati Shivaji Maharaj's Royal Fort Raigad",
-    subtitle: "Ascend the sacred coronation citadel of the Maratha Empire nestled amidst the mist-shrouded Sahyadri peaks."
-  },
-  {
-    image: "https://images.unsplash.com/photo-1599839575945-a9e5af0c3fa5?auto=format&fit=crop&w=1920&q=85",
-    tag: "UNESCO WORLD HERITAGE",
-    title: "The Monolithic Wonder: Kailasa Temple & Ellora",
-    subtitle: "Stand in awe before the world's largest monolithic rock excavation, carved top-down from volcanic basalt in the 8th century."
-  },
-  {
-    image: "https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=1920&q=85",
-    tag: "PRISTINE KONKAN SHORELINE",
-    title: "Sea Fortresses & Coral Reefs of Malvan",
-    subtitle: "Explore Sindhudurg island citadel, turquoise waters of Tarkarli, and golden coastal coconut groves."
-  },
-  {
-    image: "https://images.unsplash.com/photo-1516214104703-d870798883c5?auto=format&fit=crop&w=1920&q=85",
-    tag: "HIGHEST SUMMIT OF MAHARASHTRA",
-    title: "Kalsubai Peak: Crown of the Sahyadri Ranges",
-    subtitle: "Trek through panoramic cloudscapes to Maharashtra's highest altitude at 1,646 meters overlooking Bhandardara reservoir."
+    image: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1920&q=85",
+    tag: "DISCOVER MAHARASHTRA",
+    title: "Discover Maharashtra, Your Way",
+    subtitle: "Explore destinations, heritage, coastlines and festivals added by the AAGMAN team."
   }
 ];
 
 const HERO_TRANSLATIONS = [
-  { tagMr: "स्वराज्याची राजधानी", tagHi: "स्वराज्य की राजधानी", titleMr: "छत्रपती शिवाजी महाराजांचा रायगड किल्ला", titleHi: "छत्रपति शिवाजी महाराज का रायगढ़ किला", subtitleMr: "धुक्याने वेढलेल्या सह्याद्रीच्या शिखरांवरील मराठा साम्राज्याच्या पवित्र राजधानीला भेट द्या.", subtitleHi: "धुंध से ढकी सह्याद्रि पहाड़ियों में बसे मराठा साम्राज्य के पवित्र राज्याभिषेक स्थल की यात्रा करें।" },
-  { tagMr: "युनेस्को जागतिक वारसा", tagHi: "यूनेस्को विश्व धरोहर", titleMr: "वेरूळचे कैलास मंदिर: एकाश्म शिल्पकलेचा चमत्कार", titleHi: "एलोरा का कैलास मंदिर: एकाश्म शिल्प का अद्भुत नमूना", subtitleMr: "आठव्या शतकात बेसॉल्ट खडकात वरून खाली कोरलेल्या भव्य कैलास मंदिराचे वैभव अनुभवा.", subtitleHi: "आठवीं शताब्दी में बेसाल्ट चट्टान को ऊपर से नीचे तराशकर बनाए गए भव्य कैलास मंदिर को देखें।" },
-  { tagMr: "निसर्गरम्य कोकण किनारा", tagHi: "मनमोहक कोंकण तट", titleMr: "मालवणचे सागरी किल्ले आणि निळेशार समुद्र", titleHi: "मालवण के समुद्री किले और नीला समुद्र", subtitleMr: "सिंधुदुर्ग जलदुर्ग, तारकर्लीचे निळेशार पाणी आणि कोकणातील नारळीच्या बागा अनुभवा.", subtitleHi: "सिंधुदुर्ग समुद्री किला, तारकर्ली के साफ नीले पानी और कोंकण के नारियल उपवनों का आनंद लें।" },
-  { tagMr: "महाराष्ट्रातील सर्वोच्च शिखर", tagHi: "महाराष्ट्र की सबसे ऊँची चोटी", titleMr: "कळसूबाई शिखर: सह्याद्रीचा मुकुट", titleHi: "कलसूबाई शिखर: सह्याद्रि का मुकुट", subtitleMr: "भंडारदरा जलाशयाकडे पाहणाऱ्या ढगांनी वेढलेल्या सह्याद्रीच्या सर्वोच्च १,६४६ मीटर शिखरावर चढाई करा.", subtitleHi: "भंडारदरा जलाशय के मनोरम दृश्य के साथ 1,646 मीटर ऊँची महाराष्ट्र की चोटी तक ट्रेक करें।" }
+  {
+    tagMr: "महाराष्ट्राचा शोध घ्या",
+    tagHi: "महाराष्ट्र की खोज करें",
+    titleMr: "आपल्या पद्धतीने महाराष्ट्र अनुभवावा",
+    titleHi: "महाराष्ट्र को अपने अंदाज़ में जानें",
+    subtitleMr: "AAGMAN टीमने जोडलेली पर्यटनस्थळे, वारसा, समुद्रकिनारे आणि उत्सव शोधा.",
+    subtitleHi: "AAGMAN टीम द्वारा जोड़े गए पर्यटन स्थलों, विरासत, समुद्र तटों और त्योहारों को देखें।"
+  }
 ];
 
 const DISCOVERY_CATEGORIES = [
@@ -86,7 +70,7 @@ const DISCOVERY_CATEGORIES = [
     title: "Sacred Temples",
     marathi: "तीर्थक्षेत्रे", hindi: "पवित्र तीर्थस्थल",
     count: "5 Jyotirlingas",
-    description: "Trimbakeshwar, Ashtavinayak, Pandharpur Vitthal & ancient sacred sanctums.",
+    description: "Discover sacred shrines, pilgrimage traditions and places of worship across Maharashtra.",
     path: "/temples",
     icon: Landmark,
     tag: "Pilgrimage"
@@ -104,7 +88,7 @@ const DISCOVERY_CATEGORIES = [
     title: "UNESCO Heritage",
     marathi: "जागतिक वारसा", hindi: "विश्व धरोहर",
     count: "5 World Sites",
-    description: "Ajanta Buddhist murals, Ellora monolithic Kailasa, and Elephanta rock art.",
+    description: "Explore UNESCO sites, historic architecture and cultural landmarks across the state.",
     path: "/heritage",
     icon: BookOpen,
     tag: "Monuments"
@@ -113,8 +97,8 @@ const DISCOVERY_CATEGORIES = [
     title: "Hill Stations",
     marathi: "थंड हवेची ठिकाणे", hindi: "हिल स्टेशन",
     count: "Sahyadri Retreats",
-    description: "Mahabaleshwar, Matheran, Panchgani, Amboli & Chikhaldara plateau vistas.",
-    path: "/explore?category=hills",
+    description: "Find hill landscapes, lakes, plateaus and scenic outdoor escapes.",
+    path: "/explore?category=nature",
     icon: Mountain,
     tag: "Highlands"
   },
@@ -122,7 +106,7 @@ const DISCOVERY_CATEGORIES = [
     title: "Nature & Wildlife",
     marathi: "वन्यजीव व निसर्ग", hindi: "वन्यजीव और प्रकृति",
     count: "6 National Parks",
-    description: "Tadoba tiger reserve, Kaas flower valley, Koyna sanctuary & dense forests.",
+    description: "Discover protected forests, wildlife habitats and nature reserves.",
     path: "/explore?category=wildlife",
     icon: Trees,
     tag: "Wildlife"
@@ -131,7 +115,7 @@ const DISCOVERY_CATEGORIES = [
     title: "Festivals & Events",
     marathi: "उत्सव व परंपरा", hindi: "त्योहार और परंपराएँ",
     count: "Year-Round",
-    description: "Ganeshotsav, Shiv Jayanti, Pandharpur Wari & Ellora classical arts festivals.",
+    description: "Browse seasonal celebrations, local traditions and cultural events.",
     path: "/festivals",
     icon: Sparkles,
     tag: "Culture"
@@ -147,48 +131,7 @@ const DISCOVERY_CATEGORIES = [
   }
 ];
 
-const SUGGESTED_CIRCUITS = [
-  {
-    id: "maratha-imperial",
-    name: "The Maratha Imperial Fort Circuit",
-    route: "Pune → Sinhagad → Rajgad → Raigad → Pratapgad",
-    duration: "4 Days / 3 Nights",
-    pace: "Active Trekking",
-    budget: "₹8,500 – ₹14,000",
-    highlights: ["Shivaji Maharaj coronation site", "Sunrise over Sahyadri cloud-sea", "Authentic village Pithla Bhakri"]
-  },
-  {
-    id: "konkan-coastal",
-    name: "The Golden Konkan Coastal Trail",
-    route: "Alibaug → Murud-Janjira → Ganpatipule → Tarkarli",
-    duration: "5 Days / 4 Nights",
-    pace: "Relaxed Coastal",
-    budget: "₹12,000 – ₹18,500",
-    highlights: ["Undefeated Murud island fort", "Snorkeling at Sindhudurg coral beds", "Sunset at Ganpatipule mandir"]
-  },
-  {
-    id: "caves-jyotirlinga",
-    name: "Sacred Jyotirlinga & UNESCO Cave Circuit",
-    route: "Nashik → Trimbakeshwar → Shirdi → Ellora → Ajanta",
-    duration: "4 Days / 3 Nights",
-    pace: "Cultural Exploration",
-    budget: "₹7,000 – ₹12,500",
-    highlights: ["Godavari holy source darshan", "Monolithic Kailasa rock temple", "Two millennia old Ajanta murals"]
-  }
-];
-
-// Curated diverse showcase representing forts, caves, beaches, and temples for 3D Gallery
-const FEATURED_SLUGS = [
-  'raigad-fort',
-  'kailasa-ellora',
-  'tarkarli-beach',
-  'sinhagad-fort',
-  'trimbakeshwar-temple',
-  'ajanta-caves',
-  'pratapgad-fort',
-  'ganpatipule-beach'
-];
-
+const SUGGESTED_CIRCUITS = [];
 
 // Homepage copy is kept together so every visible section follows the selected language.
 const HOME_COPY = {
@@ -202,12 +145,12 @@ const HOME_COPY = {
     categoryCounts: ["350+ Sites", "5 Jyotirlingas", "720 km Coast", "5 World Sites", "Sahyadri Retreats", "6 National Parks", "Year-Round", "Living Heritage"],
     categoryDescriptions: [
       "Sahyadri hill forts and coastal sea fortresses that shaped Maratha history.",
-      "Trimbakeshwar, the Ashtavinayak temples, Pandharpur and other sacred places.",
+      "Explore sacred places of worship and Maharashtra's pilgrimage traditions.",
       "Konkan beaches, coastal forts, clear waters and quiet fishing villages.",
-      "Ajanta and Ellora caves, Elephanta and Maharashtra’s other heritage landmarks.",
-      "Mahabaleshwar, Matheran, Amboli and scenic mountain plateaus.",
-      "Tadoba, Kaas, Koyna and the forests and wildlife of Maharashtra.",
-      "Ganeshotsav, Shiv Jayanti, Pandharpur Wari and regional celebrations.",
+      "Explore historic architecture, cultural landmarks and protected heritage sites.",
+      "Discover hill landscapes, lakes, plateaus and outdoor escapes.",
+      "Discover protected forests, wildlife habitats and nature reserves.",
+      "Discover seasonal celebrations, local traditions and cultural events.",
       "Warli art, Paithani weaving, Powada and traditional Maharashtrian food."
     ],
     explore: "Explore", allDestinations: "View all destinations",
@@ -233,12 +176,12 @@ const HOME_COPY = {
     categoryCounts: ["३५०+ स्थळे", "५ ज्योतिर्लिंगे", "७२० कि.मी. किनारपट्टी", "५ जागतिक वारसा स्थळे", "सह्याद्रीची निसर्गरम्य ठिकाणे", "६ राष्ट्रीय उद्याने", "वर्षभर उत्सव", "जिवंत सांस्कृतिक वारसा"],
     categoryDescriptions: [
       "सह्याद्रीतील डोंगरी किल्ले आणि मराठ्यांच्या इतिहासाचे साक्षीदार असलेले सागरी दुर्ग.",
-      "त्र्यंबकेश्वर, अष्टविनायक, पंढरपूर आणि महाराष्ट्रातील इतर पवित्र तीर्थक्षेत्रे.",
+      "महाराष्ट्रातील पवित्र देवस्थाने, तीर्थपरंपरा आणि उपासनेची स्थळे शोधा.",
       "कोकणचे समुद्रकिनारे, सागरी किल्ले, स्वच्छ पाणी आणि शांत मासेमारी गावे.",
-      "अजिंठा-वेरूळ लेणी, घारापुरी आणि महाराष्ट्रातील इतर ऐतिहासिक वारसास्थळे.",
-      "महाबळेश्वर, माथेरान, आंबोली आणि निसर्गरम्य पर्वतीय पठारे.",
-      "ताडोबा, कास, कोयना तसेच महाराष्ट्रातील जंगले आणि वन्यजीव.",
-      "गणेशोत्सव, शिवजयंती, पंढरपूरची वारी आणि विविध प्रादेशिक उत्सव.",
+      "ऐतिहासिक वास्तुकला, सांस्कृतिक स्थळे आणि संरक्षित वारसा अनुभवावा.",
+      "डोंगररांगा, तलाव, पठारे आणि निसर्गरम्य ठिकाणे शोधा.",
+      "संरक्षित जंगले, वन्यजीव अधिवास आणि निसर्ग राखीव क्षेत्रे शोधा.",
+      "हंगामी उत्सव, स्थानिक परंपरा आणि सांस्कृतिक कार्यक्रम जाणून घ्या.",
       "वारली चित्रकला, पैठणी विणकाम, पोवाडे आणि महाराष्ट्रीय खाद्यपरंपरा."
     ],
     explore: "पहा", allDestinations: "सर्व पर्यटन स्थळे पहा",
@@ -264,12 +207,12 @@ const HOME_COPY = {
     categoryCounts: ["350+ स्थल", "5 ज्योतिर्लिंग", "720 किमी तटरेखा", "5 विश्व धरोहर स्थल", "सह्याद्रि के पर्वतीय स्थल", "6 राष्ट्रीय उद्यान", "वर्ष भर उत्सव", "जीवंत सांस्कृतिक विरासत"],
     categoryDescriptions: [
       "सह्याद्रि के पहाड़ी किले और मराठा इतिहास के साक्षी समुद्री दुर्ग।",
-      "त्र्यंबकेश्वर, अष्टविनायक, पंढरपुर और महाराष्ट्र के अन्य पवित्र तीर्थ।",
+      "महाराष्ट्र के पवित्र मंदिरों, तीर्थ परंपराओं और पूजा स्थलों को जानें।",
       "कोंकण के समुद्र तट, तटीय किले, स्वच्छ जल और शांत मछुआरा गाँव।",
-      "अजंता-एलोरा की गुफाएँ, एलीफेंटा और महाराष्ट्र के अन्य ऐतिहासिक धरोहर स्थल।",
-      "महाबलेश्वर, माथेरान, अंबोली और सुंदर पर्वतीय पठार।",
-      "ताडोबा, कास, कोयना तथा महाराष्ट्र के वन और वन्यजीव।",
-      "गणेशोत्सव, शिव जयंती, पंढरपुर वारी और क्षेत्रीय उत्सव।",
+      "ऐतिहासिक स्थापत्य, सांस्कृतिक स्थलों और संरक्षित विरासत को देखें।",
+      "पहाड़ी परिदृश्य, झीलें, पठार और प्राकृतिक स्थलों को खोजें।",
+      "संरक्षित जंगलों, वन्यजीव आवासों और प्रकृति अभयारण्यों को जानें।",
+      "मौसमी उत्सवों, स्थानीय परंपराओं और सांस्कृतिक आयोजनों को देखें.",
       "वारली कला, पैठणी बुनाई, पोवाड़ा और पारंपरिक महाराष्ट्रीय भोजन।"
     ],
     explore: "देखें", allDestinations: "सभी पर्यटन स्थल देखें",
@@ -315,10 +258,30 @@ export default function HomePage() {
   const [heroIndex, setHeroIndex] = useState(0);
   const [selectedFestival, setSelectedFestival] = useState(null);
   const [selectedCircuit, setSelectedCircuit] = useState(null);
+  const [destinations, setDestinations] = useState([]);
+  const [festivals, setFestivals] = useState([]);
 
-  const featuredDestinations = FEATURED_SLUGS
-    .map(slug => DESTINATIONS.find(d => d.slug === slug))
-    .filter(Boolean);
+  useEffect(() => {
+    const unsubscribe = contentService.subscribe(({ destinations: destinationRecords, festivals: festivalRecords }) => {
+      setDestinations(destinationRecords);
+      setFestivals(festivalRecords);
+    });
+    contentService.getAllDestinations();
+    contentService.getAllFestivals();
+    return unsubscribe;
+  }, []);
+
+  const featuredCategoryOrder = ['temples', 'forts', 'heritage', 'beaches'];
+  const featuredDestinations = destinations
+    .filter(item => item.status === 'published' && item.featuredOrder && featuredCategoryOrder.includes(item.category))
+    .sort((a, b) => {
+      const aCategoryOrder = featuredCategoryOrder.indexOf(a.category);
+      const bCategoryOrder = featuredCategoryOrder.indexOf(b.category);
+      return aCategoryOrder - bCategoryOrder || Number(a.featuredOrder) - Number(b.featuredOrder);
+    });
+  const featuredFestivals = festivals
+    .filter(item => item.status === 'published' && item.featuredOrder)
+    .sort((a, b) => Number(a.featuredOrder) - Number(b.featuredOrder));
 
   const nextHeroSlide = () => {
     setHeroIndex((prev) => (prev + 1) % HERO_SLIDES.length);
@@ -405,7 +368,7 @@ export default function HomePage() {
           <SectionHeader
             eyebrow={t('explore', 'QUICK DISCOVERY')}
             title={t('exploreByTheme', 'Explore Maharashtra')}
-            description={t('exploreByThemeSub', 'From 350+ Maratha fortresses to sacred Jyotirlingas and untouched Konkan waters, choose your experience.')}
+            description={t('exploreByThemeSub', 'Browse categories and discover places published by the AAGMAN team.')}
           />
 
           <div className={styles.discoveryGrid}>
@@ -417,7 +380,7 @@ export default function HomePage() {
                     <div className={styles.discIconBox}>
                       <IconComp size={22} color="var(--color-secondary)" />
                     </div>
-                    <span className={styles.discCount}>{copy.categoryCounts[idx]}</span>
+                    <span className={styles.discCount}>{(idx === 6 ? festivals.filter(item => item.status === 'published').length : idx === 7 ? 0 : destinations.filter(item => item.status === 'published' && item.category === ['forts', 'temples', 'beaches', 'heritage', 'nature', 'wildlife'][idx]).length) + (idx === 6 ? ' festivals' : ' places')}</span>
                   </div>
                   <h3 className={styles.discTitle}>{copy.categoryTitles[idx]}</h3>
                   <span className={styles.discMarathi}>{language === 'mr' ? cat.marathi : language === 'hi' ? cat.hindi : cat.title}</span>
@@ -433,7 +396,7 @@ export default function HomePage() {
 
           <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2.5rem' }}>
             <Button to="/explore" variant="outline" size="md">
-              <span>{t('allDestinations', 'View All 23 Destinations')}</span>
+              <span>{t('allDestinations', 'View All Destinations')}</span>
               <ArrowRight size={14} />
             </Button>
           </div>
@@ -465,7 +428,11 @@ export default function HomePage() {
             description={t('featuredSub', 'Experience Maharashtra\'s most celebrated historic fortresses, monolithic rock temples, and sun-kissed coastlines in interactive 3D.')}
           />
 
-          <Destination3DGallery destinations={featuredDestinations} />
+          {featuredDestinations.length > 0 ? (
+            <Destination3DGallery destinations={featuredDestinations} />
+          ) : (
+            <p className={styles.festivalDesc}>No destinations have been featured yet. Add places in the admin dashboard and assign a homepage position.</p>
+          )}
         </Container>
       </section>
 
@@ -494,7 +461,10 @@ export default function HomePage() {
               </div>
 
               <div className={styles.festivalList}>
-                {FESTIVALS.slice(0, 4).map((fest) => (
+                {featuredFestivals.length === 0 && (
+                  <p className={styles.festivalDesc}>No festivals have been featured yet. Add festivals and choose a homepage highlight position in the admin dashboard.</p>
+                )}
+                {featuredFestivals.slice(0, 5).map((fest) => (
                   <div key={fest.id} className={styles.festivalItem}>
                     <img src={fest.image} alt={fest.name} className={styles.festivalThumb} />
                     <div className={styles.festivalMeta}>
@@ -537,6 +507,9 @@ export default function HomePage() {
               </div>
 
               <div className={styles.circuitsList}>
+                {SUGGESTED_CIRCUITS.length === 0 && (
+                  <p className={styles.festivalDesc}>No travel circuits are published yet.</p>
+                )}
                 {SUGGESTED_CIRCUITS.map((circuit) => (
                   <div key={circuit.id} className={styles.circuitCard}>
                     <div className={styles.circuitTopRow}>
@@ -707,7 +680,7 @@ export default function HomePage() {
             ))}
           </ul>
 
-          {getFestivalGallery(selectedFestival.id).length > 0 && (
+          {(selectedFestival.gallery || []).length > 0 && (
             <div style={{ marginTop: '1.25rem' }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
                 <strong style={{ fontSize: '0.85rem', color: 'var(--color-primary)' }}>{copy.celebrationGallery}</strong>

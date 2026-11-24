@@ -1,8 +1,6 @@
 import { readFile } from 'node:fs/promises';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { DESTINATIONS } from '../src/data/destinations.js';
-import { FESTIVALS } from '../src/data/festivals.js';
 import { extractYouTubeId, isValidYouTubeUrl, normalizeYouTubeUrl } from '../src/utils/youtubeValidator.js';
 
 test('YouTube validator accepts supported HTTPS YouTube URL forms', () => {
@@ -33,20 +31,27 @@ test('YouTube validator rejects lookalike hosts, non-HTTPS and malformed URLs', 
   }
 });
 
-test('catalogue migration seeds every destination and festival without overwriting existing records', async () => {
+test('content migration prepares media columns without seeding sample destinations or festivals', async () => {
   const migration = await readFile(
     new URL('../supabase/migrations/20261126120000_content_catalogue_media_sync.sql', import.meta.url),
     'utf8'
   );
-  assert.match(migration, /on conflict \(slug\) do nothing/i);
-  for (const item of DESTINATIONS) {
-    assert.ok(migration.includes(`'${item.id}'`), `Missing destination slug ${item.id}`);
-    assert.ok(migration.includes(`'${item.name.replaceAll("'", "''")}'`), `Missing destination ${item.id}`);
-  }
-  for (const item of FESTIVALS) {
-    assert.ok(migration.includes(`'${item.id}'`), `Missing festival slug ${item.id}`);
-    assert.ok(migration.includes(`'${item.name.replaceAll("'", "''")}'`), `Missing festival ${item.id}`);
-  }
+  assert.match(migration, /alter column gallery type jsonb/i);
+  assert.match(migration, /add column if not exists destination_slug text/i);
+  assert.match(migration, /add column if not exists festival_slug text/i);
+  assert.doesNotMatch(migration, /insert into public\.destinations/i);
+  assert.doesNotMatch(migration, /insert into public\.festivals/i);
+});
+
+test('homepage highlight migration allows five unique positions per destination category and festivals', async () => {
+  const migration = await readFile(
+    new URL('../supabase/migrations/20261129120000_homepage_featured_content.sql', import.meta.url),
+    'utf8'
+  );
+  assert.match(migration, /add column if not exists featured_order integer/i);
+  assert.match(migration, /featured_order between 1 and 5/i);
+  assert.match(migration, /destinations_category_featured_order_uidx/i);
+  assert.match(migration, /festivals_featured_order_uidx/i);
 });
 
 test('media uploads cannot report temporary object URLs as saved media', async () => {

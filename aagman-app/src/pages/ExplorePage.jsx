@@ -1,9 +1,9 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import Container from '../components/layout/Container';
 import DestinationCard from '../components/common/DestinationCard';
 import SearchInput from '../components/common/SearchInput';
-import { DESTINATIONS } from '../data/destinations';
+import { contentService } from '../services/contentService';
 import { useLanguage } from '../context/LanguageContext';
 import {
   Compass,
@@ -24,6 +24,13 @@ export default function ExplorePage({ defaultCategory = 'all' }) {
 
   const urlCategory = searchParams.get('category') || defaultCategory;
   const [selectedCategory, setSelectedCategory] = useState(urlCategory);
+  const [destinations, setDestinations] = useState([]);
+
+  useEffect(() => {
+    const unsubscribe = contentService.subscribe(({ destinations: records }) => setDestinations(records));
+    contentService.getAllDestinations();
+    return unsubscribe;
+  }, []);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedDistrict, setSelectedDistrict] = useState('all');
   const [selectedRegion, setSelectedRegion] = useState('all');
@@ -40,25 +47,26 @@ export default function ExplorePage({ defaultCategory = 'all' }) {
 
   // Extract unique districts
   const districts = useMemo(() => {
-    const set = new Set(DESTINATIONS.map(d => d.district));
+    const set = new Set(destinations.map(d => d.district).filter(Boolean));
     return Array.from(set).sort();
-  }, []);
+  }, [destinations]);
 
   // Filtered destinations
   const filteredDestinations = useMemo(() => {
-    return DESTINATIONS.filter(dest => {
+    return destinations.filter(dest => {
+      if (dest.status !== 'published') return false;
       const matchesCategory = selectedCategory === 'all' || dest.category === selectedCategory;
       const matchesDistrict = selectedDistrict === 'all' || dest.district === selectedDistrict;
       const matchesRegion = selectedRegion === 'all' || dest.region === selectedRegion;
       const matchesSearch = !searchQuery.trim() ||
         dest.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         (dest.marathiName && dest.marathiName.includes(searchQuery)) ||
-        dest.district.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        dest.summary.toLowerCase().includes(searchQuery.toLowerCase());
+        (dest.district || '').toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (dest.summary || dest.description || '').toLowerCase().includes(searchQuery.toLowerCase());
 
       return matchesCategory && matchesDistrict && matchesRegion && matchesSearch;
     });
-  }, [selectedCategory, selectedDistrict, selectedRegion, searchQuery]);
+  }, [destinations, selectedCategory, selectedDistrict, selectedRegion, searchQuery]);
 
   const handleCategoryChange = (catId) => {
     setSelectedCategory(catId);
@@ -223,9 +231,9 @@ export default function ExplorePage({ defaultCategory = 'all' }) {
           ) : (
             <div className={styles.noResultsBox}>
               <Compass size={40} className={styles.noResultsIcon} />
-              <h3 className={styles.noResultsTitle}>{t('noDestinationsFound', 'No destinations found matching your criteria.')}</h3>
+              <h3 className={styles.noResultsTitle}>{destinations.length === 0 ? 'No destinations published yet.' : t('noDestinationsFound', 'No destinations found matching your criteria.')}</h3>
               <p className={styles.noResultsSub}>
-                {t('mapSub', 'Try clearing your search query or selecting a different district filter.')}
+                {destinations.length === 0 ? 'Add and publish destinations in the admin dashboard to display them here.' : t('mapSub', 'Try clearing your search query or selecting a different district filter.')}
               </p>
               <button
                 type="button"

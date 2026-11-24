@@ -357,20 +357,20 @@ export default function BudgetPlannerPage() {
                   </span>
                 </div>
 
-                <div className={styles.actionBlock}>
+                <div className={styles.saveSection}>
                   <input
                     type="text"
                     value={tripName}
                     onChange={(e) => setTripName(e.target.value)}
                     placeholder={language === 'mr' ? 'सहलीचे नाव' : language === 'hi' ? 'यात्रा का नाम' : 'Trip Name'}
-                    className={styles.tripNameInput}
+                    className={styles.nameInput}
                   />
 
                   <Button
                     variant="primary"
                     size="lg"
                     onClick={handleSaveTrip}
-                    className={styles.saveTripBtn}
+                    className={styles.saveBtn}
                     icon={<Backpack size={16} />}
                   >
                     {saveSuccess ? t('saved', 'Saved!') : t('saveItinerary', 'Save to My Trips')}

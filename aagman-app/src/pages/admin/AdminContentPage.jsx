@@ -34,6 +34,8 @@ export default function AdminContentPage({ category = 'destinations' }) {
       setDestinations(dList);
       setFestivals(fList);
     });
+    contentService.getAllDestinations();
+    contentService.getAllFestivals();
     return () => unsub();
   }, []);
 
@@ -214,6 +216,7 @@ export default function AdminContentPage({ category = 'destinations' }) {
               <tr>
                 <th>Entry Name & Cover</th>
                 <th>{isDest ? 'Category' : 'Timing / Dates'}</th>
+                <th>Homepage Highlight</th>
                 <th>District / Location</th>
                 <th>Workflow Status</th>
                 <th>Last Updated</th>
@@ -223,7 +226,7 @@ export default function AdminContentPage({ category = 'destinations' }) {
             <tbody>
               {filteredList.length === 0 ? (
                 <tr>
-                  <td colSpan="6" style={{ textAlign: 'center', padding: '2rem', color: '#64748B' }}>
+                  <td colSpan="7" style={{ textAlign: 'center', padding: '2rem', color: '#64748B' }}>
                     No {isDest ? 'destinations' : 'festivals'} found matching the current filters.
                   </td>
                 </tr>
@@ -256,6 +259,7 @@ export default function AdminContentPage({ category = 'destinations' }) {
                         {item.category || item.dates || 'Cultural Event'}
                       </span>
                     </td>
+                    <td>{item.featuredOrder ? `Top ${item.featuredOrder}` : '—'}</td>
                     <td>{item.district || item.location || 'Maharashtra'}</td>
                     <td>
                       <span className={`${styles.badge} ${getStatusBadgeClass(item.status)}`}>
