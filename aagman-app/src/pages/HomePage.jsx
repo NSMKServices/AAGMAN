@@ -131,7 +131,9 @@ const DISCOVERY_CATEGORIES = [
   }
 ];
 
-const SUGGESTED_CIRCUITS = [];\n/* Previous hand-written route examples are intentionally not shown; homepage travel content is admin-managed. */\n// Homepage copy is kept together so every visible section follows the selected language.
+const SUGGESTED_CIRCUITS = [];
+
+// Homepage copy is kept together so every visible section follows the selected language.
 const HOME_COPY = {
   en: {
     circuitNames: ["The Maratha Imperial Fort Circuit", "The Golden Konkan Coastal Trail", "Sacred Jyotirlinga & UNESCO Cave Circuit"],
