@@ -37,7 +37,7 @@ test('destination names and summaries render in Marathi and Hindi', async ({ pag
   });
   await page.goto('/explore?category=nature');
   await expect(page.getByText('महाबलेश्वर', { exact: true })).toBeVisible();
-  await expect(page.getByText(/प्रसिद्ध पर्वतीय स्थल/)).toBeVisible();
+  await expect(page.getByText(/प्रसिद्ध पर्वतीय स्थल/).first()).toBeVisible();
 });
 
 test('festival cards render translated names and descriptions', async ({ page }) => {
