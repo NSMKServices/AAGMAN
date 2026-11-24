@@ -349,3 +349,21 @@
     grid-template-columns: 1fr;
   }
 }
+
+
+/* Keep calculator grid children inside the available mobile content width. */
+.calculatorGrid > * {
+  min-width: 0;
+}
+
+.cardGroup,
+.summaryCard {
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+@media (max-width: 480px) {
+  .sliderRow {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
