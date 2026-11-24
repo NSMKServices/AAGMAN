@@ -3,6 +3,7 @@
  * Manages video records, association with destinations & festivals, and validation.
  * Operates against Supabase when available with strict error checks and audit logging.
  */
+import { CURATED_VIDEOS } from '../data/videos';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
 import { extractYouTubeId, isValidYouTubeUrl, getYouTubeThumbnail, normalizeYouTubeUrl } from '../utils/youtubeValidator';
 import { auditService } from './auditService';
@@ -16,6 +17,8 @@ const isUuid = value => typeof value === 'string' &&
   /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value);
 
 function loadStoredVideos() {
+  // Production uses Supabase exclusively; local demo/test builds retain the
+  // reviewed six-video catalogue until an administrator adds local records.
   if (isSupabaseConfigured) return [];
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
@@ -26,7 +29,13 @@ function loadStoredVideos() {
   } catch (e) {
     console.warn('Failed loading stored videos:', e);
   }
-  return [];
+  return CURATED_VIDEOS.map(video => ({
+    ...video,
+    youtubeId: video.youtubeId || extractYouTubeId(video.youtubeUrl),
+    isActive: true,
+    isFeatured: true,
+    updatedAt: new Date().toISOString()
+  }));
 }
 
 function saveStoredVideos(videos) {
