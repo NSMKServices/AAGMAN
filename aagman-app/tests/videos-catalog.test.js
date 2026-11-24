@@ -18,7 +18,7 @@ test('curated video records use unique YouTube IDs and canonical URLs', () => {
 
 test('every curated video has English, Marathi and Hindi display content', () => {
   for (const video of CURATED_VIDEOS) {
-    for (const field of ['title', 'destination', 'summary']) {
+    for (const field of ['title', 'destination', 'summary', 'district', 'duration']) {
       assert.ok(video[field]?.trim(), `${video.id} is missing ${field}`);
       assert.ok(video[`${field}Mr`]?.trim(), `${video.id} is missing Marathi ${field}`);
       assert.ok(video[`${field}Hi`]?.trim(), `${video.id} is missing Hindi ${field}`);
