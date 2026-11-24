@@ -20,6 +20,7 @@ export default function AdminDestinationModal({ isOpen, onClose, onSave, destina
   const [heroImage, setHeroImage] = useState('');
   const [gallery, setGallery] = useState([]);
   const [status, setStatus] = useState('published');
+  const [featuredOrder, setFeaturedOrder] = useState('');
   const [validationError, setValidationError] = useState(null);
 
   const canPublish = isSuperAdmin || isContentManager;
@@ -40,6 +41,7 @@ export default function AdminDestinationModal({ isOpen, onClose, onSave, destina
       setHeroImage(destinationToEdit.heroImage || destinationToEdit.image || '');
       setGallery(Array.isArray(destinationToEdit.gallery) ? destinationToEdit.gallery : []);
       setStatus(destinationToEdit.status || 'published');
+      setFeaturedOrder(destinationToEdit.featuredOrder ? String(destinationToEdit.featuredOrder) : '');
     } else {
       setName('');
       setMarathiName('');
@@ -55,6 +57,7 @@ export default function AdminDestinationModal({ isOpen, onClose, onSave, destina
       setHeroImage('');
       setGallery([]);
       setStatus(canPublish ? 'published' : 'draft');
+      setFeaturedOrder('');
     }
     setValidationError(null);
   }, [destinationToEdit, isOpen, canPublish]);
@@ -98,7 +101,8 @@ export default function AdminDestinationModal({ isOpen, onClose, onSave, destina
       heroImage: heroImage.trim(),
       image: heroImage.trim(),
       gallery,
-      status
+      status,
+      featuredOrder: featuredOrder ? Number(featuredOrder) : null
     });
   };
 
@@ -170,6 +174,15 @@ export default function AdminDestinationModal({ isOpen, onClose, onSave, destina
                 <option value="nature">Hill Stations & Natural Wonders</option>
                 <option value="wildlife">Wildlife Sanctuaries & Parks</option>
               </select>
+            </div>
+
+            <div className={styles.formGroup}>
+              <label className={styles.label}>Homepage Highlight Position</label>
+              <select className={styles.select} value={featuredOrder} onChange={(e) => setFeaturedOrder(e.target.value)}>
+                <option value="">Not featured</option>
+                {[1, 2, 3, 4, 5].map(position => <option key={position} value={position}>Top {position} in {category}</option>)}
+              </select>
+              <span className={styles.hint}>Choose one of five positions for this category. Each position can be used once per category.</span>
             </div>
 
             <div className={styles.formGroup}>
