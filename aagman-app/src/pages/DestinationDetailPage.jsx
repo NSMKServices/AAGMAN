@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Container from '../components/layout/Container';
 import Badge from '../components/common/Badge';
@@ -32,10 +32,37 @@ export default function DestinationDetailPage() {
   const { category, slug } = useParams();
   const { isWishlisted, toggleWishlist } = useWishlist();
   const { language, t } = useLanguage();
+  const [destinationVideos, setDestinationVideos] = useState([]);
 
   const destination = DESTINATIONS.find(
     d => d.slug === slug || (category && d.category === category && d.slug === slug)
   );
+
+  useEffect(() => {
+    let isMounted = true;
+
+    if (!destination) {
+      setDestinationVideos([]);
+      return () => { isMounted = false; };
+    }
+
+    const refreshDestinationVideos = () => {
+      if (isMounted) {
+        setDestinationVideos(
+          videoService.getVideosForDestination(destination.id || destination.slug, destination.name)
+        );
+      }
+    };
+
+    refreshDestinationVideos();
+    videoService.getAllVideos()
+      .then(refreshDestinationVideos)
+      .catch(error => console.error('Unable to load destination YouTube links:', error));
+
+    return () => {
+      isMounted = false;
+    };
+  }, [destination?.id, destination?.slug, destination?.name]);
 
   if (!destination) {
     return (
@@ -55,8 +82,6 @@ export default function DestinationDetailPage() {
   const relatedDestinations = DESTINATIONS
     .filter(d => d.category === destination.category && d.slug !== destination.slug)
     .slice(0, 3);
-
-  const destinationVideos = videoService.getVideosForDestination(destination.id || destination.slug, destination.name);
 
   const displayName = language === 'mr'
     ? (destination.marathiName || destination.name)
