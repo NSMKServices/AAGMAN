@@ -880,3 +880,9 @@
     padding-bottom: var(--space-xl);
   }
 }
+
+
+@media (max-width: 360px) {
+  .contentCard { min-width: 0; padding: var(--space-md); }
+  .cardHeaderRow { min-width: 0; flex-wrap: wrap; gap: 0.5rem; }
+}
