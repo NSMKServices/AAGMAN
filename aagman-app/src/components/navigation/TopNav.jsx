@@ -4,7 +4,7 @@ import { useLanguage } from '../../context/LanguageContext';
 import { useTheme } from '../../context/ThemeContext';
 import { useWishlist } from '../../context/WishlistContext';
 import { useAuth } from '../../context/AuthContext';
-import { DESTINATIONS } from '../../data/destinations';
+import { contentService } from '../../services/contentService';
 import {
   Search,
   X,
@@ -34,6 +34,7 @@ export default function TopNav({ onToggleSidebar }) {
   const navigate = useNavigate();
 
   const [searchQuery, setSearchQuery] = useState('');
+  const [destinations, setDestinations] = useState([]);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
@@ -43,11 +44,17 @@ export default function TopNav({ onToggleSidebar }) {
   const profileRef = useRef(null);
 
   // Filter destinations based on search query
+  useEffect(() => {
+    const unsubscribe = contentService.subscribe(({ destinations: records }) => setDestinations(records));
+    contentService.getAllDestinations();
+    return unsubscribe;
+  }, []);
+
   const searchResults = searchQuery.trim()
-    ? DESTINATIONS.filter(d =>
+    ? destinations.filter(d => d.status === 'published' &&
         d.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         (d.marathiName && d.marathiName.includes(searchQuery)) ||
-        d.district.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (d.district || '').toLowerCase().includes(searchQuery.toLowerCase()) ||
         d.category.toLowerCase().includes(searchQuery.toLowerCase())
       ).slice(0, 5)
     : [];
