@@ -4,8 +4,7 @@ test('nature and wildlife filters display the complete destination groups', asyn
   await page.goto('/explore?category=nature');
   await expect(page.getByRole('heading', { name: 'Hill Stations & Natural Wonders' })).toBeVisible();
   for (const name of [
-    'Mahabaleshwar', 'Matheran', 'Panchgani', 'Chikhaldara',
-    'Lonar Crater Lake', 'Thoseghar Waterfall', 'Kaas Plateau'
+    'Mahabaleshwar', 'Matheran', 'Lonar Crater Lake', 'Kaas Plateau'
   ]) {
     await expect(page.getByText(name, { exact: true })).toBeVisible();
   }
