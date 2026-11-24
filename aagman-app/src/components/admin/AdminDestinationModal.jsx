@@ -165,7 +165,11 @@ export default function AdminDestinationModal({ isOpen, onClose, onSave, destina
               <select
                 className={styles.select}
                 value={category}
-                onChange={(e) => setCategory(e.target.value)}
+                onChange={(e) => {
+                  const nextCategory = e.target.value;
+                  setCategory(nextCategory);
+                  if (!['temples', 'forts', 'heritage', 'beaches'].includes(nextCategory)) setFeaturedOrder('');
+                }}
               >
                 <option value="forts">Forts & Sahyadri Bastions</option>
                 <option value="temples">Sacred Temples & Shrines</option>
