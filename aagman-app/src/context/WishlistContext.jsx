@@ -1,11 +1,12 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { DESTINATIONS } from '../data/destinations';
+import { contentService } from '../services/contentService';
 
 const WishlistContext = createContext();
 
-const INITIAL_WISHLIST = ["raigad", "trimbakeshwar", "kashid", "ajanta-caves"];
+const INITIAL_WISHLIST = [];
 
 export function WishlistProvider({ children }) {
+  const [destinations, setDestinations] = useState([]);
   const [wishlistSlugs, setWishlistSlugs] = useState(() => {
     try {
       const saved = localStorage.getItem('aagman_wishlist');
@@ -14,6 +15,12 @@ export function WishlistProvider({ children }) {
       return INITIAL_WISHLIST;
     }
   });
+
+  useEffect(() => {
+    const unsubscribe = contentService.subscribe(({ destinations: records }) => setDestinations(records));
+    contentService.getAllDestinations();
+    return unsubscribe;
+  }, []);
 
   useEffect(() => {
     try {
@@ -35,7 +42,7 @@ export function WishlistProvider({ children }) {
 
   const isWishlisted = (slug) => wishlistSlugs.includes(slug);
 
-  const wishlistedDestinations = DESTINATIONS.filter(d => wishlistSlugs.includes(d.slug));
+  const wishlistedDestinations = destinations.filter(d => d.status === 'published' && wishlistSlugs.includes(d.slug));
 
   return (
     <WishlistContext.Provider value={{
