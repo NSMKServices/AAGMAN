@@ -16,7 +16,6 @@ export default function AdminLoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [rememberMe, setRememberMe] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const destination = location.state?.from?.pathname || '/admin';
@@ -139,15 +138,6 @@ export default function AdminLoginPage() {
             </div>
 
             <div className={styles.formOptions}>
-              <label className={styles.rememberMe}>
-                <input
-                  type="checkbox"
-                  checked={rememberMe}
-                  onChange={(e) => setRememberMe(e.target.checked)}
-                />
-                <span>Remember session</span>
-              </label>
-
               <Link to="/admin/forgot-password" className={styles.forgotLink}>
                 Forgot password?
               </Link>
