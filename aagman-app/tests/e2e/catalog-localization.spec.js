@@ -74,3 +74,12 @@ test('destination detail travel directions follow the selected language', async 
   await page.goto('/nature/mahabaleshwar');
   await expect(page.getByText('पुणे हवाई अड्डा; आगे सड़क मार्ग.', { exact: true })).toBeVisible();
 });
+
+
+test('admin portal remains in the footer and is not added to public navigation', async ({ page }) => {
+  await page.goto('/');
+  const footerAdminLink = page.locator('footer').getByRole('link', { name: 'Admin Portal' });
+  await expect(footerAdminLink).toBeVisible();
+  await expect(footerAdminLink).toHaveAttribute('href', '/admin');
+  await expect(page.locator('header').getByRole('link', { name: 'Admin Portal' })).toHaveCount(0);
+});
