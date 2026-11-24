@@ -102,8 +102,8 @@ test('admin function grants preserve RLS checks while removing public RPC access
     'utf8'
   );
   assert.match(migration, /revoke all on function public\.handle_new_user\(\) from public, anon, authenticated/i);
-  assert.match(migration, /grant execute on function private\\.is_admin\\(\\) to anon, authenticated/i);
-  assert.match(migration, /grant execute on function private\\.has_admin_role\\(text\\) to authenticated/i);
+  assert.match(migration, /grant execute on function private\.is_admin\(\) to anon, authenticated/i);
+  assert.match(migration, /grant execute on function private\.has_admin_role\\(text\\) to authenticated/i);
   assert.match(migration, /set search_path = ''/i);
   assert.match(migration, /create schema if not exists private/i);
   assert.match(migration, /revoke all on function public\\.is_admin\\(\\) from public, anon, authenticated/i);
@@ -116,6 +116,6 @@ test('RLS optimization keeps auth ownership checks in scalar subqueries', async 
   );
   assert.match(migration, /\(select auth\.uid\(\)\)/i);
   assert.match(migration, /Admins can update permitted admin profiles/i);
-  assert.match(migration, /private\\.is_admin\\(\\)/i);
-  assert.match(migration, /private\\.has_admin_role/i);
+  assert.match(migration, /private\.is_admin\(\)/i);
+  assert.match(migration, /private\.has_admin_role/i);
 });
