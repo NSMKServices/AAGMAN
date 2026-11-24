@@ -1,8 +1,6 @@
 import { readFile } from 'node:fs/promises';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { DESTINATIONS } from '../src/data/destinations.js';
-import { FESTIVALS } from '../src/data/festivals.js';
 import { extractYouTubeId, isValidYouTubeUrl, normalizeYouTubeUrl } from '../src/utils/youtubeValidator.js';
 
 test('YouTube validator accepts supported HTTPS YouTube URL forms', () => {
