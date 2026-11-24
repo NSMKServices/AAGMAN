@@ -30,3 +30,6 @@ create index if not exists idx_trip_stops_destination_id
   on public.trip_stops(destination_id);
 create index if not exists idx_wishlists_destination_id
   on public.wishlists(destination_id);
+
+-- Remove the verified duplicate user_id index; idx_trips_user remains in place.
+drop index if exists public.idx_trips_user_id;
