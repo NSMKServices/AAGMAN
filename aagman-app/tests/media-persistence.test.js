@@ -35,7 +35,7 @@ test('YouTube validator rejects lookalike hosts, non-HTTPS and malformed URLs', 
 
 test('catalogue migration seeds every destination and festival without overwriting existing records', async () => {
   const migration = await readFile(
-    new URL('../supabase/migrations/20261125_content_catalogue_media_sync.sql', import.meta.url),
+    new URL('../supabase/migrations/20261126_content_catalogue_media_sync.sql', import.meta.url),
     'utf8'
   );
   assert.match(migration, /on conflict \(slug\) do nothing/i);
@@ -64,7 +64,7 @@ test('media uploads cannot report temporary object URLs as saved media', async (
 
 test('media schema uses a JSON gallery for both content types and stores video slug associations', async () => {
   const migration = await readFile(
-    new URL('../supabase/migrations/20261125_content_catalogue_media_sync.sql', import.meta.url),
+    new URL('../supabase/migrations/20261126_content_catalogue_media_sync.sql', import.meta.url),
     'utf8'
   );
   assert.match(migration, /alter column gallery type jsonb/i);
