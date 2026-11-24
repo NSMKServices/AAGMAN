@@ -34,7 +34,7 @@ test('curated video catalogue does not invent unverified durations', () => {
 
 test('database seed migration matches the curated video IDs and YouTube URLs', async () => {
   const migration = await readFile(
-    new URL('../supabase/migrations/20261125_seed_curated_youtube_videos.sql', import.meta.url),
+    new URL('../supabase/migrations/20261125120000_seed_curated_youtube_videos.sql', import.meta.url),
     'utf8'
   );
 
