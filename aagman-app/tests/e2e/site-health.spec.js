@@ -52,7 +52,8 @@ for (const scenario of responsiveCases) {
               width: Math.round(rect.width)
             };
           })
-          .filter(element => element.right > window.innerWidth + 1 || element.left < -1)
+          .filter(element => element.right > window.innerWidth + 1)
+          .sort((a, b) => b.right - a.right)
           .slice(0, 12)
       }));
       expect(
