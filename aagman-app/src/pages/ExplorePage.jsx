@@ -11,6 +11,8 @@ import {
   Landmark,
   Umbrella,
   BookOpen,
+  Mountain,
+  Trees,
   Search,
   X
 } from '../components/common/Icons';
@@ -31,7 +33,9 @@ export default function ExplorePage({ defaultCategory = 'all' }) {
     { id: 'forts', label: t('forts', 'Historic Forts'), Icon: Castle },
     { id: 'temples', label: t('temples', 'Sacred Temples'), Icon: Landmark },
     { id: 'beaches', label: t('beaches', 'Konkan Beaches'), Icon: Umbrella },
-    { id: 'heritage', label: t('heritage', 'UNESCO Caves'), Icon: BookOpen }
+    { id: 'heritage', label: t('heritage', 'UNESCO Caves'), Icon: BookOpen },
+    { id: 'nature', label: t('nature', 'Nature & Hill Stations'), Icon: Mountain },
+    { id: 'wildlife', label: t('wildlife', 'Wildlife & Sanctuaries'), Icon: Trees }
   ];
 
   // Extract unique districts
@@ -80,6 +84,18 @@ export default function ExplorePage({ defaultCategory = 'all' }) {
           eyebrow: language === 'mr' ? 'कोकण किनारपट्टी' : language === 'hi' ? 'कोंकण समुद्र तट' : 'KONKAN COASTLINE',
           title: t('beachesTitle', 'Konkan Coastal Beaches'),
           sub: t('beachesSubtitle', '720 kilometers of untouched golden sands, palm fronds, and azure Arabian waters.')
+        };
+      case 'nature':
+        return {
+          eyebrow: language === 'mr' ? 'निसर्ग आणि गिरिस्थाने' : language === 'hi' ? 'प्रकृति और पर्वतीय स्थल' : 'NATURE & HILL STATIONS',
+          title: t('natureTitle', 'Hill Stations & Natural Wonders'),
+          sub: t('natureSubtitle', 'Explore Maharashtra’s cool hill towns, plateaus, lakes and waterfalls.')
+        };
+      case 'wildlife':
+        return {
+          eyebrow: language === 'mr' ? 'वन्यजीव संवर्धन' : language === 'hi' ? 'वन्यजीव संरक्षण' : 'WILDLIFE & CONSERVATION',
+          title: t('wildlifeTitle', 'Wildlife Sanctuaries & Parks'),
+          sub: t('wildlifeSubtitle', 'Discover protected forests, tiger reserves and bird habitats across Maharashtra.')
         };
       case 'heritage':
         return {
