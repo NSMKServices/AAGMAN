@@ -286,9 +286,32 @@ const HOME_COPY = {
   }
 };
 
+const TRAVEL_GUIDE_COPY = {
+  en: { eyebrow: "TRAVEL WISDOM", title: "Plan Your Journey: Field Guide & Etiquette", subtitle: "Essential seasonal timelines, mountain trekking sanctity, culinary traditions, and 24x7 state tourist helplines.", cards: [
+    { title: "Best Seasons to Visit", items: [["Monsoon (Jun – Sep):", "Sahyadri waterfalls, mist-draped ghats, and lush hill treks (Sinhagad, Rajgad, Malshej)."], ["Winter (Oct – Feb):", "Clear skies and cool weather ideal for fort expeditions and heritage cave exploration."], ["Coastal (Nov – Apr):", "Calm seas for scuba diving at Tarkarli and quiet Konkan beach retreats."]] },
+    { title: "Fort & Trekking Sanctity", items: [["Sacred Ground:", "Maharashtra fortresses are sacred historical monuments. Respect memorial shrines and temples."], ["Leave No Trace:", "Carry all plastic and waste back. Protect natural cisterns (Devtaki) from pollution."], ["Local Guides:", "Hire certified village guides in base villages (Gunjawane, Velhe, Donje) to support rural livelihoods."]] },
+    { title: "Authentic Local Cuisine", items: [["Ghat Cuisine:", "Steaming hot Pithla Bhakri with fiery Thecha (crushed green chillies) and fresh dahi."], ["Konkan Coast:", "Fresh Surmai fish curry, Tisrya (clams), Rice Bhakri, and digestive Solkadhi."], ["Festive Delights:", "Ukadiche Modak (steamed rice-coconut sweets) and puran poli with ghee."]] },
+    { title: "Safety & Regulations", items: [["Early Ascents:", "Start high-altitude fort treks by 06:00 AM to avoid midday heat in the Western Ghats."], ["ASI Permits:", "Cave monuments at Ajanta, Ellora, and Elephanta close on specific weekdays (Tuesdays / Mondays)."], ["24/7 Helpline:", "MTDC Tourist Support: 1800-229-930 | Emergency Services: 112."]] }
+  ] },
+  mr: { eyebrow: "प्रवास मार्गदर्शन", title: "तुमच्या सहलीचे नियोजन: मार्गदर्शक आणि शिष्टाचार", subtitle: "भेट देण्याचे योग्य ऋतू, गडभ्रमंतीचे नियम, स्थानिक खाद्यसंस्कृती आणि चोवीस तास उपलब्ध पर्यटन मदत क्रमांक.", cards: [
+    { title: "भेट देण्यासाठी सर्वोत्तम ऋतू", items: [["पावसाळा (जून – सप्टेंबर):", "सह्याद्रीतील धबधबे, धुक्याने वेढलेले घाट आणि हिरवाईने नटलेले सिंहगड, राजगड व माळशेज येथील डोंगरमार्ग."], ["हिवाळा (ऑक्टोबर – फेब्रुवारी):", "स्वच्छ आकाश आणि आल्हाददायक हवामानामुळे किल्ले व ऐतिहासिक लेणी पाहण्यासाठी उत्तम काळ."], ["किनारपट्टी (नोव्हेंबर – एप्रिल):", "तारकर्ली येथे स्कूबा डायव्हिंगसाठी अनुकूल समुद्र आणि कोकणातील निवांत समुद्रकिनारे."]] },
+    { title: "किल्ले आणि गडभ्रमंतीचे नियम", items: [["पवित्र ऐतिहासिक स्थळे:", "महाराष्ट्रातील किल्ले ही पवित्र ऐतिहासिक स्मारके आहेत. समाधीस्थळे आणि मंदिरांचा आदर राखा."], ["स्वच्छता राखा:", "प्लास्टिक व इतर कचरा परत घेऊन जा. नैसर्गिक देवटाक्यांचे प्रदूषणापासून संरक्षण करा."], ["स्थानिक मार्गदर्शक:", "ग्रामीण रोजगाराला हातभार लावण्यासाठी गुंजवणे, वेल्हे आणि डोणजे येथील प्रमाणित स्थानिक मार्गदर्शकांची मदत घ्या."]] },
+    { title: "महाराष्ट्राची अस्सल खाद्यसंस्कृती", items: [["घाटमाथ्यावरील खाद्यपदार्थ:", "गरमागरम पिठलं-भाकरी, तिखट ठेचा आणि ताजे दही यांचा आस्वाद घ्या."], ["कोकण किनारपट्टी:", "सुरमईचे कालवण, तिसऱ्या, तांदळाची भाकरी आणि पाचक सोलकढी चाखा."], ["सणासुदीचे पदार्थ:", "उकडीचे मोदक आणि तुपासह पुरणपोळीचा आस्वाद घ्या."]] },
+    { title: "सुरक्षा आणि नियम", items: [["पहाटेची चढाई:", "पश्चिम घाटातील दुपारचे ऊन टाळण्यासाठी उंच किल्ल्यांची चढाई सकाळी ६ वाजेपूर्वी सुरू करा."], ["ASI प्रवेश नियम:", "अजिंठा, वेरूळ आणि एलिफंटा येथील लेणी काही ठरावीक वारांना बंद असतात; भेटीपूर्वी अधिकृत वेळापत्रक तपासा."], ["२४ तास मदत क्रमांक:", "MTDC पर्यटन सहाय्य: 1800-229-930 | आपत्कालीन सेवा: 112."]] }
+  ] },
+  hi: { eyebrow: "यात्रा मार्गदर्शन", title: "अपनी यात्रा की योजना: मार्गदर्शिका और शिष्टाचार", subtitle: "यात्रा के उपयुक्त मौसम, किले की पदयात्रा के नियम, स्थानीय खानपान और चौबीसों घंटे उपलब्ध पर्यटन सहायता।", cards: [
+    { title: "यात्रा के लिए सर्वोत्तम मौसम", items: [["मानसून (जून – सितंबर):", "सह्याद्रि के झरने, धुंध से ढके घाट और सिंहगढ़, राजगढ़ तथा मालशेज की हरी-भरी पहाड़ी यात्राएँ।"], ["सर्दियाँ (अक्टूबर – फरवरी):", "किलों और ऐतिहासिक गुफाओं की यात्रा के लिए साफ आसमान और सुहावना मौसम।"], ["तटीय मौसम (नवंबर – अप्रैल):", "तारकरली में स्कूबा डाइविंग के लिए शांत समुद्र और कोंकण के सुकून भरे समुद्र तट।"]] },
+    { title: "किले और पदयात्रा के नियम", items: [["पवित्र ऐतिहासिक स्थल:", "महाराष्ट्र के किले पवित्र ऐतिहासिक स्मारक हैं। समाधि स्थलों और मंदिरों का सम्मान करें।"], ["स्वच्छता बनाए रखें:", "प्लास्टिक और अन्य कचरा वापस ले जाएँ। प्राकृतिक जलकुंडों (देवटाकी) को प्रदूषण से बचाएँ।"], ["स्थानीय गाइड:", "ग्रामीण आजीविका को समर्थन देने के लिए गुंजवणे, वेल्हे और डोंजे के प्रमाणित स्थानीय गाइड लें।"]] },
+    { title: "महाराष्ट्र का पारंपरिक खानपान", items: [["घाट क्षेत्र का भोजन:", "गरम पिठला-भाकरी, तीखी ठेचा चटनी और ताज़े दही का स्वाद लें।"], ["कोंकण तट:", "सुरमई मछली की करी, तिसऱ्या (सीप), चावल की भाकरी और सोलकढ़ी का आनंद लें।"], ["त्योहारों के पकवान:", "उकड़ीचे मोदक और घी के साथ पूरन पोली का स्वाद लें।"]] },
+    { title: "सुरक्षा और नियम", items: [["सुबह की चढ़ाई:", "पश्चिमी घाट की दोपहर की गर्मी से बचने के लिए ऊँचे किलों की चढ़ाई सुबह 6 बजे तक शुरू करें।"], ["ASI प्रवेश नियम:", "अजंता, एलोरा और एलीफेंटा की गुफाएँ कुछ निश्चित दिनों में बंद रहती हैं; जाने से पहले आधिकारिक समय-सारणी जाँचें।"], ["24 घंटे सहायता:", "MTDC पर्यटक सहायता: 1800-229-930 | आपातकालीन सेवा: 112."]] }
+  ] }
+};
+
 export default function HomePage() {
   const { t, language } = useLanguage();
   const copy = HOME_COPY[language] || HOME_COPY.en;
+  const travelGuide = TRAVEL_GUIDE_COPY[language] || TRAVEL_GUIDE_COPY.en;
+  const localizedVideo = (video, field) => video[`${field}${language === 'mr' ? 'Mr' : language === 'hi' ? 'Hi' : ''}`] || video[field] || '';
   const [heroIndex, setHeroIndex] = useState(0);
   const [selectedFestival, setSelectedFestival] = useState(null);
   const [selectedCircuit, setSelectedCircuit] = useState(null);
@@ -591,12 +614,12 @@ export default function HomePage() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className={styles.videoCard}
-                title={`Watch ${video.title} on YouTube`}
+                title={`Watch ${localizedVideo(video, 'title')} on YouTube`}
               >
                 <div className={styles.videoThumbWrapper}>
                   <img
                     src={video.thumbnail}
-                    alt={video.title}
+                    alt={localizedVideo(video, 'title')}
                     className={styles.videoThumb}
                     loading="lazy"
                   />
@@ -610,9 +633,9 @@ export default function HomePage() {
                   </span>
                 </div>
                 <div className={styles.videoInfo}>
-                  <span className={styles.videoCategory}>{video.destination || video.category}</span>
-                  <h4 className={styles.videoTitle}>{video.title}</h4>
-                  <p className={styles.videoSub}>{video.summary}</p>
+                  <span className={styles.videoCategory}>{localizedVideo(video, 'destination') || t(video.category, video.category)}</span>
+                  <h4 className={styles.videoTitle}>{localizedVideo(video, 'title')}</h4>
+                  <p className={styles.videoSub}>{localizedVideo(video, 'summary')}</p>
                 </div>
               </a>
             ))}
@@ -632,88 +655,22 @@ export default function HomePage() {
           ======================================================== */}
       <section className={styles.guideSection}>
         <Container>
-          <SectionHeader
-            eyebrow="TRAVEL WISDOM"
-            title="Plan Your Journey: Field Guide & Etiquette"
-            description="Essential seasonal timelines, mountain trekking sanctity, culinary traditions, and 24x7 state tourist helplines."
-          />
-
+          <SectionHeader eyebrow={travelGuide.eyebrow} title={travelGuide.title} description={travelGuide.subtitle} />
           <div className={styles.guideGrid}>
-            {/* Guide Card 1: Best Season */}
-            <div className={styles.guideCard}>
-              <div className={styles.guideIconBox}>
-                <Calendar size={22} color="var(--color-secondary)" />
-              </div>
-              <h3 className={styles.guideCardTitle}>Best Seasons to Visit</h3>
-              <ul className={styles.guideList}>
-                <li>
-                  <strong>Monsoon (Jun – Sep):</strong> Sahyadri waterfalls, mist-draped ghats, and lush hill treks (Sinhagad, Rajgad, Malshej).
-                </li>
-                <li>
-                  <strong>Winter (Oct – Feb):</strong> Clear skies and cool weather ideal for fort expeditions and heritage cave exploration.
-                </li>
-                <li>
-                  <strong>Coastal (Nov – Apr):</strong> Calm seas for scuba diving at Tarkarli and quiet Konkan beach retreats.
-                </li>
-              </ul>
-            </div>
-
-            {/* Guide Card 2: Trekking & Fort Etiquette */}
-            <div className={styles.guideCard}>
-              <div className={styles.guideIconBox}>
-                <Shield size={22} color="var(--color-secondary)" />
-              </div>
-              <h3 className={styles.guideCardTitle}>Fort & Trekking Sanctity</h3>
-              <ul className={styles.guideList}>
-                <li>
-                  <strong>Sacred Ground:</strong> Maharashtra fortresses are sacred historical monuments. Respect memorial shrines and temples.
-                </li>
-                <li>
-                  <strong>Leave No Trace:</strong> Carry all plastic and waste back. Protect natural cisterns (Devtaki) from pollution.
-                </li>
-                <li>
-                  <strong>Local Guides:</strong> Hire certified village guides in base villages (Gunjawane, Velhe, Donje) to support rural livelihoods.
-                </li>
-              </ul>
-            </div>
-
-            {/* Guide Card 3: Maharashtrian Culinary Traditions */}
-            <div className={styles.guideCard}>
-              <div className={styles.guideIconBox}>
-                <Utensils size={22} color="var(--color-secondary)" />
-              </div>
-              <h3 className={styles.guideCardTitle}>Authentic Local Cuisine</h3>
-              <ul className={styles.guideList}>
-                <li>
-                  <strong>Ghat Cuisine:</strong> Steaming hot Pithla Bhakri with fiery Thecha (crushed green chillies) and fresh dahi.
-                </li>
-                <li>
-                  <strong>Konkan Coast:</strong> Fresh Surmai fish curry, Tisrya (clams), Rice Bhakri, and digestive Solkadhi.
-                </li>
-                <li>
-                  <strong>Festive Delights:</strong> Ukadiche Modak (steamed rice-coconut sweets) and puran poli with ghee.
-                </li>
-              </ul>
-            </div>
-
-            {/* Guide Card 4: Responsible Tourism & Safety */}
-            <div className={styles.guideCard}>
-              <div className={styles.guideIconBox}>
-                <Info size={22} color="var(--color-secondary)" />
-              </div>
-              <h3 className={styles.guideCardTitle}>Safety & Regulations</h3>
-              <ul className={styles.guideList}>
-                <li>
-                  <strong>Early Ascents:</strong> Start high-altitude fort treks by 06:00 AM to avoid midday heat in the Western Ghats.
-                </li>
-                <li>
-                  <strong>ASI Permits:</strong> Cave monuments at Ajanta, Ellora, and Elephanta close on specific weekdays (Tuesdays / Mondays).
-                </li>
-                <li>
-                  <strong>24/7 Helpline:</strong> MTDC Tourist Support: 1800-229-930 | Emergency Services: 112.
-                </li>
-              </ul>
-            </div>
+            {travelGuide.cards.map((card, index) => {
+              const GuideIcon = [Calendar, Shield, Utensils, Info][index];
+              return (
+                <div className={styles.guideCard} key={card.title}>
+                  <div className={styles.guideIconBox}><GuideIcon size={22} color="var(--color-secondary)" /></div>
+                  <h3 className={styles.guideCardTitle}>{card.title}</h3>
+                  <ul className={styles.guideList}>
+                    {card.items.map(([label, description]) => (
+                      <li key={label}><strong>{label}</strong> {description}</li>
+                    ))}
+                  </ul>
+                </div>
+              );
+            })}
           </div>
         </Container>
       </section>
