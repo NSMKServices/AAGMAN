@@ -922,3 +922,11 @@
     justify-content: center;
   }
 }
+
+
+@media (max-width: 360px) {
+  .brandName { font-size: 0.95rem; letter-spacing: 0.03em; }
+  .logoBadge { width: 36px; height: 36px; }
+  .actionsGroup { gap: 0.125rem; }
+  .iconBtn, .mobileHamburger { width: 30px; height: 30px; }
+}
