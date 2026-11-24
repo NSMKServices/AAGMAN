@@ -271,10 +271,11 @@ export default function Destination3DGallery({ destinations = [] }) {
 
         <div className={styles.titleGroup}>
           <h3 className={styles.destName}>{localizedName}</h3>
-          {activeDest.marathiName && (
+          {language === 'en' && activeDest.marathiName && (
             <span className={styles.destMarathi}>{language === 'hi' ? activeDest.nameHi || activeDest.marathiName : activeDest.marathiName}</span>
           )}
         </div>
+        {activeDest.imageCredit && <p style={{ margin: '0.35rem 0 0', fontSize: '0.68rem', color: 'var(--color-text-muted)' }}>{activeDest.imageCredit}</p>}
 
         <p className={styles.destSummary}>{localizedSummary}</p>
 
