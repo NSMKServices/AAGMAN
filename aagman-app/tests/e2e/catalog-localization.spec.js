@@ -29,7 +29,7 @@ test('destination names and summaries render in Marathi and Hindi', async ({ pag
   });
   await page.goto('/explore?category=nature');
   await expect(page.getByText('महाबळेश्वर', { exact: true })).toBeVisible();
-  await expect(page.getByText(/थंड हवेचे ठिकाण/)).toBeVisible();
+  await expect(page.getByText(/स्ट्रॉबेरी शेतीसाठी प्रसिद्ध गिरिस्थान/)).toBeVisible();
 
   await page.addInitScript(() => {
     localStorage.setItem('aagman_language', 'hi');
