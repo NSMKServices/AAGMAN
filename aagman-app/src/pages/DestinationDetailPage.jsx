@@ -85,6 +85,7 @@ export default function DestinationDetailPage() {
     .slice(0, 3);
 
   const displayName = getLocalizedName(destination, language);
+  const howToReach = getLocalizedValue(destination, 'howToReach', language);
   const hasHindiName = Boolean(destination.nameHi || destination.hindiName);
   const subtitleName = language === 'mr'
     ? destination.name
@@ -261,7 +262,7 @@ export default function DestinationDetailPage() {
                     <span className={styles.metaIcon}><Clock size={16} /></span>
                     <div>
                       <strong className={styles.metaItemLabel}>{t('timingsAccess', 'Timings & Access')}:</strong>
-                      <p className={styles.metaItemVal}>{destination.timings || 'Sunrise to Sunset'}</p>
+                      <p className={styles.metaItemVal}>{getLocalizedValue(destination, 'timings', language) || 'Sunrise to Sunset'}</p>
                     </div>
                   </div>
 
@@ -269,7 +270,7 @@ export default function DestinationDetailPage() {
                     <span className={styles.metaIcon}><Ticket size={16} /></span>
                     <div>
                       <strong className={styles.metaItemLabel}>{t('entryTariffs', 'Entry Tariffs')}:</strong>
-                      <p className={styles.metaItemVal}>{destination.entryFee || 'Free Entry / Archaeological Survey of India'}</p>
+                      <p className={styles.metaItemVal}>{getLocalizedValue(destination, 'entryFee', language) || 'Free Entry / Archaeological Survey of India'}</p>
                     </div>
                   </div>
 
@@ -277,7 +278,7 @@ export default function DestinationDetailPage() {
                     <span className={styles.metaIcon}><Sun size={16} /></span>
                     <div>
                       <strong className={styles.metaItemLabel}>{t('idealSeason', 'Ideal Season')}:</strong>
-                      <p className={styles.metaItemVal}>{destination.bestTime}</p>
+                      <p className={styles.metaItemVal}>{getLocalizedValue(destination, 'bestTime', language)}</p>
                     </div>
                   </div>
 
@@ -308,7 +309,7 @@ export default function DestinationDetailPage() {
                 <div className={styles.metaCard}>
                   <h3 className={styles.metaCardTitle}>{t('howToReach', 'How to Reach & Transit Guidance')}</h3>
                   <div className={styles.reachList}>
-                    {destination.howToReach.air && (
+                    {howToReach.air && (
                       <div className={styles.reachItem}>
                         <Plane size={15} color="var(--color-primary)" />
                         <div>
@@ -317,7 +318,7 @@ export default function DestinationDetailPage() {
                         </div>
                       </div>
                     )}
-                    {destination.howToReach.rail && (
+                    {howToReach.rail && (
                       <div className={styles.reachItem}>
                         <Train size={15} color="var(--color-primary)" />
                         <div>
@@ -326,7 +327,7 @@ export default function DestinationDetailPage() {
                         </div>
                       </div>
                     )}
-                    {destination.howToReach.road && (
+                    {howToReach.road && (
                       <div className={styles.reachItem}>
                         <Car size={15} color="var(--color-primary)" />
                         <div>
