@@ -39,7 +39,21 @@ for (const scenario of responsiveCases) {
       await page.goto(scenario.route, { waitUntil: 'domcontentloaded' });
       const dimensions = await page.evaluate(() => ({
         viewport: window.innerWidth,
-        document: document.documentElement.scrollWidth
+        document: document.documentElement.scrollWidth,
+        offenders: [...document.querySelectorAll('body *')]
+          .map(element => {
+            const rect = element.getBoundingClientRect();
+            return {
+              tag: element.tagName,
+              className: typeof element.className === 'string' ? element.className : '',
+              text: (element.textContent || '').trim().slice(0, 60),
+              left: Math.round(rect.left),
+              right: Math.round(rect.right),
+              width: Math.round(rect.width)
+            };
+          })
+          .filter(element => element.right > window.innerWidth + 1 || element.left < -1)
+          .slice(0, 12)
       }));
       expect(
         dimensions.document,
@@ -63,7 +77,7 @@ test('footer Admin Portal opens the dedicated sign-in page', async ({ page }) =>
   await expect(page).toHaveURL(/\/admin\/login$/);
   await expect(page.getByRole('heading', { name: 'Administrator Sign In' })).toBeVisible();
   await expect(page.getByLabel('Official Email Address')).toBeVisible();
-  await expect(page.getByLabel('Password')).toBeVisible();
+  await expect(page.getByRole('textbox', { name: 'Password' })).toBeVisible();
   await expect(page.getByLabel('Remember session')).toHaveCount(0);
 });
 
