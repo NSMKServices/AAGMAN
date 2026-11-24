@@ -42,11 +42,12 @@ export default function MaharashtraMap() {
     return unsubscribe;
   }, []);
 
-  const visibleSlugs = new Set(destinations.filter(item => item.status === 'published').map(item => item.slug));
   const publishedDestinations = destinations.filter(item => item.status === 'published');
 
   // Filter destination pins by category and optional division
-  const filteredPins = PROJECTED_DESTINATIONS.filter(pin => visibleSlugs.has(pin.slug)).filter(pin => {
+  const filteredPins = PROJECTED_DESTINATIONS.filter(pin => publishedDestinations.some(item =>
+    item.slug === pin.slug || (item.name || '').toLowerCase() === (pin.name || '').toLowerCase()
+  )).filter(pin => {
     const matchesCategory = activeCategory === 'all' || pin.category === activeCategory;
     if (!matchesCategory) return false;
 
@@ -57,7 +58,9 @@ export default function MaharashtraMap() {
 
   // Selected destination data
   const activePin = filteredPins.find(p => p.id === selectedPinId) || filteredPins[0] || null;
-  const matchedDestination = publishedDestinations.find(d => d.slug === activePin?.slug) || null;
+  const matchedDestination = publishedDestinations.find(d =>
+    d.slug === activePin?.slug || (d.name || '').toLowerCase() === (activePin?.name || '').toLowerCase()
+  ) || null;
 
   // Selected district data
   const selectedDistrict = MAHARASHTRA_DISTRICTS.find(d => d.id === selectedDistrictId);
