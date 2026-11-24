@@ -151,6 +151,13 @@ export const contentService = {
       lastEditedBy: editorName
     };
 
+    if (cleanRecord.featuredOrder && (!Number.isInteger(cleanRecord.featuredOrder) || cleanRecord.featuredOrder < 1 || cleanRecord.featuredOrder > 5)) {
+      throw new Error('Homepage highlight position must be between 1 and 5.');
+    }
+    if (cleanRecord.featuredOrder && !['temples', 'forts', 'heritage', 'beaches'].includes(cleanRecord.category)) {
+      throw new Error('Homepage highlights are available only for temples, forts, heritage sites and beaches.');
+    }
+
     if (cleanRecord.featuredOrder && destinationsCache.some(item =>
       item.id !== cleanRecord.id &&
       item.category === cleanRecord.category &&
@@ -328,6 +335,10 @@ export const contentService = {
       updatedAt: now,
       lastEditedBy: editorName
     };
+
+    if (cleanRecord.featuredOrder && (!Number.isInteger(cleanRecord.featuredOrder) || cleanRecord.featuredOrder < 1 || cleanRecord.featuredOrder > 5)) {
+      throw new Error('Festival highlight position must be between 1 and 5.');
+    }
 
     if (cleanRecord.featuredOrder && festivalsCache.some(item =>
       item.id !== cleanRecord.id && Number(item.featuredOrder) === cleanRecord.featuredOrder
