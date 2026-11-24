@@ -5,7 +5,6 @@ import Button from '../components/common/Button';
 import Badge from '../components/common/Badge';
 import SearchInput from '../components/common/SearchInput';
 import { contentService } from '../services/contentService';
-import { getFestivalGallery } from '../data/imageRegistry';
 import { videoService } from '../services/videoService';
 import { useLanguage } from '../context/LanguageContext';
 import { Calendar, MapPin, Check, Sparkles, ExternalLink } from '../components/common/Icons';
@@ -24,7 +23,7 @@ export default function FestivalsPage() {
   }, []);
   const [selectedFestival, setSelectedFestival] = useState(null);
 
-  const festivalGallery = selectedFestival ? (selectedFestival.gallery || getFestivalGallery(selectedFestival.id)) : [];
+  const festivalGallery = selectedFestival && Array.isArray(selectedFestival.gallery) ? selectedFestival.gallery : [];
 
   const filteredFestivals = useMemo(() => {
     return festivals.filter(f => {
