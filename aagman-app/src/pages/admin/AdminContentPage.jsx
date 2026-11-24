@@ -34,6 +34,8 @@ export default function AdminContentPage({ category = 'destinations' }) {
       setDestinations(dList);
       setFestivals(fList);
     });
+    contentService.getAllDestinations();
+    contentService.getAllFestivals();
     return () => unsub();
   }, []);
 
