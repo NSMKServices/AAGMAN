@@ -138,3 +138,26 @@
     align-items: flex-start;
   }
 }
+
+
+@media (max-width: 480px) {
+  .actionRow {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  .actionButtons {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .actionButtons > a {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .actionButtons button {
+    max-width: 100%;
+  }
+}
