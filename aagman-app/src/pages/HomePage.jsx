@@ -193,6 +193,11 @@ const FEATURED_SLUGS = [
 // Homepage copy is kept together so every visible section follows the selected language.
 const HOME_COPY = {
   en: {
+    circuitNames: ["The Maratha Imperial Fort Circuit", "The Golden Konkan Coastal Trail", "Sacred Jyotirlinga & UNESCO Cave Circuit"],
+    circuitPaces: ["Active Trekking", "Relaxed Coastal", "Cultural Exploration"],
+    circuitHighlights: [["Shivaji Maharaj coronation site", "Sunrise over Sahyadri cloud-sea", "Authentic village Pithla Bhakri"], ["Undefeated Murud island fort", "Snorkeling at Sindhudurg coral beds", "Sunset at Ganpatipule mandir"], ["Godavari holy source darshan", "Monolithic Kailasa rock temple", "Two millennia old Ajanta murals"]],
+    circuitRoutes: ["Pune → Sinhagad → Rajgad → Raigad → Pratapgad", "Alibaug → Murud-Janjira → Ganpatipule → Tarkarli", "Nashik → Trimbakeshwar → Shirdi → Ellora → Ajanta"],
+    festivalView: "View Details", district: "District", watchEyebrow: "CINEMATIC JOURNEYS", watchTitle: "Watch Maharashtra: Curated Destination Videos", watchSub: "Explore destination films, aerial views and cultural documentaries from across Maharashtra.", watchYoutube: "Watch on YouTube", allVideos: "Explore All Destination Videos",
     categoryTitles: ["Historic Forts", "Sacred Temples", "Konkan Beaches", "UNESCO Heritage", "Hill Stations", "Nature & Wildlife", "Festivals & Events", "Cultural Traditions"],
     categoryCounts: ["350+ Sites", "5 Jyotirlingas", "720 km Coast", "5 World Sites", "Sahyadri Retreats", "6 National Parks", "Year-Round", "Living Heritage"],
     categoryDescriptions: [
@@ -218,6 +223,12 @@ const HOME_COPY = {
     previousSlide: "Previous slide", nextSlide: "Next slide"
   },
   mr: {
+    circuitNames: ["मराठा साम्राज्याचा किल्ले पर्यटन मार्ग","सुवर्ण कोकण किनारपट्टी सहल","पवित्र ज्योतिर्लिंग आणि युनेस्को लेणी सहल"],
+    circuitPaces: ["सक्रिय गडभ्रमंती","निवांत किनारी सहल","सांस्कृतिक भ्रमंती"],
+    circuitHighlights: [["शिवाजी महाराजांच्या राज्याभिषेकाचे स्थळ","सह्याद्रीच्या पर्वतरांगांवरील सूर्योदय","पारंपरिक पिठलं-भाकरीचा आस्वाद"],["अभेद्य मुरुड जलदुर्ग","सिंधुदुर्ग परिसरातील स्नॉर्केलिंग","गणपतीपुळे मंदिराजवळील सूर्यास्त"],["गोदावरीच्या उगमस्थानी दर्शन","एकाश्म कैलास मंदिर","दोन हजार वर्षांपूर्वीची अजिंठा चित्रकला"]],
+    circuitRoutes: ["पुणे → सिंहगड → राजगड → रायगड → प्रतापगड","अलिबाग → मुरुड-जंजिरा → गणपतीपुळे → तारकर्ली","नाशिक → त्र्यंबकेश्वर → शिर्डी → वेरूळ → अजिंठा"],
+    festivalView: "माहिती पहा", district: "जिल्हा",
+    watchEyebrow: "चित्रमय महाराष्ट्र", watchTitle: "महाराष्ट्र दर्शन: निवडक पर्यटन व्हिडिओ", watchSub: "महाराष्ट्रातील पर्यटन स्थळे, संस्कृती आणि वारशाचे हवाई दृश्य व माहितीपट अनुभवा.", watchYoutube: "YouTube वर पहा", allVideos: "सर्व पर्यटन व्हिडिओ पहा",
     categoryTitles: ["ऐतिहासिक किल्ले", "पवित्र मंदिरे", "कोकणातील समुद्रकिनारे", "जागतिक वारसा स्थळे", "थंड हवेची ठिकाणे", "निसर्ग आणि वन्यजीव", "सण आणि उत्सव", "सांस्कृतिक परंपरा"],
     categoryCounts: ["३५०+ स्थळे", "५ ज्योतिर्लिंगे", "७२० कि.मी. किनारपट्टी", "५ जागतिक वारसा स्थळे", "सह्याद्रीची निसर्गरम्य ठिकाणे", "६ राष्ट्रीय उद्याने", "वर्षभर उत्सव", "जिवंत सांस्कृतिक वारसा"],
     categoryDescriptions: [
@@ -243,6 +254,12 @@ const HOME_COPY = {
     previousSlide: "मागील स्लाइड", nextSlide: "पुढील स्लाइड"
   },
   hi: {
+    circuitNames: ["मराठा साम्राज्य किला यात्रा मार्ग","स्वर्णिम कोंकण तटीय यात्रा","पवित्र ज्योतिर्लिंग और यूनेस्को गुफा यात्रा"],
+    circuitPaces: ["सक्रिय किले की पदयात्रा","आरामदायक तटीय यात्रा","सांस्कृतिक भ्रमण"],
+    circuitHighlights: [["शिवाजी महाराज के राज्याभिषेक का स्थल","सह्याद्रि पर्वतमाला पर सूर्योदय","पारंपरिक पिठला-भाकरी का स्वाद"],["अजेय मुरुड समुद्री किला","सिंधुदुर्ग के पास स्नॉर्कलिंग","गणपतिपुले मंदिर के पास सूर्यास्त"],["गोदावरी के उद्गम पर दर्शन","एकाश्म कैलास मंदिर","दो हजार वर्ष पुरानी अजंता चित्रकला"]],
+    circuitRoutes: ["पुणे → सिंहगढ़ → राजगढ़ → रायगढ़ → प्रतापगढ़","अलीबाग → मुरुड-जंजीरा → गणपतिपुले → तारकर्ली","नासिक → त्र्यंबकेश्वर → शिर्डी → एलोरा → अजंता"],
+    festivalView: "विवरण देखें", district: "जिला",
+    watchEyebrow: "महाराष्ट्र की सिनेमाई यात्रा", watchTitle: "महाराष्ट्र देखें: चुनिंदा पर्यटन वीडियो", watchSub: "महाराष्ट्र के पर्यटन स्थलों, संस्कृति और विरासत के हवाई दृश्य तथा वृत्तचित्र देखें।", watchYoutube: "YouTube पर देखें", allVideos: "सभी पर्यटन वीडियो देखें",
     categoryTitles: ["ऐतिहासिक किले", "पवित्र मंदिर", "कोंकण के समुद्र तट", "विश्व धरोहर स्थल", "हिल स्टेशन", "प्रकृति और वन्यजीव", "त्योहार और आयोजन", "सांस्कृतिक परंपराएँ"],
     categoryCounts: ["350+ स्थल", "5 ज्योतिर्लिंग", "720 किमी तटरेखा", "5 विश्व धरोहर स्थल", "सह्याद्रि के पर्वतीय स्थल", "6 राष्ट्रीय उद्यान", "वर्ष भर उत्सव", "जीवंत सांस्कृतिक विरासत"],
     categoryDescriptions: [
@@ -467,14 +484,14 @@ export default function HomePage() {
                       <p className={styles.festivalDesc}>{language === "mr" ? fest.descriptionMr || fest.description : language === "hi" ? fest.descriptionHi || fest.description : fest.description}</p>
                       <div className={styles.festActionRow}>
                         <span className={styles.festLocation}>
-                          <MapPin size={12} color="var(--color-text-muted)" /> {fest.location.split('(')[0]}
+                          <MapPin size={12} color="var(--color-text-muted)" /> {language === "mr" ? fest.locationMr || fest.location : language === "hi" ? fest.locationHi || fest.location : fest.location.split('(')[0]}
                         </span>
                         <button
                           type="button"
                           className={styles.knowMoreBtn}
                           onClick={() => setSelectedFestival(fest)}
                         >
-                          View Details ↗
+                          {copy.festivalView} ↗
                         </button>
                       </div>
                     </div>
@@ -502,7 +519,7 @@ export default function HomePage() {
                     <div className={styles.circuitTopRow}>
                       <Badge variant="forts" size="sm">
                         <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.3rem' }}>
-                          <Route size={12} /> {circuit.pace}
+                          <Route size={12} /> {copy.circuitPaces[SUGGESTED_CIRCUITS.indexOf(circuit)]}
                         </span>
                       </Badge>
                       <span className={styles.circuitDuration}>
@@ -510,13 +527,13 @@ export default function HomePage() {
                       </span>
                     </div>
 
-                    <h4 className={styles.circuitName}>{circuit.name}</h4>
+                    <h4 className={styles.circuitName}>{copy.circuitNames[SUGGESTED_CIRCUITS.indexOf(circuit)]}</h4>
                     <p className={styles.circuitRoute}>
-                      <strong>{copy.route}</strong> {circuit.route}
+                      <strong>{copy.route}</strong> {copy.circuitRoutes[SUGGESTED_CIRCUITS.indexOf(circuit)]}
                     </p>
 
                     <ul className={styles.circuitHighlights}>
-                      {circuit.highlights.map((h, i) => (
+                      {copy.circuitHighlights[SUGGESTED_CIRCUITS.indexOf(circuit)].map((h, i) => (
                         <li key={i}>
                           <Check size={12} color="var(--color-secondary)" />
                           <span>{h}</span>
@@ -561,9 +578,9 @@ export default function HomePage() {
       <section className={styles.watchSection}>
         <Container>
           <SectionHeader
-            eyebrow="CINEMATIC JOURNEYS"
-            title="Watch Maharashtra: Curated Destination Videos"
-            description="Explore high-definition drone surveys and cultural documentaries. Click any card to watch directly on YouTube in an external browser tab."
+            eyebrow={copy.watchEyebrow}
+            title={copy.watchTitle}
+            description={copy.watchSub}
           />
 
           <div className={styles.videoGrid}>
@@ -588,7 +605,7 @@ export default function HomePage() {
                   </div>
                   <span className={styles.videoDuration}>{video.duration}</span>
                   <span className={styles.ytBadge}>
-                    <span>Watch on YouTube</span>
+                    <span>{copy.watchYoutube}</span>
                     <ExternalLink size={12} />
                   </span>
                 </div>
@@ -603,7 +620,7 @@ export default function HomePage() {
 
           <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2.5rem' }}>
             <Button to="/videos" variant="outline" size="md">
-              <span>Explore All Destination Videos</span>
+              <span>{copy.allVideos}</span>
               <ArrowRight size={14} />
             </Button>
           </div>
