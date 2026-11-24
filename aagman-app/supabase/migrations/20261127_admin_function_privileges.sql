@@ -23,7 +23,6 @@ revoke all on function public.has_admin_role(text) from public, anon, authentica
 grant execute on function public.is_admin() to anon, authenticated;
 grant execute on function public.is_super_admin() to authenticated;
 grant execute on function public.has_admin_role(text) to authenticated;
-grant execute on function public.get_my_admin_profile() to authenticated;
 
 -- Cover existing foreign keys used by trip stop and wishlist lookups/deletes.
 create index if not exists idx_trip_stops_destination_id
