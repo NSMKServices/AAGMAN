@@ -117,3 +117,130 @@ drop policy if exists "Only super admins can delete admin profiles" on public.ad
 create policy "Only super admins can delete admin profiles"
   on public.admin_profiles for delete to authenticated
   using (is_super_admin() and id <> (select auth.uid()));
+
+
+-- Point all authorization policies at private-schema helpers. The private schema
+-- is not exposed through PostgREST, so SECURITY DEFINER helpers are not public RPCs.
+drop policy if exists "Admins can insert audit logs" on public.admin_audit_logs;
+create policy "Admins can insert audit logs"
+  on public.admin_audit_logs for insert to authenticated
+  with check (private.is_admin());
+
+drop policy if exists "Super admins can view audit logs" on public.admin_audit_logs;
+create policy "Super admins can view audit logs"
+  on public.admin_audit_logs for select to authenticated
+  using (private.is_super_admin());
+
+drop policy if exists "Admins can view permitted admin profiles" on public.admin_profiles;
+create policy "Admins can view permitted admin profiles"
+  on public.admin_profiles for select to authenticated
+  using (private.is_admin() or id = (select auth.uid()));
+
+drop policy if exists "Only super admins can create admin profiles" on public.admin_profiles;
+create policy "Only super admins can create admin profiles"
+  on public.admin_profiles for insert to authenticated
+  with check (private.is_super_admin());
+
+drop policy if exists "Admins can update permitted admin profiles" on public.admin_profiles;
+create policy "Admins can update permitted admin profiles"
+  on public.admin_profiles for update to authenticated
+  using (
+    private.is_super_admin()
+    or (id = (select auth.uid()) and is_active = true)
+  )
+  with check (
+    private.is_super_admin()
+    or (
+      id = (select auth.uid())
+      and is_active = true
+      and role = (
+        select own_profile.role
+        from public.admin_profiles own_profile
+        where own_profile.id = (select auth.uid())
+      )
+    )
+  );
+
+drop policy if exists "Only super admins can delete admin profiles" on public.admin_profiles;
+create policy "Only super admins can delete admin profiles"
+  on public.admin_profiles for delete to authenticated
+  using (private.is_super_admin() and id <> (select auth.uid()));
+
+drop policy if exists "Content Managers and Super Admins can delete destinations" on public.destinations;
+create policy "Content Managers and Super Admins can delete destinations"
+  on public.destinations for delete to authenticated
+  using (private.has_admin_role('content_manager'));
+
+drop policy if exists "Editors and above can create destinations" on public.destinations;
+create policy "Editors and above can create destinations"
+  on public.destinations for insert to authenticated
+  with check (private.has_admin_role('editor'));
+
+drop policy if exists "Editors and above can update destinations" on public.destinations;
+create policy "Editors and above can update destinations"
+  on public.destinations for update to authenticated
+  using (private.has_admin_role('editor'))
+  with check (private.has_admin_role('editor'));
+
+drop policy if exists "Public can view published destinations" on public.destinations;
+create policy "Public can view published destinations"
+  on public.destinations for select to anon, authenticated
+  using ((status = 'published'::public.content_status) or private.is_admin());
+
+drop policy if exists "Content Managers and Super Admins can delete festivals" on public.festivals;
+create policy "Content Managers and Super Admins can delete festivals"
+  on public.festivals for delete to authenticated
+  using (private.has_admin_role('content_manager'));
+
+drop policy if exists "Editors and above can create festivals" on public.festivals;
+create policy "Editors and above can create festivals"
+  on public.festivals for insert to authenticated
+  with check (private.has_admin_role('editor'));
+
+drop policy if exists "Editors and above can update festivals" on public.festivals;
+create policy "Editors and above can update festivals"
+  on public.festivals for update to authenticated
+  using (private.has_admin_role('editor'))
+  with check (private.has_admin_role('editor'));
+
+drop policy if exists "Public can view published festivals" on public.festivals;
+create policy "Public can view published festivals"
+  on public.festivals for select to anon, authenticated
+  using ((status = 'published'::public.content_status) or private.is_admin());
+
+drop policy if exists "Content Managers and Super Admins can delete videos" on public.videos;
+create policy "Content Managers and Super Admins can delete videos"
+  on public.videos for delete to authenticated
+  using (private.has_admin_role('content_manager'));
+
+drop policy if exists "Editors and above can insert videos" on public.videos;
+create policy "Editors and above can insert videos"
+  on public.videos for insert to authenticated
+  with check (private.has_admin_role('editor'));
+
+drop policy if exists "Editors and above can update videos" on public.videos;
+create policy "Editors and above can update videos"
+  on public.videos for update to authenticated
+  using (private.has_admin_role('editor'))
+  with check (private.has_admin_role('editor'));
+
+drop policy if exists "Public can view active videos" on public.videos;
+create policy "Public can view active videos"
+  on public.videos for select to anon, authenticated
+  using ((is_active = true) or private.is_admin());
+
+drop policy if exists "Active admins can upload destination media" on storage.objects;
+create policy "Active admins can upload destination media"
+  on storage.objects for insert to authenticated
+  with check (bucket_id = 'destination-media' and private.is_admin());
+
+drop policy if exists "Content managers can delete destination media" on storage.objects;
+create policy "Content managers can delete destination media"
+  on storage.objects for delete to authenticated
+  using (bucket_id = 'destination-media' and private.has_admin_role('content_manager'));
+
+drop policy if exists "Content managers can update destination media" on storage.objects;
+create policy "Content managers can update destination media"
+  on storage.objects for update to authenticated
+  using (bucket_id = 'destination-media' and private.has_admin_role('content_manager'))
+  with check (bucket_id = 'destination-media' and private.has_admin_role('content_manager'));
