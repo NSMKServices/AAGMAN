@@ -74,8 +74,9 @@ export const contentService = {
           district: row.district || '', region: row.region || '', circuit: row.circuit || '',
           description: row.description || '', summary: row.description || '',
           heroImage: row.hero_image || row.image_url || '', image: row.hero_image || row.image_url || '',
-          gallery: row.gallery || [], highlights: row.highlights || [],
-          bestTimeToVisit: row.best_time_to_visit || '', entryFee: row.entry_fee || '',
+          thumbnail: row.hero_image || row.image_url || '', gallery: row.gallery || [], highlights: row.highlights || [],
+          attractions: row.highlights || [], bestTimeToVisit: row.best_time_to_visit || '',
+          bestTime: row.best_time_to_visit || '', entryFee: row.entry_fee || '',
           featuredOrder: row.featured_order ?? null, status: row.status || 'draft',
           updatedAt: row.updated_at, lastEditedBy: row.last_edited_by || 'Editor'
         }));
