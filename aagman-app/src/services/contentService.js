@@ -28,6 +28,8 @@ function initDestinations() {
   }
   return DESTINATIONS.map((d, index) => ({
     ...d,
+    description: d.description || d.summary || '',
+    heroImage: d.heroImage || d.image || '',
     status: 'published',
     gallery: d.gallery || [],
     highlights: d.highlights || [],
@@ -160,7 +162,7 @@ export const contentService = {
     }
 
     if (!destData.category) {
-      throw new Error('Destination category is required (forts, temples, beaches, or heritage).');
+      throw new Error('Destination category is required (forts, temples, beaches, heritage, nature, or wildlife).');
     }
 
     // RBAC check: Editors cannot publish directly
@@ -561,7 +563,7 @@ export const contentService = {
     const reviewPct = totalContent > 0 ? Math.round((totalUnderReview / totalContent) * 100) : 0;
 
     // 4. Destination Category Distribution
-    const categories = ['forts', 'temples', 'beaches', 'heritage'];
+    const categories = ['forts', 'temples', 'beaches', 'heritage', 'nature', 'wildlife'];
     const categoryCounts = categories.map(cat => {
       const matched = destinations.filter(d => (d.category || '').toLowerCase() === cat);
       return {
