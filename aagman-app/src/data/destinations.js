@@ -1,13 +1,13 @@
 /**
  * AAGMAN - Canonical Destinations Dataset
  * Comprehensive, verified information for Maharashtra Tourism & Heritage Platform
- * Categories: forts, temples, beaches, heritage
+ * Categories: forts, temples, beaches, heritage, nature, wildlife
  */
 import { ALL_DESTINATION_IMAGE_REGISTRY } from './imageRegistry';
 
 export const DESTINATIONS = [
   // ==========================================
-  // FORTS & SAHYADRI TREKKING (17 DESTINATIONS)
+  // FORTS & SAHYADRI TREKKING (16 DESTINATIONS)
   // ==========================================
   {
     id: "raigad-fort",
@@ -435,7 +435,7 @@ export const DESTINATIONS = [
   },
 
   // ==========================================
-  // TEMPLES & PILGRIMAGES (SAMPLE 8 SHOWN, REST IN DATASET)
+  // TEMPLES & PILGRIMAGES (9 DESTINATIONS)
   // ==========================================
   {
     id: "trimbakeshwar",
@@ -571,7 +571,7 @@ export const DESTINATIONS = [
   },
 
   // ==========================================
-  // BEACHES (SAMPLE 4 SHOWN, REST IN DATASET)
+  // BEACHES (7 DESTINATIONS)
   // ==========================================
   {
     id: "kashid-beach",
@@ -674,7 +674,7 @@ export const DESTINATIONS = [
   },
 
   // ==========================================
-  // HERITAGE & UNESCO CAVES (4 SHOWN)
+  // HERITAGE & UNESCO CAVES (9 DESTINATIONS)
   // ==========================================
   {
     id: "ajanta-caves",
