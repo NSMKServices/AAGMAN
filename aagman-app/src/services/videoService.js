@@ -172,6 +172,7 @@ export const videoService = {
         const { data, error } = await supabase
           .from('videos')
           .insert({
+            id: newVideo.id,
             title: newVideo.title,
             youtube_url: newVideo.youtubeUrl,
             youtube_id: newVideo.youtubeId,
