@@ -31,7 +31,7 @@ function loadLocalContent(key) {
 
 let destinationsCache = loadLocalContent(DESTINATIONS_STORAGE_KEY);
 let festivalsCache = loadLocalContent(FESTIVALS_STORAGE_KEY);
-const contentListeners = new Set();const contentListeners = new Set();
+const contentListeners = new Set();
 
 function saveLocalDestinations(data) {
   try {
