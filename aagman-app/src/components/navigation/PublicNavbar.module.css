@@ -936,3 +936,9 @@
   .desktopNav { display: none; }
   .mobileHamburger { display: flex; }
 }
+
+
+@media (max-width: 1500px) {
+  .desktopNav { display: none; }
+  .mobileHamburger { display: flex; }
+}
