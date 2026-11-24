@@ -57,3 +57,20 @@ test('festival cards render translated names and descriptions', async ({ page })
   await expect(page.getByText('दही हांडी', { exact: true })).toBeVisible();
   await expect(page.getByText(/गोविंदा दल मानव पिरामिड/)).toBeVisible();
 });
+
+
+test('destination detail travel directions follow the selected language', async ({ page }) => {
+  await page.addInitScript(() => {
+    localStorage.setItem('aagman_language', 'mr');
+    localStorage.setItem('aagman_lang', 'mr');
+  });
+  await page.goto('/nature/mahabaleshwar');
+  await expect(page.getByText('पुणे विमानतळ; पुढे रस्त्याने.', { exact: true })).toBeVisible();
+
+  await page.addInitScript(() => {
+    localStorage.setItem('aagman_language', 'hi');
+    localStorage.setItem('aagman_lang', 'hi');
+  });
+  await page.goto('/nature/mahabaleshwar');
+  await expect(page.getByText('पुणे हवाई अड्डा; आगे सड़क मार्ग.', { exact: true })).toBeVisible();
+});
