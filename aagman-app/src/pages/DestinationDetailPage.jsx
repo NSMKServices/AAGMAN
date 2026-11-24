@@ -56,6 +56,8 @@ export default function DestinationDetailPage() {
     .filter(d => d.category === destination.category && d.slug !== destination.slug)
     .slice(0, 3);
 
+  const destinationVideos = videoService.getVideosForDestination(destination.id || destination.slug, destination.name);
+
   const displayName = language === 'mr'
     ? (destination.marathiName || destination.name)
     : destination.name;
@@ -184,19 +186,25 @@ export default function DestinationDetailPage() {
                 </div>
               )}
 
-              {/* Documentaries & Video Integration */}
-              <div className={styles.contentBlock}>
-                <h3 className={styles.sectionSubheading}>{t('videoDocumentaries', 'Video Documentaries & Aerial Exploration')}</h3>
-                <div className={styles.videoEmbedWrapper}>
-                  <iframe
-                    src={videoService.getEmbedUrl(destination.slug, destination.category)}
-                    title={`${destination.name} Documentary`}
-                    className={styles.videoIframe}
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  />
+              {/* Related YouTube documentaries */}
+              {destinationVideos.length > 0 && (
+                <div className={styles.contentBlock}>
+                  <h3 className={styles.sectionSubheading}>{t('videoDocumentaries', 'Video Documentaries & Aerial Exploration')}</h3>
+                  <div className={styles.videoEmbedWrapper}>
+                    {destinationVideos.map(video => (
+                      <a
+                        key={video.id}
+                        href={video.youtubeUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={styles.videoIframe}
+                      >
+                        {t('watchNow', 'Watch on YouTube')}: {video.title}
+                      </a>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )}
 
               {/* Cultural Food & Cuisine Specialties */}
               {destination.foodSpecialties && destination.foodSpecialties.length > 0 && (
