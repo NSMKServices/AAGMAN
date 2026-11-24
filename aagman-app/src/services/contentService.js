@@ -104,7 +104,7 @@ export const contentService = {
         const staticSlugs = new Set(DESTINATIONS.map(item => item.slug || item.id));
         destinationsCache = DESTINATIONS.map(item => {
           const row = bySlug.get(item.slug || item.id);
-          if (!row) return item;
+          if (!row) return { ...item, description: item.description || item.summary || '', heroImage: item.heroImage || item.image || '' };
           return {
             ...item,
             id: row.slug || item.id,
