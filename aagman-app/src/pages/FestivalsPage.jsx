@@ -91,7 +91,7 @@ export default function FestivalsPage() {
                     <div className={styles.cardDates}>
                       <span>
                         <Calendar size={12} style={{ marginRight: 4, verticalAlign: 'middle' }} />
-                        {festival.dates}
+                        {getLocalizedValue(festival, 'dates', language)}
                       </span>
                     </div>
                   </div>
