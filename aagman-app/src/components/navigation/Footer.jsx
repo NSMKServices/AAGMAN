@@ -156,7 +156,7 @@ export default function Footer() {
             <span className={styles.bottomDot}>•</span>
             <Link to="/settings">{t('settings', 'Settings & Preferences')}</Link>
             <span className={styles.bottomDot}>•</span>
-            <Link to="/admin">{t('adminPortal', 'Admin Portal')}</Link>
+            <Link to="/admin/login">{t('adminPortal', 'Admin Portal')}</Link>
           </div>
           <p className={styles.copyrightText}>
             © {new Date().getFullYear()} {t('brandName', 'AAGMAN')} — {t('copyright', 'Official Maharashtra Cultural & Heritage Tourism Platform. Preserving and promoting the royal history, cultural heritage, and natural wonders of Maharashtra.')}
