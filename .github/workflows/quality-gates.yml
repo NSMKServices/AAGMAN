@@ -35,7 +35,7 @@ jobs:
       - name: Install Playwright Chromium
         run: npx playwright install --with-deps chromium
       - name: Verify localized content resolver
-        run: node --test tests/localized-content.test.js
+        run: node --test tests/*.test.js
       - name: Build production app
         run: npm run build
       - name: Run browser regression suite
