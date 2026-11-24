@@ -884,3 +884,15 @@
   flex-wrap: wrap;
   gap: 0.75rem;
 }
+
+
+@media (max-width: 360px) {
+  .tripCardHeader {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .tripBudgetBadge {
+    max-width: 100%;
+  }
+}
