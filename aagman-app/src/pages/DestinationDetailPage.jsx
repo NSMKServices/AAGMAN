@@ -27,6 +27,7 @@ import {
   ArrowRight
 } from '../components/common/Icons';
 import styles from './DestinationDetailPage.module.css';
+import { getLocalizedName, getLocalizedValue } from '../utils/localizedContent';
 
 export default function DestinationDetailPage() {
   const { category, slug } = useParams();
@@ -83,13 +84,10 @@ export default function DestinationDetailPage() {
     .filter(d => d.category === destination.category && d.slug !== destination.slug)
     .slice(0, 3);
 
-  const displayName = language === 'mr'
-    ? (destination.marathiName || destination.name)
+  const displayName = getLocalizedName(destination, language);
+  const subtitleName = language === 'en'
+    ? destination.marathiName
     : destination.name;
-
-  const subtitleName = language === 'mr'
-    ? destination.name
-    : destination.marathiName;
 
   return (
     <div className={styles.detailPage}>
@@ -172,8 +170,8 @@ export default function DestinationDetailPage() {
               <div className={styles.contentBlock}>
                 <h2 className={styles.sectionHeading}>{t('historicalSignificance', 'Historical Chronicle & Significance')}</h2>
                 <div className={styles.heritageDivider} />
-                <p className={styles.narrativeText}>{destination.history}</p>
-                <p className={styles.narrativeText}>{destination.summary}</p>
+                <p className={styles.narrativeText}>{getLocalizedValue(destination, 'history', language)}</p>
+                <p className={styles.narrativeText}>{getLocalizedValue(destination, 'summary', language)}</p>
               </div>
 
               {/* Major Attractions */}
@@ -184,7 +182,7 @@ export default function DestinationDetailPage() {
                     {destination.attractions.map((att, idx) => (
                       <div key={idx} className={styles.attractionItem}>
                         <span className={styles.attractionNum}>{idx + 1}</span>
-                        <span className={styles.attractionText}>{att}</span>
+                        <span className={styles.attractionText}>{getLocalizedValue(destination, 'attractions', language)[idx] ?? att}</span>
                       </div>
                     ))}
                   </div>
