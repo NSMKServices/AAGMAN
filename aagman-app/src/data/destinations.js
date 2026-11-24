@@ -3,7 +3,7 @@
  * Comprehensive, verified information for Maharashtra Tourism & Heritage Platform
  * Categories: forts, temples, beaches, heritage, nature, wildlife
  */
-import { ALL_DESTINATION_IMAGE_REGISTRY } from './imageRegistry';
+import { ALL_DESTINATION_IMAGE_REGISTRY } from './imageRegistry.js';
 import { DESTINATION_TRANSLATIONS } from './destinationTranslations';
 
 export const DESTINATIONS = [
