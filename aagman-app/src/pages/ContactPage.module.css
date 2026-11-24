@@ -282,3 +282,20 @@
     grid-template-columns: 1fr;
   }
 }
+
+
+/* Allow contact columns and long contact details to shrink on narrow screens. */
+.contactGrid > * {
+  min-width: 0;
+}
+
+.formCard,
+.infoCard,
+.infoCol {
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.infoItem p {
+  overflow-wrap: anywhere;
+}

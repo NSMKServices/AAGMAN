@@ -929,3 +929,16 @@
   .actionsGroup { gap: 0.125rem; }
   .iconBtn, .mobileHamburger { width: 30px; height: 30px; }
 }
+
+
+/* Keep the full public navigation usable on compact laptop widths. */
+@media (max-width: 1400px) {
+  .desktopNav { display: none; }
+  .mobileHamburger { display: flex; }
+}
+
+
+@media (max-width: 1500px) {
+  .desktopNav { display: none; }
+  .mobileHamburger { display: flex; }
+}

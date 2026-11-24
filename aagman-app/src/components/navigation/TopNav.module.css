@@ -419,3 +419,35 @@
     display: none;
   }
 }
+
+
+/* Stack dashboard navigation groups when the viewport is too narrow for one row. */
+@media (max-width: 480px) {
+  .topNav {
+    height: auto;
+    min-height: var(--topnav-height);
+    padding: 0.65rem 0.75rem;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+  }
+
+  .leftGroup {
+    flex: 1 1 100%;
+    max-width: none;
+    min-width: 0;
+    gap: 0.6rem;
+  }
+
+  .searchContainer {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .rightGroup {
+    width: 100%;
+    min-width: 0;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+}
