@@ -176,14 +176,21 @@ export default function AdminDestinationModal({ isOpen, onClose, onSave, destina
               </select>
             </div>
 
-            <div className={styles.formGroup}>
-              <label className={styles.label}>Homepage Highlight Position</label>
-              <select className={styles.select} value={featuredOrder} onChange={(e) => setFeaturedOrder(e.target.value)}>
-                <option value="">Not featured</option>
-                {[1, 2, 3, 4, 5].map(position => <option key={position} value={position}>Top {position} in {category}</option>)}
-              </select>
-              <span className={styles.hint}>Choose one of five positions for this category. Each position can be used once per category.</span>
-            </div>
+            {['temples', 'forts', 'heritage', 'beaches'].includes(category) ? (
+              <div className={styles.formGroup}>
+                <label className={styles.label}>Homepage Highlight Position</label>
+                <select className={styles.select} value={featuredOrder} onChange={(e) => setFeaturedOrder(e.target.value)}>
+                  <option value="">Not featured</option>
+                  {[1, 2, 3, 4, 5].map(position => <option key={position} value={position}>Top {position} in {category}</option>)}
+                </select>
+                <span className={styles.hint}>Choose one of five positions for this category. Each position can be used once per category.</span>
+              </div>
+            ) : (
+              <div className={styles.formGroup}>
+                <label className={styles.label}>Homepage Highlight Position</label>
+                <span className={styles.hint}>Homepage highlights are available for temples, forts, heritage sites and beaches.</span>
+              </div>
+            )}
 
             <div className={styles.formGroup}>
               <label className={styles.label}>District *</label>
