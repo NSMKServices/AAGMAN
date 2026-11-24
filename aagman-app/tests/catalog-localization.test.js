@@ -35,14 +35,17 @@ test('destination IDs are unique and every destination has map coordinates', () 
   assert.deepEqual(invalid.map(item => item.id), []);
 });
 
-test('all newly added destination narratives are available in Marathi and Hindi', () => {
-  const localized = DESTINATIONS.filter(item =>
-    item.summaryMr && item.summaryHi &&
-    item.historyMr && item.historyHi &&
-    Array.isArray(item.attractionsMr) && item.attractionsMr.length > 0 &&
-    Array.isArray(item.attractionsHi) && item.attractionsHi.length > 0
+test('all destination narratives and travel directions are available in Marathi and Hindi', () => {
+  const incomplete = DESTINATIONS.filter(item =>
+    !item.summaryMr || !item.summaryHi ||
+    !item.historyMr || !item.historyHi ||
+    !Array.isArray(item.attractionsMr) || item.attractionsMr.length === 0 ||
+    !Array.isArray(item.attractionsHi) || item.attractionsHi.length === 0 ||
+    !item.howToReachMr || !item.howToReachHi ||
+    !item.howToReachMr.air || !item.howToReachMr.rail || !item.howToReachMr.road ||
+    !item.howToReachHi.air || !item.howToReachHi.rail || !item.howToReachHi.road
   );
-  assert.ok(localized.length >= 29);
+  assert.deepEqual(incomplete.map(item => item.id), []);
 });
 
 test('festival IDs are unique', () => {
