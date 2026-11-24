@@ -32,7 +32,7 @@ import { useAuth } from '../../context/AuthContext';
 import { useLanguage } from '../../context/LanguageContext';
 import { useTheme } from '../../context/ThemeContext';
 import { useWishlist } from '../../context/WishlistContext';
-import { DESTINATIONS } from '../../data/destinations';
+import { contentService } from '../../services/contentService';
 import styles from './PublicNavbar.module.css';
 
 export default function PublicNavbar() {
@@ -51,6 +51,7 @@ export default function PublicNavbar() {
   const [profileOpen, setProfileOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [destinations, setDestinations] = useState([]);
 
   // Mobile sub-accordions
   const [mobileDestOpen, setMobileDestOpen] = useState(false);
@@ -116,11 +117,17 @@ export default function PublicNavbar() {
   }, []);
 
   // Instant destination search results
+  useEffect(() => {
+    const unsubscribe = contentService.subscribe(({ destinations: records }) => setDestinations(records));
+    contentService.getAllDestinations();
+    return unsubscribe;
+  }, []);
+
   const searchResults = searchQuery.trim()
-    ? DESTINATIONS.filter(d =>
+    ? destinations.filter(d => d.status === 'published' &&
         d.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         (d.marathiName && d.marathiName.includes(searchQuery)) ||
-        d.district.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (d.district || '').toLowerCase().includes(searchQuery.toLowerCase()) ||
         d.category.toLowerCase().includes(searchQuery.toLowerCase())
       ).slice(0, 5)
     : [];
