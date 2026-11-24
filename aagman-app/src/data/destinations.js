@@ -807,7 +807,801 @@ export const DESTINATIONS = [
     localCuisine: "Iconic Mumbai Pav Bhaji, Bun Maska at heritage Irani cafes, Falooda.",
     rating: 4.9,
     reviewsCount: 3900
-  }
+  },
+  // Additional destinations across forts, temples and the Konkan coast
+{
+  "id": "purandar-fort",
+  "slug": "purandar",
+  "name": "Purandar Fort",
+  "marathiName": "पुरंदर किल्ला",
+  "nameHi": "पुरंदर किला",
+  "category": "forts",
+  "circuit": "Pune Fort Circuit",
+  "district": "Pune",
+  "region": "Western Maharashtra",
+  "bestTime": "October to February",
+  "timings": "Check current local opening hours before visiting",
+  "entryFee": "Check current official entry and access charges",
+  "heroImage": "https://images.unsplash.com/photo-1627894483216-2138af692e32?auto=format&fit=crop&w=1600&q=80",
+  "thumbnail": "https://images.unsplash.com/photo-1627894483216-2138af692e32?auto=format&fit=crop&w=600&q=80",
+  "summary": "A hill fort near Saswad associated with the early history of Chhatrapati Shivaji Maharaj and the Maratha state.",
+  "summaryMr": "सासवडजवळील डोंगरी किल्ला; छत्रपती शिवाजी महाराज आणि मराठा स्वराज्याच्या आरंभीच्या इतिहासाशी संबंधित.",
+  "summaryHi": "सासवड के पास स्थित पहाड़ी किला, जो छत्रपति शिवाजी महाराज और मराठा स्वराज्य के प्रारंभिक इतिहास से जुड़ा है।",
+  "history": "Purandar has held strategic importance across successive Deccan powers. It is also remembered as the birthplace of Sambhaji Maharaj.",
+  "historyMr": "दख्खनमधील विविध सत्तांच्या काळात पुरंदरला सामरिक महत्त्व होते. संभाजी महाराजांचे जन्मस्थान म्हणूनही या किल्ल्याची ओळख आहे.",
+  "historyHi": "दक्कन की विभिन्न सत्ताओं के दौर में पुरंदर का सामरिक महत्व रहा। इसे संभाजी महाराज के जन्मस्थान के रूप में भी याद किया जाता है।",
+  "attractions": [
+    "Bale Killa and fort gateways",
+    "Upper and lower fortifications",
+    "Views of the Saswad countryside"
+  ],
+  "attractionsMr": [
+    "बालेकिल्ला आणि प्रवेशद्वारे",
+    "वरचा व खालचा किल्ला",
+    "सासवड परिसराचे विहंगम दृश्य"
+  ],
+  "attractionsHi": [
+    "बाले किला और प्रवेश द्वार",
+    "ऊपरी और निचली किलेबंदी",
+    "सासवड क्षेत्र के दृश्य"
+  ],
+  "coordinates": {
+    "lat": 18.2815,
+    "lng": 73.9734,
+    "mapsUrl": "https://maps.google.com/?q=18.2815,73.9734"
+  },
+  "howToReach": {
+    "air": "Pune Airport; onward road travel to Saswad.",
+    "rail": "Pune railway station; onward road travel.",
+    "road": "Reach Saswad from Pune, then continue to the fort access point."
+  },
+  "howToReachMr": {
+    "air": "पुणे विमानतळ; पुढे सासवडकडे रस्त्याने.",
+    "rail": "पुणे रेल्वे स्थानक; पुढे रस्त्याने.",
+    "road": "पुण्याहून सासवडमार्गे किल्ल्याच्या प्रवेशस्थळापर्यंत जा."
+  },
+  "howToReachHi": {
+    "air": "पुणे हवाई अड्डा; आगे सासवड तक सड़क मार्ग.",
+    "rail": "पुणे रेलवे स्टेशन; आगे सड़क मार्ग.",
+    "road": "पुणे से सासवड होकर किले के प्रवेश स्थल तक जाएँ।"
+  },
+  "localCuisine": "Pune-style misal, bhakri and local Maharashtrian meals.",
+  "sourceUrl": "https://maharashtratourism.gov.in/sitemap/",
+  "rating": 4.5,
+  "reviewsCount": 0
+},
+{
+  "id": "rajmachi-fort",
+  "slug": "rajmachi",
+  "name": "Rajmachi Fort",
+  "marathiName": "राजमाची किल्ला",
+  "nameHi": "राजमाची किला",
+  "category": "forts",
+  "circuit": "Sahyadri Trek Circuit",
+  "district": "Pune",
+  "region": "Western Maharashtra",
+  "bestTime": "October to February",
+  "timings": "Check current local opening hours before visiting",
+  "entryFee": "Check current official entry and access charges",
+  "heroImage": "https://images.unsplash.com/photo-1627894483216-2138af692e32?auto=format&fit=crop&w=1600&q=80",
+  "thumbnail": "https://images.unsplash.com/photo-1627894483216-2138af692e32?auto=format&fit=crop&w=600&q=80",
+  "summary": "A scenic hill-fort complex above the Bor Ghat, known for its twin strongholds and trekking routes.",
+  "summaryMr": "बोरघाटाच्या माथ्यावर असलेला निसर्गरम्य दुर्गसमूह; दोन बालेकिल्ले आणि ट्रेकिंग मार्गांसाठी प्रसिद्ध.",
+  "summaryHi": "बोर घाट के ऊपर स्थित सुंदर पहाड़ी दुर्ग समूह, जो अपने दो किलों और ट्रेकिंग मार्गों के लिए जाना जाता है।",
+  "history": "Rajmachi consists of Shrivardhan and Manaranjan forts and historically overlooked an important route through the Sahyadris.",
+  "historyMr": "राजमाचीमध्ये श्रीवर्धन आणि मनरंजन हे दोन किल्ले आहेत. सह्याद्रीतील महत्त्वाच्या घाटमार्गावर त्याचे नियंत्रण होते.",
+  "historyHi": "राजमाची में श्रीवर्धन और मनरंजन नामक दो किले हैं। यह सह्याद्रि के एक महत्वपूर्ण घाट मार्ग पर नजर रखता था।",
+  "attractions": [
+    "Shrivardhan Fort",
+    "Manaranjan Fort",
+    "Udhhewadi village and valley viewpoints"
+  ],
+  "attractionsMr": [
+    "श्रीवर्धन किल्ला",
+    "मनरंजन किल्ला",
+    "उधेवाडी गाव आणि दरीतील दृश्यबिंदू"
+  ],
+  "attractionsHi": [
+    "श्रीवर्धन किला",
+    "मनरंजन किला",
+    "उधेवाडी गाँव और घाटी के दृश्य स्थल"
+  ],
+  "coordinates": {
+    "lat": 18.835,
+    "lng": 73.387,
+    "mapsUrl": "https://maps.google.com/?q=18.835,73.387"
+  },
+  "howToReach": {
+    "air": "Pune Airport; onward road journey.",
+    "rail": "Lonavala railway station, then local transport or trek.",
+    "road": "Access via Lonavala or Kondivade; confirm the selected trekking route locally."
+  },
+  "howToReachMr": {
+    "air": "पुणे विमानतळ; पुढे रस्त्याने.",
+    "rail": "लोणावळा रेल्वे स्थानक; पुढे स्थानिक वाहतूक किंवा पायी मार्ग.",
+    "road": "लोणावळा किंवा कोंढिवडे मार्गे जा; निवडलेला ट्रेक मार्ग स्थानिक पातळीवर तपासा."
+  },
+  "howToReachHi": {
+    "air": "पुणे हवाई अड्डा; आगे सड़क मार्ग.",
+    "rail": "लोणावला रेलवे स्टेशन; फिर स्थानीय वाहन या पैदल मार्ग.",
+    "road": "लोणावला या कोंढिवडे से पहुँचें; चुने गए ट्रेक मार्ग की स्थानीय पुष्टि करें।"
+  },
+  "localCuisine": "Local village meals and Maharashtrian snacks.",
+  "sourceUrl": "https://maharashtratourism.gov.in/adventure-tourism/",
+  "rating": 4.5,
+  "reviewsCount": 0
+},
+{
+  "id": "vijaydurg-fort",
+  "slug": "vijaydurg",
+  "name": "Vijaydurg Fort",
+  "marathiName": "विजयदुर्ग किल्ला",
+  "nameHi": "विजयदुर्ग किला",
+  "category": "forts",
+  "circuit": "Konkan Sea Fort Circuit",
+  "district": "Sindhudurg",
+  "region": "Konkan",
+  "bestTime": "October to March",
+  "timings": "Check current local opening hours before visiting",
+  "entryFee": "Check current official entry and access charges",
+  "heroImage": "https://images.unsplash.com/photo-1627894483216-2138af692e32?auto=format&fit=crop&w=1600&q=80",
+  "thumbnail": "https://images.unsplash.com/photo-1627894483216-2138af692e32?auto=format&fit=crop&w=600&q=80",
+  "summary": "A historic sea fort on the Konkan coast, associated with Maratha naval history.",
+  "summaryMr": "कोकण किनाऱ्यावरील ऐतिहासिक जलदुर्ग; मराठा आरमाराच्या इतिहासाशी संबंधित.",
+  "summaryHi": "कोंकण तट पर स्थित ऐतिहासिक समुद्री किला, जो मराठा नौसैनिक इतिहास से जुड़ा है।",
+  "history": "Vijaydurg was an important coastal stronghold and naval base during the Maratha period.",
+  "historyMr": "मराठा काळात विजयदुर्ग महत्त्वाचा किनारी दुर्ग आणि आरमारी तळ होता.",
+  "historyHi": "मराठा काल में विजयदुर्ग एक महत्वपूर्ण तटीय दुर्ग और नौसैनिक अड्डा था।",
+  "attractions": [
+    "Sea-facing fort walls",
+    "Historic bastions and gateways",
+    "Views of the creek and Arabian Sea"
+  ],
+  "attractionsMr": [
+    "समुद्राकडे असलेल्या तटबंद्या",
+    "ऐतिहासिक बुरुज आणि प्रवेशद्वारे",
+    "खाडी व अरबी समुद्राचे दृश्य"
+  ],
+  "attractionsHi": [
+    "समुद्र की ओर बनी किले की दीवारें",
+    "ऐतिहासिक बुर्ज और प्रवेश द्वार",
+    "खाड़ी और अरब सागर के दृश्य"
+  ],
+  "coordinates": {
+    "lat": 16.5584,
+    "lng": 73.337,
+    "mapsUrl": "https://maps.google.com/?q=16.5584,73.337"
+  },
+  "howToReach": {
+    "air": "Sindhudurg or Goa airport; onward road journey.",
+    "rail": "Kankavli or Rajapur Road railway station; onward road travel.",
+    "road": "Reach Vijaydurg village by road along the Konkan coast."
+  },
+  "howToReachMr": {
+    "air": "सिंधुदुर्ग किंवा गोवा विमानतळ; पुढे रस्त्याने.",
+    "rail": "कणकवली किंवा राजापूर रोड रेल्वे स्थानक; पुढे रस्त्याने.",
+    "road": "कोकण किनारपट्टीवरील रस्त्याने विजयदुर्ग गावात पोहोचा."
+  },
+  "howToReachHi": {
+    "air": "सिंधुदुर्ग या गोवा हवाई अड्डा; आगे सड़क मार्ग.",
+    "rail": "कणकवली या राजापुर रोड रेलवे स्टेशन; आगे सड़क मार्ग.",
+    "road": "कोंकण तटीय सड़क से विजयदुर्ग गाँव पहुँचें।"
+  },
+  "localCuisine": "Malvani fish thali, solkadhi and local vegetarian meals.",
+  "sourceUrl": "https://maharashtratourism.gov.in/sitemap/",
+  "rating": 4.5,
+  "reviewsCount": 0
+},
+{
+  "id": "sajjangad-fort",
+  "slug": "sajjangad",
+  "name": "Sajjangad Fort",
+  "marathiName": "सज्जनगड किल्ला",
+  "nameHi": "सज्जनगढ़ किला",
+  "category": "forts",
+  "circuit": "Satara Spiritual Circuit",
+  "district": "Satara",
+  "region": "Western Maharashtra",
+  "bestTime": "October to February",
+  "timings": "Check current local opening hours before visiting",
+  "entryFee": "Check current official entry and access charges",
+  "heroImage": "https://images.unsplash.com/photo-1627894483216-2138af692e32?auto=format&fit=crop&w=1600&q=80",
+  "thumbnail": "https://images.unsplash.com/photo-1627894483216-2138af692e32?auto=format&fit=crop&w=600&q=80",
+  "summary": "A hilltop fort and pilgrimage site associated with the saint Samarth Ramdas.",
+  "summaryMr": "समर्थ रामदास स्वामी यांच्या स्मृतींशी संबंधित डोंगरी किल्ला आणि तीर्थक्षेत्र.",
+  "summaryHi": "समर्थ रामदास स्वामी से जुड़ा पहाड़ी किला और तीर्थस्थल।",
+  "history": "Sajjangad became the final residence of Samarth Ramdas Swami and is visited for its historical and spiritual associations.",
+  "historyMr": "सज्जनगड हे समर्थ रामदास स्वामी यांचे अंतिम निवासस्थान होते. ऐतिहासिक आणि आध्यात्मिक महत्त्वामुळे येथे भाविक येतात.",
+  "historyHi": "सज्जनगढ़ समर्थ रामदास स्वामी का अंतिम निवास स्थान था। इसके ऐतिहासिक और आध्यात्मिक महत्व के कारण श्रद्धालु यहाँ आते हैं।",
+  "attractions": [
+    "Samarth Ramdas Swami samadhi",
+    "Temple complex and fort precinct",
+    "Panoramic views of the surrounding hills"
+  ],
+  "attractionsMr": [
+    "समर्थ रामदास स्वामी समाधी",
+    "मंदिर समूह आणि किल्ला परिसर",
+    "सभोवतालच्या डोंगरांचे विहंगम दृश्य"
+  ],
+  "attractionsHi": [
+    "समर्थ रामदास स्वामी की समाधि",
+    "मंदिर परिसर और किले का क्षेत्र",
+    "आसपास की पहाड़ियों के दृश्य"
+  ],
+  "coordinates": {
+    "lat": 17.6805,
+    "lng": 73.9812,
+    "mapsUrl": "https://maps.google.com/?q=17.6805,73.9812"
+  },
+  "howToReach": {
+    "air": "Pune Airport; onward road travel to Satara.",
+    "rail": "Satara railway station; local road transport.",
+    "road": "About 15 km from Satara; follow local access and visitor guidance."
+  },
+  "howToReachMr": {
+    "air": "पुणे विमानतळ; पुढे साताऱ्याकडे रस्त्याने.",
+    "rail": "सातारा रेल्वे स्थानक; पुढे स्थानिक रस्ते वाहतूक.",
+    "road": "साताऱ्यापासून सुमारे १५ किमी; स्थानिक प्रवेशसूचना पाळा."
+  },
+  "howToReachHi": {
+    "air": "पुणे हवाई अड्डा; आगे सातारा तक सड़क मार्ग.",
+    "rail": "सातारा रेलवे स्टेशन; आगे स्थानीय सड़क परिवहन.",
+    "road": "सातारा से लगभग 15 किमी; स्थानीय प्रवेश निर्देशों का पालन करें।"
+  },
+  "localCuisine": "Satara kanda bhaji, pithla-bhakri and local meals.",
+  "sourceUrl": "https://maharashtratourism.gov.in/sitemap/",
+  "rating": 4.5,
+  "reviewsCount": 0
+},
+{
+  "id": "siddhivinayak-temple-mumbai",
+  "slug": "siddhivinayak-temple-mumbai",
+  "name": "Siddhivinayak Temple",
+  "marathiName": "श्री सिद्धिविनायक मंदिर",
+  "nameHi": "श्री सिद्धिविनायक मंदिर",
+  "category": "temples",
+  "circuit": "Mumbai Spiritual Circuit",
+  "district": "Mumbai City",
+  "region": "Konkan",
+  "bestTime": "Throughout the year",
+  "timings": "Check current local opening hours before visiting",
+  "entryFee": "Check current official entry and access charges",
+  "heroImage": "https://images.unsplash.com/photo-1600100397608-f010e42e4e7a?auto=format&fit=crop&w=1600&q=80",
+  "thumbnail": "https://images.unsplash.com/photo-1600100397608-f010e42e4e7a?auto=format&fit=crop&w=600&q=80",
+  "summary": "One of Mumbai's best-known Ganesh temples and an important place of worship for devotees.",
+  "summaryMr": "मुंबईतील प्रसिद्ध गणेश मंदिर आणि भाविकांचे महत्त्वाचे श्रद्धास्थान.",
+  "summaryHi": "मुंबई का प्रसिद्ध गणेश मंदिर और श्रद्धालुओं का महत्वपूर्ण पूजा स्थल।",
+  "history": "The temple at Prabhadevi is dedicated to Lord Ganesha and attracts devotees throughout the year, especially on Tuesdays and during Ganesh festivities.",
+  "historyMr": "प्रभादेवी येथील हे मंदिर भगवान गणेशाला समर्पित असून वर्षभर भाविक येथे येतात; मंगळवार आणि गणेशोत्सवात विशेष गर्दी असते.",
+  "historyHi": "प्रभादेवी स्थित यह मंदिर भगवान गणेश को समर्पित है। यहाँ वर्ष भर श्रद्धालु आते हैं, विशेषकर मंगलवार और गणेश उत्सव के दौरान।",
+  "attractions": [
+    "Main Ganesh shrine",
+    "Temple architecture and devotional atmosphere",
+    "Nearby Prabhadevi neighbourhood"
+  ],
+  "attractionsMr": [
+    "मुख्य गणेश मंदिर",
+    "मंदिराची वास्तुरचना आणि भक्तिमय वातावरण",
+    "जवळचा प्रभादेवी परिसर"
+  ],
+  "attractionsHi": [
+    "मुख्य गणेश मंदिर",
+    "मंदिर की वास्तुकला और भक्तिमय वातावरण",
+    "पास का प्रभादेवी क्षेत्र"
+  ],
+  "coordinates": {
+    "lat": 19.0169,
+    "lng": 72.8305,
+    "mapsUrl": "https://maps.google.com/?q=19.0169,72.8305"
+  },
+  "howToReach": {
+    "air": "Chhatrapati Shivaji Maharaj International Airport; city transport.",
+    "rail": "Prabhadevi station and nearby Mumbai suburban rail connections.",
+    "road": "Located in Prabhadevi, Mumbai; use local traffic and parking guidance."
+  },
+  "howToReachMr": {
+    "air": "छत्रपती शिवाजी महाराज आंतरराष्ट्रीय विमानतळ; शहरातील वाहतूक.",
+    "rail": "प्रभादेवी स्थानक आणि मुंबई उपनगरी रेल्वे.",
+    "road": "मुंबईतील प्रभादेवी येथे; स्थानिक वाहतूक व पार्किंग सूचना तपासा."
+  },
+  "howToReachHi": {
+    "air": "छत्रपति शिवाजी महाराज अंतरराष्ट्रीय हवाई अड्डा; शहर परिवहन.",
+    "rail": "प्रभादेवी स्टेशन और मुंबई उपनगरीय रेल संपर्क.",
+    "road": "मुंबई के प्रभादेवी में स्थित; स्थानीय यातायात और पार्किंग निर्देश देखें।"
+  },
+  "localCuisine": "Mumbai street food and traditional Maharashtrian snacks.",
+  "sourceUrl": "https://maharashtratourism.gov.in/sitemap/",
+  "rating": 4.5,
+  "reviewsCount": 0
+},
+{
+  "id": "bhimashankar-temple",
+  "slug": "bhimashankar",
+  "name": "Bhimashankar Temple",
+  "marathiName": "भीमाशंकर मंदिर",
+  "nameHi": "भीमाशंकर मंदिर",
+  "category": "temples",
+  "circuit": "Jyotirlinga Pilgrimage Circuit",
+  "district": "Pune",
+  "region": "Western Maharashtra",
+  "bestTime": "October to February",
+  "timings": "Check current local opening hours before visiting",
+  "entryFee": "Check current official entry and access charges",
+  "heroImage": "https://images.unsplash.com/photo-1600100397608-f010e42e4e7a?auto=format&fit=crop&w=1600&q=80",
+  "thumbnail": "https://images.unsplash.com/photo-1600100397608-f010e42e4e7a?auto=format&fit=crop&w=600&q=80",
+  "summary": "A major Shiva pilgrimage site set amid the forested Sahyadri hills.",
+  "summaryMr": "सह्याद्रीच्या वनराईत वसलेले भगवान शिवाचे महत्त्वाचे ज्योतिर्लिंग तीर्थक्षेत्र.",
+  "summaryHi": "सह्याद्रि के वनाच्छादित पहाड़ों में स्थित भगवान शिव का प्रमुख ज्योतिर्लिंग तीर्थस्थल।",
+  "history": "Bhimashankar is traditionally counted among the twelve Jyotirlingas and is closely associated with the surrounding wildlife sanctuary.",
+  "historyMr": "भीमाशंकर हे पारंपरिक बारा ज्योतिर्लिंगांपैकी एक मानले जाते. परिसरातील वन्यजीव अभयारण्यामुळेही हे ठिकाण प्रसिद्ध आहे.",
+  "historyHi": "भीमाशंकर को परंपरागत रूप से बारह ज्योतिर्लिंगों में गिना जाता है। आसपास का वन्यजीव अभयारण्य भी इस क्षेत्र की विशेषता है।",
+  "attractions": [
+    "Bhimashankar Jyotirlinga shrine",
+    "Ancient temple architecture",
+    "Forest trails and viewpoints nearby"
+  ],
+  "attractionsMr": [
+    "भीमाशंकर ज्योतिर्लिंग मंदिर",
+    "प्राचीन मंदिर वास्तुरचना",
+    "जवळील वनमार्ग आणि दृश्यबिंदू"
+  ],
+  "attractionsHi": [
+    "भीमाशंकर ज्योतिर्लिंग मंदिर",
+    "प्राचीन मंदिर वास्तुकला",
+    "पास के वन मार्ग और दृश्य स्थल"
+  ],
+  "coordinates": {
+    "lat": 19.0727,
+    "lng": 73.5353,
+    "mapsUrl": "https://maps.google.com/?q=19.0727,73.5353"
+  },
+  "howToReach": {
+    "air": "Pune Airport; onward road journey.",
+    "rail": "Pune railway station; onward road journey.",
+    "road": "Reach via the hill roads from Pune or nearby towns; check monsoon road conditions."
+  },
+  "howToReachMr": {
+    "air": "पुणे विमानतळ; पुढे रस्त्याने.",
+    "rail": "पुणे रेल्वे स्थानक; पुढे रस्त्याने.",
+    "road": "पुणे किंवा जवळच्या शहरांतून घाटरस्त्याने जा; पावसाळ्यातील रस्त्यांची स्थिती तपासा."
+  },
+  "howToReachHi": {
+    "air": "पुणे हवाई अड्डा; आगे सड़क मार्ग.",
+    "rail": "पुणे रेलवे स्टेशन; आगे सड़क मार्ग.",
+    "road": "पुणे या आसपास के शहरों से पहाड़ी सड़क मार्ग लें; मानसून में सड़क की स्थिति जाँचें।"
+  },
+  "localCuisine": "Local Maharashtrian vegetarian meals and prasad.",
+  "sourceUrl": "https://maharashtratourism.gov.in/sitemap/",
+  "rating": 4.5,
+  "reviewsCount": 0
+},
+{
+  "id": "grishneshwar-temple",
+  "slug": "grishneshwar",
+  "name": "Grishneshwar Jyotirlinga Temple",
+  "marathiName": "घृष्णेश्वर ज्योतिर्लिंग मंदिर",
+  "nameHi": "घृष्णेश्वर ज्योतिर्लिंग मंदिर",
+  "category": "temples",
+  "circuit": "Chhatrapati Sambhajinagar Heritage Circuit",
+  "district": "Chhatrapati Sambhajinagar",
+  "region": "Marathwada",
+  "bestTime": "October to March",
+  "timings": "Check current local opening hours before visiting",
+  "entryFee": "Check current official entry and access charges",
+  "heroImage": "https://images.unsplash.com/photo-1600100397608-f010e42e4e7a?auto=format&fit=crop&w=1600&q=80",
+  "thumbnail": "https://images.unsplash.com/photo-1600100397608-f010e42e4e7a?auto=format&fit=crop&w=600&q=80",
+  "summary": "A revered Shiva temple near the Ellora Caves and one of the twelve Jyotirlinga shrines.",
+  "summaryMr": "एलोरा लेण्यांजवळील भगवान शिवाचे प्रसिद्ध मंदिर; बारा ज्योतिर्लिंगांपैकी एक.",
+  "summaryHi": "एलोरा गुफाओं के पास स्थित भगवान शिव का प्रसिद्ध मंदिर और बारह ज्योतिर्लिंगों में से एक।",
+  "history": "The temple is part of the Ellora heritage landscape and is an important pilgrimage stop for devotees of Lord Shiva.",
+  "historyMr": "हे मंदिर एलोरा वारसा परिसराचा भाग असून भगवान शिवाच्या भक्तांसाठी महत्त्वाचे तीर्थस्थान आहे.",
+  "historyHi": "यह मंदिर एलोरा विरासत क्षेत्र का हिस्सा है और भगवान शिव के भक्तों के लिए महत्वपूर्ण तीर्थस्थल है।",
+  "attractions": [
+    "Jyotirlinga sanctum",
+    "Traditional stone temple architecture",
+    "Proximity to Ellora Caves"
+  ],
+  "attractionsMr": [
+    "ज्योतिर्लिंग गर्भगृह",
+    "पारंपरिक दगडी मंदिर वास्तुरचना",
+    "एलोरा लेण्यांजवळील स्थान"
+  ],
+  "attractionsHi": [
+    "ज्योतिर्लिंग गर्भगृह",
+    "पारंपरिक पत्थर की मंदिर वास्तुकला",
+    "एलोरा गुफाओं के निकट"
+  ],
+  "coordinates": {
+    "lat": 20.0241,
+    "lng": 75.1792,
+    "mapsUrl": "https://maps.google.com/?q=20.0241,75.1792"
+  },
+  "howToReach": {
+    "air": "Chhatrapati Sambhajinagar Airport; onward road travel.",
+    "rail": "Chhatrapati Sambhajinagar railway station; onward road travel.",
+    "road": "Located near Ellora, around 30 km from Chhatrapati Sambhajinagar."
+  },
+  "howToReachMr": {
+    "air": "छत्रपती संभाजीनगर विमानतळ; पुढे रस्त्याने.",
+    "rail": "छत्रपती संभाजीनगर रेल्वे स्थानक; पुढे रस्त्याने.",
+    "road": "एलोरा जवळ; छत्रपती संभाजीनगरपासून सुमारे ३० किमी."
+  },
+  "howToReachHi": {
+    "air": "छत्रपति संभाजीनगर हवाई अड्डा; आगे सड़क मार्ग.",
+    "rail": "छत्रपति संभाजीनगर रेलवे स्टेशन; आगे सड़क मार्ग.",
+    "road": "एलोरा के पास; छत्रपति संभाजीनगर से लगभग 30 किमी।"
+  },
+  "localCuisine": "Marathwada vegetarian thali and local snacks.",
+  "sourceUrl": "https://maharashtratourism.gov.in/sitemap/",
+  "rating": 4.5,
+  "reviewsCount": 0
+},
+{
+  "id": "mahalaxmi-temple-kolhapur",
+  "slug": "mahalaxmi-temple",
+  "name": "Shree Mahalaxmi Ambabai Temple",
+  "marathiName": "श्री महालक्ष्मी अंबाबाई मंदिर",
+  "nameHi": "श्री महालक्ष्मी अंबाबाई मंदिर",
+  "category": "temples",
+  "circuit": "Kolhapur Spiritual Circuit",
+  "district": "Kolhapur",
+  "region": "Western Maharashtra",
+  "bestTime": "October to March",
+  "timings": "Check current local opening hours before visiting",
+  "entryFee": "Check current official entry and access charges",
+  "heroImage": "https://images.unsplash.com/photo-1600100397608-f010e42e4e7a?auto=format&fit=crop&w=1600&q=80",
+  "thumbnail": "https://images.unsplash.com/photo-1600100397608-f010e42e4e7a?auto=format&fit=crop&w=600&q=80",
+  "summary": "A major Shakti pilgrimage temple in Kolhapur, revered as the shrine of Goddess Ambabai.",
+  "summaryMr": "कोल्हापुरातील देवी अंबाबाईचे प्रमुख शक्तिपीठ आणि महत्त्वाचे तीर्थक्षेत्र.",
+  "summaryHi": "कोल्हापुर में देवी अंबाबाई का प्रमुख शक्तिपीठ और महत्वपूर्ण तीर्थस्थल।",
+  "history": "The temple is an important centre of worship and local heritage, with festivals and rituals drawing devotees through the year.",
+  "historyMr": "हे मंदिर उपासना आणि स्थानिक वारशाचे महत्त्वाचे केंद्र आहे. वर्षभर उत्सव आणि विधींसाठी भाविक येथे येतात.",
+  "historyHi": "यह मंदिर पूजा और स्थानीय विरासत का महत्वपूर्ण केंद्र है। वर्ष भर उत्सवों और अनुष्ठानों में श्रद्धालु भाग लेते हैं।",
+  "attractions": [
+    "Ambabai shrine",
+    "Temple courtyard and stone architecture",
+    "Kirnotsav sun-ray tradition"
+  ],
+  "attractionsMr": [
+    "अंबाबाई देवीचे मंदिर",
+    "मंदिर प्रांगण आणि दगडी वास्तुरचना",
+    "किरणोत्सवाची सूर्यकिरण परंपरा"
+  ],
+  "attractionsHi": [
+    "अंबाबाई देवी का मंदिर",
+    "मंदिर प्रांगण और पत्थर की वास्तुकला",
+    "किरणोत्सव की सूर्यकिरण परंपरा"
+  ],
+  "coordinates": {
+    "lat": 16.7008,
+    "lng": 74.2333,
+    "mapsUrl": "https://maps.google.com/?q=16.7008,74.2333"
+  },
+  "howToReach": {
+    "air": "Kolhapur Airport; limited routes, or Pune/Belgaum airports.",
+    "rail": "Kolhapur railway station.",
+    "road": "Located in central Kolhapur with city bus, taxi and auto access."
+  },
+  "howToReachMr": {
+    "air": "कोल्हापूर विमानतळ; पर्यायी पुणे किंवा बेळगाव विमानतळ.",
+    "rail": "कोल्हापूर रेल्वे स्थानक.",
+    "road": "कोल्हापूर शहराच्या मध्यभागी; बस, टॅक्सी आणि रिक्षाने पोहोचता येते."
+  },
+  "howToReachHi": {
+    "air": "कोल्हापुर हवाई अड्डा; विकल्प के रूप में पुणे या बेलगावी.",
+    "rail": "कोल्हापुर रेलवे स्टेशन.",
+    "road": "कोल्हापुर शहर के मध्य में; बस, टैक्सी और ऑटो उपलब्ध।"
+  },
+  "localCuisine": "Kolhapuri misal, tambda rassa and pandhra rassa.",
+  "sourceUrl": "https://maharashtratourism.gov.in/sitemap/",
+  "rating": 4.5,
+  "reviewsCount": 0
+},
+{
+  "id": "tulja-bhavani-temple",
+  "slug": "tuljapur",
+  "name": "Tulja Bhavani Temple",
+  "marathiName": "तुळजाभवानी मंदिर",
+  "nameHi": "तुलजा भवानी मंदिर",
+  "category": "temples",
+  "circuit": "Marathwada Pilgrimage Circuit",
+  "district": "Dharashiv",
+  "region": "Marathwada",
+  "bestTime": "October to February",
+  "timings": "Check current local opening hours before visiting",
+  "entryFee": "Check current official entry and access charges",
+  "heroImage": "https://images.unsplash.com/photo-1600100397608-f010e42e4e7a?auto=format&fit=crop&w=1600&q=80",
+  "thumbnail": "https://images.unsplash.com/photo-1600100397608-f010e42e4e7a?auto=format&fit=crop&w=600&q=80",
+  "summary": "A major pilgrimage temple dedicated to Goddess Bhavani at Tuljapur.",
+  "summaryMr": "तुळजापूर येथील देवी भवानीला समर्पित महत्त्वाचे तीर्थक्षेत्र.",
+  "summaryHi": "तुलजापुर में देवी भवानी को समर्पित प्रमुख तीर्थस्थल।",
+  "history": "The temple is a significant Shakti shrine and is closely associated with the religious and cultural history of the region.",
+  "historyMr": "हे मंदिर महत्त्वाचे शक्तिपीठ असून परिसराच्या धार्मिक आणि सांस्कृतिक इतिहासाशी जोडलेले आहे.",
+  "historyHi": "यह मंदिर प्रमुख शक्तिपीठ है और क्षेत्र के धार्मिक तथा सांस्कृतिक इतिहास से जुड़ा है।",
+  "attractions": [
+    "Main Bhavani shrine",
+    "Temple precinct and traditional rituals",
+    "Pilgrim market streets"
+  ],
+  "attractionsMr": [
+    "मुख्य भवानी मंदिर",
+    "मंदिर परिसर आणि पारंपरिक विधी",
+    "यात्रेकरूंचा बाजार परिसर"
+  ],
+  "attractionsHi": [
+    "मुख्य भवानी मंदिर",
+    "मंदिर परिसर और पारंपरिक अनुष्ठान",
+    "तीर्थयात्रियों का बाजार क्षेत्र"
+  ],
+  "coordinates": {
+    "lat": 18.0115,
+    "lng": 76.0708,
+    "mapsUrl": "https://maps.google.com/?q=18.0115,76.0708"
+  },
+  "howToReach": {
+    "air": "Solapur Airport or Pune Airport; onward road travel.",
+    "rail": "Solapur railway station; onward road travel.",
+    "road": "Tuljapur is connected by road with Solapur and Dharashiv."
+  },
+  "howToReachMr": {
+    "air": "सोलापूर किंवा पुणे विमानतळ; पुढे रस्त्याने.",
+    "rail": "सोलापूर रेल्वे स्थानक; पुढे रस्त्याने.",
+    "road": "तुळजापूर सोलापूर आणि धाराशिवशी रस्त्याने जोडलेले आहे."
+  },
+  "howToReachHi": {
+    "air": "सोलापुर या पुणे हवाई अड्डा; आगे सड़क मार्ग.",
+    "rail": "सोलापुर रेलवे स्टेशन; आगे सड़क मार्ग.",
+    "road": "तुलजापुर सड़क मार्ग से सोलापुर और धाराशिव से जुड़ा है।"
+  },
+  "localCuisine": "Marathwada bhakri, pithla and local vegetarian dishes.",
+  "sourceUrl": "https://maharashtratourism.gov.in/sitemap/",
+  "rating": 4.5,
+  "reviewsCount": 0
+},
+{
+  "id": "diveagar-beach",
+  "slug": "diveagar",
+  "name": "Diveagar Beach",
+  "marathiName": "दिवेआगर समुद्रकिनारा",
+  "nameHi": "दिवेआगर समुद्र तट",
+  "category": "beaches",
+  "circuit": "Konkan Coastal Circuit",
+  "district": "Raigad",
+  "region": "Konkan",
+  "bestTime": "October to March",
+  "timings": "Check current local opening hours before visiting",
+  "entryFee": "Check current official entry and access charges",
+  "heroImage": "https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?auto=format&fit=crop&w=1600&q=80",
+  "thumbnail": "https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?auto=format&fit=crop&w=600&q=80",
+  "summary": "A quiet Konkan beach known for its broad shoreline, coastal greenery and relaxed village setting.",
+  "summaryMr": "विस्तीर्ण किनारा, नारळी-पोफळीची झाडे आणि शांत गावपरिसरासाठी ओळखला जाणारा कोकणातील समुद्रकिनारा.",
+  "summaryHi": "चौड़े तट, तटीय हरियाली और शांत गाँव के वातावरण के लिए प्रसिद्ध कोंकण का समुद्र तट।",
+  "history": "Diveagar is a coastal village in Raigad district where beach visits can be combined with nearby temples and other Konkan stops.",
+  "historyMr": "दिवेआगर हे रायगड जिल्ह्यातील किनारी गाव असून जवळील मंदिरे आणि कोकणातील इतर ठिकाणांसह भेट देता येते.",
+  "historyHi": "दिवेआगर रायगढ़ जिले का तटीय गाँव है। यहाँ समुद्र तट के साथ आसपास के मंदिरों और कोंकण के अन्य स्थलों की यात्रा की जा सकती है।",
+  "attractions": [
+    "Long sandy shoreline",
+    "Fishing village atmosphere",
+    "Nearby Suvarna Ganesh Temple"
+  ],
+  "attractionsMr": [
+    "लांब वाळूचा किनारा",
+    "मच्छीमार गावाचे वातावरण",
+    "जवळील सुवर्ण गणेश मंदिर"
+  ],
+  "attractionsHi": [
+    "लंबा रेतीला तट",
+    "मछुआरा गाँव का वातावरण",
+    "पास का सुवर्ण गणेश मंदिर"
+  ],
+  "coordinates": {
+    "lat": 18.173,
+    "lng": 72.991,
+    "mapsUrl": "https://maps.google.com/?q=18.173,72.991"
+  },
+  "howToReach": {
+    "air": "Mumbai or Pune airport; onward road journey.",
+    "rail": "Mangaon railway station; onward road journey.",
+    "road": "Reach via Mangaon and the coastal road network."
+  },
+  "howToReachMr": {
+    "air": "मुंबई किंवा पुणे विमानतळ; पुढे रस्त्याने.",
+    "rail": "माणगाव रेल्वे स्थानक; पुढे रस्त्याने.",
+    "road": "माणगाव आणि किनारी रस्त्यांमार्गे पोहोचा."
+  },
+  "howToReachHi": {
+    "air": "मुंबई या पुणे हवाई अड्डा; आगे सड़क मार्ग.",
+    "rail": "माणगाँव रेलवे स्टेशन; आगे सड़क मार्ग.",
+    "road": "माणगाँव और तटीय सड़क मार्ग से पहुँचें।"
+  },
+  "localCuisine": "Fresh seafood, solkadhi and Konkani vegetarian meals.",
+  "sourceUrl": "https://maharashtratourism.gov.in/sitemap/",
+  "rating": 4.5,
+  "reviewsCount": 0
+},
+{
+  "id": "harihareshwar-beach",
+  "slug": "harihareshwar",
+  "name": "Harihareshwar Beach",
+  "marathiName": "हरिहरेश्वर समुद्रकिनारा",
+  "nameHi": "हरिहरेश्वर समुद्र तट",
+  "category": "beaches",
+  "circuit": "Konkan Coastal Circuit",
+  "district": "Raigad",
+  "region": "Konkan",
+  "bestTime": "October to March",
+  "timings": "Check current local opening hours before visiting",
+  "entryFee": "Check current official entry and access charges",
+  "heroImage": "https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?auto=format&fit=crop&w=1600&q=80",
+  "thumbnail": "https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?auto=format&fit=crop&w=600&q=80",
+  "summary": "A coastal destination known for its beach, surrounding hills and the nearby Harihareshwar temple.",
+  "summaryMr": "समुद्रकिनारा, सभोवतालच्या टेकड्या आणि जवळील हरिहरेश्वर मंदिरासाठी प्रसिद्ध किनारी ठिकाण.",
+  "summaryHi": "समुद्र तट, आसपास की पहाड़ियों और पास के हरिहरेश्वर मंदिर के लिए प्रसिद्ध तटीय स्थल।",
+  "history": "Harihareshwar is a traditional pilgrimage and coastal destination in Raigad district, often visited with nearby Shrivardhan and Diveagar.",
+  "historyMr": "हरिहरेश्वर हे रायगड जिल्ह्यातील पारंपरिक तीर्थक्षेत्र आणि किनारी पर्यटनस्थळ आहे. श्रीवर्धन व दिवेआगरसोबत येथे भेट दिली जाते.",
+  "historyHi": "हरिहरेश्वर रायगढ़ जिले का पारंपरिक तीर्थ और तटीय पर्यटन स्थल है। इसे अक्सर श्रीवर्धन और दिवेआगर के साथ देखा जाता है।",
+  "attractions": [
+    "Harihareshwar Beach",
+    "Temple and pradakshina route",
+    "Coastal viewpoints and hills"
+  ],
+  "attractionsMr": [
+    "हरिहरेश्वर समुद्रकिनारा",
+    "मंदिर आणि प्रदक्षिणा मार्ग",
+    "किनारी दृश्यबिंदू आणि टेकड्या"
+  ],
+  "attractionsHi": [
+    "हरिहरेश्वर समुद्र तट",
+    "मंदिर और प्रदक्षिणा मार्ग",
+    "तटीय दृश्य स्थल और पहाड़ियाँ"
+  ],
+  "coordinates": {
+    "lat": 17.9932,
+    "lng": 73.0169,
+    "mapsUrl": "https://maps.google.com/?q=17.9932,73.0169"
+  },
+  "howToReach": {
+    "air": "Mumbai or Pune airport; onward road journey.",
+    "rail": "Mangaon railway station; onward road journey.",
+    "road": "Accessible by road from Shrivardhan and Mangaon."
+  },
+  "howToReachMr": {
+    "air": "मुंबई किंवा पुणे विमानतळ; पुढे रस्त्याने.",
+    "rail": "माणगाव रेल्वे स्थानक; पुढे रस्त्याने.",
+    "road": "श्रीवर्धन आणि माणगावमार्गे रस्त्याने पोहोचता येते."
+  },
+  "howToReachHi": {
+    "air": "मुंबई या पुणे हवाई अड्डा; आगे सड़क मार्ग.",
+    "rail": "माणगाँव रेलवे स्टेशन; आगे सड़क मार्ग.",
+    "road": "श्रीवर्धन और माणगाँव से सड़क मार्ग द्वारा पहुँचें।"
+  },
+  "localCuisine": "Konkani fish curry, rice and solkadhi.",
+  "sourceUrl": "https://maharashtratourism.gov.in/sitemap/",
+  "rating": 4.5,
+  "reviewsCount": 0
+},
+{
+  "id": "vengurla-beach",
+  "slug": "vengurla",
+  "name": "Vengurla Beach",
+  "marathiName": "वेंगुर्ला समुद्रकिनारा",
+  "nameHi": "वेंगुर्ला समुद्र तट",
+  "category": "beaches",
+  "circuit": "South Konkan Coastal Circuit",
+  "district": "Sindhudurg",
+  "region": "Konkan",
+  "bestTime": "October to March",
+  "timings": "Check current local opening hours before visiting",
+  "entryFee": "Check current official entry and access charges",
+  "heroImage": "https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?auto=format&fit=crop&w=1600&q=80",
+  "thumbnail": "https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?auto=format&fit=crop&w=600&q=80",
+  "summary": "A scenic South Konkan beach known for its coastal landscape and quieter shoreline.",
+  "summaryMr": "दक्षिण कोकणातील निसर्गरम्य समुद्रकिनारा; शांत किनारा आणि किनारी निसर्गासाठी ओळखला जातो.",
+  "summaryHi": "दक्षिण कोंकण का सुंदर समुद्र तट, जो शांत तटरेखा और तटीय प्राकृतिक दृश्यों के लिए जाना जाता है।",
+  "history": "Vengurla is a coastal town in Sindhudurg district with beaches, a historic port setting and nearby coastal viewpoints.",
+  "historyMr": "वेंगुर्ला हे सिंधुदुर्ग जिल्ह्यातील किनारी शहर असून येथे समुद्रकिनारे, ऐतिहासिक बंदरपरिसर आणि जवळील दृश्यबिंदू आहेत.",
+  "historyHi": "वेंगुर्ला सिंधुदुर्ग जिले का तटीय नगर है, जहाँ समुद्र तट, ऐतिहासिक बंदरगाह क्षेत्र और आसपास के दृश्य स्थल हैं।",
+  "attractions": [
+    "Vengurla shoreline",
+    "Coastal cliffs and viewpoints",
+    "Local fishing harbour and markets"
+  ],
+  "attractionsMr": [
+    "वेंगुर्ला किनारा",
+    "किनारी कडे आणि दृश्यबिंदू",
+    "स्थानिक मासेमारी बंदर आणि बाजार"
+  ],
+  "attractionsHi": [
+    "वेंगुर्ला तटरेखा",
+    "तटीय चट्टानें और दृश्य स्थल",
+    "स्थानीय मछली पकड़ने का बंदरगाह और बाजार"
+  ],
+  "coordinates": {
+    "lat": 15.8623,
+    "lng": 73.631,
+    "mapsUrl": "https://maps.google.com/?q=15.8623,73.631"
+  },
+  "howToReach": {
+    "air": "Sindhudurg or Goa airport; onward road journey.",
+    "rail": "Kudal or Sawantwadi Road railway station; onward road journey.",
+    "road": "Reach Vengurla via the Konkan coastal highway network."
+  },
+  "howToReachMr": {
+    "air": "सिंधुदुर्ग किंवा गोवा विमानतळ; पुढे रस्त्याने.",
+    "rail": "कुडाळ किंवा सावंतवाडी रोड रेल्वे स्थानक; पुढे रस्त्याने.",
+    "road": "कोकण किनारी महामार्गांमार्गे वेंगुर्ला येथे पोहोचा."
+  },
+  "howToReachHi": {
+    "air": "सिंधुदुर्ग या गोवा हवाई अड्डा; आगे सड़क मार्ग.",
+    "rail": "कुडाल या सावंतवाड़ी रोड रेलवे स्टेशन; आगे सड़क मार्ग.",
+    "road": "कोंकण तटीय राजमार्ग से वेंगुर्ला पहुँचें।"
+  },
+  "localCuisine": "Malvani fish curry, kokum sherbet and local vegetarian dishes.",
+  "sourceUrl": "https://maharashtratourism.gov.in/sitemap/",
+  "rating": 4.5,
+  "reviewsCount": 0
+},
+{
+  "id": "guhagar-beach",
+  "slug": "guhagar",
+  "name": "Guhagar Beach",
+  "marathiName": "गुहागर समुद्रकिनारा",
+  "nameHi": "गुहागर समुद्र तट",
+  "category": "beaches",
+  "circuit": "Ratnagiri Coastal Circuit",
+  "district": "Ratnagiri",
+  "region": "Konkan",
+  "bestTime": "October to March",
+  "timings": "Check current local opening hours before visiting",
+  "entryFee": "Check current official entry and access charges",
+  "heroImage": "https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?auto=format&fit=crop&w=1600&q=80",
+  "thumbnail": "https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?auto=format&fit=crop&w=600&q=80",
+  "summary": "A long, peaceful beach on the Ratnagiri coast, bordered by a traditional Konkan town.",
+  "summaryMr": "रत्नागिरी किनाऱ्यावरील लांब आणि शांत समुद्रकिनारा; पारंपरिक कोकणी गावाच्या परिसरात.",
+  "summaryHi": "रत्नागिरी तट पर लंबा और शांत समुद्र तट, जो पारंपरिक कोंकणी कस्बे के पास स्थित है।",
+  "history": "Guhagar is a coastal town in Ratnagiri district and a base for exploring nearby temples, villages and beaches.",
+  "historyMr": "गुहागर हे रत्नागिरी जिल्ह्यातील किनारी गाव असून जवळील मंदिरे, गावे आणि समुद्रकिनारे पाहण्यासाठी आधारस्थान आहे.",
+  "historyHi": "गुहागर रत्नागिरी जिले का तटीय कस्बा है और आसपास के मंदिरों, गाँवों तथा समुद्र तटों की यात्रा का आधार है।",
+  "attractions": [
+    "Wide sandy beach",
+    "Coastal village and coconut groves",
+    "Nearby Vyadeshwar Temple"
+  ],
+  "attractionsMr": [
+    "विस्तीर्ण वाळूचा किनारा",
+    "किनारी गाव आणि नारळबागा",
+    "जवळील व्याडेश्वर मंदिर"
+  ],
+  "attractionsHi": [
+    "चौड़ा रेतीला तट",
+    "तटीय गाँव और नारियल के बाग",
+    "पास का व्याडेश्वर मंदिर"
+  ],
+  "coordinates": {
+    "lat": 17.4849,
+    "lng": 73.1923,
+    "mapsUrl": "https://maps.google.com/?q=17.4849,73.1923"
+  },
+  "howToReach": {
+    "air": "Ratnagiri airport when services are available; otherwise Pune or Mumbai with road transfer.",
+    "rail": "Chiplun or Ratnagiri railway station; onward road travel.",
+    "road": "Reach via Chiplun and the coastal road."
+  },
+  "howToReachMr": {
+    "air": "रत्नागिरी विमानतळावर सेवा उपलब्ध असल्यास; अन्यथा पुणे किंवा मुंबईहून रस्त्याने.",
+    "rail": "चिपळूण किंवा रत्नागिरी रेल्वे स्थानक; पुढे रस्त्याने.",
+    "road": "चिपळूणमार्गे किनारी रस्त्याने पोहोचा."
+  },
+  "howToReachHi": {
+    "air": "रत्नागिरी हवाई अड्डा उपलब्ध सेवाओं के अनुसार; अन्यथा पुणे या मुंबई से सड़क मार्ग.",
+    "rail": "चिपलून या रत्नागिरी रेलवे स्टेशन; आगे सड़क मार्ग.",
+    "road": "चिपलून होकर तटीय सड़क से पहुँचें।"
+  },
+  "localCuisine": "Konkani seafood, rice bhakri and solkadhi.",
+  "sourceUrl": "https://maharashtratourism.gov.in/sitemap/",
+  "rating": 4.5,
+  "reviewsCount": 0
+}
 ];
 
 // Enrich destinations with local asset paths while preserving all existing data
