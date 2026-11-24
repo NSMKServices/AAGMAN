@@ -15,7 +15,7 @@ export const FESTIVALS = [
     description: "Maharashtra's grand 10-day cultural festival, popularised as a public celebration by Lokmanya Tilak in the 1890s. Features magnificent pandals, traditional Dhol-Tasha pathaks, cultural stage performances, and grand immersion (visarjan) processions.",
     image: "https://images.unsplash.com/photo-1598387993441-a364f854c3e1?auto=format&fit=crop&w=800&q=80",
     significance: "Celebrates Lord Ganesha, the remover of obstacles. Fosters unity, performing arts, and traditional Maharashtrian hospitality.",
-    highlights: ["Manache Ganpati in Pune", "Lalbaugcha Raja in Mumbai", "Dhol Tasha drumming troupes", "Ukadiche Modak feast"]
+    highlights: ["Manache Ganpati in Pune", "Lalbaugcha Raja in Mumbai", "Dhol Tasha drumming troupes", "Ukadiche Modak feast"],
     datesMr: "ऑगस्ट – सप्टेंबर (भाद्रपद शुद्ध चतुर्थी)",
     datesHi: "अगस्त – सितंबर (भाद्रपद शुक्ल चतुर्थी)",
     locationMr: "संपूर्ण महाराष्ट्र (पुणे आणि मुंबईत विशेष उत्साह)",
@@ -37,7 +37,7 @@ export const FESTIVALS = [
     description: "The birth anniversary of the founder of the Maratha Empire, Chhatrapati Shivaji Maharaj. Commemorated with traditional torch processions (mashaal morcha), Powada folk ballads, traditional lezim dances, and state honors at his birthplace on Shivneri.",
     image: "https://images.unsplash.com/photo-1576487248805-cf45f6bcc67f?auto=format&fit=crop&w=800&q=80",
     significance: "Honors the ideals of Swarajya, ethical governance, and the indomitable Maratha spirit.",
-    highlights: ["Sunrise cradle ceremony at Shivneri Fort", "Traditional Powada recitals", "Fort illumination at Raigad and Sinhagad"]
+    highlights: ["Sunrise cradle ceremony at Shivneri Fort", "Traditional Powada recitals", "Fort illumination at Raigad and Sinhagad"],
     datesMr: "१९ फेब्रुवारी",
     datesHi: "19 फरवरी",
     locationMr: "शिवनेरी किल्ला, रायगड किल्ला आणि संपूर्ण महाराष्ट्र",
@@ -59,7 +59,7 @@ export const FESTIVALS = [
     description: "An 800-year-old walking pilgrimage where over a million devout Warkaris accompany the sacred padukas (footprints) of Sant Dnyaneshwar and Sant Tukaram on foot over 21 days to the Vitthal Temple in Pandharpur, chanting 'Gyanba Tukaram'.",
     image: "https://images.unsplash.com/photo-1561361513-2d000a50f0dc?auto=format&fit=crop&w=800&q=80",
     significance: "A living pilgrimage tradition centred on devotion, equality, communal harmony, and spiritual discipline.",
-    highlights: ["Bhajan rings (Ringan ceremonies)", "Palkhi processions through rural Maharashtra", "Dip in Chandrabhaga holy river"]
+    highlights: ["Bhajan rings (Ringan ceremonies)", "Palkhi processions through rural Maharashtra", "Dip in Chandrabhaga holy river"],
     datesMr: "जून – जुलै (आषाढ महिना)",
     datesHi: "जून – जुलाई (आषाढ़ मास)",
     locationMr: "आळंदी / देहू ते पंढरपूर",
@@ -81,7 +81,7 @@ export const FESTIVALS = [
     description: "A prestigious 3-day classical music and dance festival with the ancient rock-cut monolithic Kailasa temple and Soneri Mahal as magnificent backdrops. Features India's greatest classical vocalists, sitarists, Kathak and Odissi dancers.",
     image: "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=800&q=80",
     significance: "Brings alive ancient Indian heritage through living classical performing arts.",
-    highlights: ["Classical dance under illuminated stone arches", "Sitar and flute recitals", "Handicrafts & Paithani saree fair"]
+    highlights: ["Classical dance under illuminated stone arches", "Sitar and flute recitals", "Handicrafts & Paithani saree fair"],
     datesMr: "आयोजकांच्या चालू घोषणेनुसार तारखा बदलतात",
     datesHi: "आयोजकों की वर्तमान घोषणा के अनुसार तिथियाँ बदलती हैं",
     locationMr: "सोनेरी महाल / वेरूळ परिसर, छत्रपती संभाजीनगर",
@@ -103,7 +103,7 @@ export const FESTIVALS = [
     description: "The traditional New Year day for the people of Maharashtra. Families hoist an auspicious silk-draped 'Gudhi' outside their homes and participate in morning cultural parades (Shobha Yatra) with traditional Nauvari sarees, saffron turbans (pheta), and Enfield rallies.",
     image: "https://images.unsplash.com/photo-1608889825205-eebdb9fc5806?auto=format&fit=crop&w=800&q=80",
     significance: "Marks the victory of King Shalivahana and the beginning of the vibrant harvest season.",
-    highlights: ["Shobha Yatra cultural road rallies", "Puran Poli and Shrikhand feasts", "Rangoli street decorations"]
+    highlights: ["Shobha Yatra cultural road rallies", "Puran Poli and Shrikhand feasts", "Rangoli street decorations"],
     datesMr: "मार्च – एप्रिल (चैत्र शुद्ध प्रतिपदा)",
     datesHi: "मार्च – अप्रैल (चैत्र शुक्ल प्रतिपदा)",
     locationMr: "संपूर्ण महाराष्ट्र; पुणे, ठाणे आणि मुंबईत शोभायात्रा",
@@ -125,7 +125,7 @@ export const FESTIVALS = [
     description: "A magical open-air classical music festival held on the ancient stone steps of the sacred 12th-century Banganga Tank, accompanied by soft oil lamps (diyas) floating on the water.",
     image: "https://images.unsplash.com/photo-1514565131-fce0801e5785?auto=format&fit=crop&w=800&q=80",
     significance: "Revitalizes Mumbai's oldest living heritage precinct through sublime Hindustani classical ragas.",
-    highlights: ["Floating diya lamps at dusk", "World-renowned santoor, sarod, and vocalists", "Ancient stone heritage atmosphere"]
+    highlights: ["Floating diya lamps at dusk", "World-renowned santoor, sarod, and vocalists", "Ancient stone heritage atmosphere"],
     datesMr: "आयोजकांच्या चालू घोषणेनुसार तारखा बदलतात",
     datesHi: "आयोजकों की वर्तमान घोषणा के अनुसार तिथियाँ बदलती हैं",
     locationMr: "बाणगंगा तलाव, वाळकेश्वर, मुंबई",
