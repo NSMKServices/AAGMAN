@@ -4,9 +4,8 @@ import Container from '../components/layout/Container';
 import Badge from '../components/common/Badge';
 import Button from '../components/common/Button';
 import DestinationCard from '../components/common/DestinationCard';
-import { DESTINATIONS } from '../data/destinations';
-import { getDestinationGallery } from '../data/imageRegistry';
 import { videoService } from '../services/videoService';
+import { contentService } from '../services/contentService';
 import { useWishlist } from '../context/WishlistContext';
 import { useLanguage } from '../context/LanguageContext';
 import {
@@ -34,9 +33,16 @@ export default function DestinationDetailPage() {
   const { isWishlisted, toggleWishlist } = useWishlist();
   const { language, t } = useLanguage();
   const [destinationVideos, setDestinationVideos] = useState([]);
+  const [destinations, setDestinations] = useState([]);
 
-  const destination = DESTINATIONS.find(
-    d => d.slug === slug || (category && d.category === category && d.slug === slug)
+  useEffect(() => {
+    const unsubscribe = contentService.subscribe(({ destinations: records }) => setDestinations(records));
+    contentService.getAllDestinations();
+    return unsubscribe;
+  }, []);
+
+  const destination = destinations.find(
+    d => d.status === 'published' && d.slug === slug && (!category || d.category === category)
   );
 
   useEffect(() => {
@@ -79,9 +85,9 @@ export default function DestinationDetailPage() {
   }
 
   const wishlisted = isWishlisted(destination.slug);
-  const galleryImages = getDestinationGallery(destination.id || destination.slug);
-  const relatedDestinations = DESTINATIONS
-    .filter(d => d.category === destination.category && d.slug !== destination.slug)
+  const galleryImages = Array.isArray(destination.gallery) ? destination.gallery : [];
+  const relatedDestinations = destinations
+    .filter(d => d.status === 'published' && d.category === destination.category && d.slug !== destination.slug)
     .slice(0, 3);
 
   const displayName = getLocalizedName(destination, language);
