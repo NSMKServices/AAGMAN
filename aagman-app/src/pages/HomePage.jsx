@@ -65,10 +65,17 @@ const HERO_SLIDES = [
   }
 ];
 
+const HERO_TRANSLATIONS = [
+  { tagMr: "स्वराज्याची राजधानी", tagHi: "स्वराज्य की राजधानी", titleMr: "छत्रपती शिवाजी महाराजांचा रायगड किल्ला", titleHi: "छत्रपति शिवाजी महाराज का रायगढ़ किला", subtitleMr: "धुक्याने वेढलेल्या सह्याद्रीच्या शिखरांवरील मराठा साम्राज्याच्या पवित्र राजधानीला भेट द्या.", subtitleHi: "धुंध से ढकी सह्याद्रि पहाड़ियों में बसे मराठा साम्राज्य के पवित्र राज्याभिषेक स्थल की यात्रा करें।" },
+  { tagMr: "युनेस्को जागतिक वारसा", tagHi: "यूनेस्को विश्व धरोहर", titleMr: "वेरूळचे कैलास मंदिर: एकाश्म शिल्पकलेचा चमत्कार", titleHi: "एलोरा का कैलास मंदिर: एकाश्म शिल्प का अद्भुत नमूना", subtitleMr: "आठव्या शतकात बेसॉल्ट खडकात वरून खाली कोरलेल्या भव्य कैलास मंदिराचे वैभव अनुभवा.", subtitleHi: "आठवीं शताब्दी में बेसाल्ट चट्टान को ऊपर से नीचे तराशकर बनाए गए भव्य कैलास मंदिर को देखें।" },
+  { tagMr: "निसर्गरम्य कोकण किनारा", tagHi: "मनमोहक कोंकण तट", titleMr: "मालवणचे सागरी किल्ले आणि निळेशार समुद्र", titleHi: "मालवण के समुद्री किले और नीला समुद्र", subtitleMr: "सिंधुदुर्ग जलदुर्ग, तारकर्लीचे निळेशार पाणी आणि कोकणातील नारळीच्या बागा अनुभवा.", subtitleHi: "सिंधुदुर्ग समुद्री किला, तारकर्ली के साफ नीले पानी और कोंकण के नारियल उपवनों का आनंद लें।" },
+  { tagMr: "महाराष्ट्रातील सर्वोच्च शिखर", tagHi: "महाराष्ट्र की सबसे ऊँची चोटी", titleMr: "कळसूबाई शिखर: सह्याद्रीचा मुकुट", titleHi: "कलसूबाई शिखर: सह्याद्रि का मुकुट", subtitleMr: "भंडारदरा जलाशयाकडे पाहणाऱ्या ढगांनी वेढलेल्या सह्याद्रीच्या सर्वोच्च १,६४६ मीटर शिखरावर चढाई करा.", subtitleHi: "भंडारदरा जलाशय के मनोरम दृश्य के साथ 1,646 मीटर ऊँची महाराष्ट्र की चोटी तक ट्रेक करें।" }
+];
+
 const DISCOVERY_CATEGORIES = [
   {
     title: "Historic Forts",
-    marathi: "गड-किल्ले",
+    marathi: "गड-किल्ले", hindi: "ऐतिहासिक किले",
     count: "350+ Sites",
     description: "Impregnable Sahyadri hill citadels & coastal sea fortresses of the Marathas.",
     path: "/forts",
@@ -77,7 +84,7 @@ const DISCOVERY_CATEGORIES = [
   },
   {
     title: "Sacred Temples",
-    marathi: "तीर्थक्षेत्रे",
+    marathi: "तीर्थक्षेत्रे", hindi: "पवित्र तीर्थस्थल",
     count: "5 Jyotirlingas",
     description: "Trimbakeshwar, Ashtavinayak, Pandharpur Vitthal & ancient sacred sanctums.",
     path: "/temples",
@@ -86,7 +93,7 @@ const DISCOVERY_CATEGORIES = [
   },
   {
     title: "Konkan Beaches",
-    marathi: "सागरकिनारे",
+    marathi: "सागरकिनारे", hindi: "समुद्र तट",
     count: "720 km Coast",
     description: "Pristine white sand bays, coastal forts, scuba reefs & quiet fishing coves.",
     path: "/beaches",
@@ -95,7 +102,7 @@ const DISCOVERY_CATEGORIES = [
   },
   {
     title: "UNESCO Heritage",
-    marathi: "जागतिक वारसा",
+    marathi: "जागतिक वारसा", hindi: "विश्व धरोहर",
     count: "5 World Sites",
     description: "Ajanta Buddhist murals, Ellora monolithic Kailasa, and Elephanta rock art.",
     path: "/heritage",
@@ -104,7 +111,7 @@ const DISCOVERY_CATEGORIES = [
   },
   {
     title: "Hill Stations",
-    marathi: "थंड हवेची ठिकाणे",
+    marathi: "थंड हवेची ठिकाणे", hindi: "हिल स्टेशन",
     count: "Sahyadri Retreats",
     description: "Mahabaleshwar, Matheran, Panchgani, Amboli & Chikhaldara plateau vistas.",
     path: "/explore?category=hills",
@@ -113,7 +120,7 @@ const DISCOVERY_CATEGORIES = [
   },
   {
     title: "Nature & Wildlife",
-    marathi: "वन्यजीव व निसर्ग",
+    marathi: "वन्यजीव व निसर्ग", hindi: "वन्यजीव और प्रकृति",
     count: "6 National Parks",
     description: "Tadoba tiger reserve, Kaas flower valley, Koyna sanctuary & dense forests.",
     path: "/explore?category=wildlife",
@@ -122,7 +129,7 @@ const DISCOVERY_CATEGORIES = [
   },
   {
     title: "Festivals & Events",
-    marathi: "उत्सव व परंपरा",
+    marathi: "उत्सव व परंपरा", hindi: "त्योहार और परंपराएँ",
     count: "Year-Round",
     description: "Ganeshotsav, Shiv Jayanti, Pandharpur Wari & Ellora classical arts festivals.",
     path: "/festivals",
@@ -131,7 +138,7 @@ const DISCOVERY_CATEGORIES = [
   },
   {
     title: "Cultural Traditions",
-    marathi: "संस्कृती व वारसा",
+    marathi: "संस्कृती व वारसा", hindi: "संस्कृति और विरासत",
     count: "Living Heritage",
     description: "Warli tribal art, Paithani silk weaving, Powada ballads & culinary masteries.",
     path: "/heritage-culture",
@@ -182,8 +189,89 @@ const FEATURED_SLUGS = [
   'ganpatipule-beach'
 ];
 
+
+// Homepage copy is kept together so every visible section follows the selected language.
+const HOME_COPY = {
+  en: {
+    categoryTitles: ["Historic Forts", "Sacred Temples", "Konkan Beaches", "UNESCO Heritage", "Hill Stations", "Nature & Wildlife", "Festivals & Events", "Cultural Traditions"],
+    categoryCounts: ["350+ Sites", "5 Jyotirlingas", "720 km Coast", "5 World Sites", "Sahyadri Retreats", "6 National Parks", "Year-Round", "Living Heritage"],
+    categoryDescriptions: [
+      "Sahyadri hill forts and coastal sea fortresses that shaped Maratha history.",
+      "Trimbakeshwar, the Ashtavinayak temples, Pandharpur and other sacred places.",
+      "Konkan beaches, coastal forts, clear waters and quiet fishing villages.",
+      "Ajanta and Ellora caves, Elephanta and Maharashtra’s other heritage landmarks.",
+      "Mahabaleshwar, Matheran, Amboli and scenic mountain plateaus.",
+      "Tadoba, Kaas, Koyna and the forests and wildlife of Maharashtra.",
+      "Ganeshotsav, Shiv Jayanti, Pandharpur Wari and regional celebrations.",
+      "Warli art, Paithani weaving, Powada and traditional Maharashtrian food."
+    ],
+    explore: "Explore", allDestinations: "View all destinations",
+    showcaseEyebrow: "CURATED SHOWCASE", cultureEyebrow: "EXPEDITIONS & TRADITIONS",
+    cultureTitle: "Festivals & Cultural Celebrations",
+    cultureSub: "Discover living traditions, seasonal festivals and travel routes across Maharashtra.",
+    livingTraditions: "LIVING TRADITIONS", festivalCalendar: "Cultural Festival Calendar", allFestivals: "All Festivals",
+    expeditionBlueprints: "EXPEDITION BLUEPRINTS", recommendedCircuits: "Recommended Travel Circuits", openPlanner: "Open Planner",
+    route: "Route:", estimatedBudget: "Estimated Budget:", customizePlan: "Customize Plan",
+    viewDetails: "View Details", culturalSignificance: "Cultural Significance:", keyHighlights: "Key Highlights:", celebrationGallery: "Celebration Gallery:",
+    notableFeatures: "Notable Features:", district: "District", exploreDestination: "Explore Destination",
+    savedWishlist: "Saved in Wishlist", addWishlist: "Add to Wishlist", planJourney: "Plan Journey Here",
+    previousSlide: "Previous slide", nextSlide: "Next slide"
+  },
+  mr: {
+    categoryTitles: ["ऐतिहासिक किल्ले", "पवित्र मंदिरे", "कोकणातील समुद्रकिनारे", "जागतिक वारसा स्थळे", "थंड हवेची ठिकाणे", "निसर्ग आणि वन्यजीव", "सण आणि उत्सव", "सांस्कृतिक परंपरा"],
+    categoryCounts: ["३५०+ स्थळे", "५ ज्योतिर्लिंगे", "७२० कि.मी. किनारपट्टी", "५ जागतिक वारसा स्थळे", "सह्याद्रीची निसर्गरम्य ठिकाणे", "६ राष्ट्रीय उद्याने", "वर्षभर उत्सव", "जिवंत सांस्कृतिक वारसा"],
+    categoryDescriptions: [
+      "सह्याद्रीतील डोंगरी किल्ले आणि मराठ्यांच्या इतिहासाचे साक्षीदार असलेले सागरी दुर्ग.",
+      "त्र्यंबकेश्वर, अष्टविनायक, पंढरपूर आणि महाराष्ट्रातील इतर पवित्र तीर्थक्षेत्रे.",
+      "कोकणचे समुद्रकिनारे, सागरी किल्ले, स्वच्छ पाणी आणि शांत मासेमारी गावे.",
+      "अजिंठा-वेरूळ लेणी, घारापुरी आणि महाराष्ट्रातील इतर ऐतिहासिक वारसास्थळे.",
+      "महाबळेश्वर, माथेरान, आंबोली आणि निसर्गरम्य पर्वतीय पठारे.",
+      "ताडोबा, कास, कोयना तसेच महाराष्ट्रातील जंगले आणि वन्यजीव.",
+      "गणेशोत्सव, शिवजयंती, पंढरपूरची वारी आणि विविध प्रादेशिक उत्सव.",
+      "वारली चित्रकला, पैठणी विणकाम, पोवाडे आणि महाराष्ट्रीय खाद्यपरंपरा."
+    ],
+    explore: "पहा", allDestinations: "सर्व पर्यटन स्थळे पहा",
+    showcaseEyebrow: "निवडक पर्यटन स्थळे", cultureEyebrow: "सहली आणि परंपरा",
+    cultureTitle: "सण आणि सांस्कृतिक उत्सव",
+    cultureSub: "महाराष्ट्रातील जिवंत परंपरा, ऋतूनुसार साजरे होणारे सण आणि पर्यटन मार्ग अनुभवा.",
+    livingTraditions: "जिवंत परंपरा", festivalCalendar: "सांस्कृतिक उत्सव दिनदर्शिका", allFestivals: "सर्व उत्सव",
+    expeditionBlueprints: "सहल मार्ग", recommendedCircuits: "शिफारस केलेले पर्यटन मार्ग", openPlanner: "सहल नियोजक उघडा",
+    route: "मार्ग:", estimatedBudget: "अंदाजित खर्च:", customizePlan: "सहल सानुकूलित करा",
+    viewDetails: "अधिक माहिती", culturalSignificance: "सांस्कृतिक महत्त्व:", keyHighlights: "मुख्य वैशिष्ट्ये:", celebrationGallery: "उत्सव छायाचित्रे:",
+    notableFeatures: "प्रमुख वैशिष्ट्ये:", district: "जिल्हा", exploreDestination: "पर्यटन स्थळ पहा",
+    savedWishlist: "आवडत्या यादीत जतन केले", addWishlist: "आवडत्या यादीत जोडा", planJourney: "येथे सहल आखा",
+    previousSlide: "मागील स्लाइड", nextSlide: "पुढील स्लाइड"
+  },
+  hi: {
+    categoryTitles: ["ऐतिहासिक किले", "पवित्र मंदिर", "कोंकण के समुद्र तट", "विश्व धरोहर स्थल", "हिल स्टेशन", "प्रकृति और वन्यजीव", "त्योहार और आयोजन", "सांस्कृतिक परंपराएँ"],
+    categoryCounts: ["350+ स्थल", "5 ज्योतिर्लिंग", "720 किमी तटरेखा", "5 विश्व धरोहर स्थल", "सह्याद्रि के पर्वतीय स्थल", "6 राष्ट्रीय उद्यान", "वर्ष भर उत्सव", "जीवंत सांस्कृतिक विरासत"],
+    categoryDescriptions: [
+      "सह्याद्रि के पहाड़ी किले और मराठा इतिहास के साक्षी समुद्री दुर्ग।",
+      "त्र्यंबकेश्वर, अष्टविनायक, पंढरपुर और महाराष्ट्र के अन्य पवित्र तीर्थ।",
+      "कोंकण के समुद्र तट, तटीय किले, स्वच्छ जल और शांत मछुआरा गाँव।",
+      "अजंता-एलोरा की गुफाएँ, एलीफेंटा और महाराष्ट्र के अन्य ऐतिहासिक धरोहर स्थल।",
+      "महाबलेश्वर, माथेरान, अंबोली और सुंदर पर्वतीय पठार।",
+      "ताडोबा, कास, कोयना तथा महाराष्ट्र के वन और वन्यजीव।",
+      "गणेशोत्सव, शिव जयंती, पंढरपुर वारी और क्षेत्रीय उत्सव।",
+      "वारली कला, पैठणी बुनाई, पोवाड़ा और पारंपरिक महाराष्ट्रीय भोजन।"
+    ],
+    explore: "देखें", allDestinations: "सभी पर्यटन स्थल देखें",
+    showcaseEyebrow: "चयनित पर्यटन स्थल", cultureEyebrow: "यात्राएँ और परंपराएँ",
+    cultureTitle: "त्योहार और सांस्कृतिक उत्सव",
+    cultureSub: "महाराष्ट्र की जीवंत परंपराओं, मौसमी त्योहारों और यात्रा मार्गों को जानें।",
+    livingTraditions: "जीवंत परंपराएँ", festivalCalendar: "सांस्कृतिक त्योहार कैलेंडर", allFestivals: "सभी त्योहार",
+    expeditionBlueprints: "यात्रा योजनाएँ", recommendedCircuits: "अनुशंसित यात्रा मार्ग", openPlanner: "योजना खोलें",
+    route: "मार्ग:", estimatedBudget: "अनुमानित बजट:", customizePlan: "योजना अनुकूलित करें",
+    viewDetails: "विवरण देखें", culturalSignificance: "सांस्कृतिक महत्व:", keyHighlights: "मुख्य विशेषताएँ:", celebrationGallery: "उत्सव चित्रावली:",
+    notableFeatures: "मुख्य विशेषताएँ:", district: "जिला", exploreDestination: "पर्यटन स्थल देखें",
+    savedWishlist: "पसंदीदा सूची में सहेजा", addWishlist: "पसंदीदा सूची में जोड़ें", planJourney: "यहाँ यात्रा की योजना बनाएँ",
+    previousSlide: "पिछली स्लाइड", nextSlide: "अगली स्लाइड"
+  }
+};
+
 export default function HomePage() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const copy = HOME_COPY[language] || HOME_COPY.en;
   const [heroIndex, setHeroIndex] = useState(0);
   const [selectedFestival, setSelectedFestival] = useState(null);
   const [selectedCircuit, setSelectedCircuit] = useState(null);
@@ -200,7 +288,7 @@ export default function HomePage() {
     setHeroIndex((prev) => (prev - 1 + HERO_SLIDES.length) % HERO_SLIDES.length);
   };
 
-  const currentHero = HERO_SLIDES[heroIndex];
+  const currentHero = { ...HERO_SLIDES[heroIndex], ...(HERO_TRANSLATIONS[heroIndex] || {}) };
 
   return (
     <div className={styles.homepageRoot}>
@@ -211,7 +299,7 @@ export default function HomePage() {
         <div className={styles.heroBackground}>
           <img
             src={currentHero.image}
-            alt={currentHero.title}
+            alt={currentHero[`title${language === 'mr' ? 'Mr' : language === 'hi' ? 'Hi' : ''}`] || currentHero.title}
             className={styles.heroImage}
           />
           <div className={styles.heroOverlay} />
@@ -220,10 +308,10 @@ export default function HomePage() {
         <Container className={styles.heroContent}>
           <span className={styles.heroBadge}>
             <Shield size={14} color="var(--color-accent)" />
-            <span>{currentHero.tag}</span>
+            <span>{currentHero[`tag${language === 'mr' ? 'Mr' : language === 'hi' ? 'Hi' : ''}`] || currentHero.tag}</span>
           </span>
           <h1 className={styles.heroTitle}>{currentHero.title}</h1>
-          <p className={styles.heroSubtitle}>{currentHero.subtitle}</p>
+          <p className={styles.heroSubtitle}>{currentHero[`subtitle${language === 'mr' ? 'Mr' : language === 'hi' ? 'Hi' : ''}`] || currentHero.subtitle}</p>
 
           <div className={styles.heroActions}>
             <Button to="/explore" variant="primary" size="lg">
@@ -242,7 +330,7 @@ export default function HomePage() {
               type="button"
               className={styles.carouselArrow}
               onClick={prevHeroSlide}
-              aria-label="Previous slide"
+              aria-label={copy.previousSlide}
             >
               <ChevronLeft size={18} />
             </button>
@@ -261,7 +349,7 @@ export default function HomePage() {
               type="button"
               className={styles.carouselArrow}
               onClick={nextHeroSlide}
-              aria-label="Next slide"
+              aria-label={copy.nextSlide}
             >
               <ChevronRight size={18} />
             </button>
@@ -289,13 +377,13 @@ export default function HomePage() {
                     <div className={styles.discIconBox}>
                       <IconComp size={22} color="var(--color-secondary)" />
                     </div>
-                    <span className={styles.discCount}>{cat.count}</span>
+                    <span className={styles.discCount}>{copy.categoryCounts[idx]}</span>
                   </div>
-                  <h3 className={styles.discTitle}>{cat.title}</h3>
-                  <span className={styles.discMarathi}>{cat.marathi}</span>
-                  <p className={styles.discDesc}>{cat.description}</p>
+                  <h3 className={styles.discTitle}>{copy.categoryTitles[idx]}</h3>
+                  <span className={styles.discMarathi}>{language === 'mr' ? cat.marathi : language === 'hi' ? cat.hindi : cat.title}</span>
+                  <p className={styles.discDesc}>{copy.categoryDescriptions[idx]}</p>
                   <span className={styles.discAction}>
-                    <span>Explore</span>
+                    <span>{copy.explore}</span>
                     <ArrowRight size={13} />
                   </span>
                 </Link>
@@ -332,7 +420,7 @@ export default function HomePage() {
       <section className={styles.destinationsSection}>
         <Container>
           <SectionHeader
-            eyebrow="CURATED SHOWCASE"
+            eyebrow={copy.showcaseEyebrow}
             title={t('featuredDestinations', 'Featured Destinations')}
             description={t('featuredSub', 'Experience Maharashtra\'s most celebrated historic fortresses, monolithic rock temples, and sun-kissed coastlines in interactive 3D.')}
           />
@@ -347,20 +435,20 @@ export default function HomePage() {
       <section className={styles.culturePlanningSection}>
         <Container>
           <SectionHeader
-            eyebrow="EXPEDITIONS & TRADITIONS"
-            title="Festivals & Cultural Celebrations"
-            description="Participate in living sacred yatras, harvest festivals, and explore curated route blueprints designed for every traveler."
+            eyebrow={copy.cultureEyebrow}
+            title={copy.cultureTitle}
+            description={copy.cultureSub}
           />
           <div className={styles.twoColGrid}>
             {/* Column 1: Festivals of Maharashtra */}
             <div className={styles.contentCard}>
               <div className={styles.cardHeaderRow}>
                 <div>
-                  <span className={styles.subHeading}>LIVING TRADITIONS</span>
-                  <h3 className={styles.blockTitle}>Cultural Festival Calendar</h3>
+                  <span className={styles.subHeading}>{copy.livingTraditions}</span>
+                  <h3 className={styles.blockTitle}>{copy.festivalCalendar}</h3>
                 </div>
                 <Link to="/festivals" className={styles.headerLink}>
-                  <span>All Festivals</span>
+                  <span>{copy.allFestivals}</span>
                   <ArrowRight size={13} />
                 </Link>
               </div>
@@ -372,11 +460,11 @@ export default function HomePage() {
                     <div className={styles.festivalMeta}>
                       <div className={styles.festTimeRow}>
                         <Calendar size={12} color="var(--color-secondary)" />
-                        <span className={styles.festivalDate}>{fest.dates}</span>
+                        <span className={styles.festivalDate}>{language === "mr" ? fest.datesMr || fest.dates : language === "hi" ? fest.datesHi || fest.dates : fest.dates}</span>
                       </div>
-                      <h4 className={styles.festivalName}>{fest.name}</h4>
-                      <p className={styles.festivalMarathi}>{fest.marathiName}</p>
-                      <p className={styles.festivalDesc}>{fest.description}</p>
+                      <h4 className={styles.festivalName}>{language === "mr" ? fest.marathiName || fest.name : language === "hi" ? fest.nameHi || fest.name : fest.name}</h4>
+                      
+                      <p className={styles.festivalDesc}>{language === "mr" ? fest.descriptionMr || fest.description : language === "hi" ? fest.descriptionHi || fest.description : fest.description}</p>
                       <div className={styles.festActionRow}>
                         <span className={styles.festLocation}>
                           <MapPin size={12} color="var(--color-text-muted)" /> {fest.location.split('(')[0]}
@@ -399,11 +487,11 @@ export default function HomePage() {
             <div className={styles.contentCard}>
               <div className={styles.cardHeaderRow}>
                 <div>
-                  <span className={styles.subHeading}>EXPEDITION BLUEPRINTS</span>
-                  <h3 className={styles.blockTitle}>Recommended Travel Circuits</h3>
+                  <span className={styles.subHeading}>{copy.expeditionBlueprints}</span>
+                  <h3 className={styles.blockTitle}>{copy.recommendedCircuits}</h3>
                 </div>
                 <Link to="/planner" className={styles.headerLink}>
-                  <span>Open Planner</span>
+                  <span>{copy.openPlanner}</span>
                   <ArrowRight size={13} />
                 </Link>
               </div>
@@ -424,7 +512,7 @@ export default function HomePage() {
 
                     <h4 className={styles.circuitName}>{circuit.name}</h4>
                     <p className={styles.circuitRoute}>
-                      <strong>Route:</strong> {circuit.route}
+                      <strong>{copy.route}</strong> {circuit.route}
                     </p>
 
                     <ul className={styles.circuitHighlights}>
@@ -438,11 +526,11 @@ export default function HomePage() {
 
                     <div className={styles.circuitFooter}>
                       <div className={styles.budgetGroup}>
-                        <span className={styles.budgetLabel}>Estimated Budget:</span>
+                        <span className={styles.budgetLabel}>{copy.estimatedBudget}</span>
                         <strong className={styles.budgetValue}>{circuit.budget}</strong>
                       </div>
                       <Link to="/planner" className={styles.circuitBtn}>
-                        <span>Customize Plan</span>
+                        <span>{copy.customizePlan}</span>
                         <ArrowRight size={12} />
                       </Link>
                     </div>
@@ -635,14 +723,12 @@ export default function HomePage() {
             {selectedFestival.description}
           </p>
           <div style={{ background: 'var(--color-parchment)', padding: '1rem', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-border)', marginBottom: '1rem' }}>
-            <strong style={{ display: 'block', color: 'var(--color-secondary)', marginBottom: '0.35rem' }}>
-              Cultural Significance:
-            </strong>
-            <p style={{ margin: 0, fontSize: '0.9rem' }}>{selectedFestival.significance}</p>
+            <strong style={{ display: 'block', color: 'var(--color-secondary)', marginBottom: '0.35rem' }}>{copy.culturalSignificance}</strong>
+            <p style={{ margin: 0, fontSize: '0.9rem' }}>{language === "mr" ? selectedFestival.significanceMr || selectedFestival.significance : language === "hi" ? selectedFestival.significanceHi || selectedFestival.significance : selectedFestival.significance}</p>
           </div>
-          <strong style={{ display: 'block', marginBottom: '0.5rem' }}>Key Highlights:</strong>
+          <strong style={{ display: 'block', marginBottom: '0.5rem' }}>{copy.keyHighlights}</strong>
           <ul style={{ paddingLeft: '1.25rem', margin: 0 }}>
-            {selectedFestival.highlights?.map((h, i) => (
+            {(language === "mr" ? selectedFestival.highlightsMr || selectedFestival.highlights : language === "hi" ? selectedFestival.highlightsHi || selectedFestival.highlights : selectedFestival.highlights)?.map((h, i) => (
               <li key={i} style={{ marginBottom: '0.25rem', fontSize: '0.9rem' }}>{h}</li>
             ))}
           </ul>
@@ -650,7 +736,7 @@ export default function HomePage() {
           {getFestivalGallery(selectedFestival.id).length > 0 && (
             <div style={{ marginTop: '1.25rem' }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
-                <strong style={{ fontSize: '0.85rem', color: 'var(--color-primary)' }}>Celebration Gallery:</strong>
+                <strong style={{ fontSize: '0.85rem', color: 'var(--color-primary)' }}>{copy.celebrationGallery}</strong>
                 <code style={{ fontSize: '0.65rem', color: 'var(--color-secondary)' }}>/assets/festivals/{selectedFestival.id}/</code>
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.65rem' }}>
