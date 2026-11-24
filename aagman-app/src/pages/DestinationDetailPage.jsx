@@ -314,7 +314,7 @@ export default function DestinationDetailPage() {
                         <Plane size={15} color="var(--color-primary)" />
                         <div>
                           <strong>{t('byAir', 'By Air')}:</strong>
-                          <p>{destination.howToReach.air}</p>
+                          <p>{howToReach.air}</p>
                         </div>
                       </div>
                     )}
@@ -323,7 +323,7 @@ export default function DestinationDetailPage() {
                         <Train size={15} color="var(--color-primary)" />
                         <div>
                           <strong>{t('byRail', 'By Rail')}:</strong>
-                          <p>{destination.howToReach.rail}</p>
+                          <p>{howToReach.rail}</p>
                         </div>
                       </div>
                     )}
@@ -332,7 +332,7 @@ export default function DestinationDetailPage() {
                         <Car size={15} color="var(--color-primary)" />
                         <div>
                           <strong>{t('byRoad', 'By Road')}:</strong>
-                          <p>{destination.howToReach.road}</p>
+                          <p>{howToReach.road}</p>
                         </div>
                       </div>
                     )}
