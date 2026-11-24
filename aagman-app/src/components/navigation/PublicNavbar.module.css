@@ -881,3 +881,51 @@
     display: none;
   }
 }
+
+
+/* Prevent the production public navigation from overflowing narrow mobile viewports. */
+@media (max-width: 600px) {
+  .brand {
+    min-width: 0;
+    gap: 0.5rem;
+  }
+
+  .brandText {
+    min-width: 0;
+  }
+
+  .brandName {
+    font-size: 1.1rem;
+    letter-spacing: 0.05em;
+  }
+
+  .brandTagline {
+    display: none;
+  }
+
+  .actionsGroup {
+    flex-shrink: 0;
+    gap: 0.25rem;
+  }
+
+  .iconBtn {
+    width: 34px;
+    height: 34px;
+  }
+
+  .mobileHamburger {
+    width: 34px;
+    height: 34px;
+    padding: 0.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 360px) {
+  .brandName { font-size: 0.95rem; letter-spacing: 0.03em; }
+  .logoBadge { width: 36px; height: 36px; }
+  .actionsGroup { gap: 0.125rem; }
+  .iconBtn, .mobileHamburger { width: 30px; height: 30px; }
+}
