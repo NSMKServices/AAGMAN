@@ -241,6 +241,7 @@ export const videoService = {
     const updated = {
       ...existing,
       ...updates,
+      destination: updates.destinationName || updates.destination || existing.destination,
       youtubeUrl: normalizedUrl,
       youtubeId,
       thumbnail,
