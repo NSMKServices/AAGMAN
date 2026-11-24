@@ -368,7 +368,7 @@ export default function HomePage() {
           <SectionHeader
             eyebrow={t('explore', 'QUICK DISCOVERY')}
             title={t('exploreByTheme', 'Explore Maharashtra')}
-            description={t('exploreByThemeSub', 'From 350+ Maratha fortresses to sacred Jyotirlingas and untouched Konkan waters, choose your experience.')}
+            description={t('exploreByThemeSub', 'Browse categories and discover places published by the AAGMAN team.')}
           />
 
           <div className={styles.discoveryGrid}>
