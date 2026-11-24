@@ -4,6 +4,7 @@
  * Categories: forts, temples, beaches, heritage, nature, wildlife
  */
 import { ALL_DESTINATION_IMAGE_REGISTRY } from './imageRegistry';
+import { DESTINATION_TRANSLATIONS } from './destinationTranslations';
 
 export const DESTINATIONS = [
   // ==========================================
@@ -2583,6 +2584,9 @@ export const DESTINATIONS = [
 
 // Enrich destinations with local asset paths while preserving all existing data
 DESTINATIONS.forEach(dest => {
+  const translations = DESTINATION_TRANSLATIONS[dest.id];
+  if (translations) Object.assign(dest, translations);
+
   const reg = ALL_DESTINATION_IMAGE_REGISTRY[dest.id];
   if (reg) {
     dest.localAssets = reg.slots;
