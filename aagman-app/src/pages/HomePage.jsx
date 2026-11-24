@@ -32,7 +32,6 @@ import {
   Info
 } from '../components/common/Icons';
 import { CURATED_VIDEOS } from '../data/videos';
-import { getFestivalGallery } from '../data/imageRegistry';
 import { useLanguage } from '../context/LanguageContext';
 import { contentService } from '../services/contentService';
 import styles from './HomePage.module.css';
@@ -701,7 +700,7 @@ export default function HomePage() {
             ))}
           </ul>
 
-          {getFestivalGallery(selectedFestival.id).length > 0 && (
+          {(selectedFestival.gallery || []).length > 0 && (
             <div style={{ marginTop: '1.25rem' }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
                 <strong style={{ fontSize: '0.85rem', color: 'var(--color-primary)' }}>{copy.celebrationGallery}</strong>
