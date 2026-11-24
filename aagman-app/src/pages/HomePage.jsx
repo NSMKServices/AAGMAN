@@ -70,7 +70,7 @@ const DISCOVERY_CATEGORIES = [
     title: "Sacred Temples",
     marathi: "तीर्थक्षेत्रे", hindi: "पवित्र तीर्थस्थल",
     count: "5 Jyotirlingas",
-    description: "Trimbakeshwar, Ashtavinayak, Pandharpur Vitthal & ancient sacred sanctums.",
+    description: "Discover sacred shrines, pilgrimage traditions and places of worship across Maharashtra.",
     path: "/temples",
     icon: Landmark,
     tag: "Pilgrimage"
@@ -88,7 +88,7 @@ const DISCOVERY_CATEGORIES = [
     title: "UNESCO Heritage",
     marathi: "जागतिक वारसा", hindi: "विश्व धरोहर",
     count: "5 World Sites",
-    description: "Ajanta Buddhist murals, Ellora monolithic Kailasa, and Elephanta rock art.",
+    description: "Explore UNESCO sites, historic architecture and cultural landmarks across the state.",
     path: "/heritage",
     icon: BookOpen,
     tag: "Monuments"
@@ -97,8 +97,8 @@ const DISCOVERY_CATEGORIES = [
     title: "Hill Stations",
     marathi: "थंड हवेची ठिकाणे", hindi: "हिल स्टेशन",
     count: "Sahyadri Retreats",
-    description: "Mahabaleshwar, Matheran, Panchgani, Amboli & Chikhaldara plateau vistas.",
-    path: "/explore?category=hills",
+    description: "Find hill landscapes, lakes, plateaus and scenic outdoor escapes.",
+    path: "/explore?category=nature",
     icon: Mountain,
     tag: "Highlands"
   },
@@ -106,7 +106,7 @@ const DISCOVERY_CATEGORIES = [
     title: "Nature & Wildlife",
     marathi: "वन्यजीव व निसर्ग", hindi: "वन्यजीव और प्रकृति",
     count: "6 National Parks",
-    description: "Tadoba tiger reserve, Kaas flower valley, Koyna sanctuary & dense forests.",
+    description: "Discover protected forests, wildlife habitats and nature reserves.",
     path: "/explore?category=wildlife",
     icon: Trees,
     tag: "Wildlife"
@@ -115,7 +115,7 @@ const DISCOVERY_CATEGORIES = [
     title: "Festivals & Events",
     marathi: "उत्सव व परंपरा", hindi: "त्योहार और परंपराएँ",
     count: "Year-Round",
-    description: "Ganeshotsav, Shiv Jayanti, Pandharpur Wari & Ellora classical arts festivals.",
+    description: "Browse seasonal celebrations, local traditions and cultural events.",
     path: "/festivals",
     icon: Sparkles,
     tag: "Culture"
@@ -131,7 +131,7 @@ const DISCOVERY_CATEGORIES = [
   }
 ];
 
-const SUGGESTED_CIRCUITS = [
+const SUGGESTED_CIRCUITS = [];\n/* Previous hand-written route examples are intentionally not shown; homepage travel content is admin-managed. */\nconst LEGACY_SUGGESTED_CIRCUITS = [
   {
     id: "maratha-imperial",
     name: "The Maratha Imperial Fort Circuit",
@@ -173,12 +173,12 @@ const HOME_COPY = {
     categoryCounts: ["350+ Sites", "5 Jyotirlingas", "720 km Coast", "5 World Sites", "Sahyadri Retreats", "6 National Parks", "Year-Round", "Living Heritage"],
     categoryDescriptions: [
       "Sahyadri hill forts and coastal sea fortresses that shaped Maratha history.",
-      "Trimbakeshwar, the Ashtavinayak temples, Pandharpur and other sacred places.",
+      "Explore sacred places of worship and Maharashtra's pilgrimage traditions.",
       "Konkan beaches, coastal forts, clear waters and quiet fishing villages.",
-      "Ajanta and Ellora caves, Elephanta and Maharashtra’s other heritage landmarks.",
-      "Mahabaleshwar, Matheran, Amboli and scenic mountain plateaus.",
-      "Tadoba, Kaas, Koyna and the forests and wildlife of Maharashtra.",
-      "Ganeshotsav, Shiv Jayanti, Pandharpur Wari and regional celebrations.",
+      "Explore historic architecture, cultural landmarks and protected heritage sites.",
+      "Discover hill landscapes, lakes, plateaus and outdoor escapes.",
+      "Discover protected forests, wildlife habitats and nature reserves.",
+      "Discover seasonal celebrations, local traditions and cultural events.",
       "Warli art, Paithani weaving, Powada and traditional Maharashtrian food."
     ],
     explore: "Explore", allDestinations: "View all destinations",
@@ -535,6 +535,9 @@ export default function HomePage() {
               </div>
 
               <div className={styles.circuitsList}>
+                {SUGGESTED_CIRCUITS.length === 0 && (
+                  <p className={styles.festivalDesc}>No travel circuits are published yet.</p>
+                )}
                 {SUGGESTED_CIRCUITS.map((circuit) => (
                   <div key={circuit.id} className={styles.circuitCard}>
                     <div className={styles.circuitTopRow}>
