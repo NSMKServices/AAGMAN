@@ -1,10 +1,10 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import Container from '../components/layout/Container';
 import Modal from '../components/common/Modal';
 import Button from '../components/common/Button';
 import Badge from '../components/common/Badge';
 import SearchInput from '../components/common/SearchInput';
-import { FESTIVALS } from '../data/festivals';
+import { contentService } from '../services/contentService';
 import { getFestivalGallery } from '../data/imageRegistry';
 import { videoService } from '../services/videoService';
 import { useLanguage } from '../context/LanguageContext';
@@ -15,20 +15,28 @@ import { getLocalizedName, getLocalizedValue } from '../utils/localizedContent';
 export default function FestivalsPage() {
   const { language, t } = useLanguage();
   const [searchQuery, setSearchQuery] = useState('');
+  const [festivals, setFestivals] = useState([]);
+
+  useEffect(() => {
+    const unsubscribe = contentService.subscribe(({ festivals: records }) => setFestivals(records));
+    contentService.getAllFestivals();
+    return unsubscribe;
+  }, []);
   const [selectedFestival, setSelectedFestival] = useState(null);
 
-  const festivalGallery = selectedFestival ? getFestivalGallery(selectedFestival.id) : [];
+  const festivalGallery = selectedFestival ? (selectedFestival.gallery || getFestivalGallery(selectedFestival.id)) : [];
 
   const filteredFestivals = useMemo(() => {
-    return FESTIVALS.filter(f => {
+    return festivals.filter(f => {
+      if (f.status !== 'published') return false;
       const matchSearch = !searchQuery.trim() ||
         f.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         (f.marathiName && f.marathiName.includes(searchQuery)) ||
-        f.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        f.description.toLowerCase().includes(searchQuery.toLowerCase());
+        (f.location || '').toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (f.description || '').toLowerCase().includes(searchQuery.toLowerCase());
       return matchSearch;
     });
-  }, [searchQuery]);
+  }, [festivals, searchQuery]);
 
   return (
     <div className={styles.festivalsPage}>
