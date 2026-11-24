@@ -28,7 +28,7 @@ export default function VideosPage() {
     videoService.getAllVideos()
       .then((records) => {
         if (isMounted && Array.isArray(records)) {
-          setVideos(records.filter(video => video.isActive !== false));
+          setVideos(records.filter(video => video.isActive !== false).map((video) => ({ ...(CURATED_VIDEOS.find((curated) => curated.id === video.id) || {}), ...video })));
         }
       })
       .catch((error) => {
