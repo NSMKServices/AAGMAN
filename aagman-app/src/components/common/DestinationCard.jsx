@@ -5,6 +5,7 @@ import { Castle, Landmark, Umbrella, BookOpen, Heart, MapPin, Star } from './Ico
 import { useWishlist } from '../../context/WishlistContext';
 import { useLanguage } from '../../context/LanguageContext';
 import styles from './DestinationCard.module.css';
+import { getLocalizedName, getLocalizedValue } from '../../utils/localizedContent';
 
 export default function DestinationCard({ destination }) {
   const { isWishlisted, toggleWishlist } = useWishlist();
@@ -32,13 +33,12 @@ export default function DestinationCard({ destination }) {
     }
   };
 
-  const displayName = language === 'mr'
-    ? (destination.marathiName || destination.name)
-    : destination.name;
-
-  const subtitleName = language === 'mr'
-    ? destination.name
-    : destination.marathiName;
+  const displayName = getLocalizedName(destination, language);
+  const subtitleName = language === 'en'
+    ? destination.marathiName
+    : language === 'mr'
+      ? destination.name
+      : destination.name;
 
   return (
     <div className={styles.card}>
@@ -96,7 +96,7 @@ export default function DestinationCard({ destination }) {
           <p className={styles.marathiName}>{subtitleName}</p>
         )}
 
-        <p className={styles.summary}>{destination.summary}</p>
+        <p className={styles.summary}>{getLocalizedValue(destination, 'summary', language)}</p>
 
         <div className={styles.footerRow}>
           <span className={styles.tag}>
