@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Badge from './Badge';
-import { Castle, Landmark, Umbrella, BookOpen, Heart, MapPin, Star } from './Icons';
+import { Castle, Landmark, Umbrella, BookOpen, Mountain, Trees, Heart, MapPin, Star } from './Icons';
 import { useWishlist } from '../../context/WishlistContext';
 import { useLanguage } from '../../context/LanguageContext';
 import styles from './DestinationCard.module.css';
@@ -28,6 +28,10 @@ export default function DestinationCard({ destination }) {
         return <Umbrella size={13} />;
       case 'heritage':
         return <BookOpen size={13} />;
+      case 'nature':
+        return <Mountain size={13} />;
+      case 'wildlife':
+        return <Trees size={13} />;
       default:
         return null;
     }
