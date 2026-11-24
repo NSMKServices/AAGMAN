@@ -25,11 +25,10 @@ function loadStoredVideos() {
     updatedAt: new Date().toISOString()
   }));
 
-  // In production, the database is the source of truth. Do not let an old
-  // browser-local cache hide newly corrected curated videos or admin updates.
+  // In production, Supabase is the source of truth. Ignore old browser-local
+  // caches so corrected links and admin changes cannot be hidden by stale data.
   if (isSupabaseConfigured) return curated;
 
-  // Local storage is only an offline/development fallback when Supabase is absent.
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (raw) {
@@ -73,46 +72,25 @@ export const videoService = {
           .select('*')
           .order('created_at', { ascending: false });
 
-        if (!error && Array.isArray(data)) {
-          const curatedById = new Map(CURATED_VIDEOS.map(video => [video.id, video]));
-          const persistedIds = new Set(data.map(row => row.id));
-
-          // Keep the reviewed catalogue visible while layering database-managed
-          // records over it. This also lets an inactive database row suppress a
-          // curated card without losing the rest of the curated directory.
-          const persistedVideos = data.map(row => {
-            const curated = curatedById.get(row.id) || {};
-            return {
-              ...curated,
-              id: row.id,
-              title: row.title,
-              youtubeUrl: row.youtube_url,
-              youtubeId: row.youtube_id,
-              description: row.description || row.summary || curated.summary || '',
-              thumbnail: row.thumbnail_url || getYouTubeThumbnail(row.youtube_id),
-              destination: row.destination_name || row.destination_id || curated.destination || '',
-              destinationId: row.destination_id,
-              festivalId: row.festival_id,
-              category: row.category || curated.category || 'heritage',
-              district: row.district || curated.district || 'Maharashtra',
-              duration: row.duration || curated.duration || 'Video',
-              creator: row.creator || curated.creator || 'AAGMAN Heritage Series',
-              isActive: row.is_active ?? true,
-              isFeatured: row.is_featured ?? curated.isFeatured ?? false,
-              updatedAt: row.updated_at
-            };
-          });
-
-          const missingCuratedVideos = CURATED_VIDEOS
-            .filter(video => !persistedIds.has(video.id))
-            .map(video => ({
-              ...video,
-              youtubeId: video.youtubeId || extractYouTubeId(video.youtubeUrl),
-              isActive: true,
-              isFeatured: true
-            }));
-
-          videoCache = [...persistedVideos, ...missingCuratedVideos];
+        if (!error && data && data.length > 0) {
+          videoCache = data.map(row => ({
+            id: row.id,
+            title: row.title,
+            youtubeUrl: row.youtube_url,
+            youtubeId: row.youtube_id,
+            description: row.description || row.summary,
+            thumbnail: row.thumbnail_url || getYouTubeThumbnail(row.youtube_id),
+            destination: row.destination_name || row.destination_id,
+            destinationId: row.destination_id,
+            festivalId: row.festival_id,
+            category: row.category || 'heritage',
+            district: row.district || 'Maharashtra',
+            duration: row.duration || 'Video',
+            creator: row.creator || 'AAGMAN Heritage Series',
+            isActive: row.is_active ?? true,
+            isFeatured: row.is_featured ?? false,
+            updatedAt: row.updated_at
+          }));
           saveStoredVideos(videoCache);
           notifyListeners();
           return videoCache;
@@ -333,42 +311,14 @@ export const videoService = {
 
     if (isSupabaseConfigured) {
       try {
-        if (CURATED_VIDEOS.some(video => video.id === id) && target) {
-          // Curated entries are part of the bundled fallback catalogue. Persist
-          // an inactive override so a deleted card does not reappear on refresh.
-          const { error } = await supabase
-            .from('videos')
-            .upsert({
-              id,
-              title: target.title,
-              youtube_url: target.youtubeUrl,
-              youtube_id: target.youtubeId || extractYouTubeId(target.youtubeUrl),
-              description: target.description || target.summary || '',
-              thumbnail_url: target.thumbnail,
-              destination_id: isUuid(target.destinationId) ? target.destinationId : null,
-              destination_name: target.destination || '',
-              festival_id: isUuid(target.festivalId) ? target.festivalId : null,
-              category: target.category || 'heritage',
-              district: target.district || 'Maharashtra',
-              duration: target.duration || 'Video',
-              creator: target.creator || 'AAGMAN Official Contributor',
-              is_featured: Boolean(target.isFeatured),
-              is_active: false,
-              updated_at: new Date().toISOString()
-            }, { onConflict: 'id' });
-          if (error) {
-            throw new Error(`Database video deactivation failed: ${error.message}.`);
-          }
-        } else {
-          const { error } = await supabase
-            .from('videos')
-            .delete()
-            .eq('id', id);
-          if (error) {
-            throw new Error(`Database video delete failed: ${error.message}.`);
-          }
-        }
+        const { error } = await supabase
+          .from('videos')
+          .delete()
+          .eq('id', id);
 
+        if (error) {
+          throw new Error(`Database video delete failed: ${error.message}.`);
+        }
       } catch (err) {
         console.error('Supabase video delete error:', err);
         throw err;
