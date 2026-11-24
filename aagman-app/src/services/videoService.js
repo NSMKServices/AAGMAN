@@ -137,6 +137,16 @@ export const videoService = {
       throw new Error('A video record with this exact YouTube URL/ID already exists in the catalog.');
     }
 
+    if (isSupabaseConfigured) {
+      const { data: duplicate, error: duplicateError } = await supabase
+        .from('videos')
+        .select('id')
+        .eq('youtube_id', youtubeId)
+        .maybeSingle();
+      if (duplicateError) throw new Error(`Could not verify duplicate YouTube video: ${duplicateError.message}`);
+      if (duplicate) throw new Error('A video record with this exact YouTube URL/ID already exists in the database.');
+    }
+
     const newVideo = {
       id: `vid-${Date.now()}`,
       title: title.trim(),
@@ -238,6 +248,17 @@ export const videoService = {
       if (!updates.thumbnail) {
         thumbnail = getYouTubeThumbnail(youtubeId, 'hqdefault');
       }
+    }
+
+    if (isSupabaseConfigured && youtubeId !== existing.youtubeId) {
+      const { data: duplicate, error: duplicateError } = await supabase
+        .from('videos')
+        .select('id')
+        .eq('youtube_id', youtubeId)
+        .neq('id', id)
+        .maybeSingle();
+      if (duplicateError) throw new Error(`Could not verify duplicate YouTube video: ${duplicateError.message}`);
+      if (duplicate) throw new Error('Another video record already uses this YouTube URL/ID.');
     }
 
     const updated = {
