@@ -64,7 +64,7 @@ export default function MaharashtraMap() {
 
   // Destinations in the selected district
   const districtDestinations = selectedDistrictId
-    ? DESTINATIONS.filter(d => {
+    ? publishedDestinations.filter(d => {
         const distName = selectedDistrict?.name?.toLowerCase() || '';
         const distMarathi = selectedDistrict?.marathiName || '';
         return (
@@ -447,7 +447,7 @@ export default function MaharashtraMap() {
                         key={dest.id}
                         type="button"
                         className={`${styles.districtDestChip} ${activePin?.slug === dest.slug ? styles.activeChip : ''}`}
-                        onClick={() => setSelectedPinId(dest.slug)}
+                        onClick={() => setSelectedPinId(PROJECTED_DESTINATIONS.find(pin => pin.slug === dest.slug)?.id || null)}
                       >
                         {language === 'mr' ? dest.marathiName || dest.name : dest.name}
                       </button>
