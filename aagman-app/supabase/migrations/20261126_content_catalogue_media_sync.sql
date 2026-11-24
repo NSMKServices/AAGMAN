@@ -12,8 +12,6 @@ alter table public.videos
   add column if not exists destination_slug text,
   add column if not exists festival_slug text;
 
-create unique index if not exists destinations_slug_unique_idx on public.destinations (slug);
-create unique index if not exists festivals_slug_unique_idx on public.festivals (slug);
 create index if not exists videos_destination_slug_idx on public.videos (destination_slug);
 create index if not exists videos_festival_slug_idx on public.videos (festival_slug);
 create index if not exists videos_youtube_id_idx on public.videos (youtube_id);
