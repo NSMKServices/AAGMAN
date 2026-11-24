@@ -131,37 +131,7 @@ const DISCOVERY_CATEGORIES = [
   }
 ];
 
-const SUGGESTED_CIRCUITS = [];\n/* Previous hand-written route examples are intentionally not shown; homepage travel content is admin-managed. */\nconst LEGACY_SUGGESTED_CIRCUITS = [
-  {
-    id: "maratha-imperial",
-    name: "The Maratha Imperial Fort Circuit",
-    route: "Pune → Sinhagad → Rajgad → Raigad → Pratapgad",
-    duration: "4 Days / 3 Nights",
-    pace: "Active Trekking",
-    budget: "₹8,500 – ₹14,000",
-    highlights: ["Shivaji Maharaj coronation site", "Sunrise over Sahyadri cloud-sea", "Authentic village Pithla Bhakri"]
-  },
-  {
-    id: "konkan-coastal",
-    name: "The Golden Konkan Coastal Trail",
-    route: "Alibaug → Murud-Janjira → Ganpatipule → Tarkarli",
-    duration: "5 Days / 4 Nights",
-    pace: "Relaxed Coastal",
-    budget: "₹12,000 – ₹18,500",
-    highlights: ["Undefeated Murud island fort", "Snorkeling at Sindhudurg coral beds", "Sunset at Ganpatipule mandir"]
-  },
-  {
-    id: "caves-jyotirlinga",
-    name: "Sacred Jyotirlinga & UNESCO Cave Circuit",
-    route: "Nashik → Trimbakeshwar → Shirdi → Ellora → Ajanta",
-    duration: "4 Days / 3 Nights",
-    pace: "Cultural Exploration",
-    budget: "₹7,000 – ₹12,500",
-    highlights: ["Godavari holy source darshan", "Monolithic Kailasa rock temple", "Two millennia old Ajanta murals"]
-  }
-];
-
-// Homepage copy is kept together so every visible section follows the selected language.
+const SUGGESTED_CIRCUITS = [];\n/* Previous hand-written route examples are intentionally not shown; homepage travel content is admin-managed. */\n// Homepage copy is kept together so every visible section follows the selected language.
 const HOME_COPY = {
   en: {
     circuitNames: ["The Maratha Imperial Fort Circuit", "The Golden Konkan Coastal Trail", "Sacred Jyotirlinga & UNESCO Cave Circuit"],
