@@ -101,7 +101,7 @@ export default function FestivalsPage() {
 
                     <p className={styles.locationTag}>
                       <MapPin size={12} style={{ marginRight: 4, verticalAlign: 'middle' }} />
-                      {festival.location}
+                      {getLocalizedValue(festival, 'location', language)}
                     </p>
                     <p className={styles.description}>{getLocalizedValue(festival, 'description', language)}</p>
 
@@ -111,7 +111,7 @@ export default function FestivalsPage() {
                         {festival.highlights.map((h, i) => (
                           <span key={i} className={styles.chip}>
                             <Check size={12} style={{ marginRight: 4 }} />
-                            {h}
+                            {getLocalizedValue(festival, 'highlights', language)[i] ?? h}
                           </span>
                         ))}
                       </div>
@@ -151,7 +151,7 @@ export default function FestivalsPage() {
               />
               <div className={styles.modalHeroBadge}>
                 <Badge variant="gold">
-                  {selectedFestival.dates}
+                  {getLocalizedValue(selectedFestival, 'dates', language)}
                 </Badge>
               </div>
             </div>
@@ -160,17 +160,17 @@ export default function FestivalsPage() {
               <div className={styles.modalMetaRow}>
                 <span className={styles.modalLocation}>
                   <MapPin size={14} style={{ marginRight: 4, verticalAlign: 'middle', color: 'var(--color-primary)' }} />
-                  {selectedFestival.location}
+                  {getLocalizedValue(selectedFestival, 'location', language)}
                 </span>
                 <span className={styles.modalDuration}>
                   <Calendar size={14} style={{ marginRight: 4, verticalAlign: 'middle', color: 'var(--color-secondary)' }} />
-                  {selectedFestival.dates}
+                  {getLocalizedValue(selectedFestival, 'dates', language)}
                 </span>
               </div>
 
               <div className={styles.modalSection}>
                 <h4 className={styles.modalSectionTitle}>{t('historicalSignificance', 'Cultural Significance & Legend')}</h4>
-                <p className={styles.modalText}>{selectedFestival.significance || selectedFestival.description}</p>
+                <p className={styles.modalText}>{getLocalizedValue(selectedFestival, 'significance', language) || getLocalizedValue(selectedFestival, 'description', language)}</p>
               </div>
 
               <div className={styles.modalSection}>
@@ -179,7 +179,7 @@ export default function FestivalsPage() {
                   {selectedFestival.highlights.map((h, i) => (
                     <div key={i} className={styles.modalHighlightCard}>
                       <span className={styles.modalHighlightNum}>{i + 1}</span>
-                      <p className={styles.modalHighlightText}>{getLocalizedValue(festival, 'highlights', language)[i] ?? h}</p>
+                      <p className={styles.modalHighlightText}>{getLocalizedValue(selectedFestival, 'highlights', language)[i] ?? h}</p>
                     </div>
                   ))}
                 </div>
@@ -189,7 +189,7 @@ export default function FestivalsPage() {
                 <div className={styles.modalSection}>
                   <h4 className={styles.modalSectionTitle}>{t('culinaryTraditions', 'Culinary Specialties')}</h4>
                   <div className={styles.modalFoodBox}>
-                    <p>{selectedFestival.foodSpecialties}</p>
+                    <p>{getLocalizedValue(selectedFestival, 'foodSpecialties', language)}</p>
                   </div>
                 </div>
               )}
