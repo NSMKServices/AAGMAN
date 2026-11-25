@@ -33,6 +33,7 @@ export default function DestinationDetailPage() {
   const { isWishlisted, toggleWishlist } = useWishlist();
   const { language, t } = useLanguage();
   const [destinationVideos, setDestinationVideos] = useState([]);
+  const [associatedFestivals, setAssociatedFestivals] = useState([]);
   const [destinations, setDestinations] = useState([]);
 
   useEffect(() => {
@@ -71,6 +72,32 @@ export default function DestinationDetailPage() {
     };
   }, [destination?.id, destination?.slug, destination?.name]);
 
+  useEffect(() => {
+    let isMounted = true;
+    if (!destination) {
+      setAssociatedFestivals([]);
+      return () => { isMounted = false; };
+    }
+
+    const refreshAssociatedFestivals = async () => {
+      try {
+        const [festivalIds, festivals] = await Promise.all([
+          contentService.getFestivalIdsForDestination(destination.id || destination.slug),
+          contentService.getAllFestivals()
+        ]);
+        if (isMounted) {
+          setAssociatedFestivals(festivals.filter(festival => festival.status === 'published' && festivalIds.includes(festival.id)));
+        }
+      } catch (error) {
+        if (isMounted) setAssociatedFestivals([]);
+        console.error('Unable to load destination festivals:', error);
+      }
+    };
+
+    const unsubscribe = contentService.subscribe(() => { refreshAssociatedFestivals(); });
+    refreshAssociatedFestivals();
+    return () => { isMounted = false; unsubscribe(); };
+  }, [destination?.id, destination?.slug]);
   if (!destination) {
     return (
       <Container className={styles.notFoundWrapper}>
@@ -234,6 +261,25 @@ export default function DestinationDetailPage() {
                       >
                         {t('watchNow', 'Watch on YouTube')}: {video.title}
                       </a>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Festivals associated with this destination */}
+              {associatedFestivals.length > 0 && (
+                <div className={styles.contentBlock}>
+                  <h3 className={styles.sectionSubheading}>Festivals at this destination</h3>
+                  <div className={styles.attractionsGrid}>
+                    {associatedFestivals.map(festival => (
+                      <div key={festival.id} className={styles.attractionItem}>
+                        <span className={styles.attractionNum}>✦</span>
+                        <span className={styles.attractionText}>
+                          <strong>{getLocalizedName(festival, language)}</strong>
+                          {festival.dates ? ` — ${festival.dates}` : ''}
+                          {festival.description ? ` · ${festival.description}` : ''}
+                        </span>
+                      </div>
                     ))}
                   </div>
                 </div>
