@@ -10,6 +10,10 @@ DROP POLICY IF EXISTS "Editors and above can insert festivals" ON public.festiva
 
 -- Replace the stale audit-log policy that referenced the revoked public helper.
 DROP POLICY IF EXISTS "Authorized admins can view audit logs" ON public.admin_audit_logs;
+DROP POLICY IF EXISTS "Super admins can view audit logs" ON public.admin_audit_logs;
+CREATE POLICY "Authorized admins can view audit logs"
+  ON public.admin_audit_logs FOR SELECT TO authenticated
+  USING (private.has_admin_role('content_manager'));
 
 -- Support the existing foreign-key lookups reported by the Supabase performance advisor.
 CREATE INDEX IF NOT EXISTS idx_trip_stops_destination_id
