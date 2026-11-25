@@ -522,3 +522,14 @@
     display: none;
   }
 }
+
+
+/* Keep destination slide descriptions concise; full details remain on the destination page. */
+.destSummary {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  line-height: 1.55;
+  max-height: calc(1.55em * 2);
+}

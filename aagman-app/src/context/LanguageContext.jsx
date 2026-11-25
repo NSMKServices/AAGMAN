@@ -47,6 +47,17 @@ export const TRANSLATIONS = {
     welcomeUser: "Welcome",
     account: "Account & Profile",
 
+    readMore: "Read more",
+    heritageSites: "Heritage Sites",
+    travelerSignIn: "Traveler",
+    administratorSignIn: "Administrator",
+    adminSignInSub: "Sign in with your authorized AAGMAN administrator credentials.",
+    officialEmailLabel: "Official Email Address",
+    adminSignInButton: "Sign in to Admin Portal",
+    verifyingCredentials: "Verifying credentials…",
+    forgotPassword: "Forgot password?",
+    adminAccessNote: "Administrator access is verified against Supabase and your assigned admin role.",
+
     // Common Actions & Controls
     searchPlaceholder: "Search forts, temples, beaches, heritage caves...",
     searchButton: "Search",
@@ -321,6 +332,17 @@ export const TRANSLATIONS = {
     logout: "बाहेर पडा",
     welcomeUser: "स्वागत",
     account: "खाते व माहिती",
+
+    readMore: "अधिक वाचा",
+    heritageSites: "वारसा स्थळे",
+    travelerSignIn: "पर्यटक",
+    administratorSignIn: "प्रशासक",
+    adminSignInSub: "आपल्या अधिकृत AAGMAN प्रशासक खात्याने लॉग इन करा.",
+    officialEmailLabel: "अधिकृत ईमेल पत्ता",
+    adminSignInButton: "प्रशासक पोर्टलमध्ये प्रवेश करा",
+    verifyingCredentials: "माहितीची पडताळणी सुरू आहे…",
+    forgotPassword: "पासवर्ड विसरलात?",
+    adminAccessNote: "प्रशासक प्रवेशाची पडताळणी Supabase आणि नियुक्त प्रशासक भूमिकेद्वारे केली जाते.",
 
     // Common Actions & Controls
     searchPlaceholder: "किल्ले, मंदिरे, समुद्रकिनारे, प्राचीन लेणी शोधा...",
@@ -597,6 +619,17 @@ export const TRANSLATIONS = {
     logout: "लॉग आउट",
     welcomeUser: "स्वागत",
     account: "खाता एवं प्रोफाइल",
+
+    readMore: "और पढ़ें",
+    heritageSites: "धरोहर स्थल",
+    travelerSignIn: "यात्री",
+    administratorSignIn: "प्रशासक",
+    adminSignInSub: "अपने अधिकृत AAGMAN प्रशासक खाते से साइन इन करें।",
+    officialEmailLabel: "आधिकारिक ईमेल पता",
+    adminSignInButton: "प्रशासक पोर्टल में साइन इन करें",
+    verifyingCredentials: "प्रमाण-पत्रों की जाँच हो रही है…",
+    forgotPassword: "पासवर्ड भूल गए?",
+    adminAccessNote: "प्रशासक पहुँच की पुष्टि Supabase और आपकी निर्धारित प्रशासक भूमिका से होती है।",
 
     // Common Actions & Controls
     searchPlaceholder: "किले, मंदिर, समुद्र तट, प्राचीन गुफाएं खोजें...",

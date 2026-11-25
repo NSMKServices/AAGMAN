@@ -301,7 +301,7 @@ export default function Destination3DGallery({ destinations = [] }) {
             icon={<ArrowRight size={14} />}
             className={styles.exploreBtn}
           >
-            {t('exploreDestination', 'Explore Destination')}
+            {t('readMore', 'Read more')}
           </Button>
 
           <Button

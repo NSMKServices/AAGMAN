@@ -382,6 +382,8 @@ export default function HomePage() {
 
           <div className={styles.discoveryGrid}>
             {DISCOVERY_CATEGORIES.map((cat, idx) => {
+              // Keep the public destination taxonomy to the four agreed categories.
+              if (![0, 1, 3, 6].includes(idx)) return null;
               const IconComp = cat.icon;
               return (
                 <Link key={idx} to={cat.path} className={styles.discoveryCard}>

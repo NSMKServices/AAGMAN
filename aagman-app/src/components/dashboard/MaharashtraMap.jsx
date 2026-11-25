@@ -4,8 +4,7 @@ import Badge from '../common/Badge';
 import {
   Castle,
   Landmark,
-  Umbrella,
-  BookOpen,
+    BookOpen,
   MapPin,
   Star,
   Compass,
@@ -179,17 +178,17 @@ export default function MaharashtraMap() {
           </button>
           <button
             type="button"
-            className={`${styles.filterBtn} ${activeCategory === 'beaches' ? styles.activeFilter : ''}`}
-            onClick={() => setActiveCategory('beaches')}
-          >
-            <Umbrella size={14} /> {t('beaches', 'Beaches')}
-          </button>
-          <button
-            type="button"
             className={`${styles.filterBtn} ${activeCategory === 'heritage' ? styles.activeFilter : ''}`}
             onClick={() => setActiveCategory('heritage')}
           >
-            <BookOpen size={14} /> {t('heritage', 'Heritage')}
+            <BookOpen size={14} /> {t('heritageSites', 'Heritage Sites')}
+          </button>
+          <button
+            type="button"
+            className={`${styles.filterBtn} ${activeCategory === 'festivals' ? styles.activeFilter : ''}`}
+            onClick={() => setActiveCategory('festivals')}
+          >
+            <Sparkles size={14} /> {t('festivals', 'Festivals')}
           </button>
         </div>
       </div>
@@ -361,6 +360,12 @@ export default function MaharashtraMap() {
                     transform={`translate(${pin.x}, ${pin.y})`}
                     className={`${styles.pinGroup} ${styles[pin.category]} ${isSelected ? styles.selectedPin : ''}`}
                     onClick={(e) => handlePinClick(pin, e)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        handlePinClick(pin, e);
+                      }
+                    }}
                     cursor="pointer"
                     role="button"
                     tabIndex={0}

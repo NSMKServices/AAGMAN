@@ -70,17 +70,39 @@ test('unknown paths show the application 404 page', async ({ page }) => {
 });
 
 
-test('footer Admin Portal opens the dedicated sign-in page', async ({ page }) => {
+test('footer Admin Portal opens the administrator tab in unified sign-in', async ({ page }) => {
   await page.goto('/', { waitUntil: 'domcontentloaded' });
   const adminLink = page.locator('footer a[href="/admin/login"]');
   await expect(adminLink).toBeVisible();
   await adminLink.click();
-  await expect(page).toHaveURL(/\/admin\/login$/);
-  await expect(page.getByRole('heading', { name: 'Administrator Sign In' })).toBeVisible();
+  await expect(page).toHaveURL(/\/login\?mode=admin$/);
+  await expect(page.getByRole('heading', { name: 'Sign In to AAGMAN' })).toBeVisible();
+  await expect(page.getByRole('tab', { name: 'Administrator' })).toHaveAttribute('aria-selected', 'true');
   await expect(page.getByLabel('Official Email Address')).toBeVisible();
   await expect(page.getByRole('textbox', { name: 'Password' })).toBeVisible();
   await expect(page.getByLabel('Remember session')).toHaveCount(0);
 });
+
+test('administrator tab rejects unauthenticated credentials without opening the portal', async ({ page }) => {
+  await page.goto('/login?mode=admin', { waitUntil: 'domcontentloaded' });
+  await page.getByLabel('Official Email Address').fill('not-an-admin@example.com');
+  await page.getByRole('textbox', { name: 'Password' }).fill('incorrect-password');
+  await page.getByRole('button', { name: 'Sign in to Admin Portal' }).click();
+  await expect(page).toHaveURL(/\/login\?mode=admin$/);
+  await expect(page.getByRole('alert')).toBeVisible();
+});
+
+for (const locale of [
+  { code: 'mr', administrator: 'प्रशासक', readMore: 'अधिक वाचा' },
+  { code: 'hi', administrator: 'प्रशासक', readMore: 'और पढ़ें' }
+]) {
+  test(`unified sign-in labels switch to ${locale.code}`, async ({ page }) => {
+    await page.addInitScript((language) => localStorage.setItem('aagman_language', language), locale.code);
+    await page.goto('/login?mode=admin', { waitUntil: 'domcontentloaded' });
+    await expect(page.getByRole('tab', { name: locale.administrator })).toBeVisible();
+    await expect(page.getByLabel(locale.code === 'mr' ? 'अधिकृत ईमेल पत्ता' : 'आधिकारिक ईमेल पता')).toBeVisible();
+  });
+}
 
 test('video cards open matching original YouTube pages in a new tab', async ({ page }) => {
   await page.goto('/videos', { waitUntil: 'domcontentloaded' });

@@ -1,27 +1,56 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import Button from '../components/common/Button';
 import { useAuth } from '../context/AuthContext';
+import { useAdminAuth } from '../context/AdminAuthContext';
 import { useLanguage } from '../context/LanguageContext';
-import { Castle, Sparkles, Shield } from '../components/common/Icons';
+import { Castle, Sparkles } from '../components/common/Icons';
 import styles from './Auth.module.css';
 
 export default function LoginPage() {
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const adminMode = searchParams.get('mode') === 'admin';
   const { login, demoLogin } = useAuth();
+  const { login: adminLogin, authError, setAuthError } = useAdminAuth();
   const { language, t } = useLanguage();
-  const [email, setEmail] = useState('rohan.deshmukh@example.com');
-  const [password, setPassword] = useState('••••••••');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formError, setFormError] = useState('');
 
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    setFormError('');
+    setAuthError(null);
+  }, [adminMode, setAuthError]);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    login(email, password);
-    navigate('/dashboard');
+    setIsSubmitting(true);
+    setFormError('');
+
+    try {
+      if (adminMode) {
+        await adminLogin(email, password);
+        navigate('/admin', { replace: true });
+      } else {
+        login(email, password);
+        navigate('/dashboard', { replace: true });
+      }
+    } catch (error) {
+      setFormError(error?.message || 'Unable to sign in. Please check your credentials.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const selectMode = (mode) => {
+    setSearchParams(mode === 'admin' ? { mode: 'admin' } : {}, { replace: true });
   };
 
   const handleDemoLogin = () => {
     demoLogin();
-    navigate('/dashboard');
+    navigate('/dashboard', { replace: true });
   };
 
   return (
@@ -33,64 +62,80 @@ export default function LoginPage() {
           </span>
           <h1 className={styles.authTitle}>{t('signInTitle', 'Sign In to AAGMAN')}</h1>
           <p className={styles.authSubtitle}>
-            {t('signInSub', 'Access your saved Sahyadri itineraries, custom wishlist, and personalized travel recommendations.')}
+            {adminMode
+              ? t('adminSignInSub', 'Sign in with your authorized AAGMAN administrator credentials.')
+              : t('signInSub', 'Access your saved itineraries, wishlist, and travel recommendations.')}
           </p>
         </div>
 
+        <div className={styles.authModeTabs} role="tablist" aria-label="Sign-in type">
+          <button type="button" role="tab" aria-selected={!adminMode}
+            className={`${styles.authModeTab} ${!adminMode ? styles.authModeTabActive : ''}`}
+            onClick={() => selectMode('traveler')}>
+            {t('travelerSignIn', 'Traveler')}
+          </button>
+          <button type="button" role="tab" aria-selected={adminMode}
+            className={`${styles.authModeTab} ${adminMode ? styles.authModeTabActive : ''}`}
+            onClick={() => selectMode('admin')}>
+            {t('administratorSignIn', 'Administrator')}
+          </button>
+        </div>
+
+        {(formError || (adminMode && authError)) && (
+          <div className={styles.authError} role="alert">{formError || authError}</div>
+        )}
+
         <form onSubmit={handleSubmit} className={styles.authForm}>
           <div className={styles.formGroup}>
-            <label className={styles.label}>{t('emailLabel', 'Email Address')}:</label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              className={styles.input}
-              placeholder="traveler@example.com"
-            />
+            <label className={styles.label} htmlFor="aagman-email">
+              {adminMode ? t('officialEmailLabel', 'Official Email Address') : t('emailLabel', 'Email Address')}
+            </label>
+            <input id="aagman-email" type="email" value={email}
+              onChange={(e) => setEmail(e.target.value)} required autoComplete="username"
+              className={styles.input} placeholder="name@example.com" />
           </div>
 
           <div className={styles.formGroup}>
-            <label className={styles.label}>{t('passwordLabel', 'Password')}:</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              className={styles.input}
-              placeholder="••••••••"
-            />
+            <label className={styles.label} htmlFor="aagman-password">{t('passwordLabel', 'Password')}</label>
+            <input id="aagman-password" type="password" value={password}
+              onChange={(e) => setPassword(e.target.value)} required autoComplete="current-password"
+              className={styles.input} placeholder="••••••••" />
           </div>
 
           <div className={styles.formActions}>
-            <Button type="submit" variant="primary" size="lg" className={styles.submitBtn}>
-              {t('loginButton', 'Sign In')}
+            <Button type="submit" variant="primary" size="lg" className={styles.submitBtn} disabled={isSubmitting}>
+              {isSubmitting
+                ? t('verifyingCredentials', 'Verifying credentials…')
+                : adminMode ? t('adminSignInButton', 'Sign in to Admin Portal') : t('loginButton', 'Sign In')}
             </Button>
           </div>
         </form>
 
-        <div className={styles.demoSection}>
-          <div className={styles.divider}>
-            <span>{language === 'mr' ? 'किंवा' : language === 'hi' ? 'अथवा' : 'OR'}</span>
-          </div>
-          <button
-            type="button"
-            className={styles.demoBtn}
-            onClick={handleDemoLogin}
-          >
-            <Sparkles size={16} />
-            <span>{t('demoLoginButton', 'One-Click Demo Sign In')}</span>
-          </button>
-        </div>
+        {!adminMode && (
+          <>
+            <div className={styles.divider}>
+              <span>{language === 'mr' ? 'किंवा' : language === 'hi' ? 'अथवा' : 'OR'}</span>
+            </div>
+            <button type="button" className={styles.demoBtn} onClick={handleDemoLogin}>
+              <Sparkles size={16} />
+              <span>{t('demoLoginButton', 'One-Click Demo Sign In')}</span>
+            </button>
+            <div className={styles.authFooter}>
+              <p>{t('dontHaveAccount', "Don't have an account?")}{' '}
+                <Link to="/register" className={styles.authLink}>{t('registerFree', 'Register Free')}</Link>
+              </p>
+            </div>
+          </>
+        )}
 
-        <div className={styles.authFooter}>
-          <p>
-            {t('dontHaveAccount', "Don't have an account?")}{' '}
-            <Link to="/register" className={styles.authLink}>
-              {t('registerFree', 'Register Free')}
+        {adminMode && (
+          <div className={styles.authFooter}>
+            <Link to="/admin/forgot-password" className={styles.authLink}>
+              {t('forgotPassword', 'Forgot password?')}
             </Link>
-          </p>
-        </div>
+            <p>{t('adminAccessNote', 'Administrator access is verified against Supabase and your assigned admin role.')}</p>
+          </div>
+        )}
       </div>
     </div>
   );
