@@ -101,6 +101,21 @@ test('video service uses the database as the only catalogue source', async () =>
   assert.match(service, /Database videos query failed/);
 });
 
+
+test('blank-site migration removes legacy public access and only seeded demo videos', async () => {
+  const migration = await readFile(
+    new URL('../supabase/migrations/20261201120000_remove_legacy_content_policies.sql', import.meta.url),
+    'utf8'
+  );
+  assert.match(migration, /drop policy if exists "Public can view destinations"/i);
+  assert.match(migration, /drop policy if exists "Public can view festivals"/i);
+  assert.match(migration, /private\.has_admin_role\('content_manager'\)/i);
+  assert.match(migration, /delete from public\.videos[\s\S]*?'vid-raigad'[\s\S]*?'vid-sinhagad'/i);
+  assert.match(migration, /alter publication supabase_realtime add table public\.destinations/i);
+  assert.match(migration, /alter publication supabase_realtime add table public\.festivals/i);
+  assert.match(migration, /alter publication supabase_realtime add table public\.videos/i);
+});
+
 test('admin function grants preserve RLS checks while removing public RPC access', async () => {
   const migration = await readFile(
     new URL('../supabase/migrations/20261127120000_admin_function_privileges.sql', import.meta.url),
