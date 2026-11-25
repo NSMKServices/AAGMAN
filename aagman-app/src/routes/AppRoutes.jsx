@@ -105,6 +105,7 @@ export const router = createBrowserRouter([
         element: <AdminLayout />,
         children: [
           { index: true, element: <AdminDashboardPage /> },
+          { path: 'places', element: <AdminPlaceManagerPage /> },
           { path: 'destinations', element: <AdminContentPage category="destinations" /> },
           { path: 'festivals', element: <AdminContentPage category="festivals" /> },
           { path: 'videos', element: <AdminVideosPage /> },
