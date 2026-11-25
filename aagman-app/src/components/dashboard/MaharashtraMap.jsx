@@ -4,8 +4,7 @@ import Badge from '../common/Badge';
 import {
   Castle,
   Landmark,
-  Umbrella,
-  BookOpen,
+    BookOpen,
   MapPin,
   Star,
   Compass,
@@ -361,6 +360,12 @@ export default function MaharashtraMap() {
                     transform={`translate(${pin.x}, ${pin.y})`}
                     className={`${styles.pinGroup} ${styles[pin.category]} ${isSelected ? styles.selectedPin : ''}`}
                     onClick={(e) => handlePinClick(pin, e)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        handlePinClick(pin, e);
+                      }
+                    }}
                     cursor="pointer"
                     role="button"
                     tabIndex={0}
