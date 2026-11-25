@@ -22,6 +22,19 @@ CREATE INDEX IF NOT EXISTS idx_trip_stops_destination_id
 CREATE INDEX IF NOT EXISTS idx_wishlists_destination_id
   ON public.wishlists (destination_id);
 
+
+-- Remove only the six known demo videos inserted by the historical seed migration.
+-- Admin-created videos with other IDs are preserved.
+DELETE FROM public.videos
+WHERE id IN (
+  'vid-raigad',
+  'vid-ajanta',
+  'vid-tarkarli',
+  'vid-ellora',
+  'vid-trimbak',
+  'vid-sinhagad'
+);
+
 -- Publish catalogue tables to Supabase Realtime so open public pages refresh
 -- when an administrator creates, updates, publishes, unpublishes, or deletes content.
 DO $$
