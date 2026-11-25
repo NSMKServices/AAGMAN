@@ -312,7 +312,7 @@ export default function DestinationDetailPage() {
                     <span className={styles.metaIcon}><Clock size={16} /></span>
                     <div>
                       <strong className={styles.metaItemLabel}>{t('timingsAccess', 'Timings & Access')}:</strong>
-                      <p className={styles.metaItemVal}>{getLocalizedValue(destination, 'timings', language) || 'Sunrise to Sunset'}</p>
+                      <p className={styles.metaItemVal}>{destination.openingHours || getLocalizedValue(destination, 'timings', language) || 'Sunrise to Sunset'}</p>
                     </div>
                   </div>
 
@@ -359,7 +359,8 @@ export default function DestinationDetailPage() {
                 <div className={styles.metaCard}>
                   <h3 className={styles.metaCardTitle}>{t('howToReach', 'How to Reach & Transit Guidance')}</h3>
                   <div className={styles.reachList}>
-                    {howToReach.air && (
+                    {typeof howToReach === 'string' && <p>{howToReach}</p>}
+                    {typeof howToReach === 'object' && howToReach?.air && (
                       <div className={styles.reachItem}>
                         <Plane size={15} color="var(--color-primary)" />
                         <div>
@@ -368,7 +369,7 @@ export default function DestinationDetailPage() {
                         </div>
                       </div>
                     )}
-                    {howToReach.rail && (
+                    {typeof howToReach === 'object' && howToReach?.rail && (
                       <div className={styles.reachItem}>
                         <Train size={15} color="var(--color-primary)" />
                         <div>
@@ -377,7 +378,7 @@ export default function DestinationDetailPage() {
                         </div>
                       </div>
                     )}
-                    {howToReach.road && (
+                    {typeof howToReach === 'object' && howToReach?.road && (
                       <div className={styles.reachItem}>
                         <Car size={15} color="var(--color-primary)" />
                         <div>
@@ -387,6 +388,15 @@ export default function DestinationDetailPage() {
                       </div>
                     )}
                   </div>
+                </div>
+              )}
+
+              {Array.isArray(destination.facilities) && destination.facilities.length > 0 && (
+                <div className={styles.metaCard}>
+                  <h3 className={styles.metaCardTitle}>Visitor Facilities</h3>
+                  <ul className={styles.tipsList}>
+                    {destination.facilities.map((facility, idx) => <li key={idx} className={styles.tipItem}><span>•</span> {facility}</li>)}
+                  </ul>
                 </div>
               )}
 
