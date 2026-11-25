@@ -22,21 +22,13 @@ export default function VideosPage() {
   const localizedVideo = (video, field) => video[`${field}${language === 'mr' ? 'Mr' : language === 'hi' ? 'Hi' : ''}`] || video[field] || '';
 
   useEffect(() => {
-    let isMounted = true;
-
-    videoService.getAllVideos()
-      .then((records) => {
-        if (isMounted && Array.isArray(records)) {
-          setVideos(records.filter(video => video.isActive !== false));
-        }
-      })
-      .catch((error) => {
-        console.error('Unable to load managed YouTube videos:', error);
-      });
-
-    return () => {
-      isMounted = false;
-    };
+    const unsubscribe = videoService.subscribe(records => {
+      setVideos(records.filter(video => video.isActive !== false));
+    });
+    videoService.getAllVideos().catch(error => {
+      console.error('Unable to load managed YouTube videos:', error);
+    });
+    return unsubscribe;
   }, []);
 
   const filteredVideos = (activeCategory === 'all'
