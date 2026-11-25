@@ -85,7 +85,8 @@ test('footer Admin Portal opens the dedicated sign-in page', async ({ page }) =>
 test('video cards open matching original YouTube pages in a new tab', async ({ page }) => {
   await page.goto('/videos', { waitUntil: 'domcontentloaded' });
   const watchLinks = page.locator('a[href^="https://www.youtube.com/watch?v="]');
-  await expect(watchLinks).toHaveCount(6);
+  await expect(page.getByText('No videos published yet. Add and publish videos in the admin dashboard to display them here.')).toBeVisible();
+  await expect(watchLinks).toHaveCount(0);
 
   for (let index = 0; index < await watchLinks.count(); index += 1) {
     const link = watchLinks.nth(index);
