@@ -1,6 +1,8 @@
 -- AAGMAN content/media persistence foundation.
 -- Safe to rerun: prepare content/media columns without inserting sample destinations or festivals.
 alter table public.destinations
+  alter column gallery drop default;
+alter table public.destinations
   alter column gallery type jsonb
   using case when gallery is null then '[]'::jsonb else to_jsonb(gallery) end;
 alter table public.destinations alter column gallery set default '[]'::jsonb;
