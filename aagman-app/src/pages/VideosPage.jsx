@@ -11,7 +11,6 @@ import {
   MapPin,
   Clock
 } from '../components/common/Icons';
-import { CURATED_VIDEOS } from '../data/videos';
 import { videoService } from '../services/videoService';
 import { useLanguage } from '../context/LanguageContext';
 import styles from './VideosPage.module.css';
@@ -19,7 +18,7 @@ import styles from './VideosPage.module.css';
 export default function VideosPage() {
   const { language, t } = useLanguage();
   const [activeCategory, setActiveCategory] = useState('all');
-  const [videos, setVideos] = useState(() => CURATED_VIDEOS);
+  const [videos, setVideos] = useState([]);
   const localizedVideo = (video, field) => video[`${field}${language === 'mr' ? 'Mr' : language === 'hi' ? 'Hi' : ''}`] || video[field] || '';
 
   useEffect(() => {
@@ -28,7 +27,7 @@ export default function VideosPage() {
     videoService.getAllVideos()
       .then((records) => {
         if (isMounted && Array.isArray(records)) {
-          setVideos(records.filter(video => video.isActive !== false).map((video) => ({ ...(CURATED_VIDEOS.find((curated) => curated.id === video.id) || {}), ...video })));
+          setVideos(records.filter(video => video.isActive !== false));
         }
       })
       .catch((error) => {
