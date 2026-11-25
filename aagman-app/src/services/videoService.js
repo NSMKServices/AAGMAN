@@ -3,7 +3,6 @@
  * Manages video records, association with destinations & festivals, and validation.
  * Operates against Supabase when available with strict error checks and audit logging.
  */
-import { CURATED_VIDEOS } from '../data/videos';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
 import { extractYouTubeId, isValidYouTubeUrl, getYouTubeThumbnail, normalizeYouTubeUrl } from '../utils/youtubeValidator';
 import { auditService } from './auditService';
@@ -17,25 +16,8 @@ const isUuid = value => typeof value === 'string' &&
   /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value);
 
 function loadStoredVideos() {
-  // Production uses Supabase exclusively; local demo/test builds retain the
-  // reviewed six-video catalogue until an administrator adds local records.
-  if (isSupabaseConfigured) return [];
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) {
-      const stored = JSON.parse(raw);
-      if (Array.isArray(stored)) return stored;
-    }
-  } catch (e) {
-    console.warn('Failed loading stored videos:', e);
-  }
-  return CURATED_VIDEOS.map(video => ({
-    ...video,
-    youtubeId: video.youtubeId || extractYouTubeId(video.youtubeUrl),
-    isActive: true,
-    isFeatured: true,
-    updatedAt: new Date().toISOString()
-  }));
+  // No bundled or browser-cached sample content: the catalogue is backend-managed.
+  return [];
 }
 
 function saveStoredVideos(videos) {
@@ -49,6 +31,17 @@ function saveStoredVideos(videos) {
 // In-memory cache
 let videoCache = loadStoredVideos();
 const listeners = new Set();
+let videoRealtimeChannel = null;
+
+function startVideoRealtime() {
+  if (!isSupabaseConfigured || videoRealtimeChannel) return;
+  videoRealtimeChannel = supabase
+    .channel('aagman-public-videos')
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'videos' }, () => {
+      videoService.getAllVideos().catch(error => console.error('Live video refresh failed:', error));
+    })
+    .subscribe();
+}
 
 function notifyListeners() {
   listeners.forEach(fn => fn(videoCache));
@@ -58,7 +51,14 @@ export const videoService = {
   subscribe(fn) {
     listeners.add(fn);
     fn(videoCache);
-    return () => listeners.delete(fn);
+    startVideoRealtime();
+    return () => {
+      listeners.delete(fn);
+      if (listeners.size === 0 && videoRealtimeChannel) {
+        supabase.removeChannel(videoRealtimeChannel);
+        videoRealtimeChannel = null;
+      }
+    };
   },
 
   async getAllVideos() {

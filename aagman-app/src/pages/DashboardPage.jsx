@@ -38,8 +38,8 @@ export default function DashboardPage() {
   const { user } = useAuth();
   const { language, t } = useLanguage();
 
-  const travelerName = user?.name || localStorage.getItem('aagman_traveler_name') || 'Rohan Deshmukh';
-  const homeCity = localStorage.getItem('aagman_home_city') || 'Pune';
+  const travelerName = user?.name || localStorage.getItem('aagman_traveler_name') || t('traveler', 'Traveler');
+  const homeCity = localStorage.getItem('aagman_home_city') || t('notSet', 'Not set');
 
   // Recently viewed destinations are resolved from published admin-managed records.
   const [recentlyViewed, setRecentlyViewed] = useState([]);

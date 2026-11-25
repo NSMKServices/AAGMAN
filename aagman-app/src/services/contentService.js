@@ -29,9 +29,27 @@ function loadLocalContent(key) {
   }
 }
 
-let destinationsCache = loadLocalContent(DESTINATIONS_STORAGE_KEY);
-let festivalsCache = loadLocalContent(FESTIVALS_STORAGE_KEY);
+// Public content is sourced from Supabase only; browser storage is never a catalogue source.
+let destinationsCache = [];
+let festivalsCache = [];
 const contentListeners = new Set();
+let contentRealtimeChannel = null;
+
+function startContentRealtime() {
+  if (!isSupabaseConfigured || contentRealtimeChannel) return;
+  contentRealtimeChannel = supabase
+    .channel('aagman-public-content')
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'destinations' }, () => {
+      contentService.getAllDestinations().catch(error => console.error('Live destination refresh failed:', error));
+    })
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'festivals' }, () => {
+      contentService.getAllFestivals().catch(error => console.error('Live festival refresh failed:', error));
+    })
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'destination_festivals' }, () => {
+      notifyContentListeners();
+    })
+    .subscribe();
+}
 
 function saveLocalDestinations(data) {
   try {
@@ -57,36 +75,47 @@ export const contentService = {
   subscribe(fn) {
     contentListeners.add(fn);
     fn({ destinations: destinationsCache, festivals: festivalsCache });
-    return () => contentListeners.delete(fn);
+    startContentRealtime();
+    return () => {
+      contentListeners.delete(fn);
+      if (contentListeners.size === 0 && contentRealtimeChannel) {
+        supabase.removeChannel(contentRealtimeChannel);
+        contentRealtimeChannel = null;
+      }
+    };
   },
 
   // --------------------------------------------------------------------------
   // DESTINATIONS
   // --------------------------------------------------------------------------
   async getAllDestinations() {
-    if (isSupabaseConfigured) {
-      try {
-        const { data, error } = await supabase.from('destinations').select('*').order('name', { ascending: true });
-        if (error) throw new Error(`Database destinations query failed: ${error.message}`);
-        destinationsCache = (data || []).map(row => ({
-          id: row.slug || row.id, slug: row.slug || row.id, dbId: row.id,
-          name: row.name || '', marathiName: row.marathi_name || '', category: row.category || '',
-          district: row.district || '', region: row.region || '', circuit: row.circuit || '',
-          description: row.description || '', summary: row.description || '',
-          heroImage: row.hero_image || row.image_url || '', image: row.hero_image || row.image_url || '',
-          thumbnail: row.hero_image || row.image_url || '', gallery: row.gallery || [], highlights: row.highlights || [],
-          attractions: row.highlights || [], bestTimeToVisit: row.best_time_to_visit || '',
-          bestTime: row.best_time_to_visit || '', entryFee: row.entry_fee || '',
-          featuredOrder: row.featured_order ?? null, status: row.status || 'draft',
-          updatedAt: row.updated_at, lastEditedBy: row.last_edited_by || 'Editor'
-        }));
-        saveLocalDestinations(destinationsCache);
-        notifyContentListeners();
-        return destinationsCache;
-      } catch (err) {
-        console.warn('Supabase destinations fetch notice, using active store:', err);
-      }
+    if (!isSupabaseConfigured) {
+      destinationsCache = [];
+      notifyContentListeners();
+      return [];
     }
+    const { data, error } = await supabase.from('destinations').select('*').order('name', { ascending: true });
+    if (error) {
+      destinationsCache = [];
+      notifyContentListeners();
+      throw new Error(`Database destinations query failed: ${error.message}`);
+    }
+    destinationsCache = (data || []).map(row => ({
+      id: row.slug || row.id, slug: row.slug || row.id, dbId: row.id,
+      name: row.name || '', marathiName: row.marathi_name || '', category: row.category || '',
+      district: row.district || '', region: row.region || '', circuit: row.circuit || '',
+      latitude: row.latitude ?? null, longitude: row.longitude ?? null,
+      description: row.description || '', summary: row.description || '',
+      heroImage: row.hero_image || row.image_url || '', image: row.hero_image || row.image_url || '',
+      thumbnail: row.hero_image || row.image_url || '', gallery: row.gallery || [], highlights: row.highlights || [],
+      attractions: row.highlights || [], bestTimeToVisit: row.best_time_to_visit || '',
+      bestTime: row.best_time_to_visit || '', entryFee: row.entry_fee || '',
+      openingHours: row.opening_hours || '', howToReach: row.how_to_reach || '', facilities: Array.isArray(row.facilities) ? row.facilities : [],
+      featuredOrder: row.featured_order ?? null, status: row.status || 'draft',
+      updatedAt: row.updated_at, lastEditedBy: row.last_edited_by || 'Editor'
+    }));
+    saveLocalDestinations(destinationsCache);
+    notifyContentListeners();
     return destinationsCache;
   },
 
@@ -145,6 +174,9 @@ export const contentService = {
       highlights: Array.isArray(destData.highlights) ? destData.highlights : [],
       bestTimeToVisit: destData.bestTimeToVisit || '',
       entryFee: destData.entryFee || 'Free entry',
+      openingHours: destData.openingHours || '',
+      howToReach: destData.howToReach || '',
+      facilities: Array.isArray(destData.facilities) ? destData.facilities : [],
       status: targetStatus,
       featuredOrder: destData.featuredOrder ? Number(destData.featuredOrder) : null,
       updatedAt: now,
@@ -177,6 +209,8 @@ export const contentService = {
           category: cleanRecord.category,
           district: cleanRecord.district,
           region: cleanRecord.region,
+          latitude: cleanRecord.latitude,
+          longitude: cleanRecord.longitude,
           circuit: cleanRecord.circuit,
           description: cleanRecord.description,
           hero_image: cleanRecord.heroImage,
@@ -184,6 +218,9 @@ export const contentService = {
           highlights: cleanRecord.highlights,
           best_time_to_visit: cleanRecord.bestTimeToVisit,
           entry_fee: cleanRecord.entryFee,
+          opening_hours: cleanRecord.openingHours,
+          how_to_reach: cleanRecord.howToReach,
+          facilities: cleanRecord.facilities,
           status: cleanRecord.status,
           featured_order: cleanRecord.featuredOrder,
           last_edited_by: cleanRecord.lastEditedBy,
@@ -273,25 +310,27 @@ export const contentService = {
   // FESTIVALS
   // --------------------------------------------------------------------------
   async getAllFestivals() {
-    if (isSupabaseConfigured) {
-      try {
-        const { data, error } = await supabase.from('festivals').select('*').order('name', { ascending: true });
-        if (error) throw new Error(`Database festivals query failed: ${error.message}`);
-        festivalsCache = (data || []).map(row => ({
-          id: row.slug || row.id, slug: row.slug || row.id, dbId: row.id,
-          name: row.name || '', marathiName: row.marathi_name || '', dates: row.dates || '',
-          location: row.location || '', district: row.district || '', description: row.description || '',
-          image: row.image || '', gallery: row.gallery || [], significance: row.significance || '',
-          highlights: row.highlights || [], featuredOrder: row.featured_order ?? null,
-          status: row.status || 'draft', updatedAt: row.updated_at, lastEditedBy: row.last_edited_by || 'Editor'
-        }));
-        saveLocalFestivals(festivalsCache);
-        notifyContentListeners();
-        return festivalsCache;
-      } catch (err) {
-        console.warn('Supabase festivals fetch notice, using active store:', err);
-      }
+    if (!isSupabaseConfigured) {
+      festivalsCache = [];
+      notifyContentListeners();
+      return [];
     }
+    const { data, error } = await supabase.from('festivals').select('*').order('name', { ascending: true });
+    if (error) {
+      festivalsCache = [];
+      notifyContentListeners();
+      throw new Error(`Database festivals query failed: ${error.message}`);
+    }
+    festivalsCache = (data || []).map(row => ({
+      id: row.slug || row.id, slug: row.slug || row.id, dbId: row.id,
+      name: row.name || '', marathiName: row.marathi_name || '', dates: row.dates || '',
+      location: row.location || '', district: row.district || '', description: row.description || '',
+      image: row.image || '', gallery: row.gallery || [], significance: row.significance || '',
+      highlights: row.highlights || [], featuredOrder: row.featured_order ?? null,
+      status: row.status || 'draft', updatedAt: row.updated_at, lastEditedBy: row.last_edited_by || 'Editor'
+    }));
+    saveLocalFestivals(festivalsCache);
+    notifyContentListeners();
     return festivalsCache;
   },
 
@@ -460,6 +499,57 @@ export const contentService = {
       if (!item) throw new Error('Festival not found');
       return this.saveFestival({ ...item, status: 'published' }, adminProfile);
     }
+  },
+
+  // --------------------------------------------------------------------------
+  // PLACE MANAGER: DESTINATION / FESTIVAL ASSOCIATIONS
+  // --------------------------------------------------------------------------
+  async getFestivalIdsForDestination(destinationId) {
+    if (!isSupabaseConfigured) throw new Error('Place associations require the connected Supabase project.');
+    const destination = destinationsCache.find(item => item.id === destinationId || item.slug === destinationId);
+    const dbId = destination?.dbId || (isUuid(destinationId) ? destinationId : null);
+    if (!dbId) throw new Error('Save this destination before associating festivals.');
+    const { data, error } = await supabase
+      .from('destination_festivals')
+      .select('festival_id')
+      .eq('destination_id', dbId);
+    if (error) throw new Error(`Could not load associated festivals: ${error.message}`);
+    return (data || []).map(row => {
+      const festival = festivalsCache.find(item => item.dbId === row.festival_id);
+      return festival?.id || row.festival_id;
+    });
+  },
+
+  async setDestinationFestivals(destinationId, festivalIds = []) {
+    if (!isSupabaseConfigured) throw new Error('Place associations require the connected Supabase project.');
+    const destination = destinationsCache.find(item => item.id === destinationId || item.slug === destinationId);
+    const dbId = destination?.dbId || (isUuid(destinationId) ? destinationId : null);
+    if (!dbId) throw new Error('Save this destination before associating festivals.');
+    const festivalDbIds = [...new Set(festivalIds)].map(id => {
+      const festival = festivalsCache.find(item => item.id === id || item.slug === id || item.dbId === id);
+      return festival?.dbId || (isUuid(id) ? id : null);
+    }).filter(Boolean);
+    const { data: existingLinks, error: readError } = await supabase
+      .from('destination_festivals')
+      .select('festival_id')
+      .eq('destination_id', dbId);
+    if (readError) throw new Error(`Could not read existing festival associations: ${readError.message}`);
+
+    const existingIds = (existingLinks || []).map(row => row.festival_id);
+    const idsToAdd = festivalDbIds.filter(id => !existingIds.includes(id));
+    const idsToRemove = existingIds.filter(id => !festivalDbIds.includes(id));
+
+    if (idsToAdd.length) {
+      const rows = idsToAdd.map(festival_id => ({ destination_id: dbId, festival_id }));
+      const { error } = await supabase.from('destination_festivals').insert(rows);
+      if (error) throw new Error(`Could not save festival associations: ${error.message}`);
+    }
+    if (idsToRemove.length) {
+      const { error } = await supabase.from('destination_festivals')
+        .delete().eq('destination_id', dbId).in('festival_id', idsToRemove);
+      if (error) throw new Error(`Could not remove festival associations: ${error.message}`);
+    }
+    return festivalIds;
   },
 
   // --------------------------------------------------------------------------

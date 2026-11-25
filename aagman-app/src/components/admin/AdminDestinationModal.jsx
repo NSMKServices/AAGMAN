@@ -11,10 +11,15 @@ export default function AdminDestinationModal({ isOpen, onClose, onSave, destina
   const [slug, setSlug] = useState('');
   const [category, setCategory] = useState('forts');
   const [district, setDistrict] = useState('Pune');
+  const [latitude, setLatitude] = useState('');
+  const [longitude, setLongitude] = useState('');
   const [region, setRegion] = useState('Western Maharashtra');
   const [circuit, setCircuit] = useState('');
   const [bestTimeToVisit, setBestTimeToVisit] = useState('October – March');
   const [entryFee, setEntryFee] = useState('Free entry');
+  const [openingHours, setOpeningHours] = useState('');
+  const [howToReach, setHowToReach] = useState('');
+  const [facilitiesText, setFacilitiesText] = useState('');
   const [description, setDescription] = useState('');
   const [highlightsText, setHighlightsText] = useState('');
   const [heroImage, setHeroImage] = useState('');
@@ -32,10 +37,15 @@ export default function AdminDestinationModal({ isOpen, onClose, onSave, destina
       setSlug(destinationToEdit.slug || destinationToEdit.id || '');
       setCategory(destinationToEdit.category || 'forts');
       setDistrict(destinationToEdit.district || '');
+      setLatitude(destinationToEdit.latitude ?? '');
+      setLongitude(destinationToEdit.longitude ?? '');
       setRegion(destinationToEdit.region || 'Western Maharashtra');
       setCircuit(destinationToEdit.circuit || '');
       setBestTimeToVisit(destinationToEdit.bestTimeToVisit || 'October – March');
       setEntryFee(destinationToEdit.entryFee || 'Free entry');
+      setOpeningHours(destinationToEdit.openingHours || '');
+      setHowToReach(destinationToEdit.howToReach || '');
+      setFacilitiesText(Array.isArray(destinationToEdit.facilities) ? destinationToEdit.facilities.join(', ') : '');
       setDescription(destinationToEdit.description || '');
       setHighlightsText(Array.isArray(destinationToEdit.highlights) ? destinationToEdit.highlights.join(', ') : '');
       setHeroImage(destinationToEdit.heroImage || destinationToEdit.image || '');
@@ -48,10 +58,15 @@ export default function AdminDestinationModal({ isOpen, onClose, onSave, destina
       setSlug('');
       setCategory('forts');
       setDistrict('');
+      setLatitude('');
+      setLongitude('');
       setRegion('Western Maharashtra');
       setCircuit('');
       setBestTimeToVisit('October – March');
       setEntryFee('Free entry');
+      setOpeningHours('');
+      setHowToReach('');
+      setFacilitiesText('');
       setDescription('');
       setHighlightsText('');
       setHeroImage('');
@@ -80,6 +95,11 @@ export default function AdminDestinationModal({ isOpen, onClose, onSave, destina
       return;
     }
 
+    if ((latitude === '') !== (longitude === '')) {
+      setValidationError('Enter both latitude and longitude to place this destination on the map.');
+      return;
+    }
+
     const highlights = highlightsText
       .split(',')
       .map(h => h.trim())
@@ -92,10 +112,15 @@ export default function AdminDestinationModal({ isOpen, onClose, onSave, destina
       slug: slug.trim() || name.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
       category,
       district: district.trim(),
+      latitude: latitude === '' ? null : Number(latitude),
+      longitude: longitude === '' ? null : Number(longitude),
       region: region.trim(),
       circuit: circuit.trim(),
       bestTimeToVisit: bestTimeToVisit.trim(),
       entryFee: entryFee.trim(),
+      openingHours: openingHours.trim(),
+      howToReach: howToReach.trim(),
+      facilities: facilitiesText.split(',').map(item => item.trim()).filter(Boolean),
       description: description.trim(),
       highlights,
       heroImage: heroImage.trim(),
@@ -209,6 +234,34 @@ export default function AdminDestinationModal({ isOpen, onClose, onSave, destina
             </div>
 
             <div className={styles.formGroup}>
+              <label className={styles.label}>Latitude (optional)</label>
+              <input
+                type="number"
+                step="any"
+                min="15.60"
+                max="22.05"
+                className={styles.input}
+                placeholder="e.g. 18.5204"
+                value={latitude}
+                onChange={(e) => setLatitude(e.target.value)}
+              />
+            </div>
+
+            <div className={styles.formGroup}>
+              <label className={styles.label}>Longitude (optional)</label>
+              <input
+                type="number"
+                step="any"
+                min="72.45"
+                max="80.95"
+                className={styles.input}
+                placeholder="e.g. 73.8567"
+                value={longitude}
+                onChange={(e) => setLongitude(e.target.value)}
+              />
+            </div>
+
+            <div className={styles.formGroup}>
               <label className={styles.label}>Region</label>
               <input
                 type="text"
@@ -252,6 +305,18 @@ export default function AdminDestinationModal({ isOpen, onClose, onSave, destina
               />
             </div>
 
+            <div className={styles.formGroup}>
+              <label className={styles.label}>Opening Hours / Timings</label>
+              <input type="text" className={styles.input} placeholder="e.g. 9:00 AM – 6:00 PM" value={openingHours} onChange={e => setOpeningHours(e.target.value)} />
+            </div>
+            <div className={styles.formGroup} style={{ gridColumn: '1 / -1' }}>
+              <label className={styles.label}>How to Reach</label>
+              <textarea className={styles.textarea} rows={3} placeholder="Nearest railway station, airport, road access and local transport..." value={howToReach} onChange={e => setHowToReach(e.target.value)} />
+            </div>
+            <div className={styles.formGroup} style={{ gridColumn: '1 / -1' }}>
+              <label className={styles.label}>Visitor Facilities (comma-separated)</label>
+              <input type="text" className={styles.input} placeholder="Parking, toilets, drinking water, guides" value={facilitiesText} onChange={e => setFacilitiesText(e.target.value)} />
+            </div>
             <div className={styles.formGroup}>
               <label className={styles.label}>Publication Workflow Status *</label>
               <select

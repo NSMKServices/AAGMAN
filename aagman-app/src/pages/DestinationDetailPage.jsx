@@ -33,6 +33,7 @@ export default function DestinationDetailPage() {
   const { isWishlisted, toggleWishlist } = useWishlist();
   const { language, t } = useLanguage();
   const [destinationVideos, setDestinationVideos] = useState([]);
+  const [associatedFestivals, setAssociatedFestivals] = useState([]);
   const [destinations, setDestinations] = useState([]);
 
   useEffect(() => {
@@ -71,6 +72,30 @@ export default function DestinationDetailPage() {
     };
   }, [destination?.id, destination?.slug, destination?.name]);
 
+  useEffect(() => {
+    let isMounted = true;
+    if (!destination) {
+      setAssociatedFestivals([]);
+      return () => { isMounted = false; };
+    }
+
+    const refreshAssociatedFestivals = async (festivalRecords = null) => {
+      try {
+        const festivalIds = await contentService.getFestivalIdsForDestination(destination.id || destination.slug);
+        const records = Array.isArray(festivalRecords) ? festivalRecords : await contentService.getAllFestivals();
+        if (isMounted) {
+          setAssociatedFestivals(records.filter(festival => festival.status === 'published' && festivalIds.includes(festival.id)));
+        }
+      } catch (error) {
+        if (isMounted) setAssociatedFestivals([]);
+        console.error('Unable to load destination festivals:', error);
+      }
+    };
+
+    const unsubscribe = contentService.subscribe(({ festivals }) => { refreshAssociatedFestivals(festivals); });
+    contentService.getAllFestivals().catch(error => console.error('Unable to load festival catalogue:', error));
+    return () => { isMounted = false; unsubscribe(); };
+  }, [destination?.id, destination?.slug]);
   if (!destination) {
     return (
       <Container className={styles.notFoundWrapper}>
@@ -239,6 +264,25 @@ export default function DestinationDetailPage() {
                 </div>
               )}
 
+              {/* Festivals associated with this destination */}
+              {associatedFestivals.length > 0 && (
+                <div className={styles.contentBlock}>
+                  <h3 className={styles.sectionSubheading}>Festivals at this destination</h3>
+                  <div className={styles.attractionsGrid}>
+                    {associatedFestivals.map(festival => (
+                      <div key={festival.id} className={styles.attractionItem}>
+                        <span className={styles.attractionNum}>✦</span>
+                        <span className={styles.attractionText}>
+                          <strong>{getLocalizedName(festival, language)}</strong>
+                          {festival.dates ? ` — ${festival.dates}` : ''}
+                          {festival.description ? ` · ${festival.description}` : ''}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               {/* Cultural Food & Cuisine Specialties */}
               {destination.foodSpecialties && destination.foodSpecialties.length > 0 && (
                 <div className={styles.contentBlock}>
@@ -268,7 +312,7 @@ export default function DestinationDetailPage() {
                     <span className={styles.metaIcon}><Clock size={16} /></span>
                     <div>
                       <strong className={styles.metaItemLabel}>{t('timingsAccess', 'Timings & Access')}:</strong>
-                      <p className={styles.metaItemVal}>{getLocalizedValue(destination, 'timings', language) || 'Sunrise to Sunset'}</p>
+                      <p className={styles.metaItemVal}>{destination.openingHours || getLocalizedValue(destination, 'timings', language) || 'Sunrise to Sunset'}</p>
                     </div>
                   </div>
 
@@ -315,7 +359,8 @@ export default function DestinationDetailPage() {
                 <div className={styles.metaCard}>
                   <h3 className={styles.metaCardTitle}>{t('howToReach', 'How to Reach & Transit Guidance')}</h3>
                   <div className={styles.reachList}>
-                    {howToReach.air && (
+                    {typeof howToReach === 'string' && <p>{howToReach}</p>}
+                    {typeof howToReach === 'object' && howToReach?.air && (
                       <div className={styles.reachItem}>
                         <Plane size={15} color="var(--color-primary)" />
                         <div>
@@ -324,7 +369,7 @@ export default function DestinationDetailPage() {
                         </div>
                       </div>
                     )}
-                    {howToReach.rail && (
+                    {typeof howToReach === 'object' && howToReach?.rail && (
                       <div className={styles.reachItem}>
                         <Train size={15} color="var(--color-primary)" />
                         <div>
@@ -333,7 +378,7 @@ export default function DestinationDetailPage() {
                         </div>
                       </div>
                     )}
-                    {howToReach.road && (
+                    {typeof howToReach === 'object' && howToReach?.road && (
                       <div className={styles.reachItem}>
                         <Car size={15} color="var(--color-primary)" />
                         <div>
@@ -343,6 +388,15 @@ export default function DestinationDetailPage() {
                       </div>
                     )}
                   </div>
+                </div>
+              )}
+
+              {Array.isArray(destination.facilities) && destination.facilities.length > 0 && (
+                <div className={styles.metaCard}>
+                  <h3 className={styles.metaCardTitle}>Visitor Facilities</h3>
+                  <ul className={styles.tipsList}>
+                    {destination.facilities.map((facility, idx) => <li key={idx} className={styles.tipItem}><span>•</span> {facility}</li>)}
+                  </ul>
                 </div>
               )}
 

@@ -31,7 +31,7 @@ import {
   ArrowRight,
   Info
 } from '../components/common/Icons';
-import { CURATED_VIDEOS } from '../data/videos';
+import { videoService } from '../services/videoService';
 import { useLanguage } from '../context/LanguageContext';
 import { contentService } from '../services/contentService';
 import styles from './HomePage.module.css';
@@ -260,14 +260,23 @@ export default function HomePage() {
   const [selectedCircuit, setSelectedCircuit] = useState(null);
   const [destinations, setDestinations] = useState([]);
   const [festivals, setFestivals] = useState([]);
+  const [videos, setVideos] = useState([]);
 
   useEffect(() => {
     const unsubscribe = contentService.subscribe(({ destinations: destinationRecords, festivals: festivalRecords }) => {
       setDestinations(destinationRecords);
       setFestivals(festivalRecords);
     });
-    contentService.getAllDestinations();
-    contentService.getAllFestivals();
+    contentService.getAllDestinations().catch(error => console.error('Homepage destinations load failed:', error));
+    contentService.getAllFestivals().catch(error => console.error('Homepage festivals load failed:', error));
+    return unsubscribe;
+  }, []);
+
+  useEffect(() => {
+    const unsubscribe = videoService.subscribe(records => {
+      setVideos(records.filter(video => video.isActive !== false));
+    });
+    videoService.getAllVideos().catch(error => console.error('Homepage videos load failed:', error));
     return unsubscribe;
   }, []);
 
@@ -580,7 +589,7 @@ export default function HomePage() {
           />
 
           <div className={styles.videoGrid}>
-            {CURATED_VIDEOS.map((video) => (
+            {videos.map((video) => (
               <a
                 key={video.id}
                 href={video.youtubeUrl || video.url}

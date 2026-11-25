@@ -11,7 +11,6 @@ import {
   MapPin,
   Clock
 } from '../components/common/Icons';
-import { CURATED_VIDEOS } from '../data/videos';
 import { videoService } from '../services/videoService';
 import { useLanguage } from '../context/LanguageContext';
 import styles from './VideosPage.module.css';
@@ -19,25 +18,17 @@ import styles from './VideosPage.module.css';
 export default function VideosPage() {
   const { language, t } = useLanguage();
   const [activeCategory, setActiveCategory] = useState('all');
-  const [videos, setVideos] = useState(() => CURATED_VIDEOS);
+  const [videos, setVideos] = useState([]);
   const localizedVideo = (video, field) => video[`${field}${language === 'mr' ? 'Mr' : language === 'hi' ? 'Hi' : ''}`] || video[field] || '';
 
   useEffect(() => {
-    let isMounted = true;
-
-    videoService.getAllVideos()
-      .then((records) => {
-        if (isMounted && Array.isArray(records)) {
-          setVideos(records.filter(video => video.isActive !== false).map((video) => ({ ...(CURATED_VIDEOS.find((curated) => curated.id === video.id) || {}), ...video })));
-        }
-      })
-      .catch((error) => {
-        console.error('Unable to load managed YouTube videos:', error);
-      });
-
-    return () => {
-      isMounted = false;
-    };
+    const unsubscribe = videoService.subscribe(records => {
+      setVideos(records.filter(video => video.isActive !== false));
+    });
+    videoService.getAllVideos().catch(error => {
+      console.error('Unable to load managed YouTube videos:', error);
+    });
+    return unsubscribe;
   }, []);
 
   const filteredVideos = (activeCategory === 'all'
@@ -107,6 +98,11 @@ export default function VideosPage() {
             </span>
           </div>
 
+          {filteredVideos.length === 0 ? (
+            <p role="status" style={{ textAlign: 'center', padding: '2.5rem 1rem', color: 'var(--color-text-secondary)' }}>
+              No videos published yet. Add and publish videos in the admin dashboard to display them here.
+            </p>
+          ) : (
           <div className={styles.videosGrid}>
             {filteredVideos.map(video => (
               <div key={video.id} className={styles.videoCard}>
@@ -158,6 +154,7 @@ export default function VideosPage() {
               </div>
             ))}
           </div>
+          )}
         </Container>
       </section>
     </div>

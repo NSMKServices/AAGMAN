@@ -37,6 +37,7 @@ import AdminForgotPasswordPage from '../pages/admin/AdminForgotPasswordPage';
 import AdminResetPasswordPage from '../pages/admin/AdminResetPasswordPage';
 import AdminDashboardPage from '../pages/admin/AdminDashboardPage';
 import AdminContentPage from '../pages/admin/AdminContentPage';
+import AdminPlaceManagerPage from '../pages/admin/AdminPlaceManagerPage';
 import AdminVideosPage from '../pages/admin/AdminVideosPage';
 import AdminAuditLogsPage from '../pages/admin/AdminAuditLogsPage';
 import AdminUsersPage from '../pages/admin/AdminUsersPage';
@@ -105,6 +106,7 @@ export const router = createBrowserRouter([
         element: <AdminLayout />,
         children: [
           { index: true, element: <AdminDashboardPage /> },
+          { path: 'places', element: <AdminPlaceManagerPage /> },
           { path: 'destinations', element: <AdminContentPage category="destinations" /> },
           { path: 'festivals', element: <AdminContentPage category="festivals" /> },
           { path: 'videos', element: <AdminVideosPage /> },

@@ -1,0 +1,86 @@
+-- Store optional coordinates with each destination so the map can render
+-- newly added places without a hardcoded coordinate registry.
+ALTER TABLE public.destinations
+  ADD COLUMN IF NOT EXISTS latitude double precision,
+  ADD COLUMN IF NOT EXISTS longitude double precision;
+
+ALTER TABLE public.destinations
+  DROP CONSTRAINT IF EXISTS destinations_category_check;
+ALTER TABLE public.destinations
+  ADD CONSTRAINT destinations_category_check
+  CHECK (category IN ('forts', 'temples', 'beaches', 'heritage', 'nature', 'wildlife'));
+
+ALTER TABLE public.destinations
+  DROP CONSTRAINT IF EXISTS destinations_coordinates_pair_check;
+ALTER TABLE public.destinations
+  ADD CONSTRAINT destinations_coordinates_pair_check
+  CHECK (
+    (latitude IS NULL AND longitude IS NULL)
+    OR (
+      latitude BETWEEN 15.60 AND 22.05
+      AND longitude BETWEEN 72.45 AND 80.95
+    )
+  );
+
+-- Correct legacy permissive RLS policies left alongside the hardened private-helper policies.
+-- Permissive SELECT policies are ORed; the old USING (true) policies exposed drafts.
+DROP POLICY IF EXISTS "Public can view destinations" ON public.destinations;
+DROP POLICY IF EXISTS "Content managers can delete destinations" ON public.destinations;
+DROP POLICY IF EXISTS "Editors and above can insert destinations" ON public.destinations;
+
+DROP POLICY IF EXISTS "Public can view festivals" ON public.festivals;
+DROP POLICY IF EXISTS "Content managers can delete festivals" ON public.festivals;
+DROP POLICY IF EXISTS "Editors and above can insert festivals" ON public.festivals;
+
+-- Replace the stale audit-log policy that referenced the revoked public helper.
+DROP POLICY IF EXISTS "Authorized admins can view audit logs" ON public.admin_audit_logs;
+DROP POLICY IF EXISTS "Super admins can view audit logs" ON public.admin_audit_logs;
+CREATE POLICY "Authorized admins can view audit logs"
+  ON public.admin_audit_logs FOR SELECT TO authenticated
+  USING (private.has_admin_role('content_manager'));
+
+-- Support the existing foreign-key lookups reported by the Supabase performance advisor.
+CREATE INDEX IF NOT EXISTS idx_trip_stops_destination_id
+  ON public.trip_stops (destination_id);
+
+CREATE INDEX IF NOT EXISTS idx_wishlists_destination_id
+  ON public.wishlists (destination_id);
+
+
+-- Remove only the six known demo videos inserted by the historical seed migration.
+-- Admin-created videos with other IDs are preserved.
+DELETE FROM public.videos
+WHERE id IN (
+  'vid-raigad',
+  'vid-ajanta',
+  'vid-tarkarli',
+  'vid-ellora',
+  'vid-trimbak',
+  'vid-sinhagad'
+);
+
+-- Publish catalogue tables to Supabase Realtime so open public pages refresh
+-- when an administrator creates, updates, publishes, unpublishes, or deletes content.
+DO $$
+BEGIN
+  IF EXISTS (SELECT 1 FROM pg_publication WHERE pubname = 'supabase_realtime') THEN
+    IF NOT EXISTS (
+      SELECT 1 FROM pg_publication_tables
+      WHERE pubname = 'supabase_realtime' AND schemaname = 'public' AND tablename = 'destinations'
+    ) THEN
+      ALTER PUBLICATION supabase_realtime ADD TABLE public.destinations;
+    END IF;
+    IF NOT EXISTS (
+      SELECT 1 FROM pg_publication_tables
+      WHERE pubname = 'supabase_realtime' AND schemaname = 'public' AND tablename = 'festivals'
+    ) THEN
+      ALTER PUBLICATION supabase_realtime ADD TABLE public.festivals;
+    END IF;
+    IF NOT EXISTS (
+      SELECT 1 FROM pg_publication_tables
+      WHERE pubname = 'supabase_realtime' AND schemaname = 'public' AND tablename = 'videos'
+    ) THEN
+      ALTER PUBLICATION supabase_realtime ADD TABLE public.videos;
+    END IF;
+  END IF;
+END $$;
