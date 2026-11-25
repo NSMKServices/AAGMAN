@@ -24,11 +24,7 @@ export default function AdminLayout() {
       <header className={styles.topHeader}>
         <div className={styles.headerLeft}>
           <div className={styles.brandGroup}>
-            <div className={styles.emblem}>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-              </svg>
-            </div>
+            <img src="/aagman-logo.svg" alt="AAGMAN" className={styles.emblemImage} />
             <div className={styles.brandDetails}>
               <span className={styles.portalTitle}>AAGMAN Admin Console</span>
               <span className={styles.portalSub}>Government of Maharashtra • Tourism & Heritage</span>
