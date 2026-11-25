@@ -1,3 +1,27 @@
+-- Store optional coordinates with each destination so the map can render
+-- newly added places without a hardcoded coordinate registry.
+ALTER TABLE public.destinations
+  ADD COLUMN IF NOT EXISTS latitude double precision,
+  ADD COLUMN IF NOT EXISTS longitude double precision;
+
+ALTER TABLE public.destinations
+  DROP CONSTRAINT IF EXISTS destinations_category_check;
+ALTER TABLE public.destinations
+  ADD CONSTRAINT destinations_category_check
+  CHECK (category IN ('forts', 'temples', 'beaches', 'heritage', 'nature', 'wildlife'));
+
+ALTER TABLE public.destinations
+  DROP CONSTRAINT IF EXISTS destinations_coordinates_pair_check;
+ALTER TABLE public.destinations
+  ADD CONSTRAINT destinations_coordinates_pair_check
+  CHECK (
+    (latitude IS NULL AND longitude IS NULL)
+    OR (
+      latitude BETWEEN 15.60 AND 22.05
+      AND longitude BETWEEN 72.45 AND 80.95
+    )
+  );
+
 -- Correct legacy permissive RLS policies left alongside the hardened private-helper policies.
 -- Permissive SELECT policies are ORed; the old USING (true) policies exposed drafts.
 DROP POLICY IF EXISTS "Public can view destinations" ON public.destinations;
