@@ -89,7 +89,7 @@ test('content service keeps public slugs separate from database UUIDs', async ()
   assert.match(service, /onConflict:\s*'id'/);
 });
 
-test('video service uses the database as production source of truth and preserves offline catalogue', async () => {
+test('video service uses the database as the only catalogue source', async () => {
   const service = await readFile(
     new URL('../src/services/videoService.js', import.meta.url),
     'utf8'
