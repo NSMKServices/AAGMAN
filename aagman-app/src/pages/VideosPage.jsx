@@ -98,6 +98,11 @@ export default function VideosPage() {
             </span>
           </div>
 
+          {filteredVideos.length === 0 ? (
+            <p role="status" style={{ textAlign: 'center', padding: '2.5rem 1rem', color: 'var(--color-text-secondary)' }}>
+              No videos published yet. Add and publish videos in the admin dashboard to display them here.
+            </p>
+          ) : (
           <div className={styles.videosGrid}>
             {filteredVideos.map(video => (
               <div key={video.id} className={styles.videoCard}>
@@ -149,6 +154,7 @@ export default function VideosPage() {
               </div>
             ))}
           </div>
+          )}
         </Container>
       </section>
     </div>
