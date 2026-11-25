@@ -31,6 +31,17 @@ function saveStoredVideos(videos) {
 // In-memory cache
 let videoCache = loadStoredVideos();
 const listeners = new Set();
+let videoRealtimeChannel = null;
+
+function startVideoRealtime() {
+  if (!isSupabaseConfigured || videoRealtimeChannel) return;
+  videoRealtimeChannel = supabase
+    .channel('aagman-public-videos')
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'videos' }, () => {
+      videoService.getAllVideos().catch(error => console.error('Live video refresh failed:', error));
+    })
+    .subscribe();
+}
 
 function notifyListeners() {
   listeners.forEach(fn => fn(videoCache));
@@ -40,7 +51,14 @@ export const videoService = {
   subscribe(fn) {
     listeners.add(fn);
     fn(videoCache);
-    return () => listeners.delete(fn);
+    startVideoRealtime();
+    return () => {
+      listeners.delete(fn);
+      if (listeners.size === 0 && videoRealtimeChannel) {
+        supabase.removeChannel(videoRealtimeChannel);
+        videoRealtimeChannel = null;
+      }
+    };
   },
 
   async getAllVideos() {
