@@ -110,6 +110,7 @@ export const contentService = {
       thumbnail: row.hero_image || row.image_url || '', gallery: row.gallery || [], highlights: row.highlights || [],
       attractions: row.highlights || [], bestTimeToVisit: row.best_time_to_visit || '',
       bestTime: row.best_time_to_visit || '', entryFee: row.entry_fee || '',
+      openingHours: row.opening_hours || '', howToReach: row.how_to_reach || '', facilities: Array.isArray(row.facilities) ? row.facilities : [],
       featuredOrder: row.featured_order ?? null, status: row.status || 'draft',
       updatedAt: row.updated_at, lastEditedBy: row.last_edited_by || 'Editor'
     }));
@@ -173,6 +174,9 @@ export const contentService = {
       highlights: Array.isArray(destData.highlights) ? destData.highlights : [],
       bestTimeToVisit: destData.bestTimeToVisit || '',
       entryFee: destData.entryFee || 'Free entry',
+      openingHours: destData.openingHours || '',
+      howToReach: destData.howToReach || '',
+      facilities: Array.isArray(destData.facilities) ? destData.facilities : [],
       status: targetStatus,
       featuredOrder: destData.featuredOrder ? Number(destData.featuredOrder) : null,
       updatedAt: now,
@@ -214,6 +218,9 @@ export const contentService = {
           highlights: cleanRecord.highlights,
           best_time_to_visit: cleanRecord.bestTimeToVisit,
           entry_fee: cleanRecord.entryFee,
+          opening_hours: cleanRecord.openingHours,
+          how_to_reach: cleanRecord.howToReach,
+          facilities: cleanRecord.facilities,
           status: cleanRecord.status,
           featured_order: cleanRecord.featuredOrder,
           last_edited_by: cleanRecord.lastEditedBy,
