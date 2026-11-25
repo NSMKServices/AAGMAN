@@ -1,4 +1,5 @@
 import React from 'react';
+import { Navigate } from 'react-router-dom';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import PublicLayout from '../layouts/PublicLayout';
 import DashboardLayout from '../layouts/DashboardLayout';
@@ -90,7 +91,7 @@ export const router = createBrowserRouter([
     element: <AdminPublicOnlyRoute />,
     errorElement: <NotFoundPage />,
     children: [
-      { path: 'login', element: <AdminLoginPage /> },
+      { path: 'login', element: <Navigate to="/login?mode=admin" replace /> },
       { path: 'forgot-password', element: <AdminForgotPasswordPage /> },
       { path: 'reset-password', element: <AdminResetPasswordPage /> }
     ]
