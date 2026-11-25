@@ -222,6 +222,7 @@ export const contentService = {
           how_to_reach: cleanRecord.howToReach,
           facilities: cleanRecord.facilities,
           status: cleanRecord.status,
+          is_published: cleanRecord.status === 'published',
           featured_order: cleanRecord.featuredOrder,
           last_edited_by: cleanRecord.lastEditedBy,
           updated_at: now
@@ -401,6 +402,7 @@ export const contentService = {
           significance: cleanRecord.significance,
           highlights: cleanRecord.highlights,
           status: cleanRecord.status,
+          is_published: cleanRecord.status === 'published',
           featured_order: cleanRecord.featuredOrder,
           last_edited_by: cleanRecord.lastEditedBy,
           updated_at: now
