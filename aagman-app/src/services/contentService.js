@@ -29,8 +29,9 @@ function loadLocalContent(key) {
   }
 }
 
-let destinationsCache = loadLocalContent(DESTINATIONS_STORAGE_KEY);
-let festivalsCache = loadLocalContent(FESTIVALS_STORAGE_KEY);
+// Public content is sourced from Supabase only; browser storage is never a catalogue source.
+let destinationsCache = [];
+let festivalsCache = [];
 const contentListeners = new Set();
 
 function saveLocalDestinations(data) {
@@ -64,29 +65,31 @@ export const contentService = {
   // DESTINATIONS
   // --------------------------------------------------------------------------
   async getAllDestinations() {
-    if (isSupabaseConfigured) {
-      try {
-        const { data, error } = await supabase.from('destinations').select('*').order('name', { ascending: true });
-        if (error) throw new Error(`Database destinations query failed: ${error.message}`);
-        destinationsCache = (data || []).map(row => ({
-          id: row.slug || row.id, slug: row.slug || row.id, dbId: row.id,
-          name: row.name || '', marathiName: row.marathi_name || '', category: row.category || '',
-          district: row.district || '', region: row.region || '', circuit: row.circuit || '',
-          description: row.description || '', summary: row.description || '',
-          heroImage: row.hero_image || row.image_url || '', image: row.hero_image || row.image_url || '',
-          thumbnail: row.hero_image || row.image_url || '', gallery: row.gallery || [], highlights: row.highlights || [],
-          attractions: row.highlights || [], bestTimeToVisit: row.best_time_to_visit || '',
-          bestTime: row.best_time_to_visit || '', entryFee: row.entry_fee || '',
-          featuredOrder: row.featured_order ?? null, status: row.status || 'draft',
-          updatedAt: row.updated_at, lastEditedBy: row.last_edited_by || 'Editor'
-        }));
-        saveLocalDestinations(destinationsCache);
-        notifyContentListeners();
-        return destinationsCache;
-      } catch (err) {
-        console.warn('Supabase destinations fetch notice, using active store:', err);
-      }
+    if (!isSupabaseConfigured) {
+      destinationsCache = [];
+      notifyContentListeners();
+      throw new Error('Supabase is not configured. Public destination content requires the backend.');
     }
+    const { data, error } = await supabase.from('destinations').select('*').order('name', { ascending: true });
+    if (error) {
+      destinationsCache = [];
+      notifyContentListeners();
+      throw new Error(`Database destinations query failed: ${error.message}`);
+    }
+    destinationsCache = (data || []).map(row => ({
+      id: row.slug || row.id, slug: row.slug || row.id, dbId: row.id,
+      name: row.name || '', marathiName: row.marathi_name || '', category: row.category || '',
+      district: row.district || '', region: row.region || '', circuit: row.circuit || '',
+      description: row.description || '', summary: row.description || '',
+      heroImage: row.hero_image || row.image_url || '', image: row.hero_image || row.image_url || '',
+      thumbnail: row.hero_image || row.image_url || '', gallery: row.gallery || [], highlights: row.highlights || [],
+      attractions: row.highlights || [], bestTimeToVisit: row.best_time_to_visit || '',
+      bestTime: row.best_time_to_visit || '', entryFee: row.entry_fee || '',
+      featuredOrder: row.featured_order ?? null, status: row.status || 'draft',
+      updatedAt: row.updated_at, lastEditedBy: row.last_edited_by || 'Editor'
+    }));
+    saveLocalDestinations(destinationsCache);
+    notifyContentListeners();
     return destinationsCache;
   },
 
@@ -273,25 +276,27 @@ export const contentService = {
   // FESTIVALS
   // --------------------------------------------------------------------------
   async getAllFestivals() {
-    if (isSupabaseConfigured) {
-      try {
-        const { data, error } = await supabase.from('festivals').select('*').order('name', { ascending: true });
-        if (error) throw new Error(`Database festivals query failed: ${error.message}`);
-        festivalsCache = (data || []).map(row => ({
-          id: row.slug || row.id, slug: row.slug || row.id, dbId: row.id,
-          name: row.name || '', marathiName: row.marathi_name || '', dates: row.dates || '',
-          location: row.location || '', district: row.district || '', description: row.description || '',
-          image: row.image || '', gallery: row.gallery || [], significance: row.significance || '',
-          highlights: row.highlights || [], featuredOrder: row.featured_order ?? null,
-          status: row.status || 'draft', updatedAt: row.updated_at, lastEditedBy: row.last_edited_by || 'Editor'
-        }));
-        saveLocalFestivals(festivalsCache);
-        notifyContentListeners();
-        return festivalsCache;
-      } catch (err) {
-        console.warn('Supabase festivals fetch notice, using active store:', err);
-      }
+    if (!isSupabaseConfigured) {
+      festivalsCache = [];
+      notifyContentListeners();
+      throw new Error('Supabase is not configured. Public festival content requires the backend.');
     }
+    const { data, error } = await supabase.from('festivals').select('*').order('name', { ascending: true });
+    if (error) {
+      festivalsCache = [];
+      notifyContentListeners();
+      throw new Error(`Database festivals query failed: ${error.message}`);
+    }
+    festivalsCache = (data || []).map(row => ({
+      id: row.slug || row.id, slug: row.slug || row.id, dbId: row.id,
+      name: row.name || '', marathiName: row.marathi_name || '', dates: row.dates || '',
+      location: row.location || '', district: row.district || '', description: row.description || '',
+      image: row.image || '', gallery: row.gallery || [], significance: row.significance || '',
+      highlights: row.highlights || [], featuredOrder: row.featured_order ?? null,
+      status: row.status || 'draft', updatedAt: row.updated_at, lastEditedBy: row.last_edited_by || 'Editor'
+    }));
+    saveLocalFestivals(festivalsCache);
+    notifyContentListeners();
     return festivalsCache;
   },
 
