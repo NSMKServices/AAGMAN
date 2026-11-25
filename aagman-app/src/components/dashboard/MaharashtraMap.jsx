@@ -179,17 +179,17 @@ export default function MaharashtraMap() {
           </button>
           <button
             type="button"
-            className={`${styles.filterBtn} ${activeCategory === 'beaches' ? styles.activeFilter : ''}`}
-            onClick={() => setActiveCategory('beaches')}
-          >
-            <Umbrella size={14} /> {t('beaches', 'Beaches')}
-          </button>
-          <button
-            type="button"
             className={`${styles.filterBtn} ${activeCategory === 'heritage' ? styles.activeFilter : ''}`}
             onClick={() => setActiveCategory('heritage')}
           >
-            <BookOpen size={14} /> {t('heritage', 'Heritage')}
+            <BookOpen size={14} /> {t('heritageSites', 'Heritage Sites')}
+          </button>
+          <button
+            type="button"
+            className={`${styles.filterBtn} ${activeCategory === 'festivals' ? styles.activeFilter : ''}`}
+            onClick={() => setActiveCategory('festivals')}
+          >
+            <Sparkles size={14} /> {t('festivals', 'Festivals')}
           </button>
         </div>
       </div>
