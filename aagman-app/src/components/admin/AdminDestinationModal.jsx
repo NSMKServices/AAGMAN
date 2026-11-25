@@ -11,6 +11,8 @@ export default function AdminDestinationModal({ isOpen, onClose, onSave, destina
   const [slug, setSlug] = useState('');
   const [category, setCategory] = useState('forts');
   const [district, setDistrict] = useState('Pune');
+  const [latitude, setLatitude] = useState('');
+  const [longitude, setLongitude] = useState('');
   const [region, setRegion] = useState('Western Maharashtra');
   const [circuit, setCircuit] = useState('');
   const [bestTimeToVisit, setBestTimeToVisit] = useState('October – March');
@@ -32,6 +34,8 @@ export default function AdminDestinationModal({ isOpen, onClose, onSave, destina
       setSlug(destinationToEdit.slug || destinationToEdit.id || '');
       setCategory(destinationToEdit.category || 'forts');
       setDistrict(destinationToEdit.district || '');
+      setLatitude(destinationToEdit.latitude ?? '');
+      setLongitude(destinationToEdit.longitude ?? '');
       setRegion(destinationToEdit.region || 'Western Maharashtra');
       setCircuit(destinationToEdit.circuit || '');
       setBestTimeToVisit(destinationToEdit.bestTimeToVisit || 'October – March');
@@ -48,6 +52,8 @@ export default function AdminDestinationModal({ isOpen, onClose, onSave, destina
       setSlug('');
       setCategory('forts');
       setDistrict('');
+      setLatitude('');
+      setLongitude('');
       setRegion('Western Maharashtra');
       setCircuit('');
       setBestTimeToVisit('October – March');
@@ -80,6 +86,11 @@ export default function AdminDestinationModal({ isOpen, onClose, onSave, destina
       return;
     }
 
+    if ((latitude === '') !== (longitude === '')) {
+      setValidationError('Enter both latitude and longitude to place this destination on the map.');
+      return;
+    }
+
     const highlights = highlightsText
       .split(',')
       .map(h => h.trim())
@@ -92,6 +103,8 @@ export default function AdminDestinationModal({ isOpen, onClose, onSave, destina
       slug: slug.trim() || name.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
       category,
       district: district.trim(),
+      latitude: latitude === '' ? null : Number(latitude),
+      longitude: longitude === '' ? null : Number(longitude),
       region: region.trim(),
       circuit: circuit.trim(),
       bestTimeToVisit: bestTimeToVisit.trim(),
@@ -205,6 +218,34 @@ export default function AdminDestinationModal({ isOpen, onClose, onSave, destina
                 value={district}
                 onChange={(e) => setDistrict(e.target.value)}
                 required
+              />
+            </div>
+
+            <div className={styles.formGroup}>
+              <label className={styles.label}>Latitude (optional)</label>
+              <input
+                type="number"
+                step="any"
+                min="15.60"
+                max="22.05"
+                className={styles.input}
+                placeholder="e.g. 18.5204"
+                value={latitude}
+                onChange={(e) => setLatitude(e.target.value)}
+              />
+            </div>
+
+            <div className={styles.formGroup}>
+              <label className={styles.label}>Longitude (optional)</label>
+              <input
+                type="number"
+                step="any"
+                min="72.45"
+                max="80.95"
+                className={styles.input}
+                placeholder="e.g. 73.8567"
+                value={longitude}
+                onChange={(e) => setLongitude(e.target.value)}
               />
             </div>
 
