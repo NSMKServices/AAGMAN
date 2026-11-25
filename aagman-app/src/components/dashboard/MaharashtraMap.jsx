@@ -20,7 +20,7 @@ import { contentService } from '../../services/contentService';
 import {
   MAHARASHTRA_DISTRICTS,
   MAHARASHTRA_DIVISIONS,
-  PROJECTED_DESTINATIONS,
+  MAHARASHTRA_PROJECTION,
   ARABIAN_SEA_PATH,
   KONKAN_COASTLINE_PATH
 } from '../../data/maharashtraGeoData';
@@ -44,13 +44,31 @@ export default function MaharashtraMap() {
 
   const publishedDestinations = destinations.filter(item => item.status === 'published');
 
-  // Filter destination pins by category and optional division
-  const filteredPins = PROJECTED_DESTINATIONS.filter(pin => publishedDestinations.some(item =>
-    item.slug === pin.slug || (item.name || '').toLowerCase() === (pin.name || '').toLowerCase()
-  )).filter(pin => {
+  // Project every published destination that has coordinates supplied in the admin backend.
+  const projectedPins = publishedDestinations
+    .filter(item => Number.isFinite(Number(item.latitude)) && Number.isFinite(Number(item.longitude)))
+    .map(item => {
+      const { x, y } = MAHARASHTRA_PROJECTION.project(Number(item.latitude), Number(item.longitude));
+      const parentDistrict = MAHARASHTRA_DISTRICTS.find(d =>
+        d.name.toLowerCase() === (item.district || '').toLowerCase()
+      );
+      return {
+        id: item.id,
+        slug: item.slug,
+        name: item.name,
+        marathiName: item.marathiName,
+        hindiName: item.nameHi,
+        category: item.category,
+        districtId: parentDistrict?.id || null,
+        x,
+        y
+      };
+    });
+
+  // Filter live backend pins by category and optional division.
+  const filteredPins = projectedPins.filter(pin => {
     const matchesCategory = activeCategory === 'all' || pin.category === activeCategory;
     if (!matchesCategory) return false;
-
     if (activeDivision === 'all') return true;
     const parentDistrict = MAHARASHTRA_DISTRICTS.find(d => d.id === pin.districtId);
     return parentDistrict && parentDistrict.division.toLowerCase().includes(activeDivision.toLowerCase());
@@ -98,7 +116,7 @@ export default function MaharashtraMap() {
     } else {
       setSelectedDistrictId(district.id);
       // If district has destinations, highlight the first one
-      const foundDest = filteredPins.find(p => district.destinations.includes(p.slug));
+      const foundDest = filteredPins.find(p => p.districtId === district.id || district.destinations.includes(p.slug));
       if (foundDest) {
         setSelectedPinId(foundDest.id);
       }
@@ -121,7 +139,7 @@ export default function MaharashtraMap() {
     setActiveCategory('all');
     setActiveDivision('all');
     setSelectedDistrictId(null);
-    setSelectedPinId('raigad');
+    setSelectedPinId(null);
   };
 
   return (
@@ -450,7 +468,7 @@ export default function MaharashtraMap() {
                         key={dest.id}
                         type="button"
                         className={`${styles.districtDestChip} ${activePin?.slug === dest.slug ? styles.activeChip : ''}`}
-                        onClick={() => setSelectedPinId(PROJECTED_DESTINATIONS.find(pin => pin.slug === dest.slug)?.id || null)}
+                        onClick={() => setSelectedPinId(projectedPins.find(pin => pin.slug === dest.slug)?.id || null)}
                       >
                         {language === 'mr' ? dest.marathiName || dest.name : dest.name}
                       </button>
