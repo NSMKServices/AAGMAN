@@ -1,0 +1,19 @@
+-- Correct legacy permissive RLS policies left alongside the hardened private-helper policies.
+-- Permissive SELECT policies are ORed; the old USING (true) policies exposed drafts.
+DROP POLICY IF EXISTS "Public can view destinations" ON public.destinations;
+DROP POLICY IF EXISTS "Content managers can delete destinations" ON public.destinations;
+DROP POLICY IF EXISTS "Editors and above can insert destinations" ON public.destinations;
+
+DROP POLICY IF EXISTS "Public can view festivals" ON public.festivals;
+DROP POLICY IF EXISTS "Content managers can delete festivals" ON public.festivals;
+DROP POLICY IF EXISTS "Editors and above can insert festivals" ON public.festivals;
+
+-- Replace the stale audit-log policy that referenced the revoked public helper.
+DROP POLICY IF EXISTS "Authorized admins can view audit logs" ON public.admin_audit_logs;
+
+-- Support the existing foreign-key lookups reported by the Supabase performance advisor.
+CREATE INDEX IF NOT EXISTS idx_trip_stops_destination_id
+  ON public.trip_stops (destination_id);
+
+CREATE INDEX IF NOT EXISTS idx_wishlists_destination_id
+  ON public.wishlists (destination_id);
