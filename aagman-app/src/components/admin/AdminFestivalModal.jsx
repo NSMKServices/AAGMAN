@@ -47,7 +47,7 @@ export default function AdminFestivalModal({ isOpen, onClose, onSave, festivalTo
       setHighlightsText('');
       setImage('');
       setGallery([]);
-      setStatus(canPublish ? 'published' : 'draft');
+      setStatus('published');
       setFeaturedOrder('');
     }
     setValidationError(null);
