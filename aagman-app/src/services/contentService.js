@@ -492,6 +492,49 @@ export const contentService = {
   },
 
   // --------------------------------------------------------------------------
+  // PLACE MANAGER: DESTINATION / FESTIVAL ASSOCIATIONS
+  // --------------------------------------------------------------------------
+  async getFestivalIdsForDestination(destinationId) {
+    if (!isSupabaseConfigured) throw new Error('Place associations require the connected Supabase project.');
+    const destination = destinationsCache.find(item => item.id === destinationId || item.slug === destinationId);
+    const dbId = destination?.dbId || (isUuid(destinationId) ? destinationId : null);
+    if (!dbId) throw new Error('Save this destination before associating festivals.');
+    const { data, error } = await supabase
+      .from('destination_festivals')
+      .select('festival_id')
+      .eq('destination_id', dbId);
+    if (error) throw new Error(`Could not load associated festivals: ${error.message}`);
+    return (data || []).map(row => {
+      const festival = festivalsCache.find(item => item.dbId === row.festival_id);
+      return festival?.id || row.festival_id;
+    });
+  },
+
+  async setDestinationFestivals(destinationId, festivalIds = []) {
+    if (!isSupabaseConfigured) throw new Error('Place associations require the connected Supabase project.');
+    const destination = destinationsCache.find(item => item.id === destinationId || item.slug === destinationId);
+    const dbId = destination?.dbId || (isUuid(destinationId) ? destinationId : null);
+    if (!dbId) throw new Error('Save this destination before associating festivals.');
+    const festivalDbIds = [...new Set(festivalIds)].map(id => {
+      const festival = festivalsCache.find(item => item.id === id || item.slug === id || item.dbId === id);
+      return festival?.dbId || (isUuid(id) ? id : null);
+    }).filter(Boolean);
+    if (festivalDbIds.length) {
+      const rows = festivalDbIds.map(festival_id => ({ destination_id: dbId, festival_id }));
+      const { error } = await supabase.from('destination_festivals').upsert(rows, { onConflict: 'destination_id,festival_id' });
+      if (error) throw new Error(`Could not save festival associations: ${error.message}`);
+      const keep = `(${festivalDbIds.join(',')})`;
+      const { error: removeError } = await supabase.from('destination_festivals')
+        .delete().eq('destination_id', dbId).not('festival_id', 'in', keep);
+      if (removeError) throw new Error(`Associations saved, but removed links could not be synchronized: ${removeError.message}`);
+    } else {
+      const { error } = await supabase.from('destination_festivals').delete().eq('destination_id', dbId);
+      if (error) throw new Error(`Could not clear festival associations: ${error.message}`);
+    }
+    return festivalIds;
+  },
+
+  // --------------------------------------------------------------------------
   // EXECUTIVE DASHBOARD & ADVANCED ANALYTICS CALCULATION
   // --------------------------------------------------------------------------
   async getDashboardMetrics({ dateRange = 'all' } = {}) {
