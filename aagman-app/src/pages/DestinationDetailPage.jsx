@@ -79,14 +79,12 @@ export default function DestinationDetailPage() {
       return () => { isMounted = false; };
     }
 
-    const refreshAssociatedFestivals = async () => {
+    const refreshAssociatedFestivals = async (festivalRecords = null) => {
       try {
-        const [festivalIds, festivals] = await Promise.all([
-          contentService.getFestivalIdsForDestination(destination.id || destination.slug),
-          contentService.getAllFestivals()
-        ]);
+        const festivalIds = await contentService.getFestivalIdsForDestination(destination.id || destination.slug);
+        const records = Array.isArray(festivalRecords) ? festivalRecords : await contentService.getAllFestivals();
         if (isMounted) {
-          setAssociatedFestivals(festivals.filter(festival => festival.status === 'published' && festivalIds.includes(festival.id)));
+          setAssociatedFestivals(records.filter(festival => festival.status === 'published' && festivalIds.includes(festival.id)));
         }
       } catch (error) {
         if (isMounted) setAssociatedFestivals([]);
@@ -94,8 +92,8 @@ export default function DestinationDetailPage() {
       }
     };
 
-    const unsubscribe = contentService.subscribe(() => { refreshAssociatedFestivals(); });
-    refreshAssociatedFestivals();
+    const unsubscribe = contentService.subscribe(({ festivals }) => { refreshAssociatedFestivals(festivals); });
+    contentService.getAllFestivals().catch(error => console.error('Unable to load festival catalogue:', error));
     return () => { isMounted = false; unsubscribe(); };
   }, [destination?.id, destination?.slug]);
   if (!destination) {
