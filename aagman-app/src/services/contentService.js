@@ -33,6 +33,20 @@ function loadLocalContent(key) {
 let destinationsCache = [];
 let festivalsCache = [];
 const contentListeners = new Set();
+let contentRealtimeChannel = null;
+
+function startContentRealtime() {
+  if (!isSupabaseConfigured || contentRealtimeChannel) return;
+  contentRealtimeChannel = supabase
+    .channel('aagman-public-content')
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'destinations' }, () => {
+      contentService.getAllDestinations().catch(error => console.error('Live destination refresh failed:', error));
+    })
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'festivals' }, () => {
+      contentService.getAllFestivals().catch(error => console.error('Live festival refresh failed:', error));
+    })
+    .subscribe();
+}
 
 function saveLocalDestinations(data) {
   try {
@@ -58,7 +72,14 @@ export const contentService = {
   subscribe(fn) {
     contentListeners.add(fn);
     fn({ destinations: destinationsCache, festivals: festivalsCache });
-    return () => contentListeners.delete(fn);
+    startContentRealtime();
+    return () => {
+      contentListeners.delete(fn);
+      if (contentListeners.size === 0 && contentRealtimeChannel) {
+        supabase.removeChannel(contentRealtimeChannel);
+        contentRealtimeChannel = null;
+      }
+    };
   },
 
   // --------------------------------------------------------------------------
