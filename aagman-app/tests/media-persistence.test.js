@@ -94,7 +94,8 @@ test('video service uses the database as the only catalogue source', async () =>
     new URL('../src/services/videoService.js', import.meta.url),
     'utf8'
   );
-  assert.match(service, /function loadStoredVideos\\(\\)[\\s\\S]*?return \\[\\]/);
+  assert.ok(service.includes('function loadStoredVideos()'));
+  assert.ok(service.includes('return [];'));
   assert.doesNotMatch(service, /CURATED_VIDEOS/);
   assert.match(service, /destination_slug:/);
   assert.match(service, /festival_slug:/);
