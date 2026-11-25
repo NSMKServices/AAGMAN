@@ -519,17 +519,25 @@ export const contentService = {
       const festival = festivalsCache.find(item => item.id === id || item.slug === id || item.dbId === id);
       return festival?.dbId || (isUuid(id) ? id : null);
     }).filter(Boolean);
-    if (festivalDbIds.length) {
-      const rows = festivalDbIds.map(festival_id => ({ destination_id: dbId, festival_id }));
-      const { error } = await supabase.from('destination_festivals').upsert(rows, { onConflict: 'destination_id,festival_id' });
+    const { data: existingLinks, error: readError } = await supabase
+      .from('destination_festivals')
+      .select('festival_id')
+      .eq('destination_id', dbId);
+    if (readError) throw new Error(`Could not read existing festival associations: ${readError.message}`);
+
+    const existingIds = (existingLinks || []).map(row => row.festival_id);
+    const idsToAdd = festivalDbIds.filter(id => !existingIds.includes(id));
+    const idsToRemove = existingIds.filter(id => !festivalDbIds.includes(id));
+
+    if (idsToAdd.length) {
+      const rows = idsToAdd.map(festival_id => ({ destination_id: dbId, festival_id }));
+      const { error } = await supabase.from('destination_festivals').insert(rows);
       if (error) throw new Error(`Could not save festival associations: ${error.message}`);
-      const keep = `(${festivalDbIds.join(',')})`;
-      const { error: removeError } = await supabase.from('destination_festivals')
-        .delete().eq('destination_id', dbId).not('festival_id', 'in', keep);
-      if (removeError) throw new Error(`Associations saved, but removed links could not be synchronized: ${removeError.message}`);
-    } else {
-      const { error } = await supabase.from('destination_festivals').delete().eq('destination_id', dbId);
-      if (error) throw new Error(`Could not clear festival associations: ${error.message}`);
+    }
+    if (idsToRemove.length) {
+      const { error } = await supabase.from('destination_festivals')
+        .delete().eq('destination_id', dbId).in('festival_id', idsToRemove);
+      if (error) throw new Error(`Could not remove festival associations: ${error.message}`);
     }
     return festivalIds;
   },
