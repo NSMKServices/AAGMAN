@@ -15,10 +15,7 @@ CREATE POLICY "Public and admins can view place festival links"
         WHERE f.id = festival_id AND f.status = 'published'
       )
     )
-    OR (
-      (SELECT auth.uid()) IS NOT NULL
-      AND private.has_admin_role('editor')
-    )
+    OR private.is_admin()
   );
 
 CREATE POLICY "Editors can insert place festival links"
