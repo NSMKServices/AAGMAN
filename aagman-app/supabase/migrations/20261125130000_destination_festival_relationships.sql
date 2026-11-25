@@ -1,7 +1,7 @@
 -- Associate independently managed festivals with one or more destinations.
 create table if not exists public.destination_festivals (
-  destination_id uuid not null references public.destinations(id) on delete cascade,
-  festival_id uuid not null references public.festivals(id) on delete cascade,
+  destination_id text not null references public.destinations(id) on delete cascade,
+  festival_id text not null references public.festivals(id) on delete cascade,
   created_at timestamptz not null default now(),
   primary key (destination_id, festival_id)
 );
