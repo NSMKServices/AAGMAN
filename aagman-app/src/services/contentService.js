@@ -45,6 +45,9 @@ function startContentRealtime() {
     .on('postgres_changes', { event: '*', schema: 'public', table: 'festivals' }, () => {
       contentService.getAllFestivals().catch(error => console.error('Live festival refresh failed:', error));
     })
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'destination_festivals' }, () => {
+      notifyContentListeners();
+    })
     .subscribe();
 }
 
@@ -89,7 +92,7 @@ export const contentService = {
     if (!isSupabaseConfigured) {
       destinationsCache = [];
       notifyContentListeners();
-      throw new Error('Supabase is not configured. Public destination content requires the backend.');
+      return [];
     }
     const { data, error } = await supabase.from('destinations').select('*').order('name', { ascending: true });
     if (error) {
@@ -303,7 +306,7 @@ export const contentService = {
     if (!isSupabaseConfigured) {
       festivalsCache = [];
       notifyContentListeners();
-      throw new Error('Supabase is not configured. Public festival content requires the backend.');
+      return [];
     }
     const { data, error } = await supabase.from('festivals').select('*').order('name', { ascending: true });
     if (error) {
