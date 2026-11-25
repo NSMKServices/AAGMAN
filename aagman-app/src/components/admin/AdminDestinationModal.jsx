@@ -71,7 +71,7 @@ export default function AdminDestinationModal({ isOpen, onClose, onSave, destina
       setHighlightsText('');
       setHeroImage('');
       setGallery([]);
-      setStatus(canPublish ? 'published' : 'draft');
+      setStatus('published');
       setFeaturedOrder('');
     }
     setValidationError(null);

@@ -182,3 +182,19 @@ test('place editor persists visitor hours, directions, and facilities', async ()
   assert.match(detail, /destination\.openingHours/);
   assert.match(detail, /destination\.facilities/);
 });
+
+
+test('new destination and festival submissions enter the publication workflow by default', async () => {
+  const [destinationModal, festivalModal, service] = await Promise.all([
+    readFile(new URL('../src/components/admin/AdminDestinationModal.jsx', import.meta.url), 'utf8'),
+    readFile(new URL('../src/components/admin/AdminFestivalModal.jsx', import.meta.url), 'utf8'),
+    readFile(new URL('../src/services/contentService.js', import.meta.url), 'utf8')
+  ]);
+
+  // Content managers publish immediately; editor submissions are safely moved
+  // to under_review by contentService before persistence.
+  assert.match(destinationModal, /setStatus\('published'\)/);
+  assert.match(festivalModal, /setStatus\('published'\)/);
+  assert.equal((service.match(/is_published: cleanRecord\.status === 'published'/g) || []).length, 2);
+  assert.match(service, /role === 'editor' && targetStatus === 'published'[\s\S]*?targetStatus = 'under_review'/);
+});
