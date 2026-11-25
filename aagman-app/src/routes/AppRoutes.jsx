@@ -33,7 +33,6 @@ import NotFoundPage from '../pages/NotFoundPage';
 // Admin Architecture & Protected Routes
 import AdminProtectedRoute from '../components/admin/AdminProtectedRoute';
 import AdminPublicOnlyRoute from '../components/admin/AdminPublicOnlyRoute';
-import AdminLoginPage from '../pages/admin/AdminLoginPage';
 import AdminForgotPasswordPage from '../pages/admin/AdminForgotPasswordPage';
 import AdminResetPasswordPage from '../pages/admin/AdminResetPasswordPage';
 import AdminDashboardPage from '../pages/admin/AdminDashboardPage';
