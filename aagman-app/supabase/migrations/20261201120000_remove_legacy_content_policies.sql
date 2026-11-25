@@ -21,3 +21,29 @@ CREATE INDEX IF NOT EXISTS idx_trip_stops_destination_id
 
 CREATE INDEX IF NOT EXISTS idx_wishlists_destination_id
   ON public.wishlists (destination_id);
+
+-- Publish catalogue tables to Supabase Realtime so open public pages refresh
+-- when an administrator creates, updates, publishes, unpublishes, or deletes content.
+DO $$
+BEGIN
+  IF EXISTS (SELECT 1 FROM pg_publication WHERE pubname = 'supabase_realtime') THEN
+    IF NOT EXISTS (
+      SELECT 1 FROM pg_publication_tables
+      WHERE pubname = 'supabase_realtime' AND schemaname = 'public' AND tablename = 'destinations'
+    ) THEN
+      ALTER PUBLICATION supabase_realtime ADD TABLE public.destinations;
+    END IF;
+    IF NOT EXISTS (
+      SELECT 1 FROM pg_publication_tables
+      WHERE pubname = 'supabase_realtime' AND schemaname = 'public' AND tablename = 'festivals'
+    ) THEN
+      ALTER PUBLICATION supabase_realtime ADD TABLE public.festivals;
+    END IF;
+    IF NOT EXISTS (
+      SELECT 1 FROM pg_publication_tables
+      WHERE pubname = 'supabase_realtime' AND schemaname = 'public' AND tablename = 'videos'
+    ) THEN
+      ALTER PUBLICATION supabase_realtime ADD TABLE public.videos;
+    END IF;
+  END IF;
+END $$;
