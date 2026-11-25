@@ -16,17 +16,7 @@ const isUuid = value => typeof value === 'string' &&
   /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value);
 
 function loadStoredVideos() {
-  // The public catalogue starts empty. Videos are supplied by the backend.
-  if (isSupabaseConfigured) return [];
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) {
-      const stored = JSON.parse(raw);
-      if (Array.isArray(stored)) return stored;
-    }
-  } catch (e) {
-    console.warn('Failed loading stored videos:', e);
-  }
+  // No bundled or browser-cached sample content: the catalogue is backend-managed.
   return [];
 }
 
