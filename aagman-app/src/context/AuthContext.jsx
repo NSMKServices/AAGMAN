@@ -1,130 +1,136 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useCallback, useContext, useEffect, useState } from 'react';
+import { supabase, isSupabaseConfigured } from '../lib/supabase';
 
 const AuthContext = createContext(null);
 
-const DEMO_USER = {
-  id: 'user-rohan-01',
-  name: 'Rohan Deshmukh',
-  email: 'rohan.deshmukh@example.com',
-  role: 'Sahyadri Explorer',
-  homeCity: 'Pune',
-  travelStyle: 'Heritage & Fort Trekker',
-  avatarInitials: 'RD'
-};
-
-function getInitialUser() {
-  try {
-    const stored = localStorage.getItem('aagman_auth_user');
-    if (stored) {
-      return JSON.parse(stored);
-    }
-    const isLoggedIn = localStorage.getItem('aagman_is_logged_in') === 'true';
-    if (isLoggedIn) {
-      const name = localStorage.getItem('aagman_traveler_name') || 'Rohan Deshmukh';
-      const city = localStorage.getItem('aagman_home_city') || 'Pune';
-      const initials = name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
-      return {
-        id: 'user-saved',
-        name,
-        email: 'traveler@aagman.demo',
-        role: 'Sahyadri Explorer',
-        homeCity: city,
-        travelStyle: 'Heritage & Fort Trekker',
-        avatarInitials: initials || 'TR'
-      };
-    }
-  } catch (e) {
-    console.warn('Failed reading auth state from localStorage', e);
-  }
-  return null;
+function mapAuthUser(authUser) {
+  if (!authUser) return null;
+  const metadata = authUser.user_metadata || {};
+  const name = metadata.full_name || metadata.name || authUser.email?.split('@')[0] || 'Traveler';
+  const initials = name.split(/\s+/).filter(Boolean).map(part => part[0]).join('').toUpperCase().slice(0, 2);
+  return {
+    id: authUser.id,
+    name,
+    email: authUser.email || '',
+    role: 'Sahyadri Explorer',
+    homeCity: metadata.home_city || '',
+    travelStyle: metadata.travel_style || 'Heritage & Fort Trekker',
+    avatarInitials: initials || 'TR'
+  };
 }
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(getInitialUser);
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let mounted = true;
+
+    // Remove the former simulated traveller session. Only a Supabase session
+    // may authenticate a traveller in the production application.
     try {
-      if (user) {
-        localStorage.setItem('aagman_auth_user', JSON.stringify(user));
-        localStorage.setItem('aagman_is_logged_in', 'true');
-        localStorage.setItem('aagman_traveler_name', user.name);
-        localStorage.setItem('aagman_home_city', user.homeCity || 'Pune');
-      } else {
-        localStorage.removeItem('aagman_auth_user');
-        localStorage.setItem('aagman_is_logged_in', 'false');
-      }
-    } catch (e) {
-      console.warn('Failed writing auth state to localStorage', e);
+      localStorage.removeItem('aagman_auth_user');
+      localStorage.removeItem('aagman_is_logged_in');
+      localStorage.removeItem('aagman_traveler_name');
+      localStorage.removeItem('aagman_home_city');
+    } catch (error) {
+      console.warn('Unable to clear legacy traveller session:', error);
     }
+
+    if (!isSupabaseConfigured) {
+      setLoading(false);
+      return () => { mounted = false; };
+    }
+
+    let subscription;
+    const initialize = async () => {
+      const { data, error } = await supabase.auth.getSession();
+      if (!mounted) return;
+      if (error) console.warn('Unable to restore traveller session:', error.message);
+      setUser(mapAuthUser(data?.session?.user));
+
+      const authListener = supabase.auth.onAuthStateChange((_event, session) => {
+        if (mounted) setUser(mapAuthUser(session?.user));
+      });
+      subscription = authListener.data.subscription;
+      setLoading(false);
+    };
+
+    initialize().catch(error => {
+      console.error('Traveller authentication initialization failed:', error);
+      if (mounted) setLoading(false);
+    });
+
+    return () => {
+      mounted = false;
+      subscription?.unsubscribe();
+    };
+  }, []);
+
+  const login = useCallback(async (email, password) => {
+    if (!isSupabaseConfigured) {
+      throw new Error('Traveller authentication is unavailable because Supabase is not configured.');
+    }
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: email.trim(),
+      password
+    });
+    if (error) throw error;
+    if (!data?.user || !data?.session) {
+      throw new Error('Sign-in did not return an active session.');
+    }
+    const nextUser = mapAuthUser(data.user);
+    setUser(nextUser);
+    return nextUser;
+  }, []);
+
+  const register = useCallback(async ({ fullName, email, password, homeCity }) => {
+    if (!isSupabaseConfigured) {
+      throw new Error('Registration is unavailable because Supabase is not configured.');
+    }
+    const { data, error } = await supabase.auth.signUp({
+      email: email.trim(),
+      password,
+      options: {
+        data: {
+          full_name: fullName.trim(),
+          home_city: homeCity || '',
+          travel_style: 'Heritage & Fort Trekker'
+        }
+      }
+    });
+    if (error) throw error;
+    if (data?.session && data?.user) setUser(mapAuthUser(data.user));
+    return {
+      user: data?.user || null,
+      session: data?.session || null,
+      confirmationRequired: Boolean(data?.user && !data?.session)
+    };
+  }, []);
+
+  const logout = useCallback(async () => {
+    if (isSupabaseConfigured) {
+      const { error } = await supabase.auth.signOut();
+      if (error) throw error;
+    }
+    setUser(null);
+  }, []);
+
+  const updateProfile = useCallback(async (fields) => {
+    if (!user) throw new Error('Sign in to update your traveller profile.');
+    const metadata = {};
+    if (fields.name !== undefined) metadata.full_name = fields.name;
+    if (fields.homeCity !== undefined) metadata.home_city = fields.homeCity;
+    if (fields.travelStyle !== undefined) metadata.travel_style = fields.travelStyle;
+    const { data, error } = await supabase.auth.updateUser({ data: metadata });
+    if (error) throw error;
+    const nextUser = mapAuthUser(data.user);
+    setUser(nextUser);
+    return nextUser;
   }, [user]);
 
-  const login = (email, password) => {
-    const rawName = email.split('@')[0].replace(/[._]/g, ' ');
-    const formattedName = rawName.charAt(0).toUpperCase() + rawName.slice(1);
-    const initials = formattedName.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
-
-    const loggedInUser = {
-      id: `user-${Date.now()}`,
-      name: formattedName || 'Traveler',
-      email,
-      role: 'Sahyadri Explorer',
-      homeCity: 'Pune',
-      travelStyle: 'Heritage & Fort Trekker',
-      avatarInitials: initials || 'TR'
-    };
-    setUser(loggedInUser);
-    return loggedInUser;
-  };
-
-  const demoLogin = () => {
-    setUser(DEMO_USER);
-    return DEMO_USER;
-  };
-
-  const register = ({ fullName, email, password, homeCity }) => {
-    const name = fullName.trim() || 'New Traveler';
-    const initials = name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
-
-    const newUser = {
-      id: `user-${Date.now()}`,
-      name,
-      email,
-      role: 'Sahyadri Explorer',
-      homeCity: homeCity || 'Pune',
-      travelStyle: 'Heritage & Fort Trekker',
-      avatarInitials: initials || 'NT'
-    };
-    setUser(newUser);
-    return newUser;
-  };
-
-  const logout = () => {
-    setUser(null);
-  };
-
-  const updateProfile = (fields) => {
-    setUser(prev => {
-      if (!prev) return null;
-      const updated = { ...prev, ...fields };
-      if (fields.name) {
-        updated.avatarInitials = fields.name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
-      }
-      return updated;
-    });
-  };
-
-  const isAuthenticated = Boolean(user);
-
   return (
-    <AuthContext.Provider value={{
-      user,
-      isAuthenticated,
-      login,
-      demoLogin,
-      register,
-      logout,
-      updateProfile
-    }}>
+    <AuthContext.Provider value={{ user, isAuthenticated: Boolean(user), loading, login, register, logout, updateProfile }}>
       {children}
     </AuthContext.Provider>
   );
@@ -132,8 +138,6 @@ export function AuthProvider({ children }) {
 
 export function useAuth() {
   const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider');
-  }
+  if (!context) throw new Error('useAuth must be used within an AuthProvider');
   return context;
 }
