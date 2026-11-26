@@ -88,7 +88,7 @@ export default function LoginPage() {
         {(formError || (adminMode && authError)) && (
           <div className={styles.authError} role="alert">{formError || authError}</div>
         )}
-        {notice && <div className={styles.authNotice} role="status">{notice}</div>}
+        {notice && <div className={styles.authError} role="status">{notice}</div>}
 
         <form onSubmit={handleSubmit} className={styles.authForm}>
           <div className={styles.formGroup}>
