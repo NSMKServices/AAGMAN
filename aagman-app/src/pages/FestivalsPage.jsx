@@ -30,10 +30,10 @@ export default function FestivalsPage() {
     return () => { mounted = false; };
   }, []);
 
+  const [selectedFestival, setSelectedFestival] = useState(null);
   const festivalVideoUrl = selectedFestival
     ? videoService.getEmbedUrl(selectedFestival.id, 'festival', selectedFestival.name)
     : null;
-  const [selectedFestival, setSelectedFestival] = useState(null);
 
   const festivalGallery = selectedFestival && Array.isArray(selectedFestival.gallery) ? selectedFestival.gallery : [];
 
