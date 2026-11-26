@@ -46,17 +46,39 @@
 }
 
 .logoImage {
-  display: block;
-  width: clamp(112px, 12vw, 154px);
-  height: 66px;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  width: 154px !important;
+  height: 72px !important;
+  max-width: 154px !important;
+  max-height: 72px !important;
+  min-width: 154px;
   object-fit: contain;
-  flex-shrink: 0;
-  mix-blend-mode: multiply;
+  flex: 0 0 154px;
+  background: #ffffff;
+  padding: 2px 8px;
+  border-radius: 5px;
+  mix-blend-mode: normal !important;
+  filter: none !important;
 }
 
 [data-theme="dark"] .logoImage {
-  mix-blend-mode: normal;
-  border-radius: 4px;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  width: 154px !important;
+  height: 72px !important;
+  max-width: 154px !important;
+  max-height: 72px !important;
+  min-width: 154px;
+  object-fit: contain;
+  flex: 0 0 154px;
+  background: #ffffff;
+  padding: 2px 8px;
+  border-radius: 5px;
+  mix-blend-mode: normal !important;
+  filter: none !important;
 }
 
 .logoIcon {
@@ -947,4 +969,20 @@
 
 
 /* Supplied AAGMAN fort logo */
-.logoImage{display:block;width:72px;height:72px;max-width:72px;max-height:72px;object-fit:contain;flex:0 0 auto;background:transparent;border-radius:0}
+.logoImage {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  width: 154px !important;
+  height: 72px !important;
+  max-width: 154px !important;
+  max-height: 72px !important;
+  min-width: 154px;
+  object-fit: contain;
+  flex: 0 0 154px;
+  background: #ffffff;
+  padding: 2px 8px;
+  border-radius: 5px;
+  mix-blend-mode: normal !important;
+  filter: none !important;
+}
