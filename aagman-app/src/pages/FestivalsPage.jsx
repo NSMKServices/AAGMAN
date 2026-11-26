@@ -14,7 +14,7 @@ import { getLocalizedName, getLocalizedValue } from '../utils/localizedContent';
 export default function FestivalsPage() {
   const { language, t } = useLanguage();
   const [searchQuery, setSearchQuery] = useState('');
-  const [festivals, setFestivals] = useState([]);\n  const [videoCatalog, setVideoCatalog] = useState([]);
+  const [festivals, setFestivals] = useState([]);\n  const [, setVideoCatalog] = useState([]);
 
   useEffect(() => {
     const unsubscribe = contentService.subscribe(({ festivals: records }) => setFestivals(records));
