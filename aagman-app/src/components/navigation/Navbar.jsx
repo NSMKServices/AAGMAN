@@ -15,16 +15,8 @@ export default function Navbar() {
     <header className={styles.header}>
       <Container className={styles.navbarInner}>
         {/* Brand Logo */}
-        <Link to="/" className={styles.brand} onClick={closeMenu}>
-          <div className={styles.logoBadge}>
-            <span className={styles.logoIcon}>
-              <Castle size={20} color="var(--color-gold)" />
-            </span>
-          </div>
-          <div className={styles.brandText}>
-            <span className={styles.brandTitle}>Aagman</span>
-            <span className={styles.brandSubtitle}>Maharashtra Tourism</span>
-          </div>
+        <Link to="/" className={styles.brand} onClick={closeMenu} aria-label="AAGMAN — Maharashtra Tourism and Heritage Home">
+          <img src="/aagman-brand.svg" alt="AAGMAN — Maharashtra Tourism and Heritage" className={styles.brandLogoImage} />
         </Link>
 
         {/* Desktop Navigation Links */}
