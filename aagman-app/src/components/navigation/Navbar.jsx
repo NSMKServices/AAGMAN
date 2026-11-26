@@ -16,7 +16,7 @@ export default function Navbar() {
       <Container className={styles.navbarInner}>
         {/* Brand Logo */}
         <Link to="/" className={styles.brand} onClick={closeMenu} aria-label="AAGMAN — Maharashtra Tourism and Heritage Home">
-          <img src="/aagman-brand.svg" alt="AAGMAN — Maharashtra Tourism and Heritage" className={styles.brandLogoImage} />
+          <img src="/aagman-brand.png" alt="AAGMAN — Maharashtra Tourism and Heritage" className={styles.brandLogoImage} />
         </Link>
 
         {/* Desktop Navigation Links */}
