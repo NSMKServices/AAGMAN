@@ -34,6 +34,7 @@ import { useTheme } from '../../context/ThemeContext';
 import { useWishlist } from '../../context/WishlistContext';
 import { contentService } from '../../services/contentService';
 import styles from './PublicNavbar.module.css';
+import aagmanLogo from '../../assets/aagmanLogoData';
 
 export default function PublicNavbar() {
   const { user, isAuthenticated, logout } = useAuth();
@@ -149,7 +150,7 @@ export default function PublicNavbar() {
       <Container className={styles.navContainer}>
         {/* Brand Logo & Title */}
         <Link to="/" className={styles.brand} aria-label="AAGMAN - Maharashtra Tourism Home">
-          <img src="/aagman-brand.png?v=3" alt="AAGMAN — Maharashtra Tourism" className={styles.logoImage} />
+          <img src={aagmanLogo} alt="AAGMAN - Maharashtra Tourism & Heritage" className={styles.logoImage} width="154" height="72" decoding="async" />
         </Link>
 
         {/* Desktop Navigation Links */}
