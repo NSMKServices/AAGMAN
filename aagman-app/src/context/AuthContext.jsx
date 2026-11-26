@@ -1,5 +1,5 @@
 import React, { createContext, useCallback, useContext, useEffect, useState } from 'react';
-import { supabase, isSupabaseConfigured } from '../lib/supabase';
+import { travelerSupabase, isSupabaseConfigured } from '../lib/supabase';
 
 const AuthContext = createContext(null);
 
@@ -44,12 +44,12 @@ export function AuthProvider({ children }) {
 
     let subscription;
     const initialize = async () => {
-      const { data, error } = await supabase.auth.getSession();
+      const { data, error } = await travelerSupabase.auth.getSession();
       if (!mounted) return;
       if (error) console.warn('Unable to restore traveller session:', error.message);
       setUser(mapAuthUser(data?.session?.user));
 
-      const authListener = supabase.auth.onAuthStateChange((_event, session) => {
+      const authListener = travelerSupabase.auth.onAuthStateChange((_event, session) => {
         if (mounted) setUser(mapAuthUser(session?.user));
       });
       subscription = authListener.data.subscription;
@@ -71,7 +71,7 @@ export function AuthProvider({ children }) {
     if (!isSupabaseConfigured) {
       throw new Error('Traveller authentication is unavailable because Supabase is not configured.');
     }
-    const { data, error } = await supabase.auth.signInWithPassword({
+    const { data, error } = await travelerSupabase.auth.signInWithPassword({
       email: email.trim(),
       password
     });
@@ -88,7 +88,7 @@ export function AuthProvider({ children }) {
     if (!isSupabaseConfigured) {
       throw new Error('Registration is unavailable because Supabase is not configured.');
     }
-    const { data, error } = await supabase.auth.signUp({
+    const { data, error } = await travelerSupabase.auth.signUp({
       email: email.trim(),
       password,
       options: {
@@ -110,7 +110,7 @@ export function AuthProvider({ children }) {
 
   const logout = useCallback(async () => {
     if (isSupabaseConfigured) {
-      const { error } = await supabase.auth.signOut();
+      const { error } = await travelerSupabase.auth.signOut();
       if (error) throw error;
     }
     setUser(null);
@@ -122,7 +122,7 @@ export function AuthProvider({ children }) {
     if (fields.name !== undefined) metadata.full_name = fields.name;
     if (fields.homeCity !== undefined) metadata.home_city = fields.homeCity;
     if (fields.travelStyle !== undefined) metadata.travel_style = fields.travelStyle;
-    const { data, error } = await supabase.auth.updateUser({ data: metadata });
+    const { data, error } = await travelerSupabase.auth.updateUser({ data: metadata });
     if (error) throw error;
     const nextUser = mapAuthUser(data.user);
     setUser(nextUser);
