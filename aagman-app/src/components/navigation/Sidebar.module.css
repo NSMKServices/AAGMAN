@@ -248,3 +248,7 @@
     z-index: 1050;
   }
 }
+
+
+/* Unified AAGMAN identity mark */
+.brandLogoImage{display:block;width:100%;max-width:250px;height:auto;max-height:66px;object-fit:contain;object-position:left center}

@@ -292,3 +292,7 @@
     width: 100%;
   }
 }
+
+
+/* Unified AAGMAN identity mark */
+.emblemImage{width:280px;height:58px;object-fit:contain;object-position:left center;background:transparent;border-radius:0}
