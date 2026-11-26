@@ -51,7 +51,7 @@ export default function Sidebar({ isOpen, onClose }) {
         {/* Brand Header */}
         <div className={styles.brandSection}>
           <Link to="/" className={styles.brandLink} onClick={onClose} aria-label="AAGMAN home">
-            <img src="/aagman-brand.svg" alt="AAGMAN — Maharashtra Tourism and Heritage" className={styles.brandLogoImage} />
+            <img src="/aagman-brand.png" alt="AAGMAN — Maharashtra Tourism and Heritage" className={styles.brandLogoImage} />
           </Link>
           <button
             type="button"
