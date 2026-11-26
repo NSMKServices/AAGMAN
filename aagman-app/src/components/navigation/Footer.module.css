@@ -244,5 +244,5 @@
 }
 
 
-/* Unified AAGMAN identity mark */
-.brandLogoImage{display:block;width:min(100%,360px);height:auto;max-height:88px;object-fit:contain;object-position:left center}
+/* Supplied AAGMAN fort logo */
+.brandLogoImage{display:block;width:112px;height:112px;max-width:100%;max-height:112px;object-fit:contain;object-position:left center}
