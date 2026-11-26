@@ -17,6 +17,12 @@ test.describe('AAGMAN authentication and festival guide regressions', () => {
     expect(authState.legacyUser).toBeNull();
   });
 
+  test('protects traveller dashboard routes from unauthenticated visitors', async ({ page }) => {
+    await page.goto('/dashboard');
+    await expect(page).toHaveURL(/\/login$/);
+    await expect(page.locator('#aagman-email')).toBeVisible();
+  });
+
   test('does not create a traveller account locally when Supabase is unavailable', async ({ page }) => {
     await page.goto('/register');
     await page.locator('#traveler-name').fill('AAGMAN Test User');
