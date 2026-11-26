@@ -149,7 +149,7 @@ export default function PublicNavbar() {
       <Container className={styles.navContainer}>
         {/* Brand Logo & Title */}
         <Link to="/" className={styles.brand} aria-label="AAGMAN - Maharashtra Tourism Home">
-          <img src="/aagman-brand.svg" alt="AAGMAN — Maharashtra Tourism" className={styles.logoImage} />
+          <img src="/aagman-brand.png" alt="AAGMAN — Maharashtra Tourism" className={styles.logoImage} />
         </Link>
 
         {/* Desktop Navigation Links */}
