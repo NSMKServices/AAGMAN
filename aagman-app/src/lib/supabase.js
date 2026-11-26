@@ -26,3 +26,17 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
     storageKey: 'aagman_supabase_auth_token'
   }
 });
+
+
+// Keep traveller and administrator sessions separate even though both use the
+// same Supabase project. This prevents an administrator session from silently
+// being treated as a public traveller session (and vice versa).
+export const travelerSupabase = createClient(supabaseUrl, supabaseAnonKey, {
+  auth: {
+    persistSession: true,
+    autoRefreshToken: true,
+    detectSessionInUrl: true,
+    storage: typeof window !== 'undefined' ? window.localStorage : undefined,
+    storageKey: 'aagman_traveler_auth_token'
+  }
+});
