@@ -29,13 +29,7 @@ export default function Footer() {
           {/* Brand Info & Mission */}
           <div className={styles.brandCol}>
             <div className={styles.brand}>
-              <div className={styles.logoBadge}>
-                <Shield size={22} color="var(--color-gold)" />
-              </div>
-              <div className={styles.brandText}>
-                <span className={styles.brandTitle}>{t('brandName', 'AAGMAN')}</span>
-                <span className={styles.brandSub}>{t('brandSubtitle', 'MAHARASHTRA TOURISM')}</span>
-              </div>
+              <img src="/aagman-brand.svg" alt="AAGMAN — Maharashtra Tourism and Heritage" className={styles.brandLogoImage} />
             </div>
             <p className={styles.tagline}>
               {t('officialPlatform', 'Comprehensive Maharashtra tourism discovery and travel-planning platform celebrating the timeless splendor of Chhatrapati Shivaji Maharaj\'s royal forts, sacred pilgrimages, pristine Konkan coastlines, and living traditions.')}
