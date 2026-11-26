@@ -50,14 +50,8 @@ export default function Sidebar({ isOpen, onClose }) {
       <aside className={`${styles.sidebar} ${isOpen ? styles.open : ''}`}>
         {/* Brand Header */}
         <div className={styles.brandSection}>
-          <Link to="/" className={styles.brandLink} onClick={onClose}>
-            <div className={styles.logoBadge}>
-              <Shield size={22} color="var(--color-gold)" />
-            </div>
-            <div className={styles.brandInfo}>
-              <span className={styles.brandTitle}>AAGMAN</span>
-              <span className={styles.brandSubtitle}>TRAVELER PORTAL</span>
-            </div>
+          <Link to="/" className={styles.brandLink} onClick={onClose} aria-label="AAGMAN home">
+            <img src="/aagman-brand.svg" alt="AAGMAN — Maharashtra Tourism and Heritage" className={styles.brandLogoImage} />
           </Link>
           <button
             type="button"
