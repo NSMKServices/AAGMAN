@@ -944,3 +944,7 @@
   .desktopNav { display: none; }
   .mobileHamburger { display: flex; }
 }
+
+
+/* Unified AAGMAN identity mark */
+.logoImage{display:block;width:clamp(190px,18vw,300px);height:auto;max-height:68px;object-fit:contain;background:transparent;border-radius:0}
