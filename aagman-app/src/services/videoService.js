@@ -125,6 +125,15 @@ export const videoService = {
     });
   },
 
+  getEmbedUrl(entityId, type = 'destination', entityName = '') {
+    const matches = type === 'festival'
+      ? this.getVideosForFestival(entityId, entityName)
+      : this.getVideosForDestination(entityId, entityName);
+    const video = matches.find(item => item.isActive !== false && (item.youtubeId || item.youtubeUrl));
+    const youtubeId = video?.youtubeId || (video?.youtubeUrl ? extractYouTubeId(video.youtubeUrl) : null);
+    return youtubeId ? `https://www.youtube-nocookie.com/embed/${youtubeId}` : null;
+  },
+
   async createVideo(input, adminProfile = null) {
     const { title, youtubeUrl, description, destinationId, destinationName, festivalId, category, district, duration, creator, isFeatured, isActive } = input;
 
