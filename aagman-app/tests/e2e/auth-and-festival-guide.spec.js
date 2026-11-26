@@ -22,7 +22,7 @@ test.describe('AAGMAN authentication and festival guide regressions', () => {
     await page.locator('#traveler-name').fill('AAGMAN Test User');
     await page.locator('#traveler-email').fill('registration-test@example.invalid');
     await page.locator('#traveler-password').fill('not-a-real-password');
-    await page.getByRole('button', { name: 'Create Free Account' }).click();
+    await page.locator('form button[type="submit"]').click();
 
     await expect(page).toHaveURL(/\/register$/);
     await expect(page.getByRole('alert')).toBeVisible();
