@@ -4,37 +4,46 @@ import Button from '../components/common/Button';
 import { useAuth } from '../context/AuthContext';
 import { useAdminAuth } from '../context/AdminAuthContext';
 import { useLanguage } from '../context/LanguageContext';
-import { Castle, Sparkles } from '../components/common/Icons';
+import { Castle } from '../components/common/Icons';
 import styles from './Auth.module.css';
 
 export default function LoginPage() {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const adminMode = searchParams.get('mode') === 'admin';
-  const { login, demoLogin } = useAuth();
+  const { login } = useAuth();
   const { login: adminLogin, authError, setAuthError } = useAdminAuth();
-  const { language, t } = useLanguage();
+  const { t } = useLanguage();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formError, setFormError] = useState('');
+  const [notice, setNotice] = useState('');
 
   useEffect(() => {
     setFormError('');
+    setNotice('');
     setAuthError(null);
   }, [adminMode, setAuthError]);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  useEffect(() => {
+    if (!adminMode && searchParams.get('registered') === '1') {
+      setNotice('Your account has been created. Please sign in to continue.');
+    }
+  }, [adminMode, searchParams]);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     setIsSubmitting(true);
     setFormError('');
+    setNotice('');
 
     try {
       if (adminMode) {
         await adminLogin(email, password);
         navigate('/admin', { replace: true });
       } else {
-        login(email, password);
+        await login(email, password);
         navigate('/dashboard', { replace: true });
       }
     } catch (error) {
@@ -46,11 +55,6 @@ export default function LoginPage() {
 
   const selectMode = (mode) => {
     setSearchParams(mode === 'admin' ? { mode: 'admin' } : {}, { replace: true });
-  };
-
-  const handleDemoLogin = () => {
-    demoLogin();
-    navigate('/dashboard', { replace: true });
   };
 
   return (
@@ -84,6 +88,7 @@ export default function LoginPage() {
         {(formError || (adminMode && authError)) && (
           <div className={styles.authError} role="alert">{formError || authError}</div>
         )}
+        {notice && <div className={styles.authNotice} role="status">{notice}</div>}
 
         <form onSubmit={handleSubmit} className={styles.authForm}>
           <div className={styles.formGroup}>
@@ -91,14 +96,14 @@ export default function LoginPage() {
               {adminMode ? t('officialEmailLabel', 'Official Email Address') : t('emailLabel', 'Email Address')}
             </label>
             <input id="aagman-email" type="email" value={email}
-              onChange={(e) => setEmail(e.target.value)} required autoComplete="username"
+              onChange={(event) => setEmail(event.target.value)} required autoComplete="username"
               className={styles.input} placeholder="name@example.com" />
           </div>
 
           <div className={styles.formGroup}>
             <label className={styles.label} htmlFor="aagman-password">{t('passwordLabel', 'Password')}</label>
             <input id="aagman-password" type="password" value={password}
-              onChange={(e) => setPassword(e.target.value)} required autoComplete="current-password"
+              onChange={(event) => setPassword(event.target.value)} required autoComplete="current-password"
               className={styles.input} placeholder="••••••••" />
           </div>
 
@@ -112,20 +117,11 @@ export default function LoginPage() {
         </form>
 
         {!adminMode && (
-          <>
-            <div className={styles.divider}>
-              <span>{language === 'mr' ? 'किंवा' : language === 'hi' ? 'अथवा' : 'OR'}</span>
-            </div>
-            <button type="button" className={styles.demoBtn} onClick={handleDemoLogin}>
-              <Sparkles size={16} />
-              <span>{t('demoLoginButton', 'One-Click Demo Sign In')}</span>
-            </button>
-            <div className={styles.authFooter}>
-              <p>{t('dontHaveAccount', "Don't have an account?")}{' '}
-                <Link to="/register" className={styles.authLink}>{t('registerFree', 'Register Free')}</Link>
-              </p>
-            </div>
-          </>
+          <div className={styles.authFooter}>
+            <p>{t('dontHaveAccount', "Don't have an account?")}{' '}
+              <Link to="/register" className={styles.authLink}>{t('registerFree', 'Register Free')}</Link>
+            </p>
+          </div>
         )}
 
         {adminMode && (
