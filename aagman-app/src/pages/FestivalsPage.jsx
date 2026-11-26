@@ -15,13 +15,26 @@ export default function FestivalsPage() {
   const { language, t } = useLanguage();
   const [searchQuery, setSearchQuery] = useState('');
   const [festivals, setFestivals] = useState([]);
+  const [, setVideoCatalog] = useState([]);
 
   useEffect(() => {
     const unsubscribe = contentService.subscribe(({ festivals: records }) => setFestivals(records));
     contentService.getAllFestivals();
     return unsubscribe;
   }, []);
+
+  useEffect(() => {
+    let mounted = true;
+    videoService.getAllVideos()
+      .then(records => { if (mounted) setVideoCatalog(records); })
+      .catch(error => console.error('Unable to load festival videos:', error));
+    return () => { mounted = false; };
+  }, []);
+
   const [selectedFestival, setSelectedFestival] = useState(null);
+  const festivalVideoUrl = selectedFestival
+    ? videoService.getEmbedUrl(selectedFestival.id, 'festival', selectedFestival.name)
+    : null;
 
   const festivalGallery = selectedFestival && Array.isArray(selectedFestival.gallery) ? selectedFestival.gallery : [];
 
@@ -127,7 +140,7 @@ export default function FestivalsPage() {
                     <div className={styles.highlightsContainer}>
                       <span className={styles.highlightsTitle}>{t('culturalHighlights', 'Cultural Highlights')}:</span>
                       <div className={styles.highlightChips}>
-                        {festival.highlights.map((h, i) => (
+                        {(festival.highlights || []).map((h, i) => (
                           <span key={i} className={styles.chip}>
                             <Check size={12} style={{ marginRight: 4 }} />
                             {getLocalizedValue(festival, 'highlights', language)[i] ?? h}
@@ -196,7 +209,7 @@ export default function FestivalsPage() {
               <div className={styles.modalSection}>
                 <h4 className={styles.modalSectionTitle}>{t('ritualsTraditions', 'Key Rituals & Traditions')}</h4>
                 <div className={styles.modalGrid2}>
-                  {selectedFestival.highlights.map((h, i) => (
+                  {(selectedFestival.highlights || []).map((h, i) => (
                     <div key={i} className={styles.modalHighlightCard}>
                       <span className={styles.modalHighlightNum}>{i + 1}</span>
                       <p className={styles.modalHighlightText}>{getLocalizedValue(selectedFestival, 'highlights', language)[i] ?? h}</p>
@@ -214,18 +227,24 @@ export default function FestivalsPage() {
                 </div>
               )}
 
-              {/* Festival Video Embed */}
+              {/* Show a documentary only when an active, linked YouTube record exists. */}
               <div className={styles.modalSection}>
                 <h4 className={styles.modalSectionTitle}>{t('videoDocumentaries', 'Celebration Documentary')}</h4>
-                <div className={styles.videoEmbedWrapper}>
-                  <iframe
-                    src={videoService.getEmbedUrl(selectedFestival.id, 'festival')}
-                    title={`${selectedFestival.name} Video`}
-                    className={styles.videoIframe}
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  />
-                </div>
+                {festivalVideoUrl ? (
+                  <div className={styles.videoEmbedWrapper}>
+                    <iframe
+                      src={festivalVideoUrl}
+                      title={`${selectedFestival.name} Video`}
+                      className={styles.videoIframe}
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    />
+                  </div>
+                ) : (
+                  <p className={styles.modalText}>
+                    {t('noFestivalVideo', 'No documentary has been added for this festival yet.')}
+                  </p>
+                )}
               </div>
             </div>
           </div>

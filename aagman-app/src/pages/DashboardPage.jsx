@@ -39,7 +39,7 @@ export default function DashboardPage() {
   const { language, t } = useLanguage();
 
   const travelerName = user?.name || localStorage.getItem('aagman_traveler_name') || t('traveler', 'Traveler');
-  const homeCity = localStorage.getItem('aagman_home_city') || t('notSet', 'Not set');
+  const homeCity = user?.homeCity || t('notSet', 'Not set');
 
   // Recently viewed destinations are resolved from published admin-managed records.
   const [recentlyViewed, setRecentlyViewed] = useState([]);
