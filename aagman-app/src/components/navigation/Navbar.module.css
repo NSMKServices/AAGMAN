@@ -212,3 +212,7 @@
     display: block;
   }
 }
+
+
+/* Unified AAGMAN identity mark */
+.brandLogoImage{display:block;width:clamp(190px,18vw,300px);height:auto;max-height:68px;object-fit:contain}
