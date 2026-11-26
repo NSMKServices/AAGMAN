@@ -24,7 +24,7 @@ export default function AdminLayout() {
       <header className={styles.topHeader}>
         <div className={styles.headerLeft}>
           <div className={styles.brandGroup}>
-            <img src="/aagman-logo.svg" alt="AAGMAN" className={styles.emblemImage} />
+            <img src="/aagman-brand.svg" alt="AAGMAN" className={styles.emblemImage} />
             <div className={styles.brandDetails}>
               <span className={styles.portalTitle}>AAGMAN Admin Console</span>
               <span className={styles.portalSub}>Government of Maharashtra • Tourism & Heritage</span>
