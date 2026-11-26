@@ -322,7 +322,7 @@ export default function HomePage() {
             <Shield size={14} color="var(--color-accent)" />
             <span>{currentHero[`tag${language === 'mr' ? 'Mr' : language === 'hi' ? 'Hi' : ''}`] || currentHero.tag}</span>
           </span>
-          <h1 className={styles.heroTitle}>{currentHero.title}</h1>
+          <h1 className={styles.heroTitle}>{currentHero[`title${language === 'mr' ? 'Mr' : language === 'hi' ? 'Hi' : ''}`] || currentHero.title}</h1>
           <p className={styles.heroSubtitle}>{currentHero[`subtitle${language === 'mr' ? 'Mr' : language === 'hi' ? 'Hi' : ''}`] || currentHero.subtitle}</p>
 
           <div className={styles.heroActions}>
